@@ -17,6 +17,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Video handling
+    const video = document.querySelector('#demoVideo');
+    if (video) {
+        const spinner = document.createElement('div');
+        spinner.className = 'loading-spinner';
+        video.parentElement.appendChild(spinner);
+
+        video.addEventListener('loadstart', () => {
+            spinner.style.display = 'block';
+        });
+
+        video.addEventListener('canplay', () => {
+            spinner.style.display = 'none';
+        });
+
+        video.addEventListener('waiting', () => {
+            spinner.style.display = 'block';
+        });
+
+        video.addEventListener('playing', () => {
+            spinner.style.display = 'none';
+        });
+    }
+
     // Intersection Observer for animations
     const observerOptions = {
         threshold: 0.1,
@@ -64,23 +88,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mobile menu handling
     const setupMobileMenu = () => {
-        const nav = document.querySelector('.site-nav');
-        if (!nav.querySelector('.mobile-menu-btn')) {
-            const menuBtn = document.createElement('button');
-            menuBtn.className = 'mobile-menu-btn';
-            menuBtn.innerHTML = `
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" 
-                          stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            `;
-            
-            menuBtn.addEventListener('click', () => {
-                nav.classList.toggle('mobile-menu-open');
-            });
-            
-            nav.prepend(menuBtn);
-        }
+        const nav = document.querySelector('.nav-links');
+        const menuBtn = document.createElement('button');
+        menuBtn.className = 'mobile-menu-btn';
+        menuBtn.innerHTML = `
+            <img src="assets/icons/menu.svg" alt="Menu" class="menu-icon">
+            <img src="assets/icons/close.svg" alt="Close" class="close-icon hidden">
+        `;
+        
+        menuBtn.addEventListener('click', () => {
+            nav.classList.toggle('mobile-menu-open');
+            menuBtn.classList.toggle('menu-open');
+        });
+        
+        document.querySelector('.header-container').prepend(menuBtn);
     };
 
     // Initialize mobile menu if needed
@@ -93,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 768 && !document.querySelector('.mobile-menu-btn')) {
                 setupMobileMenu();
             }
         }, 250);
