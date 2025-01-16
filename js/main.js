@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.classList.toggle('active');
             menuIcon.src = `assets/icons/${isMenuOpen ? 'close' : 'menu'}.svg`;
             menuBtn.setAttribute('aria-expanded', isMenuOpen);
-            // Prevent body scroll when menu is open
             body.style.overflow = isMenuOpen ? 'hidden' : '';
         };
 
@@ -30,21 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleMenu();
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (isMenuOpen && !nav.contains(e.target) && !menuBtn.contains(e.target)) {
                 toggleMenu();
             }
         });
 
-        // Close menu when clicking nav links
         nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (isMenuOpen) toggleMenu();
             });
         });
 
-        // Handle escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isMenuOpen) {
                 toggleMenu();
@@ -52,74 +48,85 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Download Handling
+    // Download Handling with Fallback
     const setupDownloads = () => {
         const downloadBtn = document.querySelector('.download-btn');
         const progress = document.querySelector('.download-progress');
 
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
+        if (!downloadBtn) return;
 
-                try {
-                    // Show loading state
-                    downloadBtn.textContent = 'Starting download...';
-                    downloadBtn.disabled = true;
+        const handleSimpleDownload = () => {
+            const link = document.createElement('a');
+            link.href = 'releases/mac/shizen.dmg';
+            link.download = 'SHIZEN.dmg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
 
-                    // Fetch the file
-                    const response = await fetch('/releases/mac/shizen.dmg');
-                    if (!response.ok) throw new Error('Download failed');
-                    
-                    const reader = response.body.getReader();
-                    const contentLength = +response.headers.get('Content-Length');
+        const handleProgressDownload = async () => {
+            try {
+                downloadBtn.textContent = 'Starting download...';
+                downloadBtn.disabled = true;
 
-                    let receivedLength = 0;
-                    const chunks = [];
+                const response = await fetch('releases/mac/shizen.dmg');
+                if (!response.ok) throw new Error('Download failed');
 
-                    while(true) {
-                        const {done, value} = await reader.read();
+                const contentLength = response.headers.get('Content-Length');
+                if (!contentLength) throw new Error('Content length not available');
 
-                        if (done) break;
+                const reader = response.body.getReader();
+                let receivedLength = 0;
+                const chunks = [];
 
-                        chunks.push(value);
-                        receivedLength += value.length;
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
 
-                        // Update progress bar
-                        const percentComplete = (receivedLength / contentLength) * 100;
-                        progress.style.width = `${percentComplete}%`;
-                    }
+                    chunks.push(value);
+                    receivedLength += value.length;
 
-                    // Combine chunks and trigger download
-                    const blob = new Blob(chunks);
-                    const downloadUrl = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = downloadUrl;
-                    link.download = 'SHIZEN.dmg';
-
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-
-                    // Cleanup
-                    window.URL.revokeObjectURL(downloadUrl);
-                    progress.style.width = '0';
-                    downloadBtn.textContent = 'Download for Mac';
-                    downloadBtn.disabled = false;
-
-                } catch (error) {
-                    console.error('Download failed:', error);
-                    downloadBtn.textContent = 'Download Failed';
-                    setTimeout(() => {
-                        downloadBtn.textContent = 'Download for Mac';
-                        downloadBtn.disabled = false;
-                        progress.style.width = '0';
-                    }, 2000);
+                    const percentComplete = (receivedLength / contentLength) * 100;
+                    progress.style.width = `${percentComplete}%`;
                 }
-            });
-        }
+
+                const blob = new Blob(chunks);
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = 'SHIZEN.dmg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                window.URL.revokeObjectURL(downloadUrl);
+                return true;
+            } catch (error) {
+                console.error('Progress download failed:', error);
+                return false;
+            }
+        };
+
+        downloadBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            try {
+                const progressSuccess = await handleProgressDownload();
+                if (!progressSuccess) {
+                    handleSimpleDownload();
+                }
+            } catch (error) {
+                console.error('Download failed:', error);
+                handleSimpleDownload();
+            } finally {
+                progress.style.width = '0';
+                downloadBtn.textContent = 'Download for Mac';
+                downloadBtn.disabled = false;
+            }
+        });
     };
 
-    // Smooth Scroll with improved behavior
+    // Smooth Scroll
     const setupSmoothScroll = () => {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -143,25 +150,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const setupHeaderScroll = () => {
         const header = document.querySelector('.header');
         let lastScroll = 0;
-        const scrollThreshold = 5; // Minimum scroll difference to trigger header change
+        const scrollThreshold = 5;
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
             
-            // Add scrolled class when page is scrolled
             header.classList.toggle('scrolled', currentScroll > 0);
             
-            // Only proceed if scroll difference is above threshold
             if (Math.abs(currentScroll - lastScroll) < scrollThreshold) return;
             
             if (currentScroll <= 0) {
                 header.classList.remove('scrolled-up', 'scrolled-down');
             } else if (currentScroll > lastScroll && !header.classList.contains('scrolled-down')) {
-                // Scrolling down
                 header.classList.remove('scrolled-up');
                 header.classList.add('scrolled-down');
             } else if (currentScroll < lastScroll && header.classList.contains('scrolled-down')) {
-                // Scrolling up
                 header.classList.remove('scrolled-down');
                 header.classList.add('scrolled-up');
             }
@@ -186,12 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }, observerOptions);
 
-        // Observe elements for animation
         document.querySelectorAll('.features-card, .roadmap-card, .tech-items span, .support-card')
             .forEach(el => observer.observe(el));
     };
 
-    // Video Handling with improved loading states
+    // Video Handling
     const setupVideo = () => {
         const video = document.querySelector('#demoVideo');
         if (video) {
@@ -214,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Handle window resize with debounce
+    // Resize Handler
     const setupResizeHandler = () => {
         let resizeTimer;
         window.addEventListener('resize', () => {
