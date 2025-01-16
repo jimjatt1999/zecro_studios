@@ -14,7 +14,8 @@
 <body>
     <header class="header">
         <nav class="nav container">
-            <a href="/" class="nav-logo">
+            <!-- Updated logo link -->
+            <a href="#" class="nav-logo" onclick="scrollToTop(event)">
                 <img src="assets/images/logo.svg" alt="SHIZEN" width="32" height="32">
                 <span>SHIZEN</span>
             </a>
@@ -35,7 +36,7 @@
     </header>
 
     <main>
-        <!-- Hero -->
+        <!-- Hero Section -->
         <section class="hero container">
             <div class="hero-content">
                 <h1>Transform Japanese Content Into Personal Learning</h1>
@@ -63,7 +64,7 @@
             </div>
         </section>
 
-        <!-- Features -->
+        <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
                 <h2>Key Features</h2>
@@ -87,7 +88,7 @@
             </div>
         </section>
 
-        <!-- Demo -->
+        <!-- Demo Section -->
         <section id="demo" class="demo">
             <div class="container">
                 <h2>See SHIZEN in Action</h2>
@@ -106,7 +107,7 @@
             </div>
         </section>
 
-        <!-- About -->
+        <!-- About Section -->
         <section id="about" class="about">
             <div class="container container-narrow">
                 <h2>Why I Built SHIZEN</h2>
@@ -126,7 +127,7 @@
             </div>
         </section>
 
-        <!-- Roadmap -->
+        <!-- Roadmap Section -->
         <section id="roadmap" class="roadmap">
             <div class="container container-narrow">
                 <h2>Future Plans</h2>
@@ -151,7 +152,7 @@
             </div>
         </section>
 
-        <!-- Download -->
+        <!-- Download Section -->
         <section id="download" class="download">
             <div class="container container-narrow">
                 <h2>Download SHIZEN</h2>
@@ -161,8 +162,11 @@
                         <img src="assets/icons/mac.svg" alt="macOS" width="64" height="64">
                         <h3>macOS</h3>
                         <p>Version: Alpha 0.1.0</p>
-                        <a href="https://github.com/jimjatt1999/shizen_audio/releases/latest/download/SHIZEN.dmg" 
-                           class="btn btn-primary">Download for Mac</a>
+                        <!-- Updated download link -->
+                        <a href="/releases/mac/shizen.dmg" 
+                           class="btn btn-primary download-btn" 
+                           download="SHIZEN.dmg">Download for Mac</a>
+                        <div class="download-progress"></div>
                     </div>
                     <div class="download-card disabled">
                         <img src="assets/icons/windows.svg" alt="Windows" width="64" height="64">
@@ -174,7 +178,7 @@
             </div>
         </section>
 
-        <!-- Support -->
+        <!-- Support Section -->
         <section id="support" class="support">
             <div class="container container-narrow">
                 <h2>Support the Project</h2>

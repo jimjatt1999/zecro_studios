@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Scroll to Top Function
+    window.scrollToTop = function(event) {
+        event.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     // Mobile Menu Handling
     const setupMobileMenu = () => {
         const nav = document.querySelector('.nav-links');
@@ -28,6 +37,71 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (isMenuOpen) toggleMenu();
             });
         });
+    };
+
+    // Download Handling
+    const setupDownloads = () => {
+        const downloadBtn = document.querySelector('.download-btn');
+        const progress = document.querySelector('.download-progress');
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                try {
+                    // Show loading state
+                    downloadBtn.textContent = 'Starting download...';
+                    downloadBtn.disabled = true;
+
+                    // Fetch the file
+                    const response = await fetch('/releases/mac/shizen.dmg');
+                    const reader = response.body.getReader();
+                    const contentLength = +response.headers.get('Content-Length');
+
+                    let receivedLength = 0;
+                    const chunks = [];
+
+                    while(true) {
+                        const {done, value} = await reader.read();
+
+                        if (done) break;
+
+                        chunks.push(value);
+                        receivedLength += value.length;
+
+                        // Update progress bar
+                        const percentComplete = (receivedLength / contentLength) * 100;
+                        progress.style.width = `${percentComplete}%`;
+                    }
+
+                    // Combine chunks and trigger download
+                    const blob = new Blob(chunks);
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.download = 'SHIZEN.dmg';
+
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // Cleanup
+                    window.URL.revokeObjectURL(downloadUrl);
+                    progress.style.width = '0';
+                    downloadBtn.textContent = 'Download for Mac';
+                    downloadBtn.disabled = false;
+
+                } catch (error) {
+                    console.error('Download failed:', error);
+                    downloadBtn.textContent = 'Download Failed';
+                    setTimeout(() => {
+                        downloadBtn.textContent = 'Download for Mac';
+                        downloadBtn.disabled = false;
+                        progress.style.width = '0';
+                    }, 2000);
+                }
+            });
+        }
     };
 
     // Smooth Scroll
@@ -117,41 +191,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Handle Download Buttons
-    const setupDownloadButtons = () => {
-        const downloadBtns = document.querySelectorAll('.download-btn:not([disabled])');
-        downloadBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Add download started feedback
-                const originalText = btn.textContent;
-                btn.textContent = 'Starting download...';
-                
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
-            });
+    // Handle window resize
+    const setupResizeHandler = () => {
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (window.innerWidth > 768) {
+                    const nav = document.querySelector('.nav-links');
+                    nav.classList.remove('active');
+                    document.querySelector('.mobile-menu-btn img').src = 'assets/icons/menu.svg';
+                }
+            }, 250);
         });
     };
 
     // Initialize all functionality
     setupMobileMenu();
+    setupDownloads();
     setupSmoothScroll();
     setupHeaderScroll();
     setupIntersectionObserver();
     setupVideo();
-    setupDownloadButtons();
-
-    // Handle window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            // Update any responsive functionality if needed
-            if (window.innerWidth > 768) {
-                const nav = document.querySelector('.nav-links');
-                nav.classList.remove('active');
-                document.querySelector('.mobile-menu-btn img').src = 'assets/icons/menu.svg';
-            }
-        }, 250);
-    });
+    setupResizeHandler();
 });
