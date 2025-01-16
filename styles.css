@@ -84,11 +84,9 @@ section {
     left: 0;
     right: 0;
     height: 72px;
-    background: rgba(var(--bg), 0.8);
-    backdrop-filter: blur(12px);
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
-    z-index: 100;
-    transition: background var(--transition), border-color var(--transition);
+    z-index: 1000;
 }
 
 .nav {
@@ -96,22 +94,40 @@ section {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    padding: 0 1rem;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-weight: 600;
-    color: var(--text-1);
     text-decoration: none;
-    transition: color var(--transition);
+    color: var(--text-1);
 }
 
 .nav-logo img {
     width: 32px;
     height: 32px;
-    transition: transform var(--transition);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-2);
+    text-decoration: none;
+    font-weight: 500;
 }
 
 .nav-logo:hover img {
@@ -496,24 +512,13 @@ h3 {
     font-size: 1.125rem;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-}
-
+/* Mobile styles */
 @media (max-width: 768px) {
-    /* Mobile Navigation */
     .mobile-menu-btn {
         display: block;
-        background: none;
-        border: none;
-        padding: 0.5rem;
-        cursor: pointer;
-        z-index: 100;
+        z-index: 1001;
     }
-    
+
     .nav-links {
         display: none;
         position: fixed;
@@ -523,26 +528,30 @@ h3 {
         background: var(--bg);
         padding: 2rem;
         flex-direction: column;
+        align-items: center;
         gap: 1.5rem;
         border-bottom: 1px solid var(--border);
         box-shadow: var(--shadow);
-        z-index: 99;
     }
-    
+
     .nav-links.active {
         display: flex;
     }
-    
+
     .nav-links a {
         width: 100%;
         text-align: center;
         padding: 0.75rem;
     }
-    
-    .theme-toggle {
-        margin: 1rem auto;
+
+    .nav-links .btn {
+        width: 100%;
     }
-    
+
+    .theme-toggle {
+        margin-top: 1rem;
+    }
+}
     /* Hero Section */
     .hero {
         grid-template-columns: 1fr;
@@ -562,7 +571,7 @@ h3 {
     section {
         padding: 4rem 0;
     }
-}
+
 
 @media (max-width: 480px) {
     .hero-content h1 {
