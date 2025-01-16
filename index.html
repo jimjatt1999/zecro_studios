@@ -8,13 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
         <nav class="nav container">
             <a href="/" class="nav-logo">
-                <img src="assets/icons/logo.svg" alt="SHIZEN" width="32" height="32">
+                <img src="assets/images/logo.svg" alt="SHIZEN" width="32" height="32">
                 <span>SHIZEN</span>
             </a>
             <div class="nav-menu">
@@ -27,6 +28,9 @@
                     <img src="assets/icons/moon.svg" alt="" width="20" height="20">
                 </button>
             </div>
+            <button class="mobile-toggle" aria-label="Menu">
+                <img src="assets/icons/menu.svg" alt="" width="24" height="24">
+            </button>
         </nav>
     </header>
 
@@ -65,17 +69,17 @@
                 <h2>Key Features</h2>
                 <div class="features-grid">
                     <div class="features-card">
-                        <img src="assets/icons/media-processing.svg" alt="" width="48" height="48">
+                        <img src="assets/images/features/media-processing.svg" alt="" width="48" height="48">
                         <h3>Process Any Media</h3>
                         <p>Transform YouTube videos, podcasts, and local media into personalized flashcards with accurate transcriptions.</p>
                     </div>
                     <div class="features-card">
-                        <img src="assets/icons/ai-analysis.svg" alt="" width="48" height="48">
+                        <img src="assets/images/features/ai-analysis.svg" alt="" width="48" height="48">
                         <h3>AI-Powered Analysis</h3>
                         <p>Get instant translations, grammar explanations, and cultural context using advanced language models.</p>
                     </div>
                     <div class="features-card">
-                        <img src="assets/icons/smart-review.svg" alt="" width="48" height="48">
+                        <img src="assets/images/features/smart-review.svg" alt="" width="48" height="48">
                         <h3>Smart Review System</h3>
                         <p>Learn efficiently with a spaced repetition system that adapts to your learning pace.</p>
                     </div>
@@ -117,6 +121,31 @@
                         <span>PyQt6</span>
                         <span>Whisper AI</span>
                         <span>LLMs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section id="roadmap" class="roadmap">
+            <div class="container container-narrow">
+                <h2>Future Plans</h2>
+                <p class="section-intro">While focusing on perfecting the core Mac experience, here's what's on the horizon:</p>
+                <div class="roadmap-grid">
+                    <div class="roadmap-card">
+                        <div class="status status-current"></div>
+                        <h3>Windows Support</h3>
+                        <p>Bringing SHIZEN to Windows users (Currently in development)</p>
+                    </div>
+                    <div class="roadmap-card">
+                        <div class="status status-upcoming"></div>
+                        <h3>Mobile Apps</h3>
+                        <p>Native iOS and Android apps for learning on the go</p>
+                    </div>
+                    <div class="roadmap-card">
+                        <div class="status status-planned"></div>
+                        <h3>Enhanced Features</h3>
+                        <p>Text-based learning support and community content sharing</p>
                     </div>
                 </div>
             </div>
