@@ -33,30 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe elements for animation
-    document.querySelectorAll('.feature-card, .download-card, .support-card, .tech-items span')
+    document.querySelectorAll('.feature-card, .tech-items span, .support-card')
         .forEach(el => observer.observe(el));
-
-    // Video handling
-    const video = document.querySelector('.video-container video');
-    if (video) {
-        const spinner = document.querySelector('.loading-spinner');
-        
-        video.addEventListener('loadstart', () => {
-            spinner.style.display = 'block';
-        });
-
-        video.addEventListener('canplay', () => {
-            spinner.style.display = 'none';
-        });
-
-        video.addEventListener('waiting', () => {
-            spinner.style.display = 'block';
-        });
-
-        video.addEventListener('playing', () => {
-            spinner.style.display = 'none';
-        });
-    }
 
     // Header scroll behavior
     let lastScroll = 0;
@@ -82,16 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         lastScroll = currentScroll;
-    });
-
-    // Download button animation
-    document.querySelectorAll('.download-btn:not([disabled])').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.classList.add('downloading');
-            setTimeout(() => {
-                this.classList.remove('downloading');
-            }, 2000);
-        });
     });
 
     // Mobile menu handling
