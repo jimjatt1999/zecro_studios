@@ -308,12 +308,13 @@ footer {
 .social-links img {
     width: 24px;
     height: 24px;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: opacity 0.2s;
 }
 
-.social-links img:hover {
-    opacity: 1;
+/* Optional: Add specific styling for X icon */
+.social-links img[alt="X (formerly Twitter)"] {
+    width: 20px; /* X logo looks better slightly smaller */
 }
 
 /* Responsive Design */
