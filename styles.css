@@ -381,12 +381,13 @@ section {
 .theme-toggle img {
     width: 20px;
     height: 20px;
-    transition: transform var(--transition-slow),
-                opacity var(--transition);
+    opacity: 0.7;
+    transition: all var(--transition);
+    color: var(--text-1); /* This will make the SVG use the theme text color */
 }
 
-.theme-toggle img.rotate {
-    animation: rotate-toggle 0.5s ease-in-out;
+[data-theme="dark"] .theme-toggle img {
+    color: var(--text-1); /* This ensures proper color in dark mode */
 }
 
 @keyframes rotate-toggle {
