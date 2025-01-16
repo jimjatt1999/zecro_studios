@@ -1,4 +1,11 @@
 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="40" height="40" rx="8" fill="#2196F3"/>
+    <rect x="4" y="4" width="32" height="32" rx="6" fill="url(#gradient)"/>
     <text x="20" y="26" font-family="Noto Sans JP" font-size="16" fill="white" text-anchor="middle" font-weight="bold">自然</text>
+    <defs>
+        <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2196F3"/>
+            <stop offset="100%" stop-color="#1976D2"/>
+        </linearGradient>
+    </defs>
 </svg>
