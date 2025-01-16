@@ -8,6 +8,7 @@
     <title>SHIZEN - Natural Language Learning Through Immersion</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
 </head>
 <body>
     <!-- Header -->
@@ -22,10 +23,10 @@
                 <a href="#about">About</a>
                 <a href="#demo">Demo</a>
                 <a href="#roadmap">Roadmap</a>
+                <a href="#support" class="support-btn">Support Project</a>
                 <button id="darkModeToggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <img src="assets/icons/moon.svg" alt="">
                 </button>
-                <a href="#support" class="support-btn">Support Project</a>
             </nav>
         </div>
     </header>
@@ -59,25 +60,6 @@
             </div>
         </section>
 
-        <!-- Demo Section -->
-        <section id="demo" class="demo">
-            <div class="container">
-                <h2>See SHIZEN in Action</h2>
-                <div class="video-container">
-                    <div class="app-frame">
-                        <div class="app-header">
-                            <span class="app-dot red"></span>
-                            <span class="app-dot yellow"></span>
-                            <span class="app-dot green"></span>
-                        </div>
-                        <video id="demoVideo" poster="assets/images/demo-thumbnail.jpg" controls>
-                            <source src="assets/videos/demo.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
@@ -102,6 +84,25 @@
             </div>
         </section>
 
+        <!-- Demo Section -->
+        <section id="demo" class="demo">
+            <div class="container">
+                <h2>See SHIZEN in Action</h2>
+                <div class="video-container">
+                    <div class="app-frame">
+                        <div class="app-header">
+                            <span class="app-dot red"></span>
+                            <span class="app-dot yellow"></span>
+                            <span class="app-dot green"></span>
+                        </div>
+                        <video id="demoVideo" poster="assets/images/demo-thumbnail.jpg" controls>
+                            <source src="assets/videos/demo.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- About Section -->
         <section id="about" class="about">
             <div class="container">
@@ -117,6 +118,31 @@
                         <span>PyQt6</span>
                         <span>Whisper AI</span>
                         <span>LLMs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="download">
+            <div class="container">
+                <h2>Download SHIZEN</h2>
+                <p class="version-note">Currently in Alpha - Free During Development</p>
+                <div class="download-options">
+                    <div class="download-card">
+                        <img src="assets/icons/mac.svg" alt="macOS">
+                        <h3>macOS</h3>
+                        <p>Version: Alpha 0.1.0</p>
+                        <a href="https://github.com/jimjatt1999/shizen_audio/releases/latest/download/SHIZEN.dmg" 
+                           class="download-btn">
+                            Download for Mac
+                        </a>
+                    </div>
+                    <div class="download-card coming-soon">
+                        <img src="assets/icons/windows.svg" alt="Windows">
+                        <h3>Windows</h3>
+                        <p>Coming Soon</p>
+                        <button class="download-btn" disabled>In Development</button>
                     </div>
                 </div>
             </div>
