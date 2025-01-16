@@ -12,44 +12,65 @@
 <body>
     <!-- Header -->
     <header class="site-header">
-        <a href="#" class="site-logo">
-            <img src="assets/images/logo.svg" alt="SHIZEN" width="40" height="40">
-            <span>SHIZEN</span>
-        </a>
-        <nav class="site-nav">
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-            <a href="#roadmap">Roadmap</a>
-            <button id="darkModeToggle" class="theme-toggle" aria-label="Toggle dark mode">
-                <img src="assets/icons/moon.svg" alt="">
-            </button>
-            <a href="#support" class="support-btn">Support Project</a>
-        </nav>
+        <div class="header-container">
+            <a href="#" class="site-logo">
+                <img src="assets/images/logo.svg" alt="SHIZEN">
+                <span>SHIZEN</span>
+            </a>
+            <nav class="site-nav">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#roadmap">Roadmap</a>
+                <button id="darkModeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <img src="assets/icons/moon.svg" alt="">
+                </button>
+                <a href="#support" class="support-btn">Support Project</a>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <h1>Why I Built SHIZEN</h1>
-            <div class="about-content">
-                <p>Over four years ago, I embarked on my Japanese learning journey from scratch. Like many others, I relied heavily on Anki for memorization. While effective, the process often felt mechanical and disconnected from real Japanese content.</p>
-                <p>As both a language learner and developer, I saw an opportunity with modern AI technology to create something different. SHIZEN was born from the desire to make immersion-based learning more natural and enjoyable.</p>
-                <p>The app transforms your favorite Japanese content—whether it's YouTube videos, podcasts, or personal recordings—into interactive learning materials. It's the tool I wished I had when I started my journey.</p>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Transform Japanese Content Into Personal Learning</h1>
+                <p class="subtitle">Use AI to turn your favorite media into interactive language learning materials. Learn naturally through immersion.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/jimjatt1999/shizen_audio" class="primary-btn">
+                        <img src="assets/icons/github.svg" alt="GitHub">
+                        View on GitHub
+                    </a>
+                    <a href="#download" class="secondary-btn">Download App</a>
+                </div>
             </div>
+            <div class="hero-image">
+                <img src="assets/images/app-screenshot.png" alt="SHIZEN App Interface">
+            </div>
+        </section>
 
-            <div class="tech-stack">
-                <h2>Built With</h2>
-                <div class="tech-items">
-                    <span>Python</span>
-                    <span>PyQt6</span>
-                    <span>Whisper AI</span>
-                    <span>LLMs</span>
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="about-content">
+                <h2>Why I Built SHIZEN</h2>
+                <div class="story">
+                    <p>Over four years ago, I embarked on my Japanese learning journey from scratch. Like many others, I relied heavily on Anki for memorization. While effective, the process often felt mechanical and disconnected from real Japanese content.</p>
+                    <p>As both a language learner and developer, I saw an opportunity with modern AI technology to create something different. SHIZEN was born from the desire to make immersion-based learning more natural and enjoyable.</p>
+                    <p>The app transforms your favorite Japanese content—whether it's YouTube videos, podcasts, or personal recordings—into interactive learning materials. It's the tool I wished I had when I started my journey.</p>
+                </div>
+                <div class="tech-stack">
+                    <h3>Built With</h3>
+                    <div class="tech-items">
+                        <span>Python</span>
+                        <span>PyQt6</span>
+                        <span>Whisper AI</span>
+                        <span>LLMs</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section id="features" class="features-section">
+        <section id="features" class="features">
             <h2>Key Features</h2>
             <div class="features-grid">
                 <div class="feature-card">
@@ -70,19 +91,8 @@
             </div>
         </section>
 
-        <!-- Demo Section -->
-        <section id="demo" class="demo-section">
-            <h2>See SHIZEN in Action</h2>
-            <div class="video-container">
-                <video controls poster="assets/images/demo-thumbnail.jpg">
-                    <source src="assets/videos/demo.mp4" type="video/mp4">
-                </video>
-                <div class="loading-spinner"></div>
-            </div>
-        </section>
-
         <!-- Download Section -->
-        <section id="download" class="download-section">
+        <section id="download" class="download">
             <h2>Download SHIZEN</h2>
             <p class="version-note">Currently in Alpha - Free During Development</p>
             <div class="download-options">
@@ -104,39 +114,16 @@
             </div>
         </section>
 
-        <!-- Roadmap Section -->
-        <section id="roadmap" class="roadmap-section">
-            <h2>Future Plans</h2>
-            <div class="roadmap-grid">
-                <div class="roadmap-item">
-                    <div class="status current"></div>
-                    <h3>Windows Support</h3>
-                    <p>Bringing SHIZEN to Windows users (Currently in development)</p>
-                </div>
-                <div class="roadmap-item">
-                    <div class="status upcoming"></div>
-                    <h3>Mobile Apps</h3>
-                    <p>Native iOS and Android apps for learning on the go</p>
-                </div>
-                <div class="roadmap-item">
-                    <div class="status planned"></div>
-                    <h3>Enhanced Features</h3>
-                    <p>Text-based learning support and community content sharing</p>
-                </div>
-            </div>
-        </section>
-
         <!-- Support Section -->
-        <section id="support" class="support-section">
+        <section id="support" class="support">
             <h2>Support the Project</h2>
-            <p>SHIZEN is developed and maintained by a single developer. Your support helps keep the project alive and growing!</p>
+            <p class="support-intro">SHIZEN is developed and maintained by a single developer. Your support helps keep the project alive and growing!</p>
             <div class="support-options">
                 <div class="support-card">
                     <h3>One-time Donation</h3>
                     <p>Support the project with a one-time contribution</p>
                     <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" 
-                       class="donate-btn" 
-                       target="_blank">
+                       class="donate-link">
                         Donate
                     </a>
                 </div>
@@ -144,8 +131,7 @@
                     <h3>Monthly Sponsor</h3>
                     <p>Become a monthly sponsor and get early access to new features</p>
                     <a href="https://buy.stripe.com/4gw7whaXKaoZ3NSeUU" 
-                       class="sponsor-btn" 
-                       target="_blank">
+                       class="sponsor-link">
                         Sponsor $10/month
                     </a>
                 </div>
