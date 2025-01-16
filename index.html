@@ -4,34 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHIZEN - Natural Language Learning Through Immersion</title>
+    <meta name="description" content="Transform Japanese content into personalized language learning materials using AI">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="nav container">
             <a href="/" class="nav-logo">
-                <img src="assets/logo.svg" alt="SHIZEN" width="32" height="32">
+                <img src="assets/icons/logo.svg" alt="SHIZEN" width="32" height="32">
                 <span>SHIZEN</span>
             </a>
-            
             <div class="nav-menu">
                 <a href="#features">Features</a>
                 <a href="#demo">Demo</a>
                 <a href="#about">About</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#support" class="btn btn-primary">Support Project</a>
-                <button class="theme-toggle" aria-label="Toggle theme">
-                    <img src="assets/moon.svg" alt="" width="20" height="20">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <img src="assets/icons/moon.svg" alt="" width="20" height="20">
                 </button>
             </div>
-
-            <button class="mobile-toggle" aria-label="Menu">
-                <img src="assets/menu.svg" alt="" width="24" height="24">
-            </button>
         </nav>
     </header>
 
@@ -42,25 +37,24 @@
                 <h1>Transform Japanese Content Into Personal Learning</h1>
                 <p>Use AI to turn your favorite media into interactive language learning materials. Learn naturally through immersion.</p>
                 <div class="hero-buttons">
-                    <a href="https://github.com/user/project" class="btn btn-primary">
-                        <img src="assets/github.svg" alt="" width="20" height="20">
+                    <a href="https://github.com/jimjatt1999/shizen_audio" class="btn btn-primary">
+                        <img src="assets/icons/github.svg" alt="" width="20" height="20">
                         View on GitHub
                     </a>
                     <a href="#download" class="btn btn-secondary">
-                        <img src="assets/download.svg" alt="" width="20" height="20">
+                        <img src="assets/icons/download.svg" alt="" width="20" height="20">
                         Download App
                     </a>
                 </div>
             </div>
-
-            <div class="hero-visual">
+            <div class="hero-image">
                 <div class="app-window">
                     <div class="window-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
                     </div>
-                    <img src="assets/app-screenshot.png" alt="SHIZEN App Interface">
+                    <img src="assets/images/app-screenshot.png" alt="SHIZEN App Interface">
                 </div>
             </div>
         </section>
@@ -70,18 +64,18 @@
             <div class="container">
                 <h2>Key Features</h2>
                 <div class="features-grid">
-                    <div class="feature-card">
-                        <img src="assets/media.svg" alt="" width="48" height="48">
+                    <div class="features-card">
+                        <img src="assets/icons/media-processing.svg" alt="" width="48" height="48">
                         <h3>Process Any Media</h3>
                         <p>Transform YouTube videos, podcasts, and local media into personalized flashcards with accurate transcriptions.</p>
                     </div>
-                    <div class="feature-card">
-                        <img src="assets/ai.svg" alt="" width="48" height="48">
+                    <div class="features-card">
+                        <img src="assets/icons/ai-analysis.svg" alt="" width="48" height="48">
                         <h3>AI-Powered Analysis</h3>
                         <p>Get instant translations, grammar explanations, and cultural context using advanced language models.</p>
                     </div>
-                    <div class="feature-card">
-                        <img src="assets/review.svg" alt="" width="48" height="48">
+                    <div class="features-card">
+                        <img src="assets/icons/smart-review.svg" alt="" width="48" height="48">
                         <h3>Smart Review System</h3>
                         <p>Learn efficiently with a spaced repetition system that adapts to your learning pace.</p>
                     </div>
@@ -93,15 +87,15 @@
         <section id="demo" class="demo">
             <div class="container">
                 <h2>See SHIZEN in Action</h2>
-                <div class="demo-wrapper">
+                <div class="video-container">
                     <div class="app-window">
                         <div class="window-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                            <span class="dot dot-red"></span>
+                            <span class="dot dot-yellow"></span>
+                            <span class="dot dot-green"></span>
                         </div>
-                        <video controls poster="assets/demo-thumb.jpg">
-                            <source src="assets/demo.mp4" type="video/mp4">
+                        <video controls poster="assets/images/demo-thumbnail.jpg">
+                            <source src="assets/videos/demo.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -110,7 +104,7 @@
 
         <!-- About -->
         <section id="about" class="about">
-            <div class="container narrow">
+            <div class="container container-narrow">
                 <h2>Why I Built SHIZEN</h2>
                 <div class="about-content">
                     <p>Over four years ago, I embarked on my Japanese learning journey from scratch. Like many others, I relied heavily on Anki for memorization. While effective, the process often felt mechanical and disconnected from real Japanese content.</p>
@@ -128,45 +122,21 @@
             </div>
         </section>
 
-        <!-- Roadmap -->
-        <section id="roadmap" class="roadmap">
-            <div class="container">
-                <h2>Future Plans</h2>
-                <p class="section-intro">While focusing on perfecting the core Mac experience, here's what's on the horizon:</p>
-                <div class="roadmap-grid">
-                    <div class="roadmap-card">
-                        <div class="status current"></div>
-                        <h3>Windows Support</h3>
-                        <p>Bringing SHIZEN to Windows users (Currently in development)</p>
-                    </div>
-                    <div class="roadmap-card">
-                        <div class="status upcoming"></div>
-                        <h3>Mobile Apps</h3>
-                        <p>Native iOS and Android apps for learning on the go</p>
-                    </div>
-                    <div class="roadmap-card">
-                        <div class="status planned"></div>
-                        <h3>Enhanced Features</h3>
-                        <p>Text-based learning support and community content sharing</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Download -->
         <section id="download" class="download">
-            <div class="container narrow">
+            <div class="container container-narrow">
                 <h2>Download SHIZEN</h2>
                 <p class="section-intro">Currently in Alpha - Free During Development</p>
-                <div class="download-grid">
+                <div class="download-options">
                     <div class="download-card">
-                        <img src="assets/macos.svg" alt="macOS" width="64" height="64">
+                        <img src="assets/icons/mac.svg" alt="macOS" width="64" height="64">
                         <h3>macOS</h3>
                         <p>Version: Alpha 0.1.0</p>
-                        <a href="#" class="btn btn-primary">Download for Mac</a>
+                        <a href="https://github.com/jimjatt1999/shizen_audio/releases/latest/download/SHIZEN.dmg" 
+                           class="btn btn-primary">Download for Mac</a>
                     </div>
                     <div class="download-card disabled">
-                        <img src="assets/windows.svg" alt="Windows" width="64" height="64">
+                        <img src="assets/icons/windows.svg" alt="Windows" width="64" height="64">
                         <h3>Windows</h3>
                         <p>Coming Soon</p>
                         <button class="btn btn-primary" disabled>In Development</button>
@@ -177,23 +147,23 @@
 
         <!-- Support -->
         <section id="support" class="support">
-            <div class="container narrow">
+            <div class="container container-narrow">
                 <h2>Support the Project</h2>
                 <p class="section-intro">SHIZEN is developed and maintained by a single developer. Your support helps keep the project alive and growing!</p>
-                <div class="support-grid">
+                <div class="support-options">
                     <div class="support-card">
                         <h3>One-time Donation</h3>
                         <p>Support the project with a one-time contribution</p>
-                        <a href="#" class="btn btn-outline">
-                            <img src="assets/heart.svg" alt="" width="20" height="20">
+                        <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" class="btn btn-secondary">
+                            <img src="assets/icons/heart.svg" alt="" width="20" height="20">
                             Donate
                         </a>
                     </div>
                     <div class="support-card">
                         <h3>Monthly Sponsor</h3>
                         <p>Become a monthly sponsor and get early access to new features</p>
-                        <a href="#" class="btn btn-outline">
-                            <img src="assets/star.svg" alt="" width="20" height="20">
+                        <a href="https://buy.stripe.com/4gw7whaXKaoZ3NSeUU" class="btn btn-secondary">
+                            <img src="assets/icons/star.svg" alt="" width="20" height="20">
                             Sponsor $10/month
                         </a>
                     </div>
@@ -202,19 +172,21 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="social-links">
-                <a href="#" target="_blank" rel="noopener">
-                    <img src="assets/twitter.svg" alt="Twitter" width="20" height="20">
+                <a href="https://x.com/Jimi_seun" target="_blank" rel="noopener" title="Follow on X">
+                    <img src="assets/icons/x.svg" alt="X (formerly Twitter)" width="20" height="20">
                 </a>
-                <a href="#" target="_blank" rel="noopener">
-                    <img src="assets/github.svg" alt="GitHub" width="20" height="20">
+                <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener" title="View on GitHub">
+                    <img src="assets/icons/github.svg" alt="GitHub" width="20" height="20">
                 </a>
             </div>
             <p>© 2024 SHIZEN. Built with ❤️ for language learners.</p>
         </div>
     </footer>
+
+    <script src="js/darkMode.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
