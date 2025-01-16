@@ -48,82 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Download Handling with Fallback
+    // Simple Direct Download
     const setupDownloads = () => {
         const downloadBtn = document.querySelector('.download-btn');
-        const progress = document.querySelector('.download-progress');
-
-        if (!downloadBtn) return;
-
-        const handleSimpleDownload = () => {
-            const link = document.createElement('a');
-            link.href = 'releases/mac/shizen.dmg';
-            link.download = 'SHIZEN.dmg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
-
-        const handleProgressDownload = async () => {
-            try {
-                downloadBtn.textContent = 'Starting download...';
-                downloadBtn.disabled = true;
-
-                const response = await fetch('releases/mac/shizen.dmg');
-                if (!response.ok) throw new Error('Download failed');
-
-                const contentLength = response.headers.get('Content-Length');
-                if (!contentLength) throw new Error('Content length not available');
-
-                const reader = response.body.getReader();
-                let receivedLength = 0;
-                const chunks = [];
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    chunks.push(value);
-                    receivedLength += value.length;
-
-                    const percentComplete = (receivedLength / contentLength) * 100;
-                    progress.style.width = `${percentComplete}%`;
-                }
-
-                const blob = new Blob(chunks);
-                const downloadUrl = window.URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                link.download = 'SHIZEN.dmg';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                window.URL.revokeObjectURL(downloadUrl);
-                return true;
-            } catch (error) {
-                console.error('Progress download failed:', error);
-                return false;
-            }
-        };
-
-        downloadBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-
-            try {
-                const progressSuccess = await handleProgressDownload();
-                if (!progressSuccess) {
-                    handleSimpleDownload();
-                }
-            } catch (error) {
-                console.error('Download failed:', error);
-                handleSimpleDownload();
-            } finally {
-                progress.style.width = '0';
-                downloadBtn.textContent = 'Download for Mac';
-                downloadBtn.disabled = false;
-            }
-        });
+        
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', (e) => {
+                // Let the default HTML download attribute handle it
+                // No need to prevent default
+            });
+        }
     };
 
     // Smooth Scroll
