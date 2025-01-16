@@ -2,6 +2,7 @@ class DarkMode {
     constructor() {
         this.darkMode = false;
         this.toggle = document.getElementById('darkModeToggle');
+        this.toggleIcon = this.toggle.querySelector('img');
         this.prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         this.init();
     }
@@ -55,9 +56,12 @@ class DarkMode {
     }
 
     updateIcon() {
-        const icon = this.toggle.querySelector('img');
-        icon.style.transform = this.darkMode ? 'rotate(360deg)' : 'rotate(0deg)';
-        icon.style.transition = 'transform 0.3s ease';
+        // Update icon source
+        this.toggleIcon.src = `assets/icons/${this.darkMode ? 'sun' : 'moon'}.svg`;
+        
+        // Add rotation animation
+        this.toggleIcon.style.transform = `rotate(${this.darkMode ? '360deg' : '0deg'})`;
+        this.toggleIcon.style.transition = 'transform 0.3s ease';
     }
 }
 
