@@ -17,9 +17,10 @@
                 <img src="assets/images/logo.svg" alt="SHIZEN">
                 <span>SHIZEN</span>
             </a>
-            <nav class="site-nav">
+            <nav class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#about">About</a>
+                <a href="#demo">Demo</a>
                 <a href="#roadmap">Roadmap</a>
                 <button id="darkModeToggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <img src="assets/icons/moon.svg" alt="">
@@ -33,29 +34,81 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
-                <h1>Transform Japanese Content Into Personal Learning</h1>
+                <h1 class="text-gradient">Transform Japanese Content Into Personal Learning</h1>
                 <p class="subtitle">Use AI to turn your favorite media into interactive language learning materials. Learn naturally through immersion.</p>
                 <div class="cta-buttons">
-                    <a href="https://github.com/jimjatt1999/shizen_audio" class="primary-btn">
+                    <a href="https://github.com/jimjatt1999/shizen_audio" class="button primary-button">
                         <img src="assets/icons/github.svg" alt="GitHub">
                         View on GitHub
                     </a>
-                    <a href="#download" class="secondary-btn">Download App</a>
+                    <a href="#download" class="button secondary-button">
+                        <img src="assets/icons/download.svg" alt="Download">
+                        Download App
+                    </a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="assets/images/app-screenshot.png" alt="SHIZEN App Interface">
+                <div class="app-frame">
+                    <div class="app-header">
+                        <span class="app-dot red"></span>
+                        <span class="app-dot yellow"></span>
+                        <span class="app-dot green"></span>
+                    </div>
+                    <img src="assets/images/app-screenshot.png" alt="SHIZEN App Interface">
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Section -->
+        <section id="demo" class="demo">
+            <div class="container">
+                <h2>See SHIZEN in Action</h2>
+                <div class="video-container">
+                    <div class="app-frame">
+                        <div class="app-header">
+                            <span class="app-dot red"></span>
+                            <span class="app-dot yellow"></span>
+                            <span class="app-dot green"></span>
+                        </div>
+                        <video id="demoVideo" poster="assets/images/demo-thumbnail.jpg" controls>
+                            <source src="assets/videos/demo.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <img src="assets/images/features/media-processing.svg" alt="">
+                        <h3>Process Any Media</h3>
+                        <p>Transform YouTube videos, podcasts, and local media into personalized flashcards with accurate transcriptions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="assets/images/features/ai-analysis.svg" alt="">
+                        <h3>AI-Powered Analysis</h3>
+                        <p>Get instant translations, grammar explanations, and cultural context using advanced language models.</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="assets/images/features/smart-review.svg" alt="">
+                        <h3>Smart Review System</h3>
+                        <p>Learn efficiently with a spaced repetition system that adapts to your learning pace.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- About Section -->
         <section id="about" class="about">
-            <div class="about-content">
+            <div class="container">
                 <h2>Why I Built SHIZEN</h2>
                 <div class="story">
                     <p>Over four years ago, I embarked on my Japanese learning journey from scratch. Like many others, I relied heavily on Anki for memorization. While effective, the process often felt mechanical and disconnected from real Japanese content.</p>
                     <p>As both a language learner and developer, I saw an opportunity with modern AI technology to create something different. SHIZEN was born from the desire to make immersion-based learning more natural and enjoyable.</p>
-                    <p>The app transforms your favorite Japanese content—whether it's YouTube videos, podcasts, or personal recordings—into interactive learning materials. It's the tool I wished I had when I started my journey.</p>
                 </div>
                 <div class="tech-stack">
                     <h3>Built With</h3>
@@ -69,71 +122,30 @@
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section id="features" class="features">
-            <h2>Key Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <img src="assets/images/features/media-processing.svg" alt="">
-                    <h3>Process Any Media</h3>
-                    <p>Transform YouTube videos, podcasts, and local media into personalized flashcards with accurate transcriptions.</p>
-                </div>
-                <div class="feature-card">
-                    <img src="assets/images/features/ai-analysis.svg" alt="">
-                    <h3>AI-Powered Analysis</h3>
-                    <p>Get instant translations, grammar explanations, and cultural context using advanced language models.</p>
-                </div>
-                <div class="feature-card">
-                    <img src="assets/images/features/smart-review.svg" alt="">
-                    <h3>Smart Review System</h3>
-                    <p>Learn efficiently with a spaced repetition system that adapts to your learning pace.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Download Section -->
-        <section id="download" class="download">
-            <h2>Download SHIZEN</h2>
-            <p class="version-note">Currently in Alpha - Free During Development</p>
-            <div class="download-options">
-                <div class="download-card">
-                    <img src="assets/icons/mac.svg" alt="macOS">
-                    <h3>macOS</h3>
-                    <p>Version: Alpha 0.1.0</p>
-                    <a href="https://github.com/jimjatt1999/shizen_audio/releases/latest/download/SHIZEN.dmg" 
-                       class="download-btn">
-                        Download for Mac
-                    </a>
-                </div>
-                <div class="download-card coming-soon">
-                    <img src="assets/icons/windows.svg" alt="Windows">
-                    <h3>Windows</h3>
-                    <p>Coming Soon</p>
-                    <button class="download-btn" disabled>In Development</button>
-                </div>
-            </div>
-        </section>
-
         <!-- Support Section -->
         <section id="support" class="support">
-            <h2>Support the Project</h2>
-            <p class="support-intro">SHIZEN is developed and maintained by a single developer. Your support helps keep the project alive and growing!</p>
-            <div class="support-options">
-                <div class="support-card">
-                    <h3>One-time Donation</h3>
-                    <p>Support the project with a one-time contribution</p>
-                    <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" 
-                       class="donate-link">
-                        Donate
-                    </a>
-                </div>
-                <div class="support-card">
-                    <h3>Monthly Sponsor</h3>
-                    <p>Become a monthly sponsor and get early access to new features</p>
-                    <a href="https://buy.stripe.com/4gw7whaXKaoZ3NSeUU" 
-                       class="sponsor-link">
-                        Sponsor $10/month
-                    </a>
+            <div class="container">
+                <h2>Support the Project</h2>
+                <p class="support-intro">SHIZEN is developed and maintained by a single developer. Your support helps keep the project alive and growing!</p>
+                <div class="support-options">
+                    <div class="support-card">
+                        <h3>One-time Donation</h3>
+                        <p>Support the project with a one-time contribution</p>
+                        <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" 
+                           class="donate-link">
+                            <img src="assets/icons/heart.svg" alt="Heart">
+                            Donate
+                        </a>
+                    </div>
+                    <div class="support-card">
+                        <h3>Monthly Sponsor</h3>
+                        <p>Become a monthly sponsor and get early access to new features</p>
+                        <a href="https://buy.stripe.com/4gw7whaXKaoZ3NSeUU" 
+                           class="sponsor-link">
+                            <img src="assets/icons/star.svg" alt="Star">
+                            Sponsor $10/month
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -141,15 +153,17 @@
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="social-links">
-            <a href="https://x.com/Jimi_seun" target="_blank" title="Follow on X">
-                <img src="assets/icons/x.svg" alt="X (formerly Twitter)">
-            </a>
-            <a href="https://github.com/jimjatt1999" target="_blank" title="View on GitHub">
-                <img src="assets/icons/github.svg" alt="GitHub">
-            </a>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://x.com/Jimi_seun" target="_blank" title="Follow on X">
+                    <img src="assets/icons/x.svg" alt="X (formerly Twitter)">
+                </a>
+                <a href="https://github.com/jimjatt1999" target="_blank" title="View on GitHub">
+                    <img src="assets/icons/github.svg" alt="GitHub">
+                </a>
+            </div>
+            <p>© 2024 SHIZEN. Built with ❤️ for language learners.</p>
         </div>
-        <p>© 2024 SHIZEN. Built with ❤️ for language learners.</p>
     </footer>
 
     <script src="js/darkMode.js"></script>
