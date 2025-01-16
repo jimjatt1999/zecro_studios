@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const nav = document.querySelector('.nav-links');
         const menuBtn = document.querySelector('.mobile-menu-btn');
         const menuIcon = menuBtn.querySelector('img');
+        const body = document.body;
         let isMenuOpen = false;
 
         const toggleMenu = () => {
@@ -20,9 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.classList.toggle('active');
             menuIcon.src = `assets/icons/${isMenuOpen ? 'close' : 'menu'}.svg`;
             menuBtn.setAttribute('aria-expanded', isMenuOpen);
+            // Prevent body scroll when menu is open
+            body.style.overflow = isMenuOpen ? 'hidden' : '';
         };
 
-        menuBtn.addEventListener('click', toggleMenu);
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
@@ -36,6 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', () => {
                 if (isMenuOpen) toggleMenu();
             });
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isMenuOpen) {
+                toggleMenu();
+            }
         });
     };
 
@@ -55,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Fetch the file
                     const response = await fetch('/releases/mac/shizen.dmg');
+                    if (!response.ok) throw new Error('Download failed');
+                    
                     const reader = response.body.getReader();
                     const contentLength = +response.headers.get('Content-Length');
 
@@ -104,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Smooth Scroll
+    // Smooth Scroll with improved behavior
     const setupSmoothScroll = () => {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -126,18 +141,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Header Scroll Behavior
     const setupHeaderScroll = () => {
-        const header = document.querySelector('.site-header');
+        const header = document.querySelector('.header');
         let lastScroll = 0;
+        const scrollThreshold = 5; // Minimum scroll difference to trigger header change
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
             
+            // Add scrolled class when page is scrolled
+            header.classList.toggle('scrolled', currentScroll > 0);
+            
+            // Only proceed if scroll difference is above threshold
+            if (Math.abs(currentScroll - lastScroll) < scrollThreshold) return;
+            
             if (currentScroll <= 0) {
                 header.classList.remove('scrolled-up', 'scrolled-down');
-                return;
-            }
-            
-            if (currentScroll > lastScroll && !header.classList.contains('scrolled-down')) {
+            } else if (currentScroll > lastScroll && !header.classList.contains('scrolled-down')) {
                 // Scrolling down
                 header.classList.remove('scrolled-up');
                 header.classList.add('scrolled-down');
@@ -168,11 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, observerOptions);
 
         // Observe elements for animation
-        document.querySelectorAll('.feature-card, .roadmap-item, .tech-items span, .support-card')
+        document.querySelectorAll('.features-card, .roadmap-card, .tech-items span, .support-card')
             .forEach(el => observer.observe(el));
     };
 
-    // Video Handling
+    // Video Handling with improved loading states
     const setupVideo = () => {
         const video = document.querySelector('#demoVideo');
         if (video) {
@@ -188,10 +207,14 @@ document.addEventListener('DOMContentLoaded', function() {
             video.addEventListener('canplay', () => toggleSpinner(false));
             video.addEventListener('waiting', () => toggleSpinner(true));
             video.addEventListener('playing', () => toggleSpinner(false));
+            video.addEventListener('error', () => {
+                toggleSpinner(false);
+                video.parentElement.innerHTML = '<p class="video-error">Video failed to load</p>';
+            });
         }
     };
 
-    // Handle window resize
+    // Handle window resize with debounce
     const setupResizeHandler = () => {
         let resizeTimer;
         window.addEventListener('resize', () => {
@@ -199,8 +222,13 @@ document.addEventListener('DOMContentLoaded', function() {
             resizeTimer = setTimeout(() => {
                 if (window.innerWidth > 768) {
                     const nav = document.querySelector('.nav-links');
-                    nav.classList.remove('active');
-                    document.querySelector('.mobile-menu-btn img').src = 'assets/icons/menu.svg';
+                    const menuBtn = document.querySelector('.mobile-menu-btn');
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        menuBtn.querySelector('img').src = 'assets/icons/menu.svg';
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
+                    }
                 }
             }, 250);
         });
