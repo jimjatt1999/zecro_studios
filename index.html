@@ -20,14 +20,17 @@
             </a>
             <nav class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#about">About</a>
                 <a href="#demo">Demo</a>
+                <a href="#about">About</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#support" class="support-btn">Support Project</a>
                 <button id="darkModeToggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <img src="assets/icons/moon.svg" alt="">
                 </button>
             </nav>
+            <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                <img src="assets/icons/menu.svg" alt="Menu">
+            </button>
         </div>
     </header>
 
@@ -90,11 +93,6 @@
                 <h2>See SHIZEN in Action</h2>
                 <div class="video-container">
                     <div class="app-frame">
-                        <div class="app-header">
-                            <span class="app-dot red"></span>
-                            <span class="app-dot yellow"></span>
-                            <span class="app-dot green"></span>
-                        </div>
                         <video id="demoVideo" poster="assets/images/demo-thumbnail.jpg" controls>
                             <source src="assets/videos/demo.mp4" type="video/mp4">
                         </video>
@@ -123,6 +121,31 @@
             </div>
         </section>
 
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="roadmap">
+            <div class="container">
+                <h2>Future Plans</h2>
+                <p class="roadmap-intro">While focusing on perfecting the core Mac experience, here's what's on the horizon:</p>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="status current"></div>
+                        <h3>Windows Support</h3>
+                        <p>Bringing SHIZEN to Windows users (Currently in development)</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="status upcoming"></div>
+                        <h3>Mobile Apps</h3>
+                        <p>Native iOS and Android apps for learning on the go</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="status planned"></div>
+                        <h3>Enhanced Features</h3>
+                        <p>Text-based learning support and community content sharing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Download Section -->
         <section id="download" class="download">
             <div class="container">
@@ -134,9 +157,7 @@
                         <h3>macOS</h3>
                         <p>Version: Alpha 0.1.0</p>
                         <a href="https://github.com/jimjatt1999/shizen_audio/releases/latest/download/SHIZEN.dmg" 
-                           class="download-btn">
-                            Download for Mac
-                        </a>
+                           class="download-btn">Download for Mac</a>
                     </div>
                     <div class="download-card coming-soon">
                         <img src="assets/icons/windows.svg" alt="Windows">
@@ -157,8 +178,7 @@
                     <div class="support-card">
                         <h3>One-time Donation</h3>
                         <p>Support the project with a one-time contribution</p>
-                        <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" 
-                           class="donate-link">
+                        <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" class="donate-link">
                             <img src="assets/icons/heart.svg" alt="Heart">
                             Donate
                         </a>
@@ -166,8 +186,7 @@
                     <div class="support-card">
                         <h3>Monthly Sponsor</h3>
                         <p>Become a monthly sponsor and get early access to new features</p>
-                        <a href="https://buy.stripe.com/4gw7whaXKaoZ3NSeUU" 
-                           class="sponsor-link">
+                        <a href="https://buy.stripe.com/4gw7whaXKaoZ3NSeUU" class="sponsor-link">
                             <img src="assets/icons/star.svg" alt="Star">
                             Sponsor $10/month
                         </a>
@@ -177,14 +196,13 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="social-links">
-                <a href="https://x.com/Jimi_seun" target="_blank" title="Follow on X">
+                <a href="https://x.com/Jimi_seun" target="_blank" rel="noopener" title="Follow on X">
                     <img src="assets/icons/x.svg" alt="X (formerly Twitter)">
                 </a>
-                <a href="https://github.com/jimjatt1999" target="_blank" title="View on GitHub">
+                <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener" title="View on GitHub">
                     <img src="assets/icons/github.svg" alt="GitHub">
                 </a>
             </div>
