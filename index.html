@@ -162,6 +162,17 @@
                         <img src="assets/icons/mac.svg" alt="macOS" width="64" height="64">
                         <h3>macOS</h3>
                         <p>Version: Alpha 0.1</p>
+                        <details class="version-details">
+                            <summary>Version Information</summary>
+                            <div class="version-info">
+                                <ul>
+                                    <li>Currently version 0.1 is rough alpha</li>
+                                    <li>Currently using Apple native transcriber for feature test</li>
+                                    <li>No LLM integration app yet</li>
+                                    <li>Current rough version for proof of concept</li>
+                                </ul>
+                            </div>
+                        </details>
                         <a href="releases/mac/shizen0_1.dmg" class="btn btn-primary download-btn" download="SHIZEN.dmg">
                             Download for Mac
                         </a>
@@ -245,6 +256,40 @@
 
     .gallery-btn:hover {
         background-color: #555;
+    }
+
+    .version-details {
+        margin: 1rem 0;
+        cursor: pointer;
+    }
+
+    .version-details summary {
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .version-details summary:hover {
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .version-info {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+    }
+
+    .version-info ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        text-align: left;
+    }
+
+    .version-info li {
+        margin: 0.5rem 0;
+        color: var(--text-color);
     }
     </style>
 
