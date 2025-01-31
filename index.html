@@ -28,6 +28,7 @@
                 <a href="#demo">Demo</a>
                 <a href="#about">About</a>
                 <a href="#roadmap">Roadmap</a>
+                <a href="#feedback">Feedback</a>
                 <a href="#support" class="btn btn-primary">Support Project</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <img src="assets/icons/moon.svg" alt="" width="20" height="20">
@@ -93,7 +94,10 @@
             <div class="container container-narrow">
                 <h2>See SHIZEN in Action</h2>
                 <div class="video-container">
-                    <iframe src="[your-video-url]" frameborder="0" allowfullscreen></iframe>
+                    <video id="demoVideo" controls preload="metadata" poster="assets/images/demo-thumbnail.jpg">
+                        <source src="assets/videos/demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="demo-note">
                     <p class="note-text">
@@ -184,6 +188,20 @@
             </div>
         </section>
 
+        <!-- Feedback Section -->
+        <section id="feedback" class="feedback">
+            <div class="container container-narrow">
+                <h2>Share Your Feedback</h2>
+                <p class="section-intro">Your feedback helps improve SHIZEN</p>
+                <div class="feedback-container">
+                    <a href="mailto:Jimjatt1999@gmail.com?subject=SHIZEN%20Feedback" class="btn btn-primary feedback-btn">
+                        ✉️ Send Feedback
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
         <!-- Support Section -->
         <section id="support" class="support">
             <div class="container container-narrow">
@@ -200,20 +218,6 @@
             </div>
         </section>
 
-        <!-- Feedback Section -->
-        <section id="feedback" class="feedback">
-            <div class="container container-narrow">
-                <h2>Share Your Feedback</h2>
-                <p class="section-intro">Your feedback helps improve SHIZEN</p>
-                <div class="feedback-container">
-                    <a href="mailto:Jimjatt1999@gmail.com?subject=SHIZEN%20Feedback" class="btn btn-primary feedback-btn">
-                        ✉️ Send Feedback
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
     <footer class="footer">
         <div class="container container-narrow">
             <div class="contact-info">
@@ -223,7 +227,7 @@
                         <img src="assets/icons/email.svg" alt="Email" width="24" height="24">
                         Jimjatt1999@gmail.com
                     </a>
-                    <a href="https://twitter.com/YOUR_TWITTER" class="contact-link" target="_blank" rel="noopener noreferrer">
+                    <a href="https://x.com/Jimi_seun" class="contact-link" target="_blank" rel="noopener noreferrer">
                         <img src="assets/icons/x.svg" alt="X (Twitter)" width="24" height="24">
                         X (Twitter)
                     </a>
@@ -367,6 +371,22 @@
     .contact-link img {
         width: 24px;
         height: 24px;
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-container video {
+        display: block;
+        width: 100%;
+        height: auto;
     }
     </style>
 
