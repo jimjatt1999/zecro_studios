@@ -54,13 +54,12 @@
                 </div>
             </div>
             <div class="hero-image">
-                <div class="app-window">
-                    <div class="window-dots">
-                        <span class="dot dot-red"></span>
-                        <span class="dot dot-yellow"></span>
-                        <span class="dot dot-green"></span>
+                <div class="screenshot-gallery">
+                    <img src="assets/images/img_1.png" alt="SHIZEN Screenshot 1" class="gallery-image" id="galleryImage">
+                    <div class="gallery-controls">
+                        <button class="gallery-btn" onclick="prevImage()">Previous</button>
+                        <button class="gallery-btn" onclick="nextImage()">Next</button>
                     </div>
-                    <img src="assets/images/app-screenshot.png" alt="SHIZEN App Interface">
                 </div>
             </div>
         </section>
@@ -221,5 +220,64 @@
 
     <script src="js/darkMode.js"></script>
     <script src="js/main.js"></script>
+
+    <style>
+    .screenshot-gallery {
+        position: relative;
+        max-width: 100%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .gallery-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .gallery-controls {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .gallery-btn {
+        padding: 0.5rem 1rem;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .gallery-btn:hover {
+        background-color: #555;
+    }
+    </style>
+
+    <script>
+    const images = [
+        'assets/images/img_1.png',
+        'assets/images/img_2.png',
+        'assets/images/img_3.png',
+        'assets/images/img_4.png',
+        'assets/images/img_5.png'
+    ];
+    let currentImageIndex = 0;
+    const galleryImage = document.getElementById('galleryImage');
+
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        galleryImage.src = images[currentImageIndex];
+    }
+
+    function prevImage() {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        galleryImage.src = images[currentImageIndex];
+    }
+    </script>
 </body>
 </html>
