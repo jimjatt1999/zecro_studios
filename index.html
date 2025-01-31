@@ -199,19 +199,36 @@
                 </div>
             </div>
         </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback" class="feedback">
+            <div class="container container-narrow">
+                <h2>Share Your Feedback</h2>
+                <p class="section-intro">Your feedback helps improve SHIZEN</p>
+                <div class="feedback-container">
+                    <a href="mailto:Jimjatt1999@gmail.com?subject=SHIZEN%20Feedback" class="btn btn-primary feedback-btn">
+                        ✉️ Send Feedback
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="https://x.com/Jimi_seun" target="_blank" rel="noopener" title="Follow on X">
-                    <img src="assets/icons/x.svg" alt="X (formerly Twitter)" width="20" height="20">
-                </a>
-                <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener" title="View on GitHub">
-                    <img src="assets/icons/github.svg" alt="GitHub" width="20" height="20">
-                </a>
+        <div class="container container-narrow">
+            <div class="contact-info">
+                <h3>Contact & Social</h3>
+                <div class="contact-links">
+                    <a href="mailto:Jimjatt1999@gmail.com" class="contact-link">
+                        <img src="assets/icons/email.svg" alt="Email" width="24" height="24">
+                        Jimjatt1999@gmail.com
+                    </a>
+                    <a href="https://twitter.com/YOUR_TWITTER" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/icons/x.svg" alt="X (Twitter)" width="24" height="24">
+                        X (Twitter)
+                    </a>
+                </div>
             </div>
-            <p>© 2024 SHIZEN. Built with ❤️ for language learners.</p>
         </div>
     </footer>
 
@@ -300,6 +317,56 @@
         color: var(--text-color);
         margin: 0;
         line-height: 1.5;
+    }
+
+    .feedback {
+        padding: 4rem 0;
+    }
+
+    .feedback-container {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    .feedback-btn {
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
+    }
+
+    .footer {
+        background-color: var(--secondary-bg-color);
+        padding: 3rem 0;
+        margin-top: 4rem;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+
+    .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        margin-top: 1.5rem;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: opacity 0.3s;
+    }
+
+    .contact-link:hover {
+        opacity: 0.8;
+    }
+
+    .contact-link img {
+        width: 24px;
+        height: 24px;
     }
     </style>
 
