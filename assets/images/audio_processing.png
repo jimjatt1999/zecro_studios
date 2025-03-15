@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#1e293b" rx="8" />
+  <rect x="20" y="20" width="760" height="50" fill="#334155" rx="4" />
+  <rect x="20" y="90" width="760" height="160" fill="#334155" rx="4" />
+  <path d="M40 170 Q60 120, 80 160 Q100 200, 120 140 Q140 80, 160 100 Q180 120, 200 100 Q220 80, 240 120 Q260 160, 280 130 Q300 100, 320 150 Q340 200, 360 170 Q380 140, 400 180 Q420 220, 440 170 Q460 120, 480 140 Q500 160, 520 130 Q540 100, 560 120 Q580 140, 600 100 Q620 60, 640 90 Q660 120, 680 80 Q700 40, 720 90 Q740 140, 760 170" stroke="#3b82f6" fill="none" stroke-width="3" />
+  <rect x="20" y="270" width="760" height="160" fill="#334155" rx="4" />
+  <text x="400" y="40" font-family="Arial" font-size="16" fill="white" text-anchor="middle" dominant-baseline="middle">AUDIO CONTROLS</text>
+  <text x="400" y="275" font-family="Arial" font-size="24" fill="#3b82f6" text-anchor="middle" font-weight="bold">AUDIO PROCESSING INTERFACE</text>
+  <text x="400" y="310" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Intelligent segmentation and waveform visualization</text>
+  <text x="400" y="335" font-family="Arial" font-size="14" fill="white" text-anchor="middle">• Support for multiple audio formats</text>
+  <text x="400" y="360" font-family="Arial" font-size="14" fill="white" text-anchor="middle">• Smart speech pattern recognition</text>
+  <text x="400" y="385" font-family="Arial" font-size="14" fill="white" text-anchor="middle">• Noise reduction and volume normalization</text>
+  <text x="400" y="410" font-family="Arial" font-size="14" fill="white" text-anchor="middle">• Precision segment editing tools</text>
+</svg> 

@@ -31,7 +31,6 @@ class DarkMode {
 
     setTheme(isDark) {
         document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
         this.updateIcon(isDark);
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
@@ -49,7 +48,7 @@ class DarkMode {
         this.toggleIcon.classList.add('rotate');
         setTimeout(() => {
             this.toggleIcon.classList.remove('rotate');
-        }, 300);
+        }, 500);
     }
 
     handleSystemPreference(e) {
@@ -62,7 +61,6 @@ class DarkMode {
 
     updateIcon(isDark) {
         // Update icon with transition
-        this.toggleIcon.style.transform = `rotate(${isDark ? '360deg' : '0deg'})`;
         setTimeout(() => {
             this.toggleIcon.src = `assets/icons/${isDark ? 'sun' : 'moon'}.svg`;
         }, 150);
@@ -76,5 +74,10 @@ class DarkMode {
 
 // Initialize dark mode
 document.addEventListener('DOMContentLoaded', () => {
-    new DarkMode();
+    if (document.getElementById('themeToggle')) {
+        const darkMode = new DarkMode();
+        console.log('Dark mode initialized');
+    } else {
+        console.error('Theme toggle button not found');
+    }
 });

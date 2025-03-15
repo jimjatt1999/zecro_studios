@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHIZEN - Natural Language Learning Through Immersion</title>
-    <meta name="description" content="Transform Japanese content into personalized language learning materials using AI">
+    <title>Shizen - Advanced Japanese Language Learning Through Immersion</title>
+    <meta name="description" content="Transform Japanese content into personalized language learning materials using advanced technology">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <header class="header">
         <nav class="nav container">
             <a href="#" class="nav-logo">
-                <img src="assets/images/logo.svg" alt="SHIZEN" width="32" height="32">
+                <img src="assets/images/logo.svg" alt="Shizen" width="32" height="32">
                 <span>SHIZEN</span>
             </a>
     
@@ -25,10 +25,12 @@
     
             <div class="nav-links">
                 <a href="#features">Features</a>
+                <a href="#core-functionality">Core Functionality</a>
+                <a href="#learning-tools">Learning Tools</a>
+                <a href="#content-management">Content Management</a>
                 <a href="#demo">Demo</a>
-                <a href="#about">About</a>
+                <a href="#download">Download</a>
                 <a href="#roadmap">Roadmap</a>
-                <a href="#feedback">Feedback</a>
                 <a href="#support" class="btn btn-primary">Support Project</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <img src="assets/icons/moon.svg" alt="" width="20" height="20">
@@ -40,26 +42,33 @@
     <main>
         <!-- Hero Section -->
         <section class="hero container">
-            <div class="hero-content">
-                <h1>Transform Japanese Content Into Personal Learning</h1>
-                <p>Use AI to turn your favorite media into interactive language learning materials. Learn naturally through immersion.</p>
+            <div class="hero-content fade-in">
+                <h1>Revolutionizing <span class="accent-text">Japanese Learning</span> Through Natural Immersion</h1>
+                <p>Transform authentic Japanese content into interactive learning materials with spaced repetition and cutting-edge AI technology. Master the language through immersive, personalized study sessions.</p>
                 <div class="hero-buttons">
-                    <a href="https://github.com/jimjatt1999/shizen_audio" class="btn btn-primary">
-                        <img src="assets/icons/github.svg" alt="" width="20" height="20">
-                        View on GitHub
-                    </a>
-                    <a href="#download" class="btn btn-secondary">
+                    <a href="#download" class="btn btn-primary">
                         <img src="assets/icons/download.svg" alt="" width="20" height="20">
                         Download App
                     </a>
+                    <a href="https://github.com/jimjatt1999/shizen_audio" class="btn btn-secondary">
+                        <img src="assets/icons/github.svg" alt="" width="20" height="20">
+                        View on GitHub
+                    </a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-image fade-in-delay-1">
                 <div class="screenshot-gallery">
-                    <img src="assets/images/img_1.png" alt="SHIZEN Screenshot 1" class="gallery-image" id="galleryImage">
+                    <img src="assets/images/img_1.png" alt="Shizen Screenshot" class="gallery-image" id="galleryImage">
                     <div class="gallery-controls">
-                        <button class="gallery-btn" onclick="prevImage()">Previous</button>
-                        <button class="gallery-btn" onclick="nextImage()">Next</button>
+                        <button class="gallery-btn prev-btn" onclick="prevImage()">
+                            &#10094;
+                        </button>
+                        <button class="gallery-btn next-btn" onclick="nextImage()">
+                            &#10095;
+                        </button>
+                    </div>
+                    <div class="gallery-indicators" id="galleryIndicators">
+                        <!-- Indicators will be added dynamically via JavaScript -->
                     </div>
                 </div>
             </div>
@@ -68,22 +77,260 @@
         <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
-                <h2>Key Features</h2>
+                <h2>Why <span class="accent-text">Shizen</span> Is Different</h2>
+                <p class="section-intro">A powerful one-time purchase app for natural Japanese learning - no subscriptions</p>
                 <div class="features-grid">
-                    <div class="features-card">
+                    <div class="features-card fade-in">
                         <img src="assets/images/features/media-processing.svg" alt="" width="48" height="48">
-                        <h3>Process Any Media</h3>
-                        <p>Transform YouTube videos, podcasts, and local media into personalized flashcards with accurate transcriptions.</p>
+                        <h3>Audio Processing Engine</h3>
+                        <p>Import Japanese audio from any source and automatically segment it into perfect learning units for focused practice.</p>
                     </div>
-                    <div class="features-card">
+                    <div class="features-card fade-in-delay-1">
                         <img src="assets/images/features/ai-analysis.svg" alt="" width="48" height="48">
-                        <h3>AI-Powered Analysis</h3>
-                        <p>Get instant translations, grammar explanations, and cultural context using advanced language models.</p>
+                        <h3>Speech-to-Text Transcription</h3>
+                        <p>Utilize advanced speech recognition to create accurate Japanese transcripts that enhance reading and listening skills.</p>
                     </div>
-                    <div class="features-card">
+                    <div class="features-card fade-in-delay-2">
                         <img src="assets/images/features/smart-review.svg" alt="" width="48" height="48">
-                        <h3>Smart Review System</h3>
-                        <p>Learn efficiently with a spaced repetition system that adapts to your learning pace.</p>
+                        <h3>Spaced Repetition System</h3>
+                        <p>Master Japanese content through scientifically proven memory techniques that optimize retention and recall.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Functionality Section -->
+        <section id="core-functionality" class="core-functionality">
+            <div class="container">
+                <h2>Core <span class="accent-text">Functionality</span></h2>
+                <p class="section-intro">Powerful features designed to transform your Japanese learning experience</p>
+                
+                <div class="core-feature-row fade-in">
+                    <div class="core-feature-content">
+                        <h3>Intelligent Audio Processing</h3>
+                        <p>Import Japanese audio from various sources including podcasts, YouTube videos, and personal recordings. Our intelligent engine segments content into natural learning units.</p>
+                        <ul class="feature-list">
+                            <li>Support for multiple audio formats (MP3, M4A, AIFF, WAV)</li>
+                            <li>Smart segmentation based on natural speech patterns</li>
+                            <li>Volume normalization and noise reduction</li>
+                            <li>Audio waveform visualization for precise segment editing</li>
+                        </ul>
+                    </div>
+                    <div class="core-feature-image">
+                        <img src="assets/images/img_3.png" alt="Audio Processing Interface" class="feature-image">
+                    </div>
+                </div>
+                
+                <div class="core-feature-row reverse fade-in-delay-1">
+                    <div class="core-feature-content">
+                        <h3>Text Analysis & Language Tools</h3>
+                        <p>Analyze Japanese language structure with comprehensive tools. Break down complex sentences, understand grammar, and build vocabulary.</p>
+                        <ul class="feature-list">
+                            <li>Japanese text parsing and grammar analysis</li>
+                            <li>Kanji information with readings and common compounds</li>
+                            <li>Word frequency statistics to identify important vocabulary</li>
+                            <li>Text highlighting for easier comprehension</li>
+                        </ul>
+                    </div>
+                    <div class="core-feature-image">
+                        <img src="assets/images/text_analysis.png" alt="Language Analysis Interface" class="feature-image">
+                    </div>
+                </div>
+                
+                <div class="core-feature-row fade-in-delay-2">
+                    <div class="core-feature-content">
+                        <h3>Personalized SRS Algorithm</h3>
+                        <p>Our advanced spaced repetition system adapts to your learning style and retention patterns. Study smarter, not harder, with precisely timed reviews that optimize memory consolidation.</p>
+                        <ul class="feature-list">
+                            <li>Personalized intervals based on performance</li>
+                            <li>Multiple difficulty levels for honest self-assessment</li>
+                            <li>Visual learning progress indicators</li>
+                            <li>Smart scheduling to prevent review pile-ups</li>
+                        </ul>
+                    </div>
+                    <div class="core-feature-image">
+                        <img src="assets/images/Personalized_SRS_Algorithm.png" alt="SRS Review Interface" class="feature-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Tools Section -->
+        <section id="learning-tools" class="learning-tools">
+            <div class="container">
+                <h2>Learning <span class="accent-text">Tools</span></h2>
+                <p class="section-intro">Interactive exercises and games designed to enhance comprehension and retention</p>
+                
+                <div class="learning-tools-grid">
+                    <div class="learning-tool-card fade-in">
+                        <div class="core-feature-image">
+                            <img src="assets/images/missing word game.png" alt="Missing Word Challenge" class="feature-image">
+                        </div>
+                        <h3>Missing Word Challenge</h3>
+                        <p>Enhance comprehension by identifying strategically blurred words within a transcript.</p>
+                    </div>
+                    
+                    <div class="learning-tool-card fade-in-delay-1">
+                        <div class="core-feature-image">
+                            <img src="assets/images/word order game.png" alt="Word Arrangement Exercise" class="feature-image">
+                        </div>
+                        <h3>Word Arrangement Exercise</h3>
+                        <p>Improve syntax understanding by reconstructing Japanese sentences from scrambled words.</p>
+                    </div>
+                    
+                    <div class="learning-tool-card fade-in-delay-2">
+                        <div class="core-feature-image">
+                            <img src="assets/images/fill in the blank game.png" alt="Fill in the Blank Exercise" class="feature-image">
+                        </div>
+                        <h3>Fill in the Blank</h3>
+                        <p>Test your vocabulary knowledge by filling in missing words based on context and audio cues.</p>
+                    </div>
+                    
+                    <div class="learning-tool-card fade-in">
+                        <div class="tool-icon">
+                            <img src="assets/images/features/continuous-play.svg" alt="" width="48" height="48">
+                        </div>
+                        <h3>Continuous Playback</h3>
+                        <p>Review multiple audio segments in sequence for extended practice sessions.</p>
+                    </div>
+                    
+                    <div class="learning-tool-card fade-in-delay-1">
+                        <div class="tool-icon">
+                            <img src="assets/images/features/study-notes.svg" alt="" width="48" height="48">
+                        </div>
+                        <h3>Study Notes</h3>
+                        <p>Add personalized notes and mnemonics to each segment to create context.</p>
+                    </div>
+                    
+                    <div class="learning-tool-card fade-in-delay-2">
+                        <div class="tool-icon">
+                            <img src="assets/images/features/text-speech.svg" alt="" width="48" height="48">
+                        </div>
+                        <h3>Text-to-Speech Integration</h3>
+                        <p>Generate synthetic audio for Japanese text using the macOS Kyoko voice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Management Section -->
+        <section id="content-management" class="content-management">
+            <div class="container">
+                <h2>Content <span class="accent-text">Management</span></h2>
+                <p class="section-intro">Powerful organization tools to manage your learning materials</p>
+                
+                <div class="management-features-container">
+                    <div class="management-feature fade-in">
+                        <div class="management-icon">
+                            <img src="assets/images/features/source-organization.svg" alt="" width="48" height="48">
+                        </div>
+                        <div class="management-content">
+                            <h3>Source Organization</h3>
+                            <p>Group segments by source material for contextual learning. Keep episodes, lectures, or conversations organized for a coherent learning experience.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="management-feature fade-in-delay-1">
+                        <div class="management-icon">
+                            <img src="assets/images/features/search-filter.svg" alt="" width="48" height="48">
+                        </div>
+                        <div class="management-content">
+                            <h3>Filtering & Search</h3>
+                            <p>Easily find specific content with powerful search and filtering tools. Filter by difficulty, tags, dates, or search by transcript content.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="management-feature fade-in-delay-2">
+                        <div class="management-icon">
+                            <img src="assets/images/features/backup.svg" alt="" width="48" height="48">
+                        </div>
+                        <div class="management-content">
+                            <h3>Backup & Import</h3>
+                            <p>Comprehensive backup system to preserve your progress and study materials. Export and import functionality for transferring between devices.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="management-feature fade-in">
+                        <div class="management-icon">
+                            <img src="assets/images/features/metadata.svg" alt="" width="48" height="48">
+                        </div>
+                        <div class="management-content">
+                            <h3>Metadata Management</h3>
+                            <p>Track detailed information about each audio segment including source, date added, review history, and difficulty ratings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Updates Section -->
+        <section id="updates" class="updates">
+            <div class="container container-narrow">
+                <h2>Recent <span class="accent-text">Updates</span></h2>
+                <p class="section-intro">We're constantly improving Shizen with new features and refinements</p>
+                
+                <div class="updates-timeline">
+                    <div class="update-item fade-in">
+                        <div class="update-date">
+                            <span class="month">MAR</span>
+                            <span class="year">2025</span>
+                        </div>
+                        <div class="update-content">
+                            <h3>Enhanced Text Analysis</h3>
+                            <p>Added advanced text highlighting and annotation features to make reading comprehension easier and more intuitive.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="update-item fade-in-delay-1">
+                        <div class="update-date">
+                            <span class="month">FEB</span>
+                            <span class="year">2025</span>
+                        </div>
+                        <div class="update-content">
+                            <h3>New Game Modes</h3>
+                            <p>Introduced two new interactive learning modes: Word Arrangement Exercise and Multiple Choice Quizzes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="update-item fade-in-delay-2">
+                        <div class="update-date">
+                            <span class="month">JAN</span>
+                            <span class="year">2025</span>
+                        </div>
+                        <div class="update-content">
+                            <h3>Performance Improvements</h3>
+                            <p>Significant speed enhancements for audio processing and transcription with reduced memory usage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specs Section -->
+        <section id="tech-specs" class="tech-specs">
+            <div class="container container-narrow">
+                <h2>Technical <span class="accent-text">Specifications</span></h2>
+                <p class="section-intro">Built with performance and reliability in mind</p>
+                
+                <div class="specs-container fade-in">
+                    <div class="spec-category">
+                        <h3>Platform</h3>
+                        <p>Native macOS application built with SwiftUI</p>
+                    </div>
+                    
+                    <div class="spec-category">
+                        <h3>Audio Support</h3>
+                        <p>MP3, M4A, AIFF, WAV and more</p>
+                    </div>
+                    
+                    <div class="spec-category">
+                        <h3>System Requirements</h3>
+                        <p>macOS 12.0 (Monterey) or later</p>
+                    </div>
+                    
+                    <div class="spec-category">
+                        <h3>Performance</h3>
+                        <p>Optimized for smooth playback and responsive interactions</p>
                     </div>
                 </div>
             </div>
@@ -92,7 +339,8 @@
         <!-- Demo Section -->
         <section id="demo" class="demo">
             <div class="container container-narrow">
-                <h2>See SHIZEN in Action</h2>
+                <h2>Experience <span class="accent-text">Shizen</span> in Action</h2>
+                <p class="section-intro">See how Shizen transforms authentic Japanese content into interactive learning sessions</p>
                 <div class="video-container">
                     <video id="demoVideo" controls preload="metadata" poster="assets/images/demo-thumbnail.jpg">
                         <source src="assets/videos/demo.mp4" type="video/mp4">
@@ -101,53 +349,8 @@
                 </div>
                 <div class="demo-note">
                     <p class="note-text">
-                        ⓘ This video demonstrates our Python-based prototype, showcasing the core concept and functionality that will be available in the upcoming macOS app. While the interface will be different, the fundamental features and workflow remain the same.
+                        ⓘ This demo showcases our Python-based prototype. The macOS app features an improved interface while maintaining the same powerful functionality.
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="container container-narrow">
-                <h2>Why I Built SHIZEN</h2>
-                <div class="about-content">
-                    <p>Over four years ago, I embarked on my Japanese learning journey from scratch. Like many others, I relied heavily on Anki for memorization. While effective, the process often felt mechanical and disconnected from real Japanese content.</p>
-                    <p>As both a language learner and developer, I saw an opportunity with modern AI technology to create something different. SHIZEN was born from the desire to make immersion-based learning more natural and enjoyable.</p>
-                </div>
-                <div class="tech-stack">
-                    <h3>Built With</h3>
-                    <div class="tech-items">
-                        <span>Python</span>
-                        <span>PyQt6</span>
-                        <span>Whisper AI</span>
-                        <span>LLMs</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Roadmap Section -->
-        <section id="roadmap" class="roadmap">
-            <div class="container container-narrow">
-                <h2>Future Plans</h2>
-                <p class="section-intro">While focusing on perfecting the core Mac experience, here's what's on the horizon:</p>
-                <div class="roadmap-grid">
-                    <div class="roadmap-card">
-                        <div class="status status-current"></div>
-                        <h3>Windows Support</h3>
-                        <p>Bringing SHIZEN to Windows users (Currently in development)</p>
-                    </div>
-                    <div class="roadmap-card">
-                        <div class="status status-upcoming"></div>
-                        <h3>Mobile Apps</h3>
-                        <p>Native iOS and Android apps for learning on the go</p>
-                    </div>
-                    <div class="roadmap-card">
-                        <div class="status status-planned"></div>
-                        <h3>Enhanced Features</h3>
-                        <p>Text-based learning support and community content sharing</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -155,30 +358,40 @@
         <!-- Download Section -->
         <section id="download" class="download">
             <div class="container container-narrow">
-                <h2>Download SHIZEN</h2>
-                <p class="section-intro">Currently in Alpha - Free During Development</p>
+                <h2>Download <span class="accent-text">Shizen</span></h2>
+                <p class="section-intro">Currently in Alpha – Free during development</p>
                 <div class="download-options">
-                    <div class="download-card">
+                    <div class="download-card fade-in">
                         <img src="assets/icons/mac.svg" alt="macOS" width="64" height="64">
                         <h3>macOS</h3>
-                        <p>Version: Alpha 0.1</p>
+                        <p>Alpha 0.1</p>
                         <details class="version-details">
                             <summary>Version Information</summary>
                             <div class="version-info">
                                 <ul>
-                                    <li>Currently version 0.1 is rough alpha</li>
-                                    <li>Currently using Apple native transcriber for feature test</li>
-                                    <li>No LLM integration app yet</li>
-                                    <li>Current rough version for proof of concept</li>
+                                    <li>Alpha testing phase</li>
+                                    <li>Using Apple native transcriber</li>
+                                    <li>No LLM integration yet</li>
+                                    <li>Proof of concept version</li>
                                 </ul>
                             </div>
                         </details>
+                        <div class="installation-steps">
+                            <h4>⚠️ Installation Instructions</h4>
+                            <ol>
+                                <li>Download the DMG file from the link below</li>
+                                <li>Double-click to mount the DMG file</li>
+                                <li>Drag Shizen to your Applications folder</li>
+                                <li>When first launching, right-click on Shizen and select "Open"</li>
+                                <li>If you see a security warning, go to System Preferences → Security & Privacy → General and click "Open Anyway"</li>
+                            </ol>
+                        </div>
                         <a href="https://drive.google.com/file/d/1YSmRLRQ3Z3VLHhOc1mRtR8IPWrjGOjcT/view?usp=share_link" class="btn btn-primary download-btn" target="_blank" rel="noopener noreferrer">
                             Download for Mac
                         </a>
                     </div>
                     
-                    <div class="download-card disabled">
+                    <div class="download-card disabled fade-in-delay-1">
                         <img src="assets/icons/windows.svg" alt="Windows" width="64" height="64">
                         <h3>Windows</h3>
                         <p>Coming Soon</p>
@@ -188,13 +401,55 @@
             </div>
         </section>
 
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="roadmap">
+            <div class="container container-narrow">
+                <h2>The <span class="accent-text">Future</span> of Shizen</h2>
+                <p class="section-intro">Our roadmap for expanding accessibility and enhancing features</p>
+                <div class="roadmap-grid">
+                    <div class="roadmap-card fade-in">
+                        <div class="status status-current"></div>
+                        <h3>Windows Support</h3>
+                        <p>Bringing Shizen to Windows users (In active development)</p>
+                    </div>
+                    <div class="roadmap-card fade-in-delay-1">
+                        <div class="status status-upcoming"></div>
+                        <h3>Mobile Apps</h3>
+                        <p>Native iOS and Android apps for learning Japanese on the go</p>
+                    </div>
+                    <div class="roadmap-card fade-in-delay-2">
+                        <div class="status status-planned"></div>
+                        <h3>Enhanced Features</h3>
+                        <p>Text-based learning support and community content sharing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="support">
+            <div class="container container-narrow">
+                <h2>Support <span class="accent-text">Shizen</span></h2>
+                <p class="section-intro">Your support drives development forward and helps make immersive language learning accessible to everyone</p>
+                
+                <div class="support-card fade-in">
+                    <div class="heart-icon">❤️</div>
+                    <h3>Contribute to Development</h3>
+                    <p>Support the project with a contribution and help shape the future of language learning technology</p>
+                    <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        Make a Donation
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Feedback Section -->
         <section id="feedback" class="feedback">
             <div class="container container-narrow">
-                <h2>Share Your Feedback</h2>
-                <p class="section-intro">Your feedback helps improve SHIZEN</p>
-                <div class="feedback-container">
-                    <a href="mailto:Jimjatt1999@gmail.com?subject=SHIZEN%20Feedback" class="btn btn-primary feedback-btn">
+                <h2>Share Your <span class="accent-text">Feedback</span></h2>
+                <p class="section-intro">Help improve Shizen with your suggestions and experiences</p>
+                <div class="feedback-container fade-in">
+                    <a href="mailto:Jimjatt1999@gmail.com?subject=Shizen%20Feedback" class="btn btn-primary feedback-btn">
                         ✉️ Send Feedback
                     </a>
                 </div>
@@ -202,34 +457,18 @@
         </section>
     </main>
 
-        <!-- Support Section -->
-        <section id="support" class="support">
-            <div class="container container-narrow">
-                <h2>Support SHIZEN</h2>
-                <p class="section-intro">Your support helps keep the project alive and growing!</p>
-                
-                <div class="support-card">
-                    <h3>Buy Me a Coffee</h3>
-                    <p>Support the project with a one-time contribution</p>
-                    <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        ☕ Buy Me a Coffee
-                    </a>
-                </div>
-            </div>
-        </section>
-
     <footer class="footer">
         <div class="container container-narrow">
             <div class="contact-info">
                 <h3>Contact & Social</h3>
                 <div class="contact-links">
-                    <a href="mailto:Jimjatt1999@gmail.com" class="contact-link">
+                    <a href="mailto:Jimjatt1999@gmail.com" class="contact-link fade-in">
                         <img src="assets/icons/email.svg" alt="Email" width="24" height="24">
                         Jimjatt1999@gmail.com
                     </a>
-                    <a href="https://x.com/Jimi_seun" class="contact-link" target="_blank" rel="noopener noreferrer">
+                    <a href="https://x.com/Jimi_seun" class="contact-link fade-in-delay-1" target="_blank" rel="noopener noreferrer">
                         <img src="assets/icons/x.svg" alt="X (Twitter)" width="24" height="24">
-                        X (Twitter)
+                        @Jimi_seun
                     </a>
                 </div>
             </div>
@@ -238,157 +477,6 @@
 
     <script src="js/darkMode.js"></script>
     <script src="js/main.js"></script>
-
-    <style>
-    .screenshot-gallery {
-        position: relative;
-        max-width: 100%;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .gallery-image {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .gallery-controls {
-        margin-top: 1rem;
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    .gallery-btn {
-        padding: 0.5rem 1rem;
-        background-color: #333;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .gallery-btn:hover {
-        background-color: #555;
-    }
-
-    .version-details {
-        margin: 1rem 0;
-        cursor: pointer;
-    }
-
-    .version-details summary {
-        padding: 0.5rem;
-        background-color: rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        transition: background-color 0.3s;
-    }
-
-    .version-details summary:hover {
-        background-color: rgba(0, 0, 0, 0.15);
-    }
-
-    .version-info {
-        margin-top: 1rem;
-        padding: 1rem;
-        background-color: rgba(0, 0, 0, 0.05);
-        border-radius: 4px;
-    }
-
-    .version-info ul {
-        margin: 0;
-        padding-left: 1.2rem;
-        text-align: left;
-    }
-
-    .version-info li {
-        margin: 0.5rem 0;
-        color: var(--text-color);
-    }
-
-    .demo-note {
-        margin-top: 1.5rem;
-        padding: 1rem;
-        background-color: rgba(0, 0, 0, 0.05);
-        border-radius: 8px;
-    }
-
-    .note-text {
-        font-size: 0.95rem;
-        color: var(--text-color);
-        margin: 0;
-        line-height: 1.5;
-    }
-
-    .feedback {
-        padding: 4rem 0;
-    }
-
-    .feedback-container {
-        text-align: center;
-        margin: 2rem 0;
-    }
-
-    .feedback-btn {
-        font-size: 1.1rem;
-        padding: 1rem 2rem;
-    }
-
-    .footer {
-        background-color: var(--secondary-bg-color);
-        padding: 3rem 0;
-        margin-top: 4rem;
-    }
-
-    .contact-info {
-        text-align: center;
-    }
-
-    .contact-links {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-        margin-top: 1.5rem;
-    }
-
-    .contact-link {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--text-color);
-        text-decoration: none;
-        transition: opacity 0.3s;
-    }
-
-    .contact-link:hover {
-        opacity: 0.8;
-    }
-
-    .contact-link img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .video-container video {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-    </style>
 
     <script>
     const images = [
@@ -400,16 +488,183 @@
     ];
     let currentImageIndex = 0;
     const galleryImage = document.getElementById('galleryImage');
+    const indicatorsContainer = document.getElementById('galleryIndicators');
+    let isTransitioning = false;
+
+    // Preload all images for smoother transitions
+    function preloadImages() {
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }
+
+    // Create indicators
+    function createIndicators() {
+        indicatorsContainer.innerHTML = ''; // Clear existing indicators
+        images.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.className = index === currentImageIndex ? 'indicator active' : 'indicator';
+            indicator.onclick = () => goToSlide(index);
+            indicatorsContainer.appendChild(indicator);
+        });
+    }
+
+    // Update active indicator
+    function updateIndicators() {
+        document.querySelectorAll('.indicator').forEach((indicator, index) => {
+            if (index === currentImageIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+
+    function goToSlide(index) {
+        if (index === currentImageIndex || isTransitioning) return;
+        isTransitioning = true;
+        currentImageIndex = index;
+        updateGallery();
+    }
 
     function nextImage() {
+        if (isTransitioning) return;
+        isTransitioning = true;
         currentImageIndex = (currentImageIndex + 1) % images.length;
-        galleryImage.src = images[currentImageIndex];
+        updateGallery('next');
     }
 
     function prevImage() {
+        if (isTransitioning) return;
+        isTransitioning = true;
         currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-        galleryImage.src = images[currentImageIndex];
+        updateGallery('prev');
     }
+
+    function updateGallery(direction = null) {
+        // Add a larger transform for the borderless gallery
+        if (direction === 'next') {
+            galleryImage.style.transform = 'translateX(60px) scale(0.95)';
+        } else if (direction === 'prev') {
+            galleryImage.style.transform = 'translateX(-60px) scale(0.95)';
+        }
+        
+        galleryImage.style.opacity = 0;
+        
+        setTimeout(() => {
+            galleryImage.src = images[currentImageIndex];
+            
+            // Reset transform and fade in
+            setTimeout(() => {
+                galleryImage.style.opacity = 1;
+                galleryImage.style.transform = 'translateX(0) scale(1)';
+                updateIndicators();
+                
+                // Allow for next transition after animation completes
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500);
+            }, 50);
+        }, 300);
+    }
+
+    // Set up gallery navigation with keyboard
+    function setupKeyboardNavigation() {
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevImage();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+    }
+
+    // Add 3D tilt effect to the gallery
+    function setupTiltEffect() {
+        const gallery = document.querySelector('.screenshot-gallery');
+        gallery.addEventListener('mousemove', function(e) {
+            const galleryRect = gallery.getBoundingClientRect();
+            const centerX = galleryRect.left + galleryRect.width / 2;
+            const centerY = galleryRect.top + galleryRect.height / 2;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // More subtle tilt for borderless gallery
+            const tiltX = (centerY - mouseY) / 40;
+            const tiltY = (mouseX - centerX) / 40;
+            
+            // Apply transform with slight scale for depth
+            gallery.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+        });
+        
+        gallery.addEventListener('mouseleave', function() {
+            gallery.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+    }
+
+    // Auto-advance gallery
+    let autoAdvanceInterval = setInterval(nextImage, 5000);
+
+    // Initialize gallery
+    document.addEventListener('DOMContentLoaded', function() {
+        // Preload images
+        preloadImages();
+        
+        // Set up indicators
+        createIndicators();
+        
+        // Set up keyboard navigation
+        setupKeyboardNavigation();
+        
+        // Set up tilt effect
+        setupTiltEffect();
+        
+        // Pause auto-advance on hover
+        const gallery = document.querySelector('.screenshot-gallery');
+        gallery.addEventListener('mouseenter', () => {
+            clearInterval(autoAdvanceInterval);
+            autoAdvanceInterval = null;
+        });
+        
+        gallery.addEventListener('mouseleave', () => {
+            gallery.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            if (!autoAdvanceInterval) {
+                autoAdvanceInterval = setInterval(nextImage, 5000);
+            }
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-active');
+            mobileMenuBtn.setAttribute('aria-expanded', 
+                mobileMenuBtn.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+        });
+
+        // Intersection Observer for animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .fade-in-delay-1, .fade-in-delay-2, .slide-right').forEach(el => {
+            observer.observe(el);
+        });
+    });
     </script>
 </body>
 </html>
