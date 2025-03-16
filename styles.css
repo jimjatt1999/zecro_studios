@@ -33,6 +33,9 @@
     --section-spacing: 8rem;
     --content-spacing: 2rem;
     --element-spacing: 1rem;
+    
+    /* Fallback styles for when 3D model loading fails */
+    --loading-timeout: 6000ms; /* Time to wait before showing fallback */
 }
 
 /* Dark Theme */
@@ -361,12 +364,12 @@ mark {
     align-items: center;
     padding-top: var(--header-height);
     justify-content: space-between;
-    gap: 4rem;
+    gap: 3rem;
 }
 
 .hero-content {
-    flex: 0.6;
-    max-width: 32rem;
+    flex: 0.5;
+    max-width: 30rem;
 }
 
 .hero-content h1 {
@@ -388,8 +391,11 @@ mark {
 }
 
 .hero-image {
-    flex: 1.8;
-    max-width: 60rem;
+    flex: 2;
+    max-width: 65rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* App Screenshots Gallery */
@@ -974,32 +980,37 @@ mark {
 
 /* Theme Toggle */
 .theme-toggle {
-    background: none;
-    border: none;
-    width: 40px;
-    height: 40px;
+    background: rgba(37, 99, 235, 0.1);
+    border: 2px solid rgba(37, 99, 235, 0.2);
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color var(--transition);
+    transition: all var(--transition);
     position: relative;
     z-index: 1002;
+    margin-left: 1rem;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .theme-toggle:hover {
-    background-color: rgba(37, 99, 235, 0.15);
+    background-color: rgba(37, 99, 235, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .theme-toggle img {
     width: 24px;
     height: 24px;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 .theme-toggle:hover img {
-    transform: rotate(30deg);
+    transform: rotate(30deg) scale(1.1);
 }
 
 .theme-toggle img.rotate {
@@ -1011,8 +1022,60 @@ mark {
     to { transform: rotate(360deg); }
 }
 
-[data-theme="dark"] .theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+/* Add a floating theme toggle for better visibility */
+.floating-theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--brand-gradient);
+    border: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    z-index: 1010;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease 1s forwards;
+}
+
+.floating-theme-toggle:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.floating-theme-toggle img {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+    filter: brightness(10);
+}
+
+.floating-theme-toggle:hover img {
+    transform: rotate(30deg);
+}
+
+[data-theme="dark"] .floating-theme-toggle {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+@media (max-width: 768px) {
+    .theme-toggle {
+        position: static;
+        margin-left: 0;
+    }
+    
+    .floating-theme-toggle {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 50px;
+        height: 50px;
+    }
 }
 
 /* Media Queries */
@@ -1096,8 +1159,8 @@ mark {
     }
 
     .theme-toggle {
-        position: absolute;
-        bottom: 2rem;
+        position: static;
+        margin-left: 0;
     }
 
     .hero {
@@ -1106,7 +1169,7 @@ mark {
         padding-top: 8rem;
         min-height: auto;
     }
-
+    
     .hero-content, .hero-image {
         max-width: 100%;
         flex: 1;
@@ -1138,31 +1201,31 @@ mark {
     .hero-content p {
         font-size: 1.125rem;
     }
-
+    
     .hero-buttons {
         flex-direction: column;
         width: 100%;
     }
-
+    
     .btn {
         width: 100%;
     }
-
+    
     .features-card,
     .roadmap-card,
     .download-card {
         padding: 1.5rem;
     }
-
+    
     .tech-items {
         flex-direction: column;
         align-items: center;
     }
-
+    
     .tech-items span {
         width: 100%;
     }
-
+    
     .section-intro {
         font-size: 1rem;
         margin-bottom: 2rem;
@@ -1780,4 +1843,319 @@ mark {
 
 [data-theme="dark"] .learning-tool-card p {
     color: var(--text-2);
+}
+
+/* 3D MacBook Styles */
+.macbook-3d-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+    background-color: transparent;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-2);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(37, 99, 235, 0.1);
+    border-left-color: var(--brand-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.model-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.css-macbook:hover + .model-controls,
+.model-controls:hover {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.model-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    pointer-events: all;
+}
+
+.model-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+.model-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.model-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.model-indicator.active {
+    background-color: var(--brand-primary);
+    transform: scale(1.3);
+}
+
+.model-indicator:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* CSS MacBook Mockup */
+.css-macbook {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 620px;
+    margin: 0 auto;
+    perspective: 2000px;
+    top: 50%;
+    transform: translateY(-10%);
+}
+
+.css-macbook-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25px;
+    background: linear-gradient(90deg, #7d7d7d 0%, #b2b2b2 20%, #c9c9c9 50%, #b2b2b2 80%, #7d7d7d 100%);
+    border-radius: 0 0 10px 10px;
+    z-index: 2;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.css-macbook-body::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    background: #b2b2b2;
+    top: 100%;
+    left: 0;
+    transform: translateZ(-8px) rotateX(-90deg);
+    transform-origin: top center;
+    border-radius: 0 0 5px 5px;
+}
+
+.css-macbook-body::before {
+    content: '';
+    position: absolute;
+    width: 140px;
+    height: 5px;
+    background: linear-gradient(90deg, #7d7d7d 0%, #b2b2b2 50%, #7d7d7d 100%);
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateZ(-3px) rotateX(-90deg);
+    transform-origin: top center;
+    border-radius: 0 0 5px 5px;
+}
+
+.css-macbook-screen-container {
+    position: absolute;
+    width: 94%;
+    height: 0;
+    padding-bottom: 58%;
+    top: 5%;
+    left: 3%;
+    background: #151515;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform-origin: bottom center;
+    transform: rotateX(90deg);
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 0 1px #666, 0 0 30px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    bottom: 25px;
+    top: auto;
+}
+
+.css-macbook-screen-bezel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #151515 0%, #2c2c2c 20%, #3a3a3a 50%, #2c2c2c 80%, #151515 100%);
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.css-macbook-screen {
+    position: absolute;
+    width: 96%;
+    height: 92%;
+    top: 4%;
+    left: 2%;
+    background: #000;
+    overflow: hidden;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.css-macbook-camera {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #333;
+    border-radius: 50%;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.css-macbook-camera::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #555;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.css-macbook-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.css-macbook-image.active {
+    opacity: 1;
+}
+
+/* Screenshot sets for light/dark mode */
+.screenshot-set {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
+}
+
+.dark-screenshots {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.light-screenshots {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Show dark screenshots in dark mode */
+[data-theme="dark"] .dark-screenshots {
+    opacity: 1;
+    visibility: visible;
+}
+
+[data-theme="dark"] .light-screenshots {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.css-macbook.animate .css-macbook-screen-container {
+    transform: rotateX(12deg);
+}
+
+.scrolled .css-macbook-screen-container {
+    transform: rotateX(0deg) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .css-macbook {
+        height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .css-macbook {
+        height: 380px;
+    }
+    
+    .css-macbook-body {
+        height: 18px;
+    }
+}
+
+/* Shadow effect for depth */
+.css-macbook::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 5%;
+    width: 90%;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    z-index: 0;
 }

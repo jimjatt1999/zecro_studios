@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
     <link rel="stylesheet" href="styles.css">
+    <!-- Remove Three.js dependencies since we're using CSS -->
 </head>
 <body>
     <header class="header">
@@ -57,19 +58,54 @@
                 </div>
             </div>
             <div class="hero-image fade-in-delay-1">
-                <div class="screenshot-gallery">
-                    <img src="assets/images/img_1.png" alt="Shizen Screenshot" class="gallery-image" id="galleryImage">
-                    <div class="gallery-controls">
-                        <button class="gallery-btn prev-btn" onclick="prevImage()">
-                            &#10094;
-                        </button>
-                        <button class="gallery-btn next-btn" onclick="nextImage()">
-                            &#10095;
-                        </button>
+                <!-- Replace 3D model with CSS MacBook -->
+                <div id="macbook-container" class="css-macbook">
+                    <div class="css-macbook-body"></div>
+                    <div class="css-macbook-screen-container">
+                        <div class="css-macbook-screen-bezel">
+                            <div class="css-macbook-camera"></div>
+                            <div class="css-macbook-screen">
+                                <!-- Light mode screenshots -->
+                                <div class="screenshot-set light-screenshots">
+                                    <img src="assets/images/app_screenshots/light_screenshots/1.home.png" alt="Shizen App - Home" class="css-macbook-image active" data-index="0">
+                                    <img src="assets/images/app_screenshots/light_screenshots/2.png" alt="Shizen App - Review" class="css-macbook-image" data-index="1">
+                                    <img src="assets/images/app_screenshots/light_screenshots/3.png" alt="Shizen App - Learning" class="css-macbook-image" data-index="2">
+                                    <img src="assets/images/app_screenshots/light_screenshots/4.stats.png" alt="Shizen App - Statistics" class="css-macbook-image" data-index="3">
+                                    <img src="assets/images/app_screenshots/light_screenshots/4.5.addcontent.png" alt="Shizen App - Add Content" class="css-macbook-image" data-index="4">
+                                    <img src="assets/images/app_screenshots/light_screenshots/4.6.addcontent.png" alt="Shizen App - Podcast" class="css-macbook-image" data-index="5">
+                                    <img src="assets/images/app_screenshots/light_screenshots/4.7.processingview.png" alt="Shizen App - Processing" class="css-macbook-image" data-index="6">
+                                    <img src="assets/images/app_screenshots/light_screenshots/5.manage.png" alt="Shizen App - Manage" class="css-macbook-image" data-index="7">
+                                    <img src="assets/images/app_screenshots/light_screenshots/6.backup.png" alt="Shizen App - Backup" class="css-macbook-image" data-index="8">
+                                    <img src="assets/images/app_screenshots/light_screenshots/7.settings.png" alt="Shizen App - Settings" class="css-macbook-image" data-index="9">
+                                </div>
+                                
+                                <!-- Dark mode screenshots -->
+                                <div class="screenshot-set dark-screenshots">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/1.homedark.png" alt="Shizen App - Home" class="css-macbook-image active" data-index="0">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/2dark.png" alt="Shizen App - Review" class="css-macbook-image" data-index="1">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/3dark.png" alt="Shizen App - Learning" class="css-macbook-image" data-index="2">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/4.statsdark.png" alt="Shizen App - Statistics" class="css-macbook-image" data-index="3">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/4.5.addcontentdark.png" alt="Shizen App - Add Content" class="css-macbook-image" data-index="4">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/4.6.podcastviewdark.png" alt="Shizen App - Podcast" class="css-macbook-image" data-index="5">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/4.7.processingviewdark.png" alt="Shizen App - Processing" class="css-macbook-image" data-index="6">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/5.managedark.png" alt="Shizen App - Manage" class="css-macbook-image" data-index="7">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/6.backupdark.png" alt="Shizen App - Backup" class="css-macbook-image" data-index="8">
+                                    <img src="assets/images/app_screenshots/dark_screenshots/7.darkssettings.png" alt="Shizen App - Settings" class="css-macbook-image" data-index="9">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="gallery-indicators" id="galleryIndicators">
-                        <!-- Indicators will be added dynamically via JavaScript -->
-                    </div>
+                </div>
+                <div class="model-controls">
+                    <button class="model-btn prev-btn" id="prevScreenshot">
+                        &#10094;
+                    </button>
+                    <button class="model-btn next-btn" id="nextScreenshot">
+                        &#10095;
+                    </button>
+                </div>
+                <div class="model-indicators" id="modelIndicators">
+                    <!-- Indicators will be added dynamically via JavaScript -->
                 </div>
             </div>
         </section>
@@ -117,7 +153,7 @@
                         </ul>
                     </div>
                     <div class="core-feature-image">
-                        <img src="assets/images/img_3.png" alt="Audio Processing Interface" class="feature-image">
+                        <img src="assets/images/audio_processing.png" alt="Audio Processing Interface" class="feature-image">
                     </div>
                 </div>
                 
@@ -159,31 +195,31 @@
         <section id="learning-tools" class="learning-tools">
             <div class="container">
                 <h2>Learning <span class="accent-text">Tools</span></h2>
-                <p class="section-intro">Interactive exercises and games designed to enhance comprehension and retention</p>
+                <p class="section-intro">Interactive exercises designed to enhance your Japanese comprehension</p>
                 
                 <div class="learning-tools-grid">
                     <div class="learning-tool-card fade-in">
-                        <div class="core-feature-image">
-                            <img src="assets/images/missing word game.png" alt="Missing Word Challenge" class="feature-image">
+                        <div class="tool-icon">
+                            <img src="assets/images/features/media-processing.svg" alt="" width="48" height="48">
                         </div>
                         <h3>Missing Word Challenge</h3>
-                        <p>Enhance comprehension by identifying strategically blurred words within a transcript.</p>
+                        <p>Identify strategically blurred words within transcripts to enhance comprehension.</p>
                     </div>
                     
                     <div class="learning-tool-card fade-in-delay-1">
-                        <div class="core-feature-image">
-                            <img src="assets/images/word order game.png" alt="Word Arrangement Exercise" class="feature-image">
+                        <div class="tool-icon">
+                            <img src="assets/images/features/ai-analysis.svg" alt="" width="48" height="48">
                         </div>
-                        <h3>Word Arrangement Exercise</h3>
-                        <p>Improve syntax understanding by reconstructing Japanese sentences from scrambled words.</p>
+                        <h3>Word Arrangement</h3>
+                        <p>Reconstruct Japanese sentences from scrambled words to improve syntax understanding.</p>
                     </div>
                     
                     <div class="learning-tool-card fade-in-delay-2">
-                        <div class="core-feature-image">
-                            <img src="assets/images/fill in the blank game.png" alt="Fill in the Blank Exercise" class="feature-image">
+                        <div class="tool-icon">
+                            <img src="assets/images/features/smart-review.svg" alt="" width="48" height="48">
                         </div>
                         <h3>Fill in the Blank</h3>
-                        <p>Test your vocabulary knowledge by filling in missing words based on context and audio cues.</p>
+                        <p>Complete sentences with missing words based on context and audio cues.</p>
                     </div>
                     
                     <div class="learning-tool-card fade-in">
@@ -191,23 +227,7 @@
                             <img src="assets/images/features/continuous-play.svg" alt="" width="48" height="48">
                         </div>
                         <h3>Continuous Playback</h3>
-                        <p>Review multiple audio segments in sequence for extended practice sessions.</p>
-                    </div>
-                    
-                    <div class="learning-tool-card fade-in-delay-1">
-                        <div class="tool-icon">
-                            <img src="assets/images/features/study-notes.svg" alt="" width="48" height="48">
-                        </div>
-                        <h3>Study Notes</h3>
-                        <p>Add personalized notes and mnemonics to each segment to create context.</p>
-                    </div>
-                    
-                    <div class="learning-tool-card fade-in-delay-2">
-                        <div class="tool-icon">
-                            <img src="assets/images/features/text-speech.svg" alt="" width="48" height="48">
-                        </div>
-                        <h3>Text-to-Speech Integration</h3>
-                        <p>Generate synthetic audio for Japanese text using the macOS Kyoko voice.</p>
+                        <p>Review multiple audio segments in sequence for extended practice.</p>
                     </div>
                 </div>
             </div>
@@ -359,37 +379,37 @@
         <section id="download" class="download">
             <div class="container container-narrow">
                 <h2>Download <span class="accent-text">Shizen</span></h2>
-                <p class="section-intro">Currently in Alpha – Free during development</p>
+                <p class="section-intro">One-time purchase – No subscription required</p>
                 <div class="download-options">
                     <div class="download-card fade-in">
                         <img src="assets/icons/mac.svg" alt="macOS" width="64" height="64">
                         <h3>macOS</h3>
-                        <p>Alpha 0.1</p>
+                        <p>Current Version</p>
                         <details class="version-details">
                             <summary>Version Information</summary>
                             <div class="version-info">
                                 <ul>
-                                    <li>Alpha testing phase</li>
+                                    <li>Native macOS app (Apple Silicon)</li>
                                     <li>Using Apple native transcriber</li>
-                                    <li>No LLM integration yet</li>
-                                    <li>Proof of concept version</li>
+                                    <li>Full audio processing features</li>
+                                    <li>Complete learning system with games</li>
                                 </ul>
                             </div>
                         </details>
                         <div class="installation-steps">
                             <h4>⚠️ Installation Instructions</h4>
                             <ol>
-                                <li>Download the DMG file from the link below</li>
+                                <li>Purchase from Gumroad using the link below</li>
+                                <li>Download the DMG file after purchase</li>
                                 <li>Double-click to mount the DMG file</li>
                                 <li>Drag Shizen to your Applications folder</li>
                                 <li>When first launching, right-click on Shizen and select "Open"</li>
-                                <li>If you see a security warning, go to System Preferences → Security & Privacy → General and click "Open Anyway"</li>
                             </ol>
                         </div>
-                        <a href="https://drive.google.com/file/d/1YSmRLRQ3Z3VLHhOc1mRtR8IPWrjGOjcT/view?usp=share_link" class="btn btn-primary download-btn" target="_blank" rel="noopener noreferrer">
-                            Download for Mac
+                        <a href="https://zekurhythm.gumroad.com/l/Shizen" class="btn btn-primary download-btn" target="_blank" rel="noopener noreferrer">
+                            Purchase for Mac
                         </a>
-                    </div>
+                </div>
                     
                     <div class="download-card disabled fade-in-delay-1">
                         <img src="assets/icons/windows.svg" alt="Windows" width="64" height="64">
@@ -475,164 +495,91 @@
         </div>
     </footer>
 
+    <!-- Floating Theme Toggle -->
+    <button class="floating-theme-toggle" id="floatingThemeToggle" aria-label="Toggle dark mode">
+        <img src="assets/icons/moon.svg" alt="" width="28" height="28">
+    </button>
+
     <script src="js/darkMode.js"></script>
     <script src="js/main.js"></script>
-
+    <!-- Replace 3D model script with CSS MacBook script -->
     <script>
-    const images = [
-        'assets/images/img_1.png',
-        'assets/images/img_2.png',
-        'assets/images/img_3.png',
-        'assets/images/img_4.png',
-        'assets/images/img_5.png'
-    ];
-    let currentImageIndex = 0;
-    const galleryImage = document.getElementById('galleryImage');
-    const indicatorsContainer = document.getElementById('galleryIndicators');
-    let isTransitioning = false;
-
-    // Preload all images for smoother transitions
-    function preloadImages() {
-        images.forEach(src => {
-            const img = new Image();
-            img.src = src;
+    document.addEventListener('DOMContentLoaded', function() {
+        // CSS MacBook Animation
+        const macbook = document.querySelector('.css-macbook');
+        
+        // Animate screen opening on load
+        setTimeout(() => {
+            macbook.classList.add('animate');
+        }, 500);
+        
+        // Open screen fully on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                macbook.classList.add('scrolled');
+            } else {
+                macbook.classList.remove('scrolled');
+            }
         });
-    }
-
-    // Create indicators
-    function createIndicators() {
-        indicatorsContainer.innerHTML = ''; // Clear existing indicators
-        images.forEach((_, index) => {
+        
+        // Image carousel functionality for both light and dark sets
+        const lightImages = document.querySelectorAll('.light-screenshots .css-macbook-image');
+        const darkImages = document.querySelectorAll('.dark-screenshots .css-macbook-image');
+        const prevBtn = document.getElementById('prevScreenshot');
+        const nextBtn = document.getElementById('nextScreenshot');
+        const indicatorsContainer = document.getElementById('modelIndicators');
+        let currentIndex = 0;
+        
+        // Create indicators (only need one set as the indices are the same for both light/dark)
+        lightImages.forEach((_, index) => {
             const indicator = document.createElement('div');
-            indicator.className = index === currentImageIndex ? 'indicator active' : 'indicator';
-            indicator.onclick = () => goToSlide(index);
+            indicator.className = index === currentIndex ? 'model-indicator active' : 'model-indicator';
+            indicator.onclick = () => goToImage(index);
             indicatorsContainer.appendChild(indicator);
         });
-    }
-
-    // Update active indicator
-    function updateIndicators() {
-        document.querySelectorAll('.indicator').forEach((indicator, index) => {
-            if (index === currentImageIndex) {
-                indicator.classList.add('active');
-            } else {
-                indicator.classList.remove('active');
-            }
-        });
-    }
-
-    function goToSlide(index) {
-        if (index === currentImageIndex || isTransitioning) return;
-        isTransitioning = true;
-        currentImageIndex = index;
-        updateGallery();
-    }
-
-    function nextImage() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        updateGallery('next');
-    }
-
-    function prevImage() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-        updateGallery('prev');
-    }
-
-    function updateGallery(direction = null) {
-        // Add a larger transform for the borderless gallery
-        if (direction === 'next') {
-            galleryImage.style.transform = 'translateX(60px) scale(0.95)';
-        } else if (direction === 'prev') {
-            galleryImage.style.transform = 'translateX(-60px) scale(0.95)';
+        
+        // Navigation functions
+        function updateActiveImage(index) {
+            // Update light mode images
+            lightImages.forEach(img => img.classList.remove('active'));
+            lightImages[index].classList.add('active');
+            
+            // Update dark mode images
+            darkImages.forEach(img => img.classList.remove('active'));
+            darkImages[index].classList.add('active');
+            
+            // Update indicators
+            const indicators = indicatorsContainer.querySelectorAll('.model-indicator');
+            indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
         }
         
-        galleryImage.style.opacity = 0;
+        function goToImage(index) {
+            currentIndex = index;
+            updateActiveImage(currentIndex);
+        }
         
-        setTimeout(() => {
-            galleryImage.src = images[currentImageIndex];
-            
-            // Reset transform and fade in
-            setTimeout(() => {
-                galleryImage.style.opacity = 1;
-                galleryImage.style.transform = 'translateX(0) scale(1)';
-                updateIndicators();
-                
-                // Allow for next transition after animation completes
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, 500);
-            }, 50);
-        }, 300);
-    }
-
-    // Set up gallery navigation with keyboard
-    function setupKeyboardNavigation() {
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                prevImage();
-            } else if (e.key === 'ArrowRight') {
-                nextImage();
-            }
-        });
-    }
-
-    // Add 3D tilt effect to the gallery
-    function setupTiltEffect() {
-        const gallery = document.querySelector('.screenshot-gallery');
-        gallery.addEventListener('mousemove', function(e) {
-            const galleryRect = gallery.getBoundingClientRect();
-            const centerX = galleryRect.left + galleryRect.width / 2;
-            const centerY = galleryRect.top + galleryRect.height / 2;
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            
-            // More subtle tilt for borderless gallery
-            const tiltX = (centerY - mouseY) / 40;
-            const tiltY = (mouseX - centerX) / 40;
-            
-            // Apply transform with slight scale for depth
-            gallery.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
-        });
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % lightImages.length;
+            updateActiveImage(currentIndex);
+        }
         
-        gallery.addEventListener('mouseleave', function() {
-            gallery.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-        });
-    }
-
-    // Auto-advance gallery
-    let autoAdvanceInterval = setInterval(nextImage, 5000);
-
-    // Initialize gallery
-    document.addEventListener('DOMContentLoaded', function() {
-        // Preload images
-        preloadImages();
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + lightImages.length) % lightImages.length;
+            updateActiveImage(currentIndex);
+        }
         
-        // Set up indicators
-        createIndicators();
+        // Add event listeners
+        nextBtn.addEventListener('click', nextImage);
+        prevBtn.addEventListener('click', prevImage);
         
-        // Set up keyboard navigation
-        setupKeyboardNavigation();
-        
-        // Set up tilt effect
-        setupTiltEffect();
-        
-        // Pause auto-advance on hover
-        const gallery = document.querySelector('.screenshot-gallery');
-        gallery.addEventListener('mouseenter', () => {
-            clearInterval(autoAdvanceInterval);
-            autoAdvanceInterval = null;
-        });
-        
-        gallery.addEventListener('mouseleave', () => {
-            gallery.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-            if (!autoAdvanceInterval) {
-                autoAdvanceInterval = setInterval(nextImage, 5000);
-            }
-        });
+        // Auto-rotate images every 5 seconds
+        setInterval(nextImage, 5000);
         
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
