@@ -396,6 +396,7 @@ mark {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 /* App Screenshots Gallery */
@@ -1064,20 +1065,6 @@ mark {
     background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
-@media (max-width: 768px) {
-    .theme-toggle {
-        position: static;
-        margin-left: 0;
-    }
-    
-    .floating-theme-toggle {
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 50px;
-        height: 50px;
-    }
-}
-
 /* Media Queries */
 @media (max-width: 1200px) {
     :root {
@@ -1123,6 +1110,7 @@ mark {
     
     .mobile-menu-btn {
         display: block;
+        z-index: 1001;
     }
 
     .nav-links {
@@ -1133,6 +1121,7 @@ mark {
         bottom: 0;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         gap: 2.5rem;
         background-color: var(--bg);
         transform: translateX(100%);
@@ -1140,34 +1129,45 @@ mark {
         transition: transform var(--transition), opacity var(--transition);
         visibility: hidden;
         padding: 2rem;
+        z-index: 1000;
     }
 
     .nav-links.active {
         transform: translateX(0);
         opacity: 1;
         visibility: visible;
+        overflow-y: auto;
     }
 
     .nav-links a {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
+        padding: 0.75rem;
+        display: block;
+        width: 100%;
+        text-align: center;
     }
 
     .nav-links .btn {
         margin-top: 1.5rem;
         width: 100%;
         font-size: 1.2rem;
+        justify-content: center;
     }
 
     .theme-toggle {
         position: static;
-        margin-left: 0;
+        margin: 1.5rem auto 0;
+        display: flex;
+        justify-content: center;
     }
 
     .hero {
         flex-direction: column;
         text-align: center;
-        padding-top: 8rem;
+        padding-top: 5rem;
+        padding-bottom: 3rem;
         min-height: auto;
+        gap: 1.5rem;
     }
     
     .hero-content, .hero-image {
@@ -1175,17 +1175,37 @@ mark {
         flex: 1;
     }
     
+    .hero-content {
+        margin-bottom: 1rem;
+    }
+    
+    .hero-image {
+        width: 100%;
+        position: relative;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 500px;
+        overflow: visible;
+    }
+    
     .hero-buttons {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
     
     .section-intro {
         font-size: 1.125rem;
     }
     
-    .screenshot-gallery {
-        max-width: 100%;
-        margin-top: 2rem;
+    .floating-theme-toggle {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 50px;
+        height: 50px;
+        z-index: 999;
     }
 }
 
@@ -1194,21 +1214,43 @@ mark {
         --section-spacing: 4rem;
     }
     
+    .hero {
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+    }
+    
+    .hero-image {
+        min-height: 350px !important;
+        overflow: visible !important;
+    }
+    
+    .css-macbook {
+        display: block !important;
+        visibility: visible !important;
+        height: 300px !important;
+    }
+    
     .hero-content h1 {
         font-size: 2.25rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
     }
 
     .hero-content p {
         font-size: 1.125rem;
+        margin-bottom: 1.5rem;
     }
     
     .hero-buttons {
         flex-direction: column;
         width: 100%;
+        gap: 0.75rem;
     }
     
     .btn {
         width: 100%;
+        padding: 0.875rem 1.5rem;
+        justify-content: center;
     }
     
     .features-card,
@@ -1228,11 +1270,43 @@ mark {
     
     .section-intro {
         font-size: 1rem;
-        margin-bottom: 2rem;
+        padding: 0 0.5rem;
     }
     
     .support-card {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    /* Improve mobile menu */
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.6rem;
+    }
+    
+    /* Optimize indicator dots on small screens */
+    .model-indicators {
+        bottom: 10px;
+    }
+    
+    /* Ensure MacBook controls are very visible */
+    .model-controls {
+        padding: 0 0.25rem;
+    }
+    
+    /* Fix overflow issues with images */
+    .css-macbook-image {
+        object-fit: contain;
+    }
+    
+    /* Ensure core feature sections stack properly */
+    .core-feature-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .core-feature-content,
+    .core-feature-image {
+        padding: 0;
     }
 }
 
@@ -1966,6 +2040,7 @@ mark {
     perspective: 2000px;
     top: 50%;
     transform: translateY(-10%);
+    z-index: 10; /* Ensure it's above other elements */
 }
 
 .css-macbook-body {
@@ -2024,6 +2099,8 @@ mark {
     z-index: 1;
     bottom: 25px;
     top: auto;
+    backface-visibility: hidden; /* Add this to prevent rendering issues */
+    -webkit-backface-visibility: hidden; /* For Safari */
 }
 
 .css-macbook-screen-bezel {
@@ -2133,17 +2210,118 @@ mark {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .css-macbook {
-        height: 500px;
+        height: 450px;
+        transform: translateY(0); /* Reset vertical positioning on mobile */
+        margin-top: 20px; /* Add some space at the top */
+        margin-bottom: 20px;
+        position: relative;
+        top: 0; /* Reset top positioning */
+        transform-style: preserve-3d; /* Ensure 3D effects work properly */
+        perspective: 1500px; /* Adjust perspective for mobile */
+    }
+    
+    /* Adjust screen container for better visibility on mobile */
+    .css-macbook-screen-container {
+        width: 92%;
+        left: 4%;
+        bottom: 20px;
+    }
+    
+    /* Make model controls always visible on mobile for better usability */
+    .model-controls {
+        opacity: 1;
+        pointer-events: all;
+        padding: 0 0.5rem;
+    }
+    
+    .model-btn {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.7);
+        font-size: 1.2rem;
+    }
+    
+    /* Larger touch targets for indicators */
+    .model-indicator {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .model-indicators {
+        bottom: 15px;
+    }
+    
+    /* Ensure the hero image container properly displays the MacBook */
+    .hero-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: visible;
+        min-height: 450px; /* Ensure enough height for the MacBook */
     }
 }
 
 @media (max-width: 480px) {
     .css-macbook {
-        height: 380px;
+        height: 300px; /* Smaller height for very small screens */
+        transform: translateY(0);
+        margin-bottom: 30px;
+        margin-top: 10px;
     }
     
     .css-macbook-body {
-        height: 18px;
+        height: 15px; /* Thinner body on mobile */
+    }
+    
+    /* Adjust screen proportions for better display on small phones */
+    .css-macbook-screen-container {
+        width: 90%;
+        left: 5%;
+        bottom: 15px;
+    }
+    
+    /* Adjust button size and position for very small screens */
+    .model-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    /* Move indicators up a bit */
+    .model-indicators {
+        bottom: 25px;
+    }
+    
+    /* Ensure screen opens correctly but not too much on small screens */
+    .css-macbook.animate .css-macbook-screen-container {
+        transform: rotateX(8deg);
+    }
+    
+    /* Make tap targets even larger for small screens */
+    .model-indicator {
+        width: 16px;
+        height: 16px;
+        margin: 0 5px;
+    }
+    
+    /* Fix hero layout on small phones */
+    .hero-image {
+        min-height: 320px;
+        margin-top: 0;
+    }
+}
+
+/* Touch-optimized controls */
+@media (hover: none) {
+    /* Always show controls on touch devices */
+    .model-controls {
+        opacity: 1;
+        pointer-events: all;
+    }
+    
+    /* Larger buttons for touch */
+    .model-btn {
+        background-color: rgba(0, 0, 0, 0.7);
     }
 }
 
@@ -2158,4 +2336,19 @@ mark {
     background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
     border-radius: 50%;
     z-index: 0;
+}
+
+/* Fix for Mobile Safari issues */
+@supports (-webkit-touch-callout: none) {
+    .css-macbook {
+        transform-style: flat;
+    }
+    
+    .css-macbook-screen-container {
+        transform: rotateX(0deg);
+    }
+    
+    .css-macbook.animate .css-macbook-screen-container {
+        transform: rotateX(0deg);
+    }
 }
