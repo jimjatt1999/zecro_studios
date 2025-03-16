@@ -127,55 +127,67 @@ document.addEventListener('DOMContentLoaded', function() {
             .forEach(el => observer.observe(el));
     };
 
-    // Video Handling
-    const setupVideo = () => {
-        const video = document.querySelector('#demoVideo');
-        if (video) {
-            const spinner = document.createElement('div');
-            spinner.className = 'loading-spinner';
-            video.parentElement.appendChild(spinner);
+    // Video handling
+    const videos = document.querySelectorAll('.feature-video');
+    
+    // Pause all other videos when one starts playing
+    videos.forEach(video => {
+        video.addEventListener('play', function() {
+            videos.forEach(otherVideo => {
+                if (otherVideo !== video) {
+                    otherVideo.pause();
+                }
+            });
+        });
+    });
 
-            const toggleSpinner = (show) => {
-                spinner.style.display = show ? 'block' : 'none';
-            };
-
-            video.addEventListener('loadstart', () => toggleSpinner(true));
-            video.addEventListener('canplay', () => toggleSpinner(false));
-            video.addEventListener('waiting', () => toggleSpinner(true));
-            video.addEventListener('playing', () => toggleSpinner(false));
-            video.addEventListener('error', () => {
-                toggleSpinner(false);
-                video.parentElement.innerHTML = '<p class="video-error">Video failed to load</p>';
+    // Video tab functionality
+    const setupVideoTabs = () => {
+        const tabs = document.querySelectorAll('.video-tab');
+        const panels = document.querySelectorAll('.video-panel');
+        
+        function switchTab(targetTab) {
+            // Remove active class from all tabs and panels
+            tabs.forEach(tab => tab.classList.remove('active'));
+            panels.forEach(panel => panel.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding panel
+            targetTab.classList.add('active');
+            const targetPanel = document.getElementById(`${targetTab.dataset.video}-panel`);
+            targetPanel.classList.add('active');
+            
+            // Pause all videos except the active one
+            videos.forEach(video => {
+                if (video.parentElement.parentElement.id !== `${targetTab.dataset.video}-panel`) {
+                    video.pause();
+                }
             });
         }
-    };
 
-    // Resize Handler
-    const setupResizeHandler = () => {
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                if (window.innerWidth > 768) {
-                    const nav = document.querySelector('.nav-links');
-                    const menuBtn = document.querySelector('.mobile-menu-btn');
-                    if (nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        menuBtn.querySelector('img').src = 'assets/icons/menu.svg';
-                        menuBtn.setAttribute('aria-expanded', 'false');
-                        document.body.style.overflow = '';
+        // Add click event listeners to tabs
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab));
+        });
+
+        // Add event listeners to pause other videos when one starts playing
+        videos.forEach(video => {
+            video.addEventListener('play', () => {
+                videos.forEach(otherVideo => {
+                    if (otherVideo !== video) {
+                        otherVideo.pause();
                     }
-                }
-            }, 250);
+                });
+            });
         });
     };
 
     // Initialize all functionality
-    setupMobileMenu();
-    setupDownloads();
-    setupSmoothScroll();
-    setupHeaderScroll();
-    setupIntersectionObserver();
-    setupVideo();
-    setupResizeHandler();
+    const init = () => {
+        setupTheme();
+        setupScreenshots();
+        setupIntersectionObserver();
+        setupVideoTabs();
+    };
+
+    init();
 });

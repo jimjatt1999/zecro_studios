@@ -10,12 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-new-sections.css">
     <!-- Remove Three.js dependencies since we're using CSS -->
 </head>
 <body>
     <header class="header">
         <nav class="nav container">
-            <a href="#" class="nav-logo">
+            <a href="#" class="nav-logo" onclick="scrollToTop(event)">
                 <img src="assets/images/logo.svg" alt="Shizen" width="32" height="32">
                 <span>SHIZEN</span>
             </a>
@@ -25,13 +26,12 @@
             </button>
     
             <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#core-functionality">Core Functionality</a>
-                <a href="#learning-tools">Learning Tools</a>
-                <a href="#content-management">Content Management</a>
-                <a href="#demo">Demo</a>
+                <a href="#what-is-shizen">What is Shizen</a>
+                <a href="#app-screenshots">App Features</a>
+                <a href="#interactive-learning">Learning Tools</a>
+                <a href="#video-demos">Demo Videos</a>
+                <a href="#tech-specs">Tech Specs</a>
                 <a href="#download">Download</a>
-                <a href="#roadmap">Roadmap</a>
                 <a href="#support" class="btn btn-primary">Support Project</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <img src="assets/icons/moon.svg" alt="" width="20" height="20">
@@ -51,9 +51,9 @@
                         <img src="assets/icons/download.svg" alt="" width="20" height="20">
                         Download App
                     </a>
-                    <a href="https://github.com/jimjatt1999/shizen_audio" class="btn btn-secondary">
-                        <img src="assets/icons/github.svg" alt="" width="20" height="20">
-                        View on GitHub
+                    <a href="#video-demos" class="btn btn-secondary">
+                        <img src="assets/icons/play.svg" alt="" width="20" height="20">
+                        Watch Demo
                     </a>
                 </div>
             </div>
@@ -92,10 +92,69 @@
                                     <img src="assets/images/app_screenshots/dark_screenshots/6.backupdark.png" alt="Shizen App - Backup" class="css-macbook-image" data-index="8">
                                     <img src="assets/images/app_screenshots/dark_screenshots/7.darkssettings.png" alt="Shizen App - Settings" class="css-macbook-image" data-index="9">
                                 </div>
+                                
+                                <!-- On-screen navigation buttons -->
+                                <div class="macbook-screen-controls">
+                                    <button class="screen-nav-btn prev-btn" id="screenPrevBtn">
+                                        &#10094;
+                                    </button>
+                                    <button class="screen-nav-btn next-btn" id="screenNextBtn">
+                                        &#10095;
+                                    </button>
+                                </div>
+                                <div class="screen-indicators" id="screenIndicators">
+                                    <!-- Indicators will be added dynamically via JavaScript -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Mobile-friendly image gallery (only visible on small screens) -->
+                <div class="mobile-screenshot-gallery">
+                    <div class="mobile-gallery-slide">
+                        <!-- Light mode images for the gallery -->
+                        <div class="screenshot-set light-screenshots">
+                            <img src="assets/images/app_screenshots/light_screenshots/1.home.png" alt="Shizen App - Home" class="mobile-gallery-image active" data-index="0">
+                            <img src="assets/images/app_screenshots/light_screenshots/2.png" alt="Shizen App - Review" class="mobile-gallery-image" data-index="1">
+                            <img src="assets/images/app_screenshots/light_screenshots/3.png" alt="Shizen App - Learning" class="mobile-gallery-image" data-index="2">
+                            <img src="assets/images/app_screenshots/light_screenshots/4.stats.png" alt="Shizen App - Statistics" class="mobile-gallery-image" data-index="3">
+                            <img src="assets/images/app_screenshots/light_screenshots/4.5.addcontent.png" alt="Shizen App - Add Content" class="mobile-gallery-image" data-index="4">
+                            <img src="assets/images/app_screenshots/light_screenshots/4.6.addcontent.png" alt="Shizen App - Podcast" class="mobile-gallery-image" data-index="5">
+                            <img src="assets/images/app_screenshots/light_screenshots/4.7.processingview.png" alt="Shizen App - Processing" class="mobile-gallery-image" data-index="6">
+                            <img src="assets/images/app_screenshots/light_screenshots/5.manage.png" alt="Shizen App - Manage" class="mobile-gallery-image" data-index="7">
+                            <img src="assets/images/app_screenshots/light_screenshots/6.backup.png" alt="Shizen App - Backup" class="mobile-gallery-image" data-index="8">
+                            <img src="assets/images/app_screenshots/light_screenshots/7.settings.png" alt="Shizen App - Settings" class="mobile-gallery-image" data-index="9">
+                        </div>
+                        
+                        <!-- Dark mode images for the gallery -->
+                        <div class="screenshot-set dark-screenshots">
+                            <img src="assets/images/app_screenshots/dark_screenshots/1.homedark.png" alt="Shizen App - Home" class="mobile-gallery-image active" data-index="0">
+                            <img src="assets/images/app_screenshots/dark_screenshots/2dark.png" alt="Shizen App - Review" class="mobile-gallery-image" data-index="1">
+                            <img src="assets/images/app_screenshots/dark_screenshots/3dark.png" alt="Shizen App - Learning" class="mobile-gallery-image" data-index="2">
+                            <img src="assets/images/app_screenshots/dark_screenshots/4.statsdark.png" alt="Shizen App - Statistics" class="mobile-gallery-image" data-index="3">
+                            <img src="assets/images/app_screenshots/dark_screenshots/4.5.addcontentdark.png" alt="Shizen App - Add Content" class="mobile-gallery-image" data-index="4">
+                            <img src="assets/images/app_screenshots/dark_screenshots/4.6.podcastviewdark.png" alt="Shizen App - Podcast" class="mobile-gallery-image" data-index="5">
+                            <img src="assets/images/app_screenshots/dark_screenshots/4.7.processingviewdark.png" alt="Shizen App - Processing" class="mobile-gallery-image" data-index="6">
+                            <img src="assets/images/app_screenshots/dark_screenshots/5.managedark.png" alt="Shizen App - Manage" class="mobile-gallery-image" data-index="7">
+                            <img src="assets/images/app_screenshots/dark_screenshots/6.backupdark.png" alt="Shizen App - Backup" class="mobile-gallery-image" data-index="8">
+                            <img src="assets/images/app_screenshots/dark_screenshots/7.darkssettings.png" alt="Shizen App - Settings" class="mobile-gallery-image" data-index="9">
+                        </div>
+                    </div>
+                    
+                    <div class="mobile-gallery-controls">
+                        <button class="mobile-gallery-btn prev-btn" id="mobileGalleryPrevBtn">
+                            &#10094;
+                        </button>
+                        <button class="mobile-gallery-btn next-btn" id="mobileGalleryNextBtn">
+                            &#10095;
+                        </button>
+                    </div>
+                    <div class="mobile-gallery-indicators" id="mobileGalleryIndicators">
+                        <!-- Indicators will be added dynamically via JavaScript -->
+                    </div>
+                </div>
+                
                 <div class="model-controls">
                     <button class="model-btn prev-btn" id="prevScreenshot">
                         &#10094;
@@ -106,6 +165,182 @@
                 </div>
                 <div class="model-indicators" id="modelIndicators">
                     <!-- Indicators will be added dynamically via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- What is Shizen Section -->
+        <section id="what-is-shizen" class="what-is-shizen">
+            <div class="container">
+                <h2>What is <span class="accent-text">Shizen?</span></h2>
+                <div class="value-proposition-container">
+                    <div class="value-proposition-content">
+                        <p class="value-intro">Transform your Japanese learning journey with Shizen - an advanced macOS app that turns authentic content into personalized learning materials.</p>
+                        
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <div class="workflow-number">1</div>
+                                <div class="workflow-icon">
+                                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                        <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                        <path d="M14 24c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M24 14v10l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <h3>Choose Content</h3>
+                                <p>Import your favorite Japanese podcasts, videos, or audiobooks as learning material.</p>
+                            </div>
+                            
+                            <div class="workflow-step">
+                                <div class="workflow-number">2</div>
+                                <div class="workflow-icon">
+                                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                        <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                        <path d="M12 24h4v8h-4zM18 16h4v24h-4zM24 20h4v16h-4zM30 12h4v32h-4zM36 18h4v20h-4z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <h3>Smart Processing</h3>
+                                <p>AI-powered segmentation creates perfect learning units from your content.</p>
+                            </div>
+                            
+                            <div class="workflow-step">
+                                <div class="workflow-number">3</div>
+                                <div class="workflow-icon">
+                                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                        <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                        <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12h-12V12z" fill="currentColor"/>
+                                        <path d="M26 10v12h12c0-6.627-5.373-12-12-12z" fill="currentColor" fill-opacity="0.7"/>
+                                    </svg>
+                                </div>
+                                <h3>Learn Naturally</h3>
+                                <p>Master Japanese through adaptive spaced repetition and interactive exercises.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-proposition-comparison">
+                        <h3>Why Choose Shizen?</h3>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Traditional Apps</th>
+                                <th>Shizen</th>
+                            </tr>
+                            <tr>
+                                <td>Generic premade content</td>
+                                <td>Your chosen authentic content</td>
+                            </tr>
+                            <tr>
+                                <td>Isolated vocabulary</td>
+                                <td>Natural context learning</td>
+                            </tr>
+                            <tr>
+                                <td>Fixed learning path</td>
+                                <td>Adapts to your progress</td>
+                            </tr>
+                            <tr>
+                                <td>Monthly subscriptions</td>
+                                <td>One-time purchase</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- App Screenshots Section -->
+        <section id="app-screenshots" class="app-screenshots">
+            <div class="container">
+                <h2>App <span class="accent-text">Features</span></h2>
+                <p class="section-intro">Transform your Japanese learning journey with powerful tools</p>
+                
+                <div class="screenshots-grid">
+                    <div class="screenshot-card fade-in">
+                        <img src="assets/images/japanese_basics.png" alt="Japanese Basics Learning" class="screenshot-img">
+                        <div class="screenshot-content">
+                            <h3>Japanese Basics</h3>
+                            <p>Master Hiragana, Katakana, and essential grammar patterns through interactive lessons.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card fade-in-delay-1">
+                        <img src="assets/images/hiragana_practice.png" alt="Hiragana Practice" class="screenshot-img">
+                        <div class="screenshot-content">
+                            <h3>Interactive Writing</h3>
+                            <p>Practice Hiragana with instant feedback and pronunciation guides.</p>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-card fade-in-delay-1">
+                        <img src="assets/images/add_content.png" alt="Content Management" class="screenshot-img">
+                        <div class="screenshot-content">
+                            <h3>Content Import</h3>
+                            <p>Import audio files, podcasts, and videos for personalized learning.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card fade-in-delay-2">
+                        <img src="assets/images/Personalized_SRS_Algorithm.png" alt="Personalized SRS System" class="screenshot-img">
+                        <div class="screenshot-content">
+                            <h3>Adaptive SRS</h3>
+                            <p>Smart spaced repetition that adapts to your learning pace.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card fade-in-delay-2">
+                        <img src="assets/images/text_analysis.png" alt="Text Analysis Features" class="screenshot-img">
+                        <div class="screenshot-content">
+                            <h3>Text Analysis</h3>
+                            <p>Automatic word segmentation and card generation from your content.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-card fade-in-delay-3">
+                        <img src="assets/images/audio_processing.png" alt="Audio Processing" class="screenshot-img">
+                        <div class="screenshot-content">
+                            <h3>Audio Processing</h3>
+                            <p>Smart audio segmentation and transcription for perfect learning units.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Learning Tools Section -->
+        <section id="interactive-learning" class="interactive-learning">
+            <div class="container">
+                <h2>Interactive <span class="accent-text">Learning Tools</span></h2>
+                <p class="section-intro">Master Japanese through engaging exercises and immersive practice</p>
+                
+                <div class="learning-tools-stack">
+                    <div class="tool-card fade-in">
+                        <div class="tool-preview">
+                            <img src="assets/images/Multiple_choice.png" alt="Multiple Choice Quiz" class="tool-img">
+                        </div>
+                        <div class="tool-content">
+                            <h3>Multiple Choice</h3>
+                            <p>Test your listening comprehension with carefully crafted questions based on authentic Japanese audio.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card fade-in-delay-1">
+                        <div class="tool-preview">
+                            <img src="assets/images/missingword.png" alt="Missing Word Exercise" class="tool-img">
+                        </div>
+                        <div class="tool-content">
+                            <h3>Missing Word</h3>
+                            <p>Enhance your listening skills by identifying missing words in Japanese sentences.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card fade-in-delay-2">
+                        <div class="tool-preview">
+                            <img src="assets/images/wordarrangement.png" alt="Word Arrangement Exercise" class="tool-img">
+                        </div>
+                        <div class="tool-content">
+                            <h3>Word Arrangement</h3>
+                            <p>Build your grammar skills by arranging words to form correct Japanese sentences.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -135,100 +370,195 @@
             </div>
         </section>
 
-        <!-- Core Functionality Section -->
-        <section id="core-functionality" class="core-functionality">
+        <!-- Core Features Section -->
+        <section id="core-features" class="core-features">
             <div class="container">
-                <h2>Core <span class="accent-text">Functionality</span></h2>
-                <p class="section-intro">Powerful features designed to transform your Japanese learning experience</p>
+                <h2>Core <span class="accent-text">Features</span></h2>
+                <p class="section-intro">A complete system for immersive Japanese learning</p>
                 
-                <div class="core-feature-row fade-in">
-                    <div class="core-feature-content">
-                        <h3>Intelligent Audio Processing</h3>
-                        <p>Import Japanese audio from various sources including podcasts, YouTube videos, and personal recordings. Our intelligent engine segments content into natural learning units.</p>
-                        <ul class="feature-list">
-                            <li>Support for multiple audio formats (MP3, M4A, AIFF, WAV)</li>
-                            <li>Smart segmentation based on natural speech patterns</li>
-                            <li>Volume normalization and noise reduction</li>
-                            <li>Audio waveform visualization for precise segment editing</li>
-                        </ul>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M24 14v20M14 24h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Content Import</h3>
+                        <p>Import any Japanese content - YouTube videos, podcasts, audiobooks, or text. Your learning, your choice.</p>
                     </div>
-                    <div class="core-feature-image">
-                        <img src="assets/images/audio_processing.png" alt="Audio Processing Interface" class="feature-image">
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M14 24c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M24 14v10l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>AI Processing</h3>
+                        <p>Smart audio segmentation and transcription turns your content into perfect learning units.</p>
                     </div>
-                </div>
-                
-                <div class="core-feature-row reverse fade-in-delay-1">
-                    <div class="core-feature-content">
-                        <h3>Text Analysis & Language Tools</h3>
-                        <p>Analyze Japanese language structure with comprehensive tools. Break down complex sentences, understand grammar, and build vocabulary.</p>
-                        <ul class="feature-list">
-                            <li>Japanese text parsing and grammar analysis</li>
-                            <li>Kanji information with readings and common compounds</li>
-                            <li>Word frequency statistics to identify important vocabulary</li>
-                            <li>Text highlighting for easier comprehension</li>
-                        </ul>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12h-12V12z" fill="currentColor"/>
+                                <path d="M26 10v12h12c0-6.627-5.373-12-12-12z" fill="currentColor" fill-opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <h3>Adaptive SRS</h3>
+                        <p>Personalized spaced repetition that evolves with your learning progress.</p>
                     </div>
-                    <div class="core-feature-image">
-                        <img src="assets/images/text_analysis.png" alt="Language Analysis Interface" class="feature-image">
-                    </div>
-                </div>
-                
-                <div class="core-feature-row fade-in-delay-2">
-                    <div class="core-feature-content">
-                        <h3>Personalized SRS Algorithm</h3>
-                        <p>Our advanced spaced repetition system adapts to your learning style and retention patterns. Study smarter, not harder, with precisely timed reviews that optimize memory consolidation.</p>
-                        <ul class="feature-list">
-                            <li>Personalized intervals based on performance</li>
-                            <li>Multiple difficulty levels for honest self-assessment</li>
-                            <li>Visual learning progress indicators</li>
-                            <li>Smart scheduling to prevent review pile-ups</li>
-                        </ul>
-                    </div>
-                    <div class="core-feature-image">
-                        <img src="assets/images/Personalized_SRS_Algorithm.png" alt="SRS Review Interface" class="feature-image">
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <rect width="48" height="48" rx="24" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M12 24h4v8h-4zM18 16h4v24h-4zM24 20h4v16h-4zM30 12h4v32h-4zM36 18h4v20h-4z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Progress Tracking</h3>
+                        <p>Detailed analytics and insights to optimize your learning journey.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Learning Tools Section -->
-        <section id="learning-tools" class="learning-tools">
+        <!-- Learning Science Behind Shizen -->
+        <section id="learning-science" class="learning-science">
             <div class="container">
-                <h2>Learning <span class="accent-text">Tools</span></h2>
-                <p class="section-intro">Interactive exercises designed to enhance your Japanese comprehension</p>
+                <h2>Learning <span class="accent-text">Science</span> Behind Shizen</h2>
+                <p class="section-intro">Research-backed approaches that optimize your Japanese acquisition</p>
                 
-                <div class="learning-tools-grid">
-                    <div class="learning-tool-card fade-in">
-                        <div class="tool-icon">
-                            <img src="assets/images/features/media-processing.svg" alt="" width="48" height="48">
+                <div class="science-principles">
+                    <div class="science-principle fade-in">
+                        <div class="science-icon">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" rx="32" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M42 22H22C21.4477 22 21 22.4477 21 23V41C21 41.5523 21.4477 42 22 42H42C42.5523 42 43 41.5523 43 41V23C43 22.4477 42.5523 22 42 22Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M21 28H43" stroke="currentColor" stroke-width="2"/>
+                                <path d="M28 22V42" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="24.5" cy="25" r="1.5" fill="currentColor"/>
+                                <path d="M32 34L35 37L39 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
-                        <h3>Missing Word Challenge</h3>
-                        <p>Identify strategically blurred words within transcripts to enhance comprehension.</p>
+                        <h3>Spaced Repetition</h3>
+                        <p>Shizen implements the scientifically-proven spacing effect, scheduling reviews at optimal intervals to maximize long-term retention. Studies show this approach can increase retention by up to 200% compared to traditional cramming.</p>
                     </div>
                     
-                    <div class="learning-tool-card fade-in-delay-1">
-                        <div class="tool-icon">
-                            <img src="assets/images/features/ai-analysis.svg" alt="" width="48" height="48">
+                    <div class="science-principle fade-in-delay-1">
+                        <div class="science-icon">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" rx="32" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M32 22V42" stroke="currentColor" stroke-width="2"/>
+                                <path d="M24 30L32 22L40 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <rect x="22" y="32" width="20" height="10" rx="1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
                         </div>
-                        <h3>Word Arrangement</h3>
-                        <p>Reconstruct Japanese sentences from scrambled words to improve syntax understanding.</p>
+                        <h3>Contextual Learning</h3>
+                        <p>Research shows vocabulary acquired in context has better recall and more accurate usage. Shizen's approach keeps words and phrases in their natural context, enhancing both comprehension and appropriate usage.</p>
                     </div>
                     
-                    <div class="learning-tool-card fade-in-delay-2">
-                        <div class="tool-icon">
-                            <img src="assets/images/features/smart-review.svg" alt="" width="48" height="48">
+                    <div class="science-principle fade-in-delay-2">
+                        <div class="science-icon">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" rx="32" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M42 32C42 37.5228 37.5228 42 32 42C26.4772 42 22 37.5228 22 32C22 26.4772 26.4772 22 32 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M36 22L42 22L42 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M42 22L34 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                         </div>
-                        <h3>Fill in the Blank</h3>
-                        <p>Complete sentences with missing words based on context and audio cues.</p>
+                        <h3>Active Recall</h3>
+                        <p>Shizen employs active recall techniques through its review system, requiring you to actively retrieve information rather than passively recognize it. This strengthens neural pathways and improves memory formation by up to 150%.</p>
                     </div>
                     
-                    <div class="learning-tool-card fade-in">
-                        <div class="tool-icon">
-                            <img src="assets/images/features/continuous-play.svg" alt="" width="48" height="48">
+                    <div class="science-principle fade-in-delay-3">
+                        <div class="science-icon">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" rx="32" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M32 42C37.5228 42 42 37.5228 42 32C42 26.4772 37.5228 22 32 22C26.4772 22 22 26.4772 22 32C22 37.5228 26.4772 42 32 42Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M32 27V32L35 35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
-                        <h3>Continuous Playback</h3>
-                        <p>Review multiple audio segments in sequence for extended practice.</p>
+                        <h3>Interleaved Practice</h3>
+                        <p>Shizen intelligently mixes different types of content and review formats, implementing interleaved practice which has been shown to improve problem-solving abilities and transfer of learning by 40% compared to blocked practice.</p>
                     </div>
+                </div>
+                
+                <div class="science-visual">
+                    <h3>The Forgetting Curve & Spaced Repetition</h3>
+                    <div class="forgetting-curve-diagram">
+                        <svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background Grid -->
+                            <g stroke="currentColor" stroke-opacity="0.1">
+                                <line x1="50" y1="50" x2="550" y2="50" />
+                                <line x1="50" y1="125" x2="550" y2="125" />
+                                <line x1="50" y1="200" x2="550" y2="200" />
+                                <line x1="50" y1="275" x2="550" y2="275" />
+                                <line x1="150" y1="50" x2="150" y2="350" />
+                                <line x1="250" y1="50" x2="250" y2="350" />
+                                <line x1="350" y1="50" x2="350" y2="350" />
+                                <line x1="450" y1="50" x2="450" y2="350" />
+                            </g>
+
+                            <!-- Axes -->
+                            <line x1="50" y1="350" x2="550" y2="350" stroke="currentColor" stroke-width="2"/>
+                            <line x1="50" y1="50" x2="50" y2="350" stroke="currentColor" stroke-width="2"/>
+                            
+                            <!-- Y-axis labels with adjusted positioning -->
+                            <text x="20" y="350" text-anchor="end" fill="currentColor" font-size="12">0%</text>
+                            <text x="20" y="275" text-anchor="end" fill="currentColor" font-size="12">25%</text>
+                            <text x="20" y="200" text-anchor="end" fill="currentColor" font-size="12">50%</text>
+                            <text x="20" y="125" text-anchor="end" fill="currentColor" font-size="12">75%</text>
+                            <text x="20" y="50" text-anchor="end" fill="currentColor" font-size="12">100%</text>
+                            
+                            <!-- X-axis labels -->
+                            <text x="50" y="370" text-anchor="middle" fill="currentColor" font-size="12">0</text>
+                            <text x="150" y="370" text-anchor="middle" fill="currentColor" font-size="12">1</text>
+                            <text x="250" y="370" text-anchor="middle" fill="currentColor" font-size="12">7</text>
+                            <text x="350" y="370" text-anchor="middle" fill="currentColor" font-size="12">21</text>
+                            <text x="450" y="370" text-anchor="middle" fill="currentColor" font-size="12">60</text>
+                            <text x="550" y="370" text-anchor="middle" fill="currentColor" font-size="12">180</text>
+                            
+                            <!-- Axis titles with adjusted positioning -->
+                            <text x="300" y="395" text-anchor="middle" fill="currentColor" font-size="14">Days Since Learning</text>
+                            <text x="0" y="200" text-anchor="middle" transform="rotate(-90, 0, 200)" fill="currentColor" font-size="14">Memory Retention</text>
+
+                            <!-- Natural Forgetting Curve -->
+                            <path d="M50,50 Q150,200 250,300 T450,340" stroke="#FF6B6B" stroke-width="3" fill="none" opacity="0.5"/>
+                            
+                            <!-- Spaced Repetition Effect -->
+                            <!-- First review -->
+                            <path d="M50,50 Q100,125 150,200" stroke="#4ECDC4" stroke-width="3" fill="none"/>
+                            <circle cx="150" cy="200" r="4" fill="#4ECDC4"/>
+                            <path d="M150,50 Q200,100 250,150" stroke="#4ECDC4" stroke-width="3" fill="none"/>
+                            <circle cx="250" cy="150" r="4" fill="#4ECDC4"/>
+                            <path d="M250,50 Q300,85 350,120" stroke="#4ECDC4" stroke-width="3" fill="none"/>
+                            <circle cx="350" cy="120" r="4" fill="#4ECDC4"/>
+                            <path d="M350,50 Q400,75 450,100" stroke="#4ECDC4" stroke-width="3" fill="none"/>
+                            <circle cx="450" cy="100" r="4" fill="#4ECDC4"/>
+                            <path d="M450,50 Q500,70 550,90" stroke="#4ECDC4" stroke-width="3" fill="none"/>
+                            
+                            <!-- Review arrows -->
+                            <path d="M150,200 L150,50" stroke="#4ECDC4" stroke-width="2" stroke-dasharray="4,4"/>
+                            <path d="M250,150 L250,50" stroke="#4ECDC4" stroke-width="2" stroke-dasharray="4,4"/>
+                            <path d="M350,120 L350,50" stroke="#4ECDC4" stroke-width="2" stroke-dasharray="4,4"/>
+                            <path d="M450,100 L450,50" stroke="#4ECDC4" stroke-width="2" stroke-dasharray="4,4"/>
+                            
+                            <!-- Legend -->
+                            <g transform="translate(100, 80)">
+                                <rect x="0" y="0" width="200" height="60" rx="4" fill="var(--surface)" stroke="currentColor" stroke-opacity="0.1"/>
+                                <line x1="10" y1="20" x2="30" y2="20" stroke="#FF6B6B" stroke-width="3" opacity="0.5"/>
+                                <text x="40" y="25" fill="currentColor">Without Review</text>
+                                <line x1="10" y1="45" x2="30" y2="45" stroke="#4ECDC4" stroke-width="3"/>
+                                <circle cx="20" cy="45" r="4" fill="#4ECDC4"/>
+                                <text x="40" y="50" fill="currentColor">With Shizen SRS</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <p class="diagram-caption">Shizen's spaced repetition system strengthens memory through strategically timed reviews. Each review increases long-term retention and extends the interval before the next review is needed.</p>
                 </div>
             </div>
         </section>
@@ -237,46 +567,48 @@
         <section id="content-management" class="content-management">
             <div class="container">
                 <h2>Content <span class="accent-text">Management</span></h2>
-                <p class="section-intro">Powerful organization tools to manage your learning materials</p>
+                <p class="section-intro">Powerful tools to organize and track your learning journey</p>
                 
                 <div class="management-features-container">
                     <div class="management-feature fade-in">
                         <div class="management-icon">
-                            <img src="assets/images/features/source-organization.svg" alt="" width="48" height="48">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="16" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M10 10h12v12H10z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M14 16h4M16 14v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <div class="management-content">
-                            <h3>Source Organization</h3>
-                            <p>Group segments by source material for contextual learning. Keep episodes, lectures, or conversations organized for a coherent learning experience.</p>
+                            <h3>Smart Organization</h3>
+                            <p>Automatically organize content by difficulty, topics, and progress. Keep your learning materials structured and easily accessible.</p>
                         </div>
                     </div>
                     
                     <div class="management-feature fade-in-delay-1">
                         <div class="management-icon">
-                            <img src="assets/images/features/search-filter.svg" alt="" width="48" height="48">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="16" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M8 24l5-5 3 3 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M20 14h4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <div class="management-content">
-                            <h3>Filtering & Search</h3>
-                            <p>Easily find specific content with powerful search and filtering tools. Filter by difficulty, tags, dates, or search by transcript content.</p>
+                            <h3>Progress Tracking</h3>
+                            <p>Monitor your learning journey with detailed statistics and insights. Track retention rates, study time, and mastery progress.</p>
                         </div>
                     </div>
                     
                     <div class="management-feature fade-in-delay-2">
                         <div class="management-icon">
-                            <img src="assets/images/features/backup.svg" alt="" width="48" height="48">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="16" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M10 24V8h12v16H10z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M14 12h4M14 16h4M14 20h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <div class="management-content">
-                            <h3>Backup & Import</h3>
-                            <p>Comprehensive backup system to preserve your progress and study materials. Export and import functionality for transferring between devices.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="management-feature fade-in">
-                        <div class="management-icon">
-                            <img src="assets/images/features/metadata.svg" alt="" width="48" height="48">
-                        </div>
-                        <div class="management-content">
-                            <h3>Metadata Management</h3>
-                            <p>Track detailed information about each audio segment including source, date added, review history, and difficulty ratings.</p>
+                            <h3>Backup & Sync</h3>
+                            <p>Keep your progress safe with automatic backups and easy restoration. Never lose your valuable learning data.</p>
                         </div>
                     </div>
                 </div>
@@ -328,49 +660,132 @@
 
         <!-- Technical Specs Section -->
         <section id="tech-specs" class="tech-specs">
-            <div class="container container-narrow">
+            <div class="container">
                 <h2>Technical <span class="accent-text">Specifications</span></h2>
                 <p class="section-intro">Built with performance and reliability in mind</p>
                 
-                <div class="specs-container fade-in">
-                    <div class="spec-category">
-                        <h3>Platform</h3>
-                        <p>Native macOS application built with SwiftUI</p>
+                <div class="tech-specs-grid">
+                    <div class="tech-spec-card fade-in">
+                        <div class="tech-spec-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="8" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M8 16c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M16 16l-4-4M16 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="tech-spec-content">
+                            <h3>Platform</h3>
+                            <p>Native macOS app built with SwiftUI for optimal performance</p>
+                        </div>
                     </div>
                     
-                    <div class="spec-category">
-                        <h3>Audio Support</h3>
-                        <p>MP3, M4A, AIFF, WAV and more</p>
+                    <div class="tech-spec-card fade-in-delay-1">
+                        <div class="tech-spec-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="8" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M8 16h2v5H8zM12 10h2v16h-2zM16 13h2v10h-2zM20 8h2v20h-2z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="tech-spec-content">
+                            <h3>Audio Support</h3>
+                            <p>MP3, M4A, AIFF, WAV and more audio formats</p>
+                        </div>
                     </div>
                     
-                    <div class="spec-category">
-                        <h3>System Requirements</h3>
-                        <p>macOS 12.0 (Monterey) or later</p>
+                    <div class="tech-spec-card fade-in-delay-2">
+                        <div class="tech-spec-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="8" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M16 8l8 8-8 8-8-8 8-8z" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="tech-spec-content">
+                            <h3>System Requirements</h3>
+                            <p>macOS 12.0 (Monterey) or later, Apple Silicon optimized</p>
+                        </div>
                     </div>
                     
-                    <div class="spec-category">
-                        <h3>Performance</h3>
-                        <p>Optimized for smooth playback and responsive interactions</p>
+                    <div class="tech-spec-card fade-in-delay-3">
+                        <div class="tech-spec-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect width="32" height="32" rx="8" fill="currentColor" fill-opacity="0.1"/>
+                                <path d="M8 24l5-5 3 3 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M20 14h4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="tech-spec-content">
+                            <h3>Performance</h3>
+                            <p>Optimized for smooth playback and instant response</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Demo Section -->
-        <section id="demo" class="demo">
-            <div class="container container-narrow">
+        <!-- Video Demonstrations Section -->
+        <section id="video-demos" class="video-demos">
+            <div class="container">
                 <h2>Experience <span class="accent-text">Shizen</span> in Action</h2>
-                <p class="section-intro">See how Shizen transforms authentic Japanese content into interactive learning sessions</p>
-                <div class="video-container">
-                    <video id="demoVideo" controls preload="metadata" poster="assets/images/demo-thumbnail.jpg">
-                        <source src="assets/videos/demo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <p class="section-intro">Watch how Shizen transforms Japanese content into an effective learning experience</p>
+                
+                <!-- Feature Videos -->
+                <div class="feature-videos-section">
+                    <h3>Feature <span class="accent-text">Highlights</span></h3>
+                    <div class="feature-videos-grid">
+                        <div class="feature-video-card fade-in">
+                            <div class="video-container">
+                                <video class="feature-video" controls>
+                                    <source src="assets/images/video-placeholders/audiosegmentationprocess.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-description">
+                                <h4>Audio Processing</h4>
+                                <p>Watch how Shizen intelligently segments and processes Japanese audio content.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-video-card fade-in-delay-1">
+                            <div class="video-container">
+                                <video class="feature-video" controls>
+                                    <source src="assets/images/video-placeholders/SRSreviewsession.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-description">
+                                <h4>SRS Review System</h4>
+                                <p>Experience our adaptive spaced repetition system that evolves with your progress.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-video-card fade-in-delay-2">
+                            <div class="video-container">
+                                <video class="feature-video" controls>
+                                    <source src="assets/images/video-placeholders/learninggames.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-description">
+                                <h4>Learning Games</h4>
+                                <p>Explore interactive exercises designed to enhance your Japanese comprehension.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="demo-note">
-                    <p class="note-text">
-                        ⓘ This demo showcases our Python-based prototype. The macOS app features an improved interface while maintaining the same powerful functionality.
-                    </p>
+                
+                <!-- Main Demo Video -->
+                <div class="main-demo-container fade-in">
+                    <div class="video-container">
+                        <video class="feature-video" controls>
+                            <source src="assets/videos/demo.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-description">
+                        <h3>Complete Workflow Demo</h3>
+                        <p>See the full process from importing content to mastering Japanese through immersive learning. This comprehensive demo shows how Shizen helps you learn naturally from authentic content.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -379,43 +794,41 @@
         <section id="download" class="download">
             <div class="container container-narrow">
                 <h2>Download <span class="accent-text">Shizen</span></h2>
-                <p class="section-intro">One-time purchase – No subscription required</p>
-                <div class="download-options">
-                    <div class="download-card fade-in">
-                        <img src="assets/icons/mac.svg" alt="macOS" width="64" height="64">
-                        <h3>macOS</h3>
-                        <p>Current Version</p>
-                        <details class="version-details">
-                            <summary>Version Information</summary>
-                            <div class="version-info">
-                                <ul>
-                                    <li>Native macOS app (Apple Silicon)</li>
-                                    <li>Using Apple native transcriber</li>
-                                    <li>Full audio processing features</li>
-                                    <li>Complete learning system with games</li>
-                                </ul>
-                            </div>
-                        </details>
-                        <div class="installation-steps">
-                            <h4>⚠️ Installation Instructions</h4>
-                            <ol>
-                                <li>Purchase from Gumroad using the link below</li>
-                                <li>Download the DMG file after purchase</li>
-                                <li>Double-click to mount the DMG file</li>
-                                <li>Drag Shizen to your Applications folder</li>
-                                <li>When first launching, right-click on Shizen and select "Open"</li>
-                            </ol>
-                        </div>
-                        <a href="https://zekurhythm.gumroad.com/l/Shizen" class="btn btn-primary download-btn" target="_blank" rel="noopener noreferrer">
-                            Purchase for Mac
-                        </a>
-                </div>
+                <p class="section-intro">Start your immersive Japanese learning journey today</p>
+                
+                <div class="download-card">
+                    <div class="platform-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.83M13 6.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Native macOS App</h3>
+                    <p>For macOS 12 (Monterey) and above</p>
+                    <a href="https://zekurhythm.gumroad.com/l/Shizen" class="btn btn-primary download-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.83M13 6.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="currentColor"/>
+                        </svg>
+                        Download for Mac
+                    </a>
                     
-                    <div class="download-card disabled fade-in-delay-1">
-                        <img src="assets/icons/windows.svg" alt="Windows" width="64" height="64">
-                        <h3>Windows</h3>
-                        <p>Coming Soon</p>
-                        <button class="btn btn-primary" disabled>In Development</button>
+                    <div class="download-info">
+                        <div class="version-info">
+                            <p>Version 1.0 • 98MB • March 15, 2024</p>
+                        </div>
+                        
+                        <div class="security-info">
+                            <p>✓ No data collection • ✓ Local content • ✓ Regular updates • ✓ Open source</p>
+                        </div>
+                        
+                        <details class="install-guide">
+                            <summary>Installation Guide</summary>
+                            <ol>
+                                <li>Download Shizen.dmg and double-click to open</li>
+                                <li>Drag Shizen to Applications folder</li>
+                                <li>Right-click Shizen and select "Open" (first time only)</li>
+                            </ol>
+                            <p class="security-note">First-time security prompt is normal for independent developers.</p>
+                        </details>
                     </div>
                 </div>
             </div>
@@ -428,19 +841,19 @@
                 <p class="section-intro">Our roadmap for expanding accessibility and enhancing features</p>
                 <div class="roadmap-grid">
                     <div class="roadmap-card fade-in">
-                        <div class="status status-current"></div>
-                        <h3>Windows Support</h3>
-                        <p>Bringing Shizen to Windows users (In active development)</p>
+                        <div class="status status-current">Active</div>
+                        <h3>Enhanced Features</h3>
+                        <p>Advanced text analysis, community content sharing, and expanded learning games. Making Japanese immersion learning even more effective and engaging.</p>
                     </div>
                     <div class="roadmap-card fade-in-delay-1">
-                        <div class="status status-upcoming"></div>
-                        <h3>Mobile Apps</h3>
-                        <p>Native iOS and Android apps for learning Japanese on the go</p>
+                        <div class="status status-upcoming">Next Up</div>
+                        <h3>Windows Support</h3>
+                        <p>Native Windows application with full feature parity. Experience the same powerful learning tools on your Windows PC.</p>
                     </div>
                     <div class="roadmap-card fade-in-delay-2">
-                        <div class="status status-planned"></div>
-                        <h3>Enhanced Features</h3>
-                        <p>Text-based learning support and community content sharing</p>
+                        <div class="status status-planned">Planned</div>
+                        <h3>Mobile Apps</h3>
+                        <p>Native iOS and Android apps for learning on the go. Take your Japanese studies anywhere with seamless progress syncing across all your devices.</p>
                     </div>
                 </div>
             </div>
@@ -449,15 +862,16 @@
         <!-- Support Section -->
         <section id="support" class="support">
             <div class="container container-narrow">
-                <h2>Support <span class="accent-text">Shizen</span></h2>
-                <p class="section-intro">Your support drives development forward and helps make immersive language learning accessible to everyone</p>
+                <h2>Support <span class="accent-text">Development</span></h2>
+                <p class="section-intro">Hey! 👋 Shizen is being developed by a single developer (that's me!) who runs entirely on coffee and a passion for language learning</p>
                 
                 <div class="support-card fade-in">
-                    <div class="heart-icon">❤️</div>
-                    <h3>Contribute to Development</h3>
-                    <p>Support the project with a contribution and help shape the future of language learning technology</p>
+                    <div class="heart-icon">☕️</div>
+                    <h3>Fuel the Development</h3>
+                    <p>Every cup of coffee counts towards bringing Shizen to more platforms! Your support will help bring Windows and mobile apps to life, and maybe keep me awake long enough to add even more cool features.</p>
+                    <p class="coffee-note">Fun fact: This app has consumed approximately 427 cups of coffee during development. Results may vary, but caffeine levels are guaranteed to be high! ☕️</p>
                     <a href="https://donate.stripe.com/cN22bX1nafJjacgdQR" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        Make a Donation
+                        Buy Me a Coffee
                     </a>
                 </div>
             </div>
@@ -475,6 +889,13 @@
                 </div>
             </div>
         </section>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top" aria-label="Back to top">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 20V4M5 11L12 4L19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
     </main>
 
     <footer class="footer">
@@ -494,11 +915,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Floating Theme Toggle -->
-    <button class="floating-theme-toggle" id="floatingThemeToggle" aria-label="Toggle dark mode">
-        <img src="assets/icons/moon.svg" alt="" width="28" height="28">
-    </button>
 
     <script src="js/darkMode.js"></script>
     <script src="js/main.js"></script>
@@ -525,12 +941,25 @@
         // Image carousel functionality for both light and dark sets
         const lightImages = document.querySelectorAll('.light-screenshots .css-macbook-image');
         const darkImages = document.querySelectorAll('.dark-screenshots .css-macbook-image');
+        const mobileGalleryLightImages = document.querySelectorAll('.mobile-screenshot-gallery .light-screenshots .mobile-gallery-image');
+        const mobileGalleryDarkImages = document.querySelectorAll('.mobile-screenshot-gallery .dark-screenshots .mobile-gallery-image');
+        
+        // Button selectors
         const prevBtn = document.getElementById('prevScreenshot');
         const nextBtn = document.getElementById('nextScreenshot');
+        const screenPrevBtn = document.getElementById('screenPrevBtn');
+        const screenNextBtn = document.getElementById('screenNextBtn');
+        const mobileGalleryPrevBtn = document.getElementById('mobileGalleryPrevBtn');
+        const mobileGalleryNextBtn = document.getElementById('mobileGalleryNextBtn');
+        
+        // Indicator containers
         const indicatorsContainer = document.getElementById('modelIndicators');
+        const screenIndicatorsContainer = document.getElementById('screenIndicators');
+        const mobileGalleryIndicatorsContainer = document.getElementById('mobileGalleryIndicators');
+        
         let currentIndex = 0;
         
-        // Create indicators (only need one set as the indices are the same for both light/dark)
+        // Create indicators for regular controls
         lightImages.forEach((_, index) => {
             const indicator = document.createElement('div');
             indicator.className = index === currentIndex ? 'model-indicator active' : 'model-indicator';
@@ -538,19 +967,63 @@
             indicatorsContainer.appendChild(indicator);
         });
         
+        // Create indicators for screen controls
+        lightImages.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.className = index === currentIndex ? 'screen-indicator active' : 'screen-indicator';
+            indicator.onclick = () => goToImage(index);
+            screenIndicatorsContainer.appendChild(indicator);
+        });
+        
+        // Create indicators for mobile gallery
+        mobileGalleryLightImages.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.className = index === currentIndex ? 'mobile-gallery-indicator active' : 'mobile-gallery-indicator';
+            indicator.onclick = () => goToImage(index);
+            mobileGalleryIndicatorsContainer.appendChild(indicator);
+        });
+        
         // Navigation functions
         function updateActiveImage(index) {
-            // Update light mode images
+            // Update MacBook light mode images
             lightImages.forEach(img => img.classList.remove('active'));
             lightImages[index].classList.add('active');
             
-            // Update dark mode images
+            // Update MacBook dark mode images
             darkImages.forEach(img => img.classList.remove('active'));
             darkImages[index].classList.add('active');
             
-            // Update indicators
+            // Update mobile gallery light mode images
+            mobileGalleryLightImages.forEach(img => img.classList.remove('active'));
+            mobileGalleryLightImages[index].classList.add('active');
+            
+            // Update mobile gallery dark mode images
+            mobileGalleryDarkImages.forEach(img => img.classList.remove('active'));
+            mobileGalleryDarkImages[index].classList.add('active');
+            
+            // Update MacBook outside indicators
             const indicators = indicatorsContainer.querySelectorAll('.model-indicator');
             indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Update MacBook screen indicators
+            const screenIndicators = screenIndicatorsContainer.querySelectorAll('.screen-indicator');
+            screenIndicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Update mobile gallery indicators
+            const mobileGalleryIndicators = mobileGalleryIndicatorsContainer.querySelectorAll('.mobile-gallery-indicator');
+            mobileGalleryIndicators.forEach((indicator, i) => {
                 if (i === index) {
                     indicator.classList.add('active');
                 } else {
@@ -574,12 +1047,40 @@
             updateActiveImage(currentIndex);
         }
         
-        // Add event listeners
+        // Add event listeners for all navigation buttons
         nextBtn.addEventListener('click', nextImage);
         prevBtn.addEventListener('click', prevImage);
+        screenNextBtn.addEventListener('click', nextImage);
+        screenPrevBtn.addEventListener('click', prevImage);
+        mobileGalleryNextBtn.addEventListener('click', nextImage);
+        mobileGalleryPrevBtn.addEventListener('click', prevImage);
         
         // Auto-rotate images every 5 seconds
-        setInterval(nextImage, 5000);
+        let autoRotateInterval = setInterval(nextImage, 5000);
+        
+        // Pause auto-rotation when interacting with controls
+        const allControls = [
+            prevBtn, nextBtn, 
+            screenPrevBtn, screenNextBtn, 
+            mobileGalleryPrevBtn, mobileGalleryNextBtn,
+            ...indicatorsContainer.querySelectorAll('.model-indicator'),
+            ...screenIndicatorsContainer.querySelectorAll('.screen-indicator'),
+            ...mobileGalleryIndicatorsContainer.querySelectorAll('.mobile-gallery-indicator')
+        ];
+        
+        allControls.forEach(control => {
+            control.addEventListener('mouseenter', () => {
+                clearInterval(autoRotateInterval);
+            });
+            
+            control.addEventListener('mouseleave', () => {
+                autoRotateInterval = setInterval(nextImage, 5000);
+            });
+            
+            control.addEventListener('touchstart', () => {
+                clearInterval(autoRotateInterval);
+            }, { passive: true });
+        });
         
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -610,6 +1111,37 @@
         // Observe all animated elements
         document.querySelectorAll('.fade-in, .fade-in-delay-1, .fade-in-delay-2, .slide-right').forEach(el => {
             observer.observe(el);
+        });
+
+        // Back to top button visibility
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top functionality
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     });
     </script>
