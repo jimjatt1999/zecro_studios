@@ -307,11 +307,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     navLinks.classList.remove('active');
                     document.body.classList.remove('menu-active');
                 }
-                
-                window.scrollTo({
+
+                    window.scrollTo({
                     top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+                        behavior: 'smooth'
+                    });
             });
         });
     };
