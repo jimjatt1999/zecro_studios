@@ -941,16 +941,21 @@
     overflow: hidden;
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
     height: 100%;
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
 .screenshot-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: scale(1.2);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25);
+    background-color: rgba(37, 99, 235, 0.05);
+    border-color: rgba(37, 99, 235, 0.3);
+    z-index: 10;
 }
 
 .screenshot-card::after {
@@ -961,13 +966,17 @@
     right: 0;
     bottom: 0;
     border-radius: inherit;
-    background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    background: radial-gradient(circle at center, rgba(37, 99, 235, 0.08), transparent 80%);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
 }
 
 .screenshot-card:hover::after {
     opacity: 1;
+}
+
+.screenshot-card:hover .screenshot-content h3 {
+    color: var(--brand-primary);
 }
 
 .screenshot-img {

@@ -2,27 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#2563eb">
     <title>Shizen - Advanced Japanese Language Learning Through Immersion</title>
     <meta name="description" content="Transform Japanese content into personalized language learning materials using advanced technology">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="assets/images/logo.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="styles-new-sections.css" as="style">
+    
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles-new-sections.css">
-    <!-- Remove Three.js dependencies since we're using CSS -->
+    
+    <!-- Add PWA support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
     <header class="header">
         <nav class="nav container">
             <a href="#" class="nav-logo" onclick="scrollToTop(event)">
-                <img src="assets/images/logo.svg" alt="Shizen" width="32" height="32">
+                <img src="assets/images/logo.svg" alt="Shizen" width="32" height="32" loading="eager">
                 <span>SHIZEN</span>
             </a>
     
             <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
-                <img src="assets/icons/menu.svg" alt="" width="24" height="24">
+                <img src="assets/icons/menu.svg" alt="" width="24" height="24" loading="eager">
             </button>
     
             <div class="nav-links">
@@ -34,7 +47,7 @@
                 <a href="#download">Download</a>
                 <a href="#support" class="btn btn-primary">Support Project</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                    <img src="assets/icons/moon.svg" alt="" width="20" height="20">
+                    <img src="assets/icons/moon.svg" alt="" width="20" height="20" loading="eager">
                 </button>
             </div>
         </nav>
@@ -729,50 +742,52 @@
                 <h2>Experience <span class="accent-text">Shizen</span> in Action</h2>
                 <p class="section-intro">Watch how Shizen transforms Japanese content into an effective learning experience</p>
                 
-                <!-- Feature Videos -->
-                <div class="feature-videos-section">
-                    <h3>Feature <span class="accent-text">Highlights</span></h3>
-                    <div class="feature-videos-grid">
-                        <div class="feature-video-card fade-in">
-                            <div class="video-container">
-                                <video class="feature-video" controls>
-                                    <source src="assets/images/video-placeholders/audiosegmentationprocess.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                <!-- Feature Highlights Section -->
+                <section class="features">
+                    <div class="container">
+                        <h2>Feature <span class="accent-text">Highlights</span></h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="video-container">
+                                    <video controls muted playsinline>
+                                        <source src="assets/videos/audiosegmentationprocess.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Audio Processing</h3>
+                                    <p>Watch how Shizen intelligently segments and processes Japanese audio content.</p>
+                                </div>
                             </div>
-                            <div class="video-description">
-                                <h4>Audio Processing</h4>
-                                <p>Watch how Shizen intelligently segments and processes Japanese audio content.</p>
+
+                            <div class="feature-card">
+                                <div class="video-container">
+                                    <video controls muted playsinline>
+                                        <source src="assets/videos/SRSreviewsession.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>SRS Review System</h3>
+                                    <p>Experience our adaptive spaced repetition system that evolves with your progress.</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="feature-video-card fade-in-delay-1">
-                            <div class="video-container">
-                                <video class="feature-video" controls>
-                                    <source src="assets/images/video-placeholders/SRSreviewsession.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                            <div class="video-description">
-                                <h4>SRS Review System</h4>
-                                <p>Experience our adaptive spaced repetition system that evolves with your progress.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="feature-video-card fade-in-delay-2">
-                            <div class="video-container">
-                                <video class="feature-video" controls>
-                                    <source src="assets/images/video-placeholders/learninggames.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                            <div class="video-description">
-                                <h4>Learning Games</h4>
-                                <p>Explore interactive exercises designed to enhance your Japanese comprehension.</p>
+
+                            <div class="feature-card">
+                                <div class="video-container">
+                                    <video controls muted playsinline>
+                                        <source src="assets/videos/learninggames.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Learning Games</h3>
+                                    <p>Explore interactive exercises designed to enhance your Japanese comprehension.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
                 
                 <!-- Main Demo Video -->
                 <div class="main-demo-container fade-in">
@@ -915,6 +930,32 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close lightbox">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="lightbox-body">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            <div class="lightbox-navigation">
+                <button class="lightbox-nav-btn prev-btn" aria-label="Previous item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="lightbox-nav-btn next-btn" aria-label="Next item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/darkMode.js"></script>
     <script src="js/main.js"></script>

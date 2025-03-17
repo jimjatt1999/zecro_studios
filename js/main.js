@@ -181,12 +181,214 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
+    // Video handling
+    const videoContainers = document.querySelectorAll('.video-container');
+    
+    videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        if (video) {
+            // Force video reload
+            video.load();
+            
+            // Add error handling
+            video.addEventListener('error', (e) => {
+                console.error('Error loading video:', e);
+                container.classList.add('video-error');
+            });
+            
+            // Add loading indicator
+            video.addEventListener('loadstart', () => {
+                container.classList.add('video-loading');
+            });
+            
+            // Remove loading indicator when video can play
+            video.addEventListener('canplay', () => {
+                container.classList.remove('video-loading');
+            });
+        }
+    });
+
     // Initialize all functionality
     const init = () => {
-        setupTheme();
-        setupScreenshots();
+        setupMobileMenu();
+        setupDownloads();
+        setupSmoothScroll();
+        setupHeaderScroll();
         setupIntersectionObserver();
         setupVideoTabs();
+        setupLightboxFixed();
+    };
+
+    // Fixed Lightbox Modal Functionality
+    const setupLightboxFixed = () => {
+        console.log("Setting up lightbox");
+        
+        // Make sure the lightbox modal exists, if not, create it
+        let lightboxModal = document.getElementById('lightboxModal');
+        if (!lightboxModal) {
+            console.log("Creating lightbox modal");
+            lightboxModal = document.createElement('div');
+            lightboxModal.id = 'lightboxModal';
+            lightboxModal.className = 'lightbox-modal';
+            lightboxModal.innerHTML = `
+                <div class="lightbox-content">
+                    <button class="lightbox-close" aria-label="Close lightbox">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="lightbox-body">
+                        <!-- Content will be dynamically inserted here -->
+                    </div>
+                    <div class="lightbox-navigation">
+                        <button class="lightbox-nav-btn prev-btn" aria-label="Previous item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="lightbox-nav-btn next-btn" aria-label="Next item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(lightboxModal);
+        }
+        
+        const lightboxContent = lightboxModal.querySelector('.lightbox-content');
+        const lightboxBody = lightboxModal.querySelector('.lightbox-body');
+        const closeBtn = lightboxModal.querySelector('.lightbox-close');
+        const prevBtn = lightboxModal.querySelector('.prev-btn');
+        const nextBtn = lightboxModal.querySelector('.next-btn');
+        
+        let currentItems = [];
+        let currentIndex = 0;
+        
+        // Open the lightbox
+        const openLightbox = (items, index = 0) => {
+            console.log("Opening lightbox with items:", items);
+            currentItems = items;
+            currentIndex = index;
+            
+            // Add active class to show the modal
+            lightboxModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            
+            // Load the content
+            updateLightboxContent();
+            
+            // Show/hide navigation buttons based on the number of items
+            prevBtn.style.display = currentItems.length > 1 ? 'flex' : 'none';
+            nextBtn.style.display = currentItems.length > 1 ? 'flex' : 'none';
+        };
+        
+        // Close the lightbox
+        const closeLightbox = () => {
+            console.log("Closing lightbox");
+            lightboxModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            
+            // Pause videos if any
+            const videos = lightboxBody.querySelectorAll('video');
+            videos.forEach(video => video.pause());
+            
+            // Clear the content after animation
+            setTimeout(() => {
+                lightboxBody.innerHTML = '';
+            }, 300);
+        };
+        
+        // Update the lightbox content based on current index
+        const updateLightboxContent = () => {
+            const item = currentItems[currentIndex];
+            console.log("Updating lightbox content with item:", item);
+            lightboxBody.innerHTML = '';
+            
+            if (item.type === 'video') {
+                const video = document.createElement('video');
+                video.classList.add('lightbox-video');
+                video.controls = true;
+                video.src = item.src;
+                video.muted = item.muted || false;
+                video.playsInline = true;
+                video.autoplay = true;
+                lightboxBody.appendChild(video);
+            } else if (item.type === 'image') {
+                const img = document.createElement('img');
+                img.classList.add('lightbox-image');
+                img.src = item.src;
+                img.alt = item.alt || '';
+                lightboxBody.appendChild(img);
+            } else if (item.type === 'gallery') {
+                const gallery = document.createElement('div');
+                gallery.classList.add('lightbox-gallery');
+                
+                item.images.forEach(image => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('lightbox-gallery-item');
+                    
+                    const img = document.createElement('img');
+                    img.classList.add('lightbox-image');
+                    img.src = image.src;
+                    img.alt = image.alt || '';
+                    
+                    galleryItem.appendChild(img);
+                    gallery.appendChild(galleryItem);
+                });
+                
+                lightboxBody.appendChild(gallery);
+            } else if (item.type === 'html') {
+                // For custom HTML content
+                lightboxBody.innerHTML = item.html;
+            }
+        };
+        
+        // Navigate to the previous item
+        const prevItem = () => {
+            currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+            updateLightboxContent();
+        };
+        
+        // Navigate to the next item
+        const nextItem = () => {
+            currentIndex = (currentIndex + 1) % currentItems.length;
+            updateLightboxContent();
+        };
+        
+        // Event listeners
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', prevItem);
+        nextBtn.addEventListener('click', nextItem);
+        
+        // Close when clicking outside the content
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightboxModal.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                prevItem();
+            } else if (e.key === 'ArrowRight') {
+                nextItem();
+            }
+        });
+        
+        // Setup clickable elements - DISABLED for now as we're using hover effects instead
+        console.log("Using hover effects instead of click events for elements");
+        
+        return {
+            open: openLightbox,
+            close: closeLightbox
+        };
     };
 
     init();

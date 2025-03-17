@@ -115,7 +115,7 @@ h1 {
 
 h2 {
     font-size: clamp(2rem, 4vw, 2.5rem);
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
@@ -130,7 +130,7 @@ p {
 
 .section-intro {
     text-align: center;
-    margin: -1.5rem auto 3rem;
+    margin: 0 auto 2rem;
     color: var(--text-2);
     max-width: 36rem;
     font-size: 1.25rem;
@@ -504,68 +504,134 @@ mark {
 
 /* Features Section */
 .features {
-    background-color: var(--surface);
-    overflow: hidden;
-}
-
-.features::before {
-    content: '';
-    position: absolute;
-    width: 1000px;
-    height: 1000px;
-    background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
-    border-radius: 50%;
-    top: -400px;
-    right: -400px;
-    z-index: 0;
-    opacity: 0.8;
+    padding: 4rem 0;
+    background: var(--surface);
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
-    margin-top: 4rem;
-    position: relative;
-    z-index: 1;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: var(--max-width);
+    padding: 0 1.5rem;
 }
 
-.features-card {
-    background-color: var(--bg);
-    padding: 2.5rem;
+.feature-card {
+    background: var(--bg);
     border-radius: var(--radius);
+    overflow: hidden;
     box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
-    border: 1px solid var(--border);
     height: 100%;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transform-origin: center;
+    border: 1px solid transparent;
 }
 
-.features-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--surface);
+    border-radius: var(--radius) var(--radius) 0 0;
+    min-height: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
 }
 
-.features-card img {
-    width: 4rem;
-    height: 4rem;
-    margin-bottom: 2rem;
-    transition: transform var(--transition);
+.video-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid rgba(37, 99, 235, 0.1);
+    border-top-color: var(--brand-primary);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-.features-card:hover img {
-    transform: scale(1.1);
+.video-container.video-loading::before {
+    opacity: 1;
+    animation: spin 1s linear infinite;
 }
 
-.features-card h3 {
-    margin-bottom: 1rem;
-}
-
-.features-card p {
-    margin-bottom: 0;
+.video-container.video-error::after {
+    content: 'Error loading video';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: var(--text-2);
+    font-size: 0.9rem;
+    z-index: 2;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--surface);
+    z-index: 1;
+}
+
+.feature-content {
+    padding: 1.5rem;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.feature-content h3 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: var(--text-1);
+}
+
+.feature-content p {
+    margin: 0;
+    color: var(--text-2);
+    line-height: 1.5;
+}
+
+/* Media query for tablet and mobile */
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .features {
+        padding: 3rem 0;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .feature-content {
+        padding: 1rem;
+    }
 }
 
 /* Demo Section */
@@ -585,29 +651,6 @@ mark {
     left: -400px;
     z-index: -1;
     opacity: 0.8;
-}
-
-.video-container {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 2.5rem;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    transition: all var(--transition);
-}
-
-.video-container:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-5px);
-}
-
-.video-container video {
-    display: block;
-    width: 100%;
-    height: auto;
 }
 
 .demo-note {
@@ -663,6 +706,8 @@ mark {
     transition: transform var(--transition), box-shadow var(--transition);
     border: 1px solid var(--border);
     height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
 }
 
 .roadmap-card:hover {
@@ -753,6 +798,8 @@ mark {
     height: 100%;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
 }
 
 .download-card:hover {
@@ -855,6 +902,8 @@ mark {
     box-shadow: var(--shadow);
     transition: transform var(--transition), box-shadow var(--transition);
     border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
 }
 
 .support-card:hover {
@@ -1063,100 +1112,31 @@ mark {
 
 @media (max-width: 768px) {
     :root {
-        --section-spacing: 5rem;
+        --section-spacing: 4rem;
+        --content-spacing: 1.5rem;
+        --element-spacing: 0.75rem;
+        --header-height: 60px;
+        /* Reduce shadow complexity */
+        --shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+        --shadow-lg: 0 12px 16px rgba(0, 0, 0, 0.04);
     }
+
+    /* Mobile optimizations */
     
+    /* Optimize images for mobile */
+    img, video {
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        loading: lazy;
+    }
+
+    /* Other mobile styles */
     .mobile-menu-btn {
         display: block;
-        z-index: 1001;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2.5rem;
-        background-color: var(--bg);
-        transform: translateX(100%);
-        opacity: 0;
-        transition: transform var(--transition), opacity var(--transition);
-        visibility: hidden;
-        padding: 2rem;
-        z-index: 1000;
-    }
-
-    .nav-links.active {
-        transform: translateX(0);
-        opacity: 1;
-        visibility: visible;
-        overflow-y: auto;
-    }
-
-    .nav-links a {
-        font-size: 1.25rem;
-        padding: 0.75rem;
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-links .btn {
-        margin-top: 1.5rem;
-        width: 100%;
-        font-size: 1.2rem;
-        justify-content: center;
-    }
-
-    .theme-toggle {
-        position: static;
-        margin: 1.5rem auto 0;
-        display: flex;
-        justify-content: center;
-    }
-
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding-top: 5rem;
-        padding-bottom: 3rem;
-        min-height: auto;
-        gap: 1.5rem;
     }
     
-    .hero-content, .hero-image {
-        max-width: 100%;
-        flex: 1;
-    }
-    
-    .hero-content {
-        margin-bottom: 1rem;
-    }
-    
-    .hero-image {
-        width: 100%;
-        position: relative;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: 500px;
-        overflow: visible;
-    }
-    
-    .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    
-    .section-intro {
-        font-size: 1.125rem;
-    }
+    /* Mobile optimizations */
 }
 
 @media (max-width: 480px) {
@@ -1221,6 +1201,7 @@ mark {
     .section-intro {
         font-size: 1rem;
         padding: 0 0.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .support-card {
@@ -1424,6 +1405,19 @@ mark {
     top: 50%;
     transform: translateY(-10%);
     z-index: 10; /* Ensure it's above other elements */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform-origin: center;
+}
+
+.css-macbook:hover {
+    transform: scale(1.04);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.2);
+    z-index: 5;
+}
+
+.css-macbook:hover .css-macbook-screen {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
 }
 
 .css-macbook-body {
@@ -1508,6 +1502,8 @@ mark {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform-origin: center;
 }
 
 .css-macbook-camera {
@@ -1715,6 +1711,14 @@ mark {
     box-shadow: var(--shadow);
     background-color: var(--bg);
     position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform-origin: center;
+}
+
+.mobile-screenshot-gallery:hover {
+    transform: scale(1.08);
+    box-shadow: var(--shadow-lg);
+    z-index: 2;
 }
 
 .mobile-gallery-slide {
@@ -1779,11 +1783,11 @@ mark {
     position: absolute;
     bottom: 15px;
     left: 0;
-    width: 100%;
+    right: 0;
     display: flex;
     justify-content: center;
-    gap: 8px;
-    z-index: 5;
+    gap: 0.5rem;
+    z-index: 10;
 }
 
 .mobile-gallery-indicator {
@@ -1835,10 +1839,13 @@ mark {
     text-align: center;
     border: 1px solid var(--border);
     transition: transform var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
 }
 
 .workflow-step:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
 .workflow-number {
@@ -1904,17 +1911,11 @@ mark {
     margin: 3rem 0;
 }
 
-.feature-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 2rem;
-    border: 1px solid var(--border);
-    transition: all var(--transition);
-}
-
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+    border-color: rgba(37, 99, 235, 0.3);
+    z-index: 2;
 }
 
 .feature-icon {
@@ -1969,4 +1970,634 @@ mark {
     .features-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Performance Optimizations */
+@media (max-width: 768px) {
+    /* Disable hover effects on mobile */
+    .features-card,
+    .roadmap-card,
+    .support-card,
+    .workflow-step,
+    .nav-logo {
+        transition: none;
+    }
+
+    /* Optimize animations for mobile */
+    @media (prefers-reduced-motion: no-preference) {
+        .animate-on-scroll {
+            will-change: transform, opacity;
+        }
+    }
+
+    /* Remove complex gradients on mobile */
+    .btn-primary {
+        background: var(--brand-primary);
+    }
+
+    .btn-primary:hover {
+        background: var(--link-hover);
+    }
+
+    /* Optimize layout shifts */
+    .hero-image,
+    .features-image,
+    .screenshot-gallery {
+        aspect-ratio: 16/9;
+        height: auto;
+        contain: layout paint;
+    }
+}
+
+/* Mobile Gallery Optimizations */
+@media (max-width: 768px) {
+    .screenshots-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .screenshot-card {
+        margin: 0;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    .screenshot-img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
+
+    .screenshot-content {
+        padding: 1rem;
+    }
+
+    /* Mobile-friendly feature cards */
+    .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .features-card {
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    /* Optimize video containers for mobile */
+    .video-container {
+        aspect-ratio: 16/9;
+        margin: 0 1rem;
+        border-radius: var(--radius);
+        overflow: hidden;
+    }
+
+    .feature-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Mobile-friendly roadmap */
+    .roadmap-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .roadmap-card {
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    /* Optimize support section for mobile */
+    .support-card {
+        margin: 0 1rem;
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    /* Mobile-friendly tech specs */
+    .tech-specs-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .tech-spec-card {
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+    }
+
+    /* Optimize mobile menu */
+    .nav-links {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--bg);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 100;
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.75rem 0;
+    }
+
+    /* Mobile-friendly buttons */
+    .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: var(--radius);
+    }
+
+    /* Optimize mobile gallery controls */
+    .mobile-gallery-controls {
+        position: absolute;
+        bottom: 1rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        z-index: 10;
+    }
+
+    .mobile-gallery-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--surface);
+        border: none;
+        color: var(--text-1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+    }
+
+    .mobile-gallery-indicators {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        z-index: 10;
+    }
+
+    /* Optimize mobile image loading */
+    .mobile-gallery-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .mobile-gallery-image.active {
+        opacity: 1;
+    }
+
+    /* Add touch-friendly spacing */
+    .section-intro {
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+
+    /* Optimize mobile typography */
+    h2 {
+        font-size: 1.75rem;
+        line-height: 1.2;
+        padding: 0 1rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        padding: 0 1rem;
+    }
+
+    /* Add mobile-specific animations */
+    @media (prefers-reduced-motion: no-preference) {
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Additional Mobile Optimizations */
+@media (max-width: 480px) {
+    /* Further optimize spacing for very small screens */
+    :root {
+        --section-spacing: 3rem;
+        --content-spacing: 1rem;
+        --element-spacing: 0.5rem;
+    }
+
+    /* Optimize hero section for very small screens */
+    .hero-content h1 {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    /* Stack buttons on very small screens */
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    /* Optimize feature cards for very small screens */
+    .features-card,
+    .roadmap-card,
+    .support-card {
+        padding: 1rem;
+    }
+
+    /* Adjust gallery controls for very small screens */
+    .mobile-gallery-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    .mobile-gallery-indicator {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 2rem;
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    background-color: var(--bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--surface);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: var(--text-1);
+    box-shadow: var(--shadow);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+    background-color: var(--surface-2);
+    transform: scale(1.1);
+}
+
+.lightbox-body {
+    width: 100%;
+    height: 100%;
+    max-height: 80vh;
+    overflow: auto;
+    padding: 2rem;
+}
+
+.lightbox-navigation {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.lightbox-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--surface);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-1);
+    box-shadow: var(--shadow);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-nav-btn:hover {
+    background-color: var(--surface-2);
+    transform: scale(1.1);
+}
+
+/* Make elements clickable */
+.feature-card,
+.css-macbook,
+.mobile-screenshot-gallery {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+.feature-card::after,
+.css-macbook::after,
+.mobile-screenshot-gallery::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.feature-card:hover,
+.css-macbook:hover,
+.mobile-screenshot-gallery:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-card:hover::after,
+.css-macbook:hover::after,
+.mobile-screenshot-gallery:hover::after {
+    opacity: 1;
+}
+
+/* Lightbox content styling */
+.lightbox-video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    margin: 0 auto;
+    display: block;
+    border-radius: var(--radius);
+}
+
+.lightbox-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 70vh;
+    margin: 0 auto;
+    display: block;
+    border-radius: var(--radius);
+}
+
+.lightbox-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 1rem 0;
+    scrollbar-width: thin;
+}
+
+.lightbox-gallery::-webkit-scrollbar {
+    height: 8px;
+}
+
+.lightbox-gallery::-webkit-scrollbar-thumb {
+    background-color: var(--brand-primary);
+    border-radius: 4px;
+}
+
+.lightbox-gallery-item {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .lightbox-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .lightbox-body {
+        padding: 1rem;
+    }
+    
+    .lightbox-close {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+    
+    .lightbox-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Hover Effects for Elements */
+
+/* MacBook Hover Effect */
+.css-macbook {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.css-macbook:hover {
+    transform: scale(1.04);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.2);
+    z-index: 5;
+}
+
+.css-macbook:hover .css-macbook-screen {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+}
+
+/* App Features Card Hover Effect */
+.features-grid .feature-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+    border: 1px solid transparent;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.features-grid .feature-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.18);
+    background-color: rgba(37, 99, 235, 0.03);
+    border-color: rgba(37, 99, 235, 0.3);
+    z-index: 10;
+}
+
+.features-grid .feature-card:hover .feature-content h3 {
+    color: var(--brand-primary);
+}
+
+.features-grid .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.features-grid .feature-card:hover::before {
+    opacity: 1;
+}
+
+/* Video Container Hover Effect */
+.video-container {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.feature-card:hover .video-container {
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Main Demo Video Hover Effect */
+.main-demo-container {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+}
+
+.main-demo-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.18);
+    z-index: 2;
+}
+
+/* Mobile Gallery Hover */
+.mobile-screenshot-gallery {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform-origin: center;
+}
+
+.mobile-screenshot-gallery:hover {
+    transform: scale(1.08);
+    box-shadow: var(--shadow-lg);
+    z-index: 2;
+}
+
+/* Interactive Learning Tools Hover */
+.learning-tool {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
+}
+
+.learning-tool:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+    z-index: 2;
+}
+
+/* Core Features section */
+.core-features .feature-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
 }
