@@ -36,6 +36,7 @@
     
     /* Fallback styles for when 3D model loading fails */
     --loading-timeout: 6000ms; /* Time to wait before showing fallback */
+    --transition-fast: 0.15s ease;
 }
 
 /* Dark Theme */
@@ -63,6 +64,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-height) + 1rem);
+    overscroll-behavior: none;
 }
 
 body {
@@ -82,6 +84,8 @@ img, video {
     max-width: 100%;
     height: auto;
     display: block;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 /* Layout */
@@ -99,6 +103,8 @@ img, video {
 section {
     padding: var(--section-spacing) 0;
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
 }
 
 /* Typography */
@@ -163,16 +169,19 @@ mark {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     z-index: 1000;
     transition: background var(--transition), border-color var(--transition);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
 }
 
 [data-theme="dark"] .header {
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(15, 23, 42, 0.7);
+    border-bottom-color: rgba(255, 255, 255, 0.03);
+    box-shadow: none;
 }
 
 .nav {
@@ -195,13 +204,13 @@ mark {
     z-index: 1001;
     letter-spacing: 0.05em;
     margin-right: 2rem;
-    transition: transform var(--transition);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     padding: 0.5rem;
     border-radius: var(--radius-sm);
 }
 
 .nav-logo:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
 }
 
 .nav-logo span {
@@ -249,13 +258,14 @@ mark {
     text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 0;
-    transition: color var(--transition);
+    transition: color var(--transition), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     white-space: nowrap;
 }
 
 .nav-links a:hover {
     color: var(--brand-primary);
+    transform: translateY(-3px) scale(1.05);
 }
 
 .nav-links a::after {
@@ -296,8 +306,8 @@ mark {
 }
 
 .nav-links .btn.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5);
 }
 
 /* Buttons */
@@ -525,9 +535,10 @@ mark {
     height: 100%;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
     transform-origin: center;
     border: 1px solid transparent;
+    will-change: transform, box-shadow;
 }
 
 .video-container {
@@ -538,7 +549,7 @@ mark {
     background: var(--surface);
     border-radius: var(--radius) var(--radius) 0 0;
     min-height: 200px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     transform-origin: center;
 }
 
@@ -703,7 +714,7 @@ mark {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     position: relative;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     border: 1px solid var(--border);
     height: 100%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -792,7 +803,7 @@ mark {
     padding: 3rem 2rem;
     border-radius: var(--radius);
     text-align: center;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
     height: 100%;
@@ -815,7 +826,7 @@ mark {
     width: 80px;
     height: 80px;
     margin: 0 auto 1.5rem;
-    transition: transform var(--transition);
+    transition: transform var(--transition-fast);
 }
 
 .download-card:hover img {
@@ -831,7 +842,7 @@ mark {
     padding: 0.75rem;
     background-color: var(--primary-light);
     border-radius: var(--radius-sm);
-    transition: background-color var(--transition);
+    transition: background-color var(--transition-fast);
     font-weight: 500;
     border: 1px solid rgba(37, 99, 235, 0.1);
 }
@@ -900,7 +911,7 @@ mark {
     max-width: 550px;
     margin: 0 auto;
     box-shadow: var(--shadow);
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     border: 1px solid var(--border);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     transform-origin: center;
@@ -1009,7 +1020,7 @@ mark {
     gap: 0.75rem;
     color: var(--text-2);
     text-decoration: none;
-    transition: all var(--transition);
+    transition: all var(--transition-fast);
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
     background-color: var(--bg);
@@ -1039,7 +1050,7 @@ mark {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--transition);
+    transition: all var(--transition-fast);
     position: relative;
     z-index: 1002;
     margin-left: 1rem;
@@ -1048,8 +1059,8 @@ mark {
 
 .theme-toggle:hover {
     background-color: rgba(37, 99, 235, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
 }
 
 .theme-toggle img {
@@ -1242,7 +1253,9 @@ mark {
 }
 
 [data-theme="dark"] .header {
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(15, 23, 42, 0.7);
+    border-bottom-color: rgba(255, 255, 255, 0.03);
+    box-shadow: none;
 }
 
 [data-theme="dark"] .nav-logo {
@@ -1404,20 +1417,21 @@ mark {
     perspective: 2000px;
     top: 50%;
     transform: translateY(-10%);
-    z-index: 10; /* Ensure it's above other elements */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    z-index: 1;
+    transition: transform 0.4s ease;
     transform-origin: center;
+    background: transparent;
 }
 
 .css-macbook:hover {
     transform: scale(1.04);
-    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.2);
-    z-index: 5;
+    box-shadow: none;
+    z-index: 2;
 }
 
 .css-macbook:hover .css-macbook-screen {
     transform: scale(1.03);
-    box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+    box-shadow: none;
 }
 
 .css-macbook-body {
@@ -1425,11 +1439,11 @@ mark {
     bottom: 0;
     width: 100%;
     height: 25px;
-    background: linear-gradient(90deg, #7d7d7d 0%, #b2b2b2 20%, #c9c9c9 50%, #b2b2b2 80%, #7d7d7d 100%);
+    background: linear-gradient(90deg, #444 0%, #555 20%, #666 50%, #555 80%, #444 100%);
     border-radius: 0 0 10px 10px;
     z-index: 2;
     transform-style: preserve-3d;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
 }
 
 .css-macbook-body::after {
@@ -1437,7 +1451,7 @@ mark {
     position: absolute;
     width: 100%;
     height: 8px;
-    background: #b2b2b2;
+    background: #444;
     top: 100%;
     left: 0;
     transform: translateZ(-8px) rotateX(-90deg);
@@ -1450,7 +1464,7 @@ mark {
     position: absolute;
     width: 140px;
     height: 5px;
-    background: linear-gradient(90deg, #7d7d7d 0%, #b2b2b2 50%, #7d7d7d 100%);
+    background: linear-gradient(90deg, #444 0%, #555 50%, #444 100%);
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateZ(-3px) rotateX(-90deg);
@@ -1472,19 +1486,19 @@ mark {
     transform-origin: bottom center;
     transform: rotateX(90deg);
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 0 1px #666, 0 0 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 1px #666;
     z-index: 1;
     bottom: 25px;
     top: auto;
-    backface-visibility: hidden; /* Add this to prevent rendering issues */
-    -webkit-backface-visibility: hidden; /* For Safari */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .css-macbook-screen-bezel {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #151515 0%, #2c2c2c 20%, #3a3a3a 50%, #2c2c2c 80%, #151515 100%);
+    background: linear-gradient(90deg, #151515 0%, #1e1e1e 20%, #252525 50%, #1e1e1e 80%, #151515 100%);
     border-radius: 10px 10px 0 0;
     overflow: hidden;
     z-index: 1;
@@ -1502,7 +1516,7 @@ mark {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease;
     transform-origin: center;
 }
 
@@ -1838,7 +1852,7 @@ mark {
     padding: 2rem;
     text-align: center;
     border: 1px solid var(--border);
-    transition: transform var(--transition);
+    transition: transform var(--transition-fast);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     transform-origin: center;
 }
@@ -1868,7 +1882,7 @@ mark {
 .workflow-icon img {
     width: 48px;
     height: 48px;
-    transition: transform var(--transition);
+    transition: transform var(--transition-fast);
 }
 
 .workflow-step:hover .workflow-icon img {
@@ -1932,7 +1946,7 @@ mark {
 .feature-icon img {
     width: 24px;
     height: 24px;
-    transition: transform var(--transition);
+    transition: transform var(--transition-fast);
 }
 
 .feature-card:hover .feature-icon img {
@@ -2389,7 +2403,7 @@ mark {
 .css-macbook,
 .mobile-screenshot-gallery {
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     position: relative;
 }
 
@@ -2494,20 +2508,20 @@ mark {
 
 /* MacBook Hover Effect */
 .css-macbook {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease;
     position: relative;
     z-index: 1;
 }
 
 .css-macbook:hover {
     transform: scale(1.04);
-    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.2);
-    z-index: 5;
+    box-shadow: none;
+    z-index: 2;
 }
 
 .css-macbook:hover .css-macbook-screen {
     transform: scale(1.03);
-    box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+    box-shadow: none;
 }
 
 /* App Features Card Hover Effect */
@@ -2600,4 +2614,85 @@ mark {
 .core-features .feature-card:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+}
+
+/* Hide redundant indicators since we have them on the Mac */
+.model-indicators {
+    display: none;
+}
+
+/* Ensure mobile still has indicators */
+@media (max-width: 600px) {
+    .mobile-gallery-indicators {
+        display: flex;
+    }
+}
+
+/* Optimize images for better performance */
+img, video {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Improve performance for animations */
+.feature-card, .screenshot-card, .css-macbook, .css-macbook-screen {
+    will-change: transform, box-shadow;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Remove redundant pagination indicators */
+.model-indicators,
+.screen-indicators[id="screenIndicators"] {
+    display: none;
+}
+
+/* Only keep indicators inside the MacBook screen itself */
+.css-macbook .screen-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+[data-theme="dark"] .css-macbook-body {
+    background: linear-gradient(90deg, #333 0%, #444 20%, #555 50%, #444 80%, #333 100%);
+}
+
+[data-theme="dark"] .css-macbook-body::after {
+    background: #333;
+}
+
+[data-theme="dark"] .css-macbook-body::before {
+    background: linear-gradient(90deg, #333 0%, #444 50%, #333 100%);
+}
+
+[data-theme="dark"] .css-macbook-screen-bezel {
+    background: linear-gradient(90deg, #111 0%, #181818 20%, #222 50%, #181818 80%, #111 100%);
+}
+
+/* Make the MacBook completely flush with dark background */
+[data-theme="dark"] .css-macbook {
+    background: transparent;
+    box-shadow: none;
+}
+
+[data-theme="dark"] .css-macbook:hover {
+    box-shadow: none;
 }

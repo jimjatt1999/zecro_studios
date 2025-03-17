@@ -1,4 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Use requestIdleCallback for non-critical initializations
+    const initNonCritical = () => {
+        setupVideoTabs();
+        setupLightboxFixed();
+    };
+    
+    // Initialize critical UI components immediately
+    setupMobileMenu();
+    setupDownloads();
+    setupSmoothScroll();
+    setupHeaderScroll();
+    setupIntersectionObserver();
+    
+    // Defer other initializations
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(initNonCritical);
+    } else {
+        setTimeout(initNonCritical, 200);
+    }
+    
+    // Lazy load images that are offscreen
+    if ('IntersectionObserver' in window) {
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        
+        const lazyImageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    lazyImageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(image => {
+            if (image.dataset.src) {
+                lazyImageObserver.observe(image);
+            }
+        });
+    }
+
     // Scroll to Top Function
     window.scrollToTop = function(event) {
         event.preventDefault();
@@ -208,17 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize all functionality
-    const init = () => {
-        setupMobileMenu();
-        setupDownloads();
-        setupSmoothScroll();
-        setupHeaderScroll();
-        setupIntersectionObserver();
-        setupVideoTabs();
-        setupLightboxFixed();
-    };
-
     // Fixed Lightbox Modal Functionality
     const setupLightboxFixed = () => {
         console.log("Setting up lightbox");
@@ -390,6 +420,4 @@ document.addEventListener('DOMContentLoaded', function() {
             close: closeLightbox
         };
     };
-
-    init();
 });
