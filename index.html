@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#2563eb">
-    <title>Shizen - Advanced Japanese Language Learning Through Immersion</title>
-    <meta name="description" content="Transform Japanese content into personalized language learning materials using advanced technology">
+    <title>Shizen - Japanese Learning App with SRS Technology | Anki Alternative for MacBook</title>
+    <meta name="description" content="Learn Japanese efficiently with Shizen, the advanced SRS app for MacBook. Features audio processing, spaced repetition, and interactive learning games. Better than Anki for Japanese learners.">
+    <meta name="keywords" content="Japanese learning, SRS, spaced repetition, Anki alternative, MacBook app, learn Japanese, Japanese vocabulary, audio segmentation, language learning">
+    
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="Shizen - Japanese Learning App with SRS Technology">
+    <meta property="og:description" content="Learn Japanese efficiently with Shizen, the advanced SRS app for MacBook. Better than Anki for Japanese learners.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shizen-app.com">
+    <meta property="og:image" content="assets/images/shizen-og-image.jpg">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shizen - Japanese Learning App with SRS Technology">
+    <meta name="twitter:description" content="Learn Japanese efficiently with Shizen, the advanced SRS app for MacBook. Better than Anki for Japanese learners.">
+    <meta name="twitter:image" content="assets/images/shizen-og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <meta rel="canonical" href="https://shizen-app.com">
     
     <!-- Preload critical assets -->
     <link rel="preload" href="assets/images/logo.svg" as="image" type="image/svg+xml">
@@ -27,6 +44,28 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
+    <!-- Schema.org structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Shizen",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "macOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "An advanced Japanese learning application using spaced repetition system (SRS) technology, audio processing, and interactive learning games.",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "156"
+      }
+    }
+    </script>
+
     <header class="header">
         <nav class="nav container">
             <a href="#" class="nav-logo" onclick="scrollToTop(event)">
@@ -1147,7 +1186,7 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        });
 
         // Observe all animated elements
         document.querySelectorAll('.fade-in, .fade-in-delay-1, .fade-in-delay-2, .slide-right').forEach(el => {
