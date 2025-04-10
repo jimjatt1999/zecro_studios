@@ -1,0 +1,789 @@
+:root {
+    --bg-color: #f8f8f8;
+    --text-color: #1a1a1a;
+    --subtle-color: #7a7a7a;
+    --accent-color: #007aff; /* Apple blue for a touch of familiarity */
+    --border-color: #e0e0e0;
+    --monospace-font: 'IBM Plex Mono', monospace;
+    --sans-font: 'Inter', sans-serif;
+    --container-width: 960px;
+    --transition: 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1c1c1e;
+    --text-color: #f2f2f7;
+    --subtle-color: #8e8e93;
+    --accent-color: #0a84ff;
+    --border-color: #3a3a3c;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--monospace-font), var(--sans-font); /* Monospace first */
+    line-height: 1.6;
+    /* padding-top: 100px; REMOVED - No longer needed for fixed header */
+    transition: background-color var(--transition), color var(--transition);
+}
+
+/* Apply margin-top to the main content element */
+main {
+    display: block; /* Ensure main is treated as a block */
+    /* margin-top: 80px; REMOVED - Handled by body padding */
+}
+
+/* Add padding inside the main container */
+main > .container {
+    /* padding-top: 30px; REMOVED - Handled by body padding */
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: opacity var(--transition);
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Header --- */
+.site-header {
+    /* position: fixed; REMOVED - Header will scroll with page */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    z-index: 100; /* Keep z-index in case needed later */
+    transition: background-color var(--transition), border-color var(--transition);
+}
+
+[data-theme="dark"] .site-header {
+    background-color: var(--bg-color); /* Changed from transparent */
+    border-bottom-color: var(--border-color); /* Adjusted from rgba */
+}
+
+.site-header h1 {
+    font-size: 1.6rem; /* Increased size */
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.site-header .subtitle {
+    font-size: 0.9rem; /* Increased size slightly */
+    color: var(--subtle-color);
+    margin-top: 4px; /* Adjusted spacing */
+    line-height: 1.2;
+    margin-bottom: 0;
+}
+
+/* Make header container flexible */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Keep for absolute positioning of title block if needed */
+    /* min-height: 60px; REMOVED - Let height be natural */
+}
+
+/* Center the title block */
+.header-title-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute; /* Position absolutely for centering */
+    left: 50%;
+    top: 50%; /* Align vertical center */
+    transform: translate(-50%, -50%); /* Center perfectly */
+    /* Allow title block to shrink if needed, but prioritize centered position */
+    max-width: calc(100% - 100px); /* Prevent overlap with button/padding */
+}
+
+.header-title-block h1 {
+    text-align: center; /* Ensure h1 text is centered */
+}
+
+.header-title-block .subtitle {
+     text-align: center; /* Ensure subtitle text is centered */
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: auto; /* Pushes button to the far right */
+    transition: background-color var(--transition), border-color var(--transition);
+}
+
+/* Ensure enough space on mobile */
+@media (max-width: 600px) {
+     /* body { padding-top: 150px; REMOVED } */
+     
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0; /* Give a bit more padding when stacked */
+    }
+    
+    .header-title-block {
+        margin-bottom: 15px; /* Add more space below title block when stacked */
+    }
+    
+    .theme-toggle-btn {
+         margin-top: 10px; /* Add more space above button when stacked */
+    }
+
+    .header-title-block {
+        position: static;
+        transform: none;
+        left: auto;
+        top: auto;
+        align-items: center;
+        margin-bottom: 10px;
+        order: 1;
+        width: 100%;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .header-title-block h1, .header-title-block .subtitle {
+        text-align: center;
+    }
+
+    .theme-toggle-btn {
+        margin-left: 0;
+        order: 2;
+        margin-top: 5px; /* Add space between title and button when stacked */
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .site-header {
+        padding: 10px 0;
+    }
+    
+    /* Ensure content doesn't start too close to header */
+    /* .app-detail-page main.container,
+    .legal-page main.container {
+        margin-top: 40px; 
+    } */
+}
+
+/* Further adjustments for very small screens if needed */
+@media (max-width: 400px) {
+     /* body { padding-top: 150px; REMOVED } */
+     .site-header h1 {
+        font-size: 1.2rem;
+    }
+     .site-header .subtitle {
+        font-size: 0.8rem;
+    }
+     /* body { padding-top: 160px; REMOVED } */
+}
+
+/* --- App Showcase --- */
+.app-showcase {
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+.app-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    gap: 30px;
+}
+
+.app-section:nth-child(even) {
+    flex-direction: row-reverse; /* Alternate layout */
+}
+
+.app-info {
+    flex: 1 1 45%;
+    min-width: 280px;
+}
+
+.app-info h2 {
+    /* font-family: var(--monospace-font); */
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px; /* Increased margin */
+}
+
+/* Container for badges */
+.app-badges {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align items */
+    gap: 8px; /* Space between badges */
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+.app-info .platform {
+    display: inline-block;
+    /* font-family: var(--monospace-font); */
+    font-size: 0.8rem;
+    color: var(--subtle-color);
+    background-color: rgba(122, 122, 122, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    /* margin-bottom: 15px; Removed - handled by container */
+    /* margin-right: 5px; Removed - handled by container gap */
+}
+
+.status-badge {
+    display: inline-block;
+    /* font-family: var(--monospace-font); */
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    /* vertical-align: middle; Removed - handled by flex container */
+}
+
+.coming-soon {
+    background-color: rgba(255, 149, 0, 0.15); /* Orange-ish */
+    color: #ff9500;
+}
+
+[data-theme="dark"] .app-info .platform {
+     background-color: rgba(142, 142, 147, 0.2);
+}
+
+[data-theme="dark"] .coming-soon {
+    background-color: rgba(255, 159, 10, 0.2);
+    color: #ff9f0a;
+}
+
+.app-info p {
+    font-size: 1rem;
+    color: var(--subtle-color);
+    margin-bottom: 20px;
+}
+
+.app-link {
+    display: inline-block;
+    /* font-family: var(--monospace-font); */
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    margin-top: 10px;
+    transition: transform 0.2s ease;
+}
+
+.app-link:hover {
+    transform: translateX(3px);
+    opacity: 1;
+}
+
+.video-link {
+    margin-left: 15px;
+    /* Add specific styling if needed */
+}
+
+.app-visual-container {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column; /* Stack visual and indicators */
+    align-items: center;
+    min-width: 300px; /* Adjusted min-width */
+}
+
+.app-visual {
+    /* flex: 1 1 45%; REMOVED - Handled by container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-width: 280px; REMOVED */
+    perspective: 1000px; /* For potential 3D effects */
+    margin-bottom: 15px; /* Space before indicators */
+}
+
+/* --- CSS iPhone Placeholder --- */
+.css-iphone {
+    width: 250px; /* Increased size */
+    height: 510px; /* Increased size */
+    background-color: #333;
+    border-radius: 40px; /* Adjusted radius */
+    padding: 15px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: transform var(--transition);
+}
+
+[data-theme="dark"] .css-iphone {
+    background-color: #444;
+}
+
+.css-iphone::before { /* Notch */
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px; /* Adjusted notch */
+    height: 15px; /* Adjusted notch */
+    background-color: #111;
+    border-radius: 0 0 10px 10px;
+    z-index: 2;
+}
+
+[data-theme="dark"] .css-iphone::before {
+     background-color: #222;
+}
+
+.css-iphone-screen {
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Set background for letterboxing */
+    border-radius: 25px; /* Adjusted radius */
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.css-iphone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Fit entire image inside */
+    display: block;
+}
+
+/* --- CSS MacBook Placeholder --- */
+.css-macbook {
+    width: 550px; /* Maintain width */
+    height: 340px; /* Maintain height */
+    background: linear-gradient(180deg, #e1e1e6, #c0c0c5); /* Gradient for silver body */
+    border-radius: 12px; /* Simplified radius */
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); /* Deeper shadow */
+    transition: transform var(--transition);
+    border: 1px solid rgba(0,0,0,0.08);
+    /* Removed the ::after pseudo-element for the base */
+}
+
+[data-theme="dark"] .css-macbook {
+    background: linear-gradient(180deg, #48484c, #303034);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.css-macbook-screen {
+    position: absolute;
+    top: 12px; /* Reduced top bezel */
+    left: 12px; /* Reduced side bezel */
+    right: 12px; /* Reduced side bezel */
+    bottom: 12px; /* Reduced bottom bezel */
+    background-color: #000; /* Black screen background */
+    border-radius: 8px; /* Slightly reduced radius */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add subtle inner shadow for bezel depth */
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+}
+
+/* Add a camera dot */
+.css-macbook-screen::before {
+    content: '';
+    position: absolute;
+    top: 6px; /* Position above screen content */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px; /* Smaller camera */
+    height: 4px; /* Smaller camera */
+    background-color: #333;
+    border-radius: 50%;
+    z-index: 2; /* Above screen content */
+}
+
+[data-theme="dark"] .css-macbook-screen::before {
+    background-color: #555;
+}
+
+.css-macbook-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area, may crop */
+    display: block;
+}
+
+.placeholder-text {
+    /* font-family: var(--monospace-font); REMOVED as body has it */
+    font-size: 1.5rem;
+    color: var(--subtle-color);
+    opacity: 0.5;
+}
+
+/* --- Footer --- */
+.site-footer {
+    margin-top: 80px;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--subtle-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    transition: border-color var(--transition);
+}
+
+.built-by {
+    font-size: 0.8rem;
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
+.contact-info {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    opacity: 0.7;
+}
+
+.contact-info a {
+    color: var(--subtle-color);
+}
+
+.contact-info a:hover {
+    color: var(--accent-color);
+    opacity: 1;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    /* body { padding-top: 100px; REMOVED } */
+    /* main { margin-top: 90px; REMOVED } */
+    /* main > .container { padding-top: 40px; REMOVED } */
+    .site-header {
+        padding: 15px 0;
+    }
+    .site-header h1 {
+        font-size: 1.3rem;
+    }
+    .app-section {
+        flex-direction: column !important; /* Stack on mobile */
+        margin-bottom: 60px;
+        /* text-align: center; Keep default alignment for info */
+    }
+    .app-info h2 {
+        font-size: 1.8rem;
+    }
+    .app-visual {
+        margin-top: 20px;
+        min-height: 350px; /* Ensure space for iPhone */
+    }
+    .css-iphone {
+         width: 180px;
+         height: 370px;
+    }
+    .css-macbook {
+        width: 300px;
+        height: 188px;
+    }
+    /* Center badges container on mobile */
+    .app-badges {
+        justify-content: center;
+    }
+}
+
+/* --- Screenshot Gallery --- */
+.screenshot-gallery {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.gallery-image.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gallery-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+    z-index: 5; /* Above images */
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.css-iphone-screen:hover .gallery-controls,
+.css-macbook-screen:hover .gallery-controls {
+    opacity: 1;
+}
+
+.gallery-btn {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.gallery-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.gallery-indicators {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.indicator-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background-color: var(--border-color);
+    border-radius: 50%;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.indicator-dot.active {
+    background-color: var(--accent-color);
+}
+
+.indicator-dot:hover {
+    background-color: var(--subtle-color);
+}
+
+/* --- Video Lightbox --- */
+.lightbox {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 85%;
+    background-color: #000;
+    padding: 10px;
+}
+
+.lightbox-content video {
+    display: block;
+    max-width: 100%;
+    max-height: calc(85vh - 60px); /* Adjust for padding/controls */
+    width: auto;
+    height: auto;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -35px;
+    right: -5px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+}
+
+/* --- App Detail Page Specific Styles --- */
+.app-detail-page {
+    padding-top: 0; /* Remove conflicting padding */
+    margin-top: 0; /* Remove conflicting margin */
+    padding-bottom: 60px;
+}
+
+.app-detail-page main.container {
+    margin: 0 auto; /* Center container */
+    max-width: var(--container-width);
+}
+
+.app-detail-page h2 {
+    text-align: left;
+    margin-bottom: 5px;
+    /* font-family: var(--monospace-font); */
+    font-size: 2.5rem;
+}
+
+.app-detail-page .platform,
+.app-detail-page .status-badge {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.app-tagline {
+    font-size: 1.2rem;
+    color: var(--subtle-color);
+    margin-bottom: 40px;
+}
+
+.app-content {
+    margin-bottom: 40px;
+}
+
+.app-content ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-top: 20px;
+    color: var(--subtle-color);
+}
+
+.app-content li {
+    margin-bottom: 10px;
+}
+
+.app-store-link {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.app-store-link img {
+    height: 45px; /* Adjust badge size */
+    width: auto;
+}
+
+.app-store-link.disabled {
+    background-color: var(--subtle-color);
+    color: var(--bg-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+    border-color: var(--subtle-color);
+}
+
+/* --- Header Link --- */
+.header-link {
+    text-decoration: none;
+    color: inherit; /* Inherit color from header */
+}
+
+/* --- Privacy/Legal Page Styles --- */
+.legal-page {
+    padding-top: 0; /* Remove conflicting padding */
+    margin-top: 0; /* Remove conflicting margin */
+    padding-bottom: 60px;
+}
+
+.legal-page main.container {
+    max-width: 800px; /* Narrower content for readability */
+    margin: 0 auto; /* Center container */
+}
+
+.legal-page h2 {
+    font-size: 2rem;
+    /* font-family: var(--monospace-font); */
+    margin-bottom: 15px; /* Increased from 10px */
+    text-align: center; /* Center the title */
+}
+
+.legal-page h3 {
+    font-size: 1.4rem;
+    font-family: var(--sans-font);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.legal-page h4 {
+    font-size: 1.1rem;
+    font-family: var(--sans-font);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: var(--subtle-color);
+}
+
+.legal-page p,
+.legal-page ul {
+    margin-bottom: 15px;
+    color: var(--subtle-color);
+}
+
+.legal-page ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.legal-page li {
+    margin-bottom: 8px;
+}
+
+.last-updated {
+    font-size: 0.9rem;
+    color: var(--subtle-color);
+    margin-bottom: 30px;
+}
+
+.privacy-link {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    text-align: center; /* Center link below badge/button */
+}
+
+/* --- THE END --- */ 
