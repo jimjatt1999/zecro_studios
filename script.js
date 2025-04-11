@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupVideoLightbox();
     setupThemeToggle();
 
-    // Run eye tracking only on the freeai page
-    if (document.body.id === 'page-freeai') {
+    // Run eye tracking only on the neuralai page
+    if (document.body.id === 'page-neuralai') {
         setupEyeTracking();
     }
 
