@@ -1,59 +1,36 @@
-# Zecro Studios Website
+# Neural AI
 
-A simple, responsive portfolio website showcasing apps developed by Zecro Studios.
+An on-device AI assistant for iPhone, iPad and Mac with chat, content generation, note processing, reminders, and a daily digest - 100% private and offline.
 
-## Features
+## Key Features
 
-*   Displays information about various apps (free ai, Halfway, Shizen).
-*   Responsive design that adapts to different screen sizes.
-*   Dark/Light mode theme toggle (though app detail pages are currently forced to dark mode).
-*   Individual detail pages for each app with more information.
-*   Privacy policy pages for apps.
-*   CSS-based mockups for iPhone and MacBook to display app screenshots.
-*   Screenshot galleries with navigation controls.
-*   Video lightbox for demo videos.
+- **Integrated Chat**: Conversational AI that can also discuss your notes and reminders.
+- **Smart Reminders**: Set reminders using natural language (e.g., "call mom tomorrow 5pm"). Includes notification scheduling, completion tracking, and recurrence.
+- **AI-Powered Notes**: Process and organize your notes with AI assistance. Supports text and audio notes.
+- **Daily Digest**: Get a personalized summary of your upcoming calendar events and reminders for the day, week, or month. Includes optional interesting facts from the "Discover" feature.
+- **Gamification (Optional)**: Earn XP and level up your AI companion by interacting with the app (chatting, completing reminders, saving notes, generating digests). Can be disabled or hidden in settings.
+- **Customizable Animated Eyes**: Fun, interactive visual feedback (optional).
+- **Voice Input**: Dictate notes, reminders, or chat messages.
+- **Completely Local**: All processing happens on-device, no data sent anywhere.
 
-## File Structure
+## Supported Models
 
-```
-/
-|-- index.html               # Main landing page
-|-- freeai.html              # Detail page for free ai app
-|-- halfway.html             # Detail page for Halfway app
-|-- shizen.html              # Detail page for Shizen app
-|-- privacy-freeai.html      # Privacy policy for free ai
-|-- privacy-halfway.html     # Privacy policy for Halfway
-|-- privacy-shizen.html      # Privacy policy for Shizen
-|-- style.css                # Main stylesheet
-|-- script.js                # Main JavaScript file (theme toggle, gallery, lightbox)
-|-- assets/
-|   |-- images/              # General images (e.g., favicons, potentially badges)
-|   |-- freeai/
-|   |   |-- images/          # Screenshots for free ai
-|   |   |-- videos/          # Demo videos for free ai
-|   |-- halfway/
-|   |   |-- images/          # Screenshots for Halfway
-|   |   |-- videos/          # Demo videos for Halfway
-|   |-- shizen/
-|   |   |-- images/          # Screenshots for Shizen
-|   |   |-- videos/          # Demo videos for Shizen
-|-- README.md                # This file
-```
+- **Core 1B** (0.7 GB): Fast, lightweight model for everyday use
+- **Core 3B** (1.8 GB): Enhanced model with better capabilities
 
-## How to View
+## What Sets Neural AI Apart
 
-1.  Clone or download this repository.
-2.  Navigate to the project directory in your file explorer.
-3.  Open the `index.html` file in your web browser.
+- **True Privacy**: Works offline with no external dependencies.
+- **Unified Interface**: Chat, create, manage notes, track reminders, and view your daily digest within a single app.
+- **Contextual Chat Modes**: Seamlessly switch between general chat, discussing FreeDump notes, or querying Reminders.
+- **Natural Language Input**: Use everyday language for reminders.
+- **Clean Design**: Minimalist interface focused on content.
 
-No build steps or local server are strictly required, as it's a static site.
+## System Requirements
 
-## Technologies Used
+- Apple Silicon device (iPhone, iPad, Mac)
+- iOS/iPadOS 17.6+ or macOS 14.0+
 
-*   HTML5
-*   CSS3 (including CSS Variables, Flexbox, Grid - implicitly)
-*   Vanilla JavaScript
+## Technical Details
 
-## Author
-
-*   Jimi Olaoya 
+Built with SwiftUI and powered by MLX from Apple. Models run efficiently using Metal optimizations on Apple Silicon. 
