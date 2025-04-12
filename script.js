@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupVideoLightbox();
     setupThemeToggle();
 
-    // Run eye tracking only on the neuralai page
-    if (document.body.id === 'page-neuralai') {
+    // Run eye tracking only on the neura page
+    if (document.body.id === 'page-neura') {
         setupEyeTracking();
     }
 
