@@ -592,8 +592,8 @@ a:hover {
 
 /* Increase size specifically on detail pages */
 .detail-page-visual .css-macbook {
-    width: 520px; /* Reduced further from 580px */
-    height: 321px; /* Reduced proportionally */
+    width: 580px; /* Reduced from 660px */
+    height: 360px; /* Reduced proportionally */
 }
 
 .placeholder-text {
@@ -678,8 +678,8 @@ a:hover {
         height: 490px; /* Adjusted mobile size for detail */
     }
     .detail-page-visual .css-macbook {
-        width: 260px; /* Reduced further from 280px */
-        height: 160px; /* Reduced proportionally */
+        width: 280px; /* Reduced from 320px */
+        height: 174px; /* Reduced proportionally */
     }
 
     /* Reset hover effect on mobile? Optional */
@@ -864,13 +864,13 @@ a:hover {
 }
 
 .detail-text-column {
-    flex: 1 1 60%; /* Increase basis further */
+    flex: 1 1 55%; /* Increase basis slightly */
     min-width: 280px; /* Minimum width before wrapping */
     order: 1; /* Text column first */
 }
 
 .detail-visual-column {
-    flex: 1 1 30%; /* Decrease basis further */
+    flex: 1 1 35%; /* Decrease basis slightly */
     min-width: 300px; /* Minimum width for visual */
     display: flex; /* Use flex for alignment */
     justify-content: center; /* Keep horizontal centering */
