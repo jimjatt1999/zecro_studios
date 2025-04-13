@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Game Boy Font */
+
 :root {
     --bg-color: #f8f8f8;
     --text-color: #1a1a1a;
@@ -8,6 +11,8 @@
     --sans-font: 'Inter', sans-serif;
     --container-width: 960px;
     --transition: 0.3s ease;
+    --tagline-font: 'Playfair Display', serif; /* Added tagline font */
+    --pixel-font: 'Press Start 2P', cursive; /* Added pixel font */
 }
 
 [data-theme="dark"] {
@@ -16,6 +21,111 @@
     --subtle-color: #8e8e93;
     --accent-color: #0a84ff;
     --border-color: #3a3a3c;
+}
+
+/* --- Game Boy Theme --- */
+[data-theme="gameboy"] {
+    --gb-bg: #9bbc0f;    /* GB Light Green */
+    --gb-mid-light: #8bac0f; /* GB Medium Light Green */
+    --gb-mid-dark: #306230; /* GB Medium Dark Green */
+    --gb-dark: #0f380f;   /* GB Dark Green */
+
+    --bg-color: var(--gb-bg);
+    --text-color: var(--gb-dark);
+    --subtle-color: var(--gb-mid-dark);
+    --accent-color: var(--gb-dark); /* Use dark green for links */
+    --border-color: var(--gb-mid-dark);
+
+    font-family: var(--pixel-font); /* Apply pixel font globally */
+    font-size: 14px; /* Increased base size again */
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+[data-theme="gameboy"] body {
+     position: relative; /* Needed for scanlines */
+     z-index: 1;
+}
+
+/* Add scanline overlay for Game Boy theme */
+[data-theme="gameboy"] body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(15, 56, 15, 0.1) 50%, transparent 50%);
+    background-size: 100% 3px; /* Adjust size for scanline thickness/spacing */
+    z-index: 2;
+    pointer-events: none; /* Allow interaction with content below */
+    image-rendering: pixelated; /* Try to keep scanlines crisp */
+    image-rendering: crisp-edges;
+}
+
+/* Adjust specific elements for Game Boy theme */
+[data-theme="gameboy"] h1, [data-theme="gameboy"] h2, [data-theme="gameboy"] h3 {
+    font-size: 1.6em; /* Relative sizing based on new base font size */
+    line-height: 1.2;
+}
+
+[data-theme="gameboy"] p, [data-theme="gameboy"] li, [data-theme="gameboy"] span {
+    font-size: 1em; /* Use base size */
+    line-height: 1.5;
+}
+
+[data-theme="gameboy"] .site-header {
+    border-bottom-color: var(--gb-dark);
+}
+
+[data-theme="gameboy"] .theme-toggle-btn {
+    background-color: var(--gb-mid-dark);
+    color: var(--gb-bg);
+    border-color: var(--gb-dark);
+    font-family: var(--pixel-font); /* Ensure button uses pixel font */
+    font-size: 0.8em; /* Adjust relative size */
+}
+
+[data-theme="gameboy"] .theme-toggle-btn:hover {
+    background-color: var(--gb-dark);
+}
+
+[data-theme="gameboy"] .tagline-special {
+    font-family: var(--pixel-font); /* Override Playfair */
+    font-style: normal; /* Remove italic */
+    font-size: 1.2em;
+}
+
+/* Gameboy mockups */
+[data-theme="gameboy"] .css-iphone, 
+[data-theme="gameboy"] .css-macbook {
+    background: var(--gb-mid-light);
+    border: 4px solid var(--gb-dark);
+    box-shadow: none;
+}
+[data-theme="gameboy"] .css-iphone::before, /* Notch */
+[data-theme="gameboy"] .css-macbook-screen::before /* Camera */ {
+    background-color: var(--gb-dark);
+}
+[data-theme="gameboy"] .css-iphone-screen, 
+[data-theme="gameboy"] .css-macbook-screen {
+    background-color: var(--gb-bg); /* Screen background */
+    border-radius: 0; /* Sharp corners */
+    border: 2px solid var(--gb-dark);
+    box-shadow: none;
+}
+[data-theme="gameboy"] .css-iphone-screen img, 
+[data-theme="gameboy"] .css-macbook-screen img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+[data-theme="gameboy"] .gallery-btn {
+    background-color: var(--gb-dark);
+    color: var(--gb-bg);
+    border: 1px solid var(--gb-bg);
+    pointer-events: auto; /* Ensure buttons are clickable */
+    z-index: 6; /* Ensure buttons are above other elements */
 }
 
 * {
@@ -126,16 +236,22 @@ a:hover {
 .theme-toggle-btn {
     background: none;
     border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    border-radius: 6px; /* Slightly rounded corners */
+    width: auto; /* Adjust width to content */
+    height: auto; /* Adjust height to content */
+    padding: 6px 12px; /* Add padding for text */
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin-left: auto; /* Pushes button to the far right */
-    transition: background-color var(--transition), border-color var(--transition);
+    margin-left: auto;
+    transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+    font-size: 0.8rem; /* Set font size */
+    font-weight: 500;
+    color: var(--text-color); /* Use text color */
+    font-family: var(--sans-font); /* Use standard sans-serif */
+    line-height: 1; /* Adjust line height */
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--border-color);
 }
 
 /* Ensure enough space on mobile */
@@ -290,6 +406,21 @@ a:hover {
     margin-bottom: 20px;
 }
 
+/* Add unique tagline style */
+.tagline-special {
+    font-family: var(--tagline-font);
+    font-size: 1.4rem; /* Adjust size as needed */
+    font-weight: 600; /* Adjust weight as needed */
+    font-style: italic; /* Optional: make it italic */
+    color: var(--text-color); /* Use main text color or accent */
+    margin-bottom: 10px; /* Space below tagline */
+    text-align: left; /* Ensure alignment */
+}
+
+[data-theme="dark"] .tagline-special {
+    color: var(--text-color); /* Ensure contrast in dark mode */
+}
+
 .app-link {
     display: inline-block;
     /* font-family: var(--monospace-font); */
@@ -326,12 +457,13 @@ a:hover {
     /* min-width: 280px; REMOVED */
     perspective: 1000px; /* For potential 3D effects */
     margin-bottom: 15px; /* Space before indicators */
+    position: relative; /* Needed for absolute positioning of controls */
 }
 
 /* --- CSS iPhone Placeholder --- */
 .css-iphone {
-    width: 250px; /* Increased size */
-    height: 510px; /* Increased size */
+    width: 300px; /* Increased size */
+    height: 612px; /* Increased size */
     background-color: #333;
     border-radius: 40px; /* Adjusted radius */
     padding: 15px;
@@ -503,8 +635,8 @@ a:hover {
         min-height: 350px; /* Ensure space for iPhone */
     }
     .css-iphone {
-         width: 180px;
-         height: 370px;
+         width: 216px; /* Increased mobile size */
+         height: 444px; /* Increased mobile size */
     }
     .css-macbook {
         width: 300px;
@@ -544,24 +676,26 @@ a:hover {
 
 .gallery-controls {
     position: absolute;
-    top: 50%;
+    top: 50%; /* Center vertically relative to app-visual */
     left: 0;
     width: 100%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 5px;
-    z-index: 5; /* Above images */
-    opacity: 0;
-    transition: opacity var(--transition);
-}
-
-.css-iphone-screen:hover .gallery-controls,
-.css-macbook-screen:hover .gallery-controls {
+    transform: translateY(-50%); /* Fine-tune vertical centering */
+    /* bottom: 10px; Removed */
+    z-index: 5;
     opacity: 1;
+    pointer-events: none; /* Container doesn't block */
+    transition: opacity var(--transition);
+    /* display: flex; Removed */
+    /* justify-content: space-between; Removed */
+    /* padding: 0 5px; Removed */
+    height: 0; /* Container itself takes no space */
 }
 
 .gallery-btn {
+    position: absolute; /* Position relative to gallery-controls */
+    top: 50%; /* Center vertically within gallery-controls */
+    transform: translateY(-50%); /* Fine-tune button vertical center */
+    /* position: static; Removed */
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
@@ -573,6 +707,24 @@ a:hover {
     text-align: center;
     cursor: pointer;
     transition: background-color var(--transition);
+    pointer-events: auto; /* Buttons are clickable */
+}
+
+.gallery-btn.prev {
+    left: -40px; /* Position outside the main visual area */
+}
+
+.gallery-btn.next {
+    right: -40px; /* Position outside the main visual area */
+}
+
+/* Ensure specific Macbook positioning applies in GB theme too */
+[data-theme="gameboy"] .app-visual:has(.css-macbook) .gallery-btn.prev {
+    left: -30px; /* Reiterate closer position */
+}
+
+[data-theme="gameboy"] .app-visual:has(.css-macbook) .gallery-btn.next {
+    right: -30px; /* Reiterate closer position */
 }
 
 .gallery-btn:hover {
@@ -684,6 +836,21 @@ a:hover {
     font-size: 1.2rem;
     color: var(--subtle-color);
     margin-bottom: 40px;
+}
+
+/* Apply special tagline font if class is added */
+.app-tagline.tagline-special {
+    font-family: var(--tagline-font);
+    font-size: 1.8rem; /* Larger size for detail page tagline */
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-color);
+    text-align: left;
+    margin-bottom: 30px; /* Adjust spacing */
+}
+
+[data-theme="dark"] .app-tagline.tagline-special {
+    color: var(--text-color);
 }
 
 .app-content {

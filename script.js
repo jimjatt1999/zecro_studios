@@ -26,19 +26,27 @@ function setupScreenshotGalleries() {
         const nextBtn = document.querySelector(`.gallery-btn.next[data-gallery="${galleryId}"]`);
         const indicatorsContainer = document.querySelector(`.gallery-indicators[data-gallery="${galleryId}"]`);
         let currentIndex = 0;
+        let indicators = null; // Initialize indicators as null
+
+        // Check if controls/indicators even exist before proceeding
+        const controlsExist = prevBtn && nextBtn;
+        const indicatorsExist = indicatorsContainer;
 
         if (images.length <= 1) {
-             // Hide controls if only one image
-             if (prevBtn) prevBtn.style.display = 'none';
-             if (nextBtn) nextBtn.style.display = 'none';
-             if (indicatorsContainer) indicatorsContainer.style.display = 'none';
-             return; // No setup needed for single image galleries
+            // Hide controls if they exist and only one image
+            if (controlsExist) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+            if (indicatorsExist) {
+                indicatorsContainer.style.display = 'none';
+            }
+            return; // No setup needed for single image galleries
         }
 
-        // Create indicators
-        if (indicatorsContainer) {
-             // Clear existing dots if any (useful for dynamic updates later)
-            indicatorsContainer.innerHTML = '';
+        // Create indicators only if the container exists
+        if (indicatorsExist) {
+            indicatorsContainer.innerHTML = ''; // Clear existing dots
             images.forEach((_, index) => {
                 const dot = document.createElement('span');
                 dot.classList.add('indicator-dot');
@@ -46,19 +54,29 @@ function setupScreenshotGalleries() {
                 dot.addEventListener('click', () => showImage(index));
                 indicatorsContainer.appendChild(dot);
             });
+            indicators = indicatorsContainer.querySelectorAll('.indicator-dot'); // Assign indicators after creation
         }
-        const indicators = indicatorsContainer ? indicatorsContainer.querySelectorAll('.indicator-dot') : null;
 
         function showImage(index) {
+            // Check if images exist at the current and target index
+            if (!images[currentIndex] || !images[index]) return; 
+            
             images[currentIndex].classList.remove('active');
-            if (indicators) indicators[currentIndex].classList.remove('active');
+            // Only update indicators if they exist
+            if (indicators && indicators[currentIndex]) {
+                indicators[currentIndex].classList.remove('active');
+            }
 
             currentIndex = (index + images.length) % images.length; // Loop around
 
             images[currentIndex].classList.add('active');
-            if (indicators) indicators[currentIndex].classList.add('active');
+            // Only update indicators if they exist
+            if (indicators && indicators[currentIndex]) {
+                indicators[currentIndex].classList.add('active');
+            }
         }
 
+        // Add listeners only if buttons exist
         if (prevBtn) {
             prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
         }
@@ -71,10 +89,23 @@ function setupScreenshotGalleries() {
 function setupVideoLightbox() {
     const videoLinks = document.querySelectorAll('.video-link');
     const lightbox = document.getElementById('video-lightbox');
+
+    // Check if the lightbox element itself exists first!
+    if (!lightbox) {
+        // If no lightbox on this page, maybe hide video links or just exit
+        // console.log("No video lightbox found on this page.");
+        return; 
+    }
+
+    // Now that we know lightbox exists, query inside it
     const lightboxVideo = lightbox.querySelector('video');
     const closeBtn = lightbox.querySelector('.lightbox-close');
 
-    if (!lightbox || !lightboxVideo || !closeBtn) return;
+    // Check if the inner elements exist
+    if (!lightboxVideo || !closeBtn) {
+        console.error("Lightbox structure incomplete. Video or close button missing.");
+        return;
+    }
 
     videoLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -156,26 +187,42 @@ function setupThemeToggle() {
     const applyTheme = (theme) => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        console.log(`Theme set to ${theme}`);
+        // Update button text based on the NEXT theme it will switch to
+        let nextThemeText = '';
+        if (theme === 'light') nextThemeText = 'Dark';
+        else if (theme === 'dark') nextThemeText = 'GB'; // GB for Game Boy
+        else nextThemeText = 'Light'; // After GB comes Light
+        toggleButton.textContent = nextThemeText;
+        console.log(`Theme set to ${theme}, button shows ${nextThemeText}`);
     };
 
     // Check initial theme
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    applyTheme(currentTheme);
+    // No longer rely solely on prefers-color-scheme for initial, prioritize saved
+    const initialTheme = savedTheme || 'light'; // Default to light if nothing saved
+    applyTheme(initialTheme);
 
-    // Add click listener
+    // Add click listener to cycle themes
     toggleButton.addEventListener('click', () => {
-        let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        let newTheme;
+        if (currentTheme === 'light') {
+            newTheme = 'dark';
+        } else if (currentTheme === 'dark') {
+            newTheme = 'gameboy';
+        } else { // If current is gameboy (or anything else unexpected), go to light
+            newTheme = 'light';
+        }
         applyTheme(newTheme);
     });
 
-    // Optional: Listen for OS theme changes
+    // Remove the OS theme change listener for simplicity with three themes
+    /* 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         // Only change if no theme is explicitly saved by the user
         if (!localStorage.getItem('theme')) {
             applyTheme(e.matches ? 'dark' : 'light');
         }
     });
+    */
 } 

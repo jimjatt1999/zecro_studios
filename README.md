@@ -1,59 +1,42 @@
-# Zecro Studios Website
+# Neura
 
-A simple, responsive portfolio website showcasing apps developed by Zecro Studios.
+**Local Intelligence with a face**
 
-## Features
+An on-device AI assistant for iPhone, iPad and Mac with chat, content generation, note processing, reminders, and a daily digest - 100% private and offline.
 
-*   Displays information about various apps (Neura, Halfway, Shizen).
-*   Responsive design that adapts to different screen sizes.
-*   Dark/Light mode theme toggle (though app detail pages are currently forced to dark mode).
-*   Individual detail pages for each app with more information.
-*   Privacy policy pages for apps.
-*   CSS-based mockups for iPhone and MacBook to display app screenshots.
-*   Screenshot galleries with navigation controls.
-*   Video lightbox for demo videos.
+## Key Features
 
-## File Structure
+- **Integrated Chat**: Conversational AI that can also discuss your notes and reminders.
+- **Contextual Chat**: Enhance conversations by adding context from Notes, Reminders, Calendar, or uploaded Documents.
+- **Document Interaction**: Upload PDF and TXT files, get AI summaries, and chat about their content directly within the app.
+- **Smart Reminders**: Set reminders using natural language (e.g., "call mom tomorrow 5pm"). Includes notification scheduling, completion tracking, and recurrence.
+- **AI-Powered Notes**: Process and organize your notes with AI assistance. Supports text input and audio recording (with automatic transcription).
+- **Daily Digest**: Get a personalized summary of your upcoming calendar events and reminders for the day, week, or month. Includes optional interesting facts from the "Discover" feature.
+- **Gamification (Optional)**: Earn XP and level up your AI companion by interacting with the app (chatting, completing reminders, saving notes, generating digests). Can be disabled or hidden in settings.
+- **Customizable Animated Eyes**: Fun, interactive visual feedback with adjustable appearance and animations (optional).
+- **Customizable Interface**: Choose standard UI or switch to unique Terminal-style interfaces for Chat and Daily Digest, including themes like Classic Green, Matrix, and even a retro **Game Boy Screen** look!
+- **Voice Input**: Dictate notes, reminders, or chat messages.
+- **Completely Local**: All processing happens on-device, no data sent anywhere.
 
-```
-/
-|-- index.html               # Main landing page
-|-- neura.html            # Detail page for Neura app
-|-- halfway.html             # Detail page for Halfway app
-|-- shizen.html              # Detail page for Shizen app
-|-- privacy-neura.html    # Privacy policy for Neura
-|-- privacy-halfway.html     # Privacy policy for Halfway
-|-- privacy-shizen.html      # Privacy policy for Shizen
-|-- style.css                # Main stylesheet
-|-- script.js                # Main JavaScript file (theme toggle, gallery, lightbox)
-|-- assets/
-|   |-- images/              # General images (e.g., favicons, potentially badges)
-|   |-- neura/
-|   |   |-- images/          # Screenshots for Neura
-|   |   |-- videos/          # Demo videos for Neura
-|   |-- halfway/
-|   |   |-- images/          # Screenshots for Halfway
-|   |   |-- videos/          # Demo videos for Halfway
-|   |-- shizen/
-|   |   |-- images/          # Screenshots for Shizen
-|   |   |-- videos/          # Demo videos for Shizen
-|-- README.md                # This file
-```
+## Supported Models
 
-## How to View
+- **Core 1B** (0.7 GB): Fast, lightweight model for everyday use
+- **Core 3B** (1.8 GB): Enhanced model with better capabilities
 
-1.  Clone or download this repository.
-2.  Navigate to the project directory in your file explorer.
-3.  Open the `index.html` file in your web browser.
+## What Sets Neura Apart
 
-No build steps or local server are strictly required, as it's a static site.
+- **True Privacy**: Works offline with no external dependencies.
+- **Unified Interface**: Chat, create, manage notes, track reminders, and view your daily digest within a single app.
+- **Contextual Chat Modes**: Seamlessly switch between general chat, discussing notes, querying Reminders, or interacting with Documents.
+- **Natural Language Input**: Use everyday language for reminders.
+- **Unique Themes**: Stand out with optional retro Terminal and Game Boy interface styles.
+- **Clean Design**: Minimalist interface focused on content.
 
-## Technologies Used
+## System Requirements
 
-*   HTML5
-*   CSS3 (including CSS Variables, Flexbox, Grid - implicitly)
-*   Vanilla JavaScript
+- Apple Silicon device (iPhone, iPad, Mac)
+- iOS/iPadOS 17.6+ or macOS 14.0+
 
-## Author
+## Technical Details
 
-*   Jimi Olaoya 
+Built with SwiftUI and powered by MLX from Apple. Models run efficiently using Metal optimizations on Apple Silicon. 
