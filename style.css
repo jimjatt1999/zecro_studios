@@ -592,8 +592,8 @@ a:hover {
 
 /* Increase size specifically on detail pages */
 .detail-page-visual .css-macbook {
-    width: 580px; /* Reduced from 660px */
-    height: 360px; /* Reduced proportionally */
+    width: 500px; /* Further reduced */
+    height: 310px; /* Further reduced proportionally */
 }
 
 .placeholder-text {
@@ -678,8 +678,8 @@ a:hover {
         height: 490px; /* Adjusted mobile size for detail */
     }
     .detail-page-visual .css-macbook {
-        width: 280px; /* Reduced from 320px */
-        height: 174px; /* Reduced proportionally */
+        width: 260px; /* Further reduced mobile size */
+        height: 161px; /* Further reduced proportionally */
     }
 
     /* Reset hover effect on mobile? Optional */
@@ -859,24 +859,24 @@ a:hover {
 .detail-layout-container {
     display: flex;
     flex-wrap: wrap; /* Allow stacking on mobile */
-    gap: 80px; /* Increased gap for more separation */
+    gap: 50px; /* Reduced gap */
     margin-top: 30px; /* Space above the layout */
 }
 
 .detail-text-column {
-    flex: 1 1 55%; /* Increase basis slightly */
+    flex: 1 1 60%; /* Give text more space */
     min-width: 280px; /* Minimum width before wrapping */
     order: 1; /* Text column first */
 }
 
 .detail-visual-column {
-    flex: 1 1 35%; /* Decrease basis slightly */
-    min-width: 300px; /* Minimum width for visual */
+    flex: 1 1 30%; /* Give visual less space */
+    min-width: 300px; /* Minimum width for visual - might need adjustment if mockup shrinks further */
     display: flex; /* Use flex for alignment */
     justify-content: center; /* Keep horizontal centering */
     align-items: flex-start; /* Align item (visual container) to the top */
     order: 2; /* Visual column second */
-    padding-top: 50px; /* Increased top padding to move mockup down */
+    padding-top: 10px; /* Reduced top padding again */
 }
 
 /* Ensure the visual container within the column fits */
