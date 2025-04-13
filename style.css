@@ -455,9 +455,21 @@ a:hover {
     justify-content: center;
     align-items: center;
     /* min-width: 280px; REMOVED */
-    perspective: 1000px; /* For potential 3D effects */
-    margin-bottom: 15px; /* Space before indicators */
+    perspective: 1500px; /* Increase perspective for detail page */
+    margin-bottom: 40px; /* Add more space below visual on detail pages */
     position: relative; /* Needed for absolute positioning of controls */
+}
+
+/* Add hover effect for mockups on detail pages */
+.detail-page-visual .css-iphone,
+.detail-page-visual .css-macbook {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+}
+
+.detail-page-visual:hover .css-iphone,
+.detail-page-visual:hover .css-macbook {
+    transform: rotateY(10deg) rotateX(5deg) scale(1.05); /* Example 3D tilt + scale */
 }
 
 /* --- CSS iPhone Placeholder --- */
@@ -511,6 +523,12 @@ a:hover {
     height: 100%;
     object-fit: contain; /* Fit entire image inside */
     display: block;
+}
+
+/* Increase size specifically on detail pages */
+.detail-page-visual .css-iphone {
+    width: 360px; /* Larger on detail page */
+    height: 734px; /* Larger on detail page */
 }
 
 /* --- CSS MacBook Placeholder --- */
@@ -570,6 +588,12 @@ a:hover {
     height: 100%;
     object-fit: cover; /* Cover the area, may crop */
     display: block;
+}
+
+/* Increase size specifically on detail pages */
+.detail-page-visual .css-macbook {
+    width: 520px; /* Reduced further from 580px */
+    height: 321px; /* Reduced proportionally */
 }
 
 .placeholder-text {
@@ -632,7 +656,8 @@ a:hover {
     }
     .app-visual {
         margin-top: 20px;
-        min-height: 350px; /* Ensure space for iPhone */
+        min-height: auto; /* Let content dictate height on mobile */
+        /* min-height: 350px; REMOVED */
     }
     .css-iphone {
          width: 216px; /* Increased mobile size */
@@ -645,6 +670,22 @@ a:hover {
     /* Center badges container on mobile */
     .app-badges {
         justify-content: center;
+    }
+
+    /* Adjust mockup sizes for mobile on detail pages */
+    .detail-page-visual .css-iphone {
+        width: 240px; /* Adjusted mobile size for detail */
+        height: 490px; /* Adjusted mobile size for detail */
+    }
+    .detail-page-visual .css-macbook {
+        width: 260px; /* Reduced further from 280px */
+        height: 160px; /* Reduced proportionally */
+    }
+
+    /* Reset hover effect on mobile? Optional */
+    .detail-page-visual:hover .css-iphone,
+    .detail-page-visual:hover .css-macbook {
+        transform: none; /* Disable 3D tilt on touch devices */
     }
 }
 
@@ -814,6 +855,55 @@ a:hover {
     padding-bottom: 60px;
 }
 
+/* New Two-Column Layout Container */
+.detail-layout-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow stacking on mobile */
+    gap: 80px; /* Increased gap for more separation */
+    margin-top: 30px; /* Space above the layout */
+}
+
+.detail-text-column {
+    flex: 1 1 55%; /* Increase basis slightly */
+    min-width: 280px; /* Minimum width before wrapping */
+    order: 1; /* Text column first */
+}
+
+.detail-visual-column {
+    flex: 1 1 35%; /* Decrease basis slightly */
+    min-width: 300px; /* Minimum width for visual */
+    display: flex; /* Use flex for alignment */
+    justify-content: center; /* Keep horizontal centering */
+    align-items: flex-start; /* Align item (visual container) to the top */
+    order: 2; /* Visual column second */
+    padding-top: 50px; /* Increased top padding to move mockup down */
+}
+
+/* Ensure the visual container within the column fits */
+.detail-visual-column .app-visual-container {
+    width: 100%; /* Make container fill the column */
+    max-width: none; /* Remove any max-width that might conflict */
+    margin-bottom: 0; /* Remove margin from container */
+}
+
+/* Media Query adjustments */
+@media (max-width: 800px) { /* Adjust breakpoint as needed */
+    .detail-layout-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .detail-text-column {
+        order: 1; /* Ensure text is still first */
+    }
+    .detail-visual-column {
+        order: 2; /* Ensure visual is second */
+        /* Maybe adjust alignment or width if needed */
+    }
+    .detail-visual-column .app-visual-container {
+        margin-bottom: 20px; /* Add some space below visual on mobile */
+    }
+}
+
 .app-detail-page main.container {
     margin: 0 auto; /* Center container */
     max-width: var(--container-width);
@@ -951,6 +1041,106 @@ a:hover {
     margin-top: 30px;
     font-size: 0.9rem;
     text-align: center; /* Center link below badge/button */
+}
+
+/* --- Animated Eyes --- */
+.animated-eyes-placeholder {
+    width: 120px; /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+    background-color: var(--subtle-color); /* Placeholder background */
+    border-radius: 30px; /* Rounded rectangle */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    margin: 20px auto 30px; /* Center horizontally, add margins */
+    border: 2px solid var(--text-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Keep irises contained */
+}
+
+.eye {
+    width: 40px; /* Eye size */
+    height: 40px; /* Eye size */
+    background-color: #fff; /* White sclera */
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.iris {
+    width: 20px; /* Iris size */
+    height: 20px; /* Iris size */
+    background-color: var(--text-color); /* Black pupil/iris */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s linear; /* Smooth movement */
+}
+
+.eyelid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Start closed */
+    background-color: var(--subtle-color); /* Match placeholder color */
+    border-bottom: 2px solid var(--text-color); /* Eyelid edge */
+    z-index: 1; /* Above iris */
+    transition: height 0.15s ease-in-out; /* Smooth blink open/close */
+}
+
+/* Define blink animation */
+@keyframes blink {
+    0%, 90%, 100% { height: 0; } /* Mostly open */
+    93%, 97% { height: 100%; } /* Briefly closed */
+}
+
+/* Apply animation - initially paused */
+.eye.blinking .eyelid {
+    /* animation: blink 4s infinite ease-in-out; */ /* Control via JS */
+}
+
+/* Adjustments for Dark/GB themes */
+[data-theme="dark"] .animated-eyes-placeholder {
+    background-color: #3a3a3c;
+    border-color: #f2f2f7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+[data-theme="dark"] .eye {
+    background-color: #e0e0e0;
+    border-color: #f2f2f7;
+}
+[data-theme="dark"] .iris {
+    background-color: #1c1c1e; /* Dark iris */
+}
+[data-theme="dark"] .eyelid {
+    background-color: #3a3a3c;
+    border-bottom-color: #f2f2f7;
+}
+
+[data-theme="gameboy"] .animated-eyes-placeholder {
+    background-color: var(--gb-mid-light);
+    border-color: var(--gb-dark);
+    border-width: 4px;
+    box-shadow: none;
+    border-radius: 10px; /* Less round */
+}
+[data-theme="gameboy"] .eye {
+    background-color: var(--gb-bg);
+    border-color: var(--gb-dark);
+    border-width: 2px;
+}
+[data-theme="gameboy"] .iris {
+    background-color: var(--gb-dark);
+    border-radius: 0; /* Square pupil? */
+}
+[data-theme="gameboy"] .eyelid {
+    background-color: var(--gb-mid-light);
+    border-bottom: 2px solid var(--gb-dark);
 }
 
 /* --- THE END --- */ 

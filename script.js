@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupVideoLightbox();
     setupThemeToggle();
 
-    // Run eye tracking only on the neura page
-    if (document.body.id === 'page-neura') {
+    // Run eye tracking only if the placeholder exists
+    if (document.querySelector('.animated-eyes-placeholder')) {
         setupEyeTracking();
     }
 
@@ -142,40 +142,73 @@ function setupVideoLightbox() {
 
 // New function for eye tracking animation
 function setupEyeTracking() {
-    console.log("Attempting to set up eye tracking..."); // Debug log
+    console.log("Attempting to set up eye tracking...");
     const eyesPlaceholder = document.querySelector('.animated-eyes-placeholder');
-    const irises = eyesPlaceholder?.querySelectorAll('.iris');
+    // Important: Query *within* the placeholder to get the correct irises
+    const irises = eyesPlaceholder?.querySelectorAll('.iris'); 
 
-    if (!irises || irises.length === 0) {
-        console.error("Eye tracking setup failed: Could not find iris elements."); // Debug log
+    if (!eyesPlaceholder || !irises || irises.length === 0) {
+        console.error("Eye tracking setup failed: Could not find placeholder or iris elements.");
         return;
     }
 
-    console.log(`Found ${irises.length} iris elements. Adding mouse listeners.`); // Debug log
+    console.log(`Found ${irises.length} iris elements. Adding mouse listeners.`);
+
+    const eyes = eyesPlaceholder.querySelectorAll('.eye'); // Get the eye elements
+    let blinkTimeout; // Variable to hold the blink timer
 
     document.addEventListener('mousemove', (e) => {
+        // Calculate cursor position relative to the center of the screen
         const x = (e.clientX / window.innerWidth) - 0.5;
         const y = (e.clientY / window.innerHeight) - 0.5;
-        const moveX = x * 25; // Adjust multiplier for sensitivity
-        const moveY = y * 20;
+        
+        // Calculate movement range - smaller value means less movement
+        // These values might need tuning based on eye/iris size
+        const moveX = x * 10; // Max horizontal movement in pixels
+        const moveY = y * 10; // Max vertical movement in pixels
 
         irises.forEach(iris => {
-            // Using requestAnimationFrame for smoother updates
+            // Using requestAnimationFrame for smoother animation
             requestAnimationFrame(() => {
                 iris.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
             });
         });
     });
 
-    // Reset eyes when mouse leaves window
-     document.addEventListener('mouseleave', () => {
-         console.log("Mouse left window, resetting eyes."); // Debug log
+    // Optional: Reset eyes when mouse leaves the window
+    document.addEventListener('mouseleave', () => {
          irises.forEach(iris => {
              requestAnimationFrame(() => {
-                 iris.style.transform = `translate(-50%, -50%)`;
+                 iris.style.transform = `translate(-50%, -50%)`; // Center the iris
             });
          });
      });
+
+    // Function to trigger a blink on both eyes
+    function triggerBlink() {
+        eyes.forEach(eye => {
+            const eyelid = eye.querySelector('.eyelid');
+            if (eyelid) {
+                 // Use direct style manipulation for a single blink
+                eyelid.style.height = '100%'; // Close
+                setTimeout(() => {
+                    eyelid.style.height = '0'; // Open after short delay
+                }, 150); // Blink duration
+            }
+        });
+        // Schedule the next random blink
+        scheduleNextBlink();
+    }
+
+    // Function to schedule the next blink at a random interval
+    function scheduleNextBlink() {
+        clearTimeout(blinkTimeout); // Clear any existing timer
+        const randomDelay = Math.random() * 5000 + 2000; // Random delay between 2-7 seconds
+        blinkTimeout = setTimeout(triggerBlink, randomDelay);
+    }
+
+    // Start the blinking cycle
+    scheduleNextBlink();
 }
 
 // Function to handle theme toggling
