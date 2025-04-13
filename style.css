@@ -23,6 +23,82 @@
     --border-color: #3a3a3c;
 }
 
+/* --- Matrix Theme --- */
+[data-theme="matrix"] {
+    --matrix-bg: #000000;
+    --matrix-text: #00FF00; /* Bright Green */
+    --matrix-text-dim: #008F00; /* Dimmer Green */
+    --matrix-glow: 0 0 5px var(--matrix-text), 0 0 10px var(--matrix-text), 0 0 15px var(--matrix-text-dim);
+
+    --bg-color: var(--matrix-bg);
+    --text-color: var(--matrix-text);
+    --subtle-color: var(--matrix-text-dim);
+    --accent-color: var(--matrix-text);
+    --border-color: var(--matrix-text-dim);
+
+    font-family: var(--monospace-font); /* Ensure monospace */
+    text-shadow: var(--matrix-glow); /* Add text glow */
+}
+
+[data-theme="matrix"] *::selection {
+    background-color: var(--matrix-text);
+    color: var(--matrix-bg);
+}
+
+[data-theme="matrix"] .site-header {
+    border-bottom-color: var(--matrix-text-dim);
+}
+
+[data-theme="matrix"] .theme-toggle-btn {
+    background-color: var(--matrix-text-dim);
+    color: var(--matrix-bg);
+    border-color: var(--matrix-text);
+    text-shadow: none; /* Remove glow from button text */
+}
+
+[data-theme="matrix"] .theme-toggle-btn:hover {
+    background-color: var(--matrix-text);
+}
+
+/* Add more matrix specific styles if needed */
+
+
+/* --- IBM DOS Theme --- */
+[data-theme="dos"] {
+    --dos-bg: #0000AA;    /* Blue Background */
+    --dos-text: #FFFFFF;   /* White Text */
+    --dos-border: #AAAAAA; /* Gray Border */
+
+    --bg-color: var(--dos-bg);
+    --text-color: var(--dos-text);
+    --subtle-color: var(--dos-border);
+    --accent-color: var(--dos-text);
+    --border-color: var(--dos-border);
+
+    font-family: var(--monospace-font); /* Ensure monospace */
+}
+
+[data-theme="dos"] *::selection {
+    background-color: var(--dos-text);
+    color: var(--dos-bg);
+}
+
+[data-theme="dos"] .site-header {
+    border-bottom-color: var(--dos-border);
+}
+
+[data-theme="dos"] .theme-toggle-btn {
+    background-color: var(--dos-border);
+    color: var(--dos-bg);
+    border-color: var(--dos-text);
+}
+
+[data-theme="dos"] .theme-toggle-btn:hover {
+    background-color: var(--dos-text);
+}
+
+/* Add more DOS specific styles if needed */
+
 /* --- Game Boy Theme --- */
 [data-theme="gameboy"] {
     --gb-bg: #9bbc0f;    /* GB Light Green */

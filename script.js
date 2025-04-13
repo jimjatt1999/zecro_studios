@@ -223,8 +223,10 @@ function setupThemeToggle() {
         // Update button text based on the NEXT theme it will switch to
         let nextThemeText = '';
         if (theme === 'light') nextThemeText = 'Dark';
-        else if (theme === 'dark') nextThemeText = 'GB'; // GB for Game Boy
-        else nextThemeText = 'Light'; // After GB comes Light
+        else if (theme === 'dark') nextThemeText = 'GB';
+        else if (theme === 'gameboy') nextThemeText = 'Matrix';
+        else if (theme === 'matrix') nextThemeText = 'DOS';
+        else nextThemeText = 'Light'; // After DOS comes Light
         toggleButton.textContent = nextThemeText;
         console.log(`Theme set to ${theme}, button shows ${nextThemeText}`);
     };
@@ -237,13 +239,17 @@ function setupThemeToggle() {
 
     // Add click listener to cycle themes
     toggleButton.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
         let newTheme;
         if (currentTheme === 'light') {
             newTheme = 'dark';
         } else if (currentTheme === 'dark') {
             newTheme = 'gameboy';
-        } else { // If current is gameboy (or anything else unexpected), go to light
+        } else if (currentTheme === 'gameboy') {
+            newTheme = 'matrix';
+        } else if (currentTheme === 'matrix') {
+            newTheme = 'dos';
+        } else { // If current is dos (or anything else), go to light
             newTheme = 'light';
         }
         applyTheme(newTheme);
