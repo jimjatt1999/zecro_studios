@@ -39,4 +39,33 @@ An on-device AI assistant for iPhone, iPad and Mac with chat, content generation
 
 ## Technical Details
 
-Built with SwiftUI and powered by MLX from Apple. Models run efficiently using Metal optimizations on Apple Silicon. 
+Built with SwiftUI and powered by MLX from Apple. Models run efficiently using Metal optimizations on Apple Silicon.
+
+## Getting Started (Running from Source)
+
+To run the Neura app yourself from this source code:
+
+1.  **Prerequisites:**
+    *   macOS with Xcode installed (latest version recommended).
+    *   An Apple Silicon Mac (for running on Mac or Simulators).
+    *   An iPhone or iPad running iOS/iPadOS 17.6+ (for running on device).
+    *   An Apple Developer account (may be required for running on a physical device).
+
+2.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/jimjatt1999/neura.git
+    cd neura
+    ```
+
+3.  **Open in Xcode:**
+    *   Navigate to the cloned directory in Finder.
+    *   Double-click the `neura.xcodeproj` file to open the project in Xcode.
+
+4.  **Select Target & Run:**
+    *   In Xcode, select your target device (e.g., your connected iPhone, an iOS Simulator, or "My Mac") from the scheme menu near the top.
+    *   Click the "Run" button (the play icon ▶️) or press `Cmd + R`.
+
+5.  **Download Models:**
+    *   The app will likely need to download the AI models on first launch or prompt you to do so. Follow any in-app instructions.
+
+*(Note: This assumes standard Xcode project setup. Dependencies should be handled automatically by Swift Package Manager if configured in the project.)* 
