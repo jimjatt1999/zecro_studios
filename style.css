@@ -412,7 +412,29 @@ a:hover {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 60px;
-    gap: 30px;
+    gap: 0px; /* Reverted gap */
+}
+
+/* Specific layout for Shizen section on homepage - FORCE STACKING */
+#shizen-section {
+    flex-direction: column; /* Stack text and visual vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 30px; /* Adjust vertical gap */
+    text-align: center; /* Center text within app-info */
+}
+
+/* Ensure text container takes full width in stacked layout */
+#shizen-section .app-info {
+    flex-basis: auto; /* Reset basis */
+    width: 100%;
+    max-width: 600px; /* Optional: constrain text width */
+}
+
+/* Ensure visual container takes appropriate width */
+#shizen-section .app-visual-container {
+    flex-basis: auto; /* Reset basis */
+    width: 100%;
+    margin-top: 20px; /* Add space above mockup */
 }
 
 .app-section:nth-child(even) {
@@ -1219,4 +1241,270 @@ a:hover {
     border-bottom: 2px solid var(--gb-dark);
 }
 
-/* --- THE END --- */ 
+/* --- THE END --- */
+
+/* Specific overrides for Shizen detail page layout */
+.shizen-detail-page .detail-layout-container {
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Center items */
+    gap: 30px; /* Adjust vertical gap */
+}
+
+.shizen-detail-page .detail-text-column {
+    order: 1; /* Text first */
+    flex-basis: auto; /* Reset basis */
+    width: 100%; /* Full width */
+    max-width: 800px; /* Limit text width for readability */
+    text-align: center; /* Center text */
+}
+
+.shizen-detail-page .detail-visual-column {
+    order: 2; /* Visual second */
+    flex-basis: auto; /* Reset basis */
+    width: 100%; /* Full width */
+    padding-top: 20px; /* Adjust top padding */
+    margin-bottom: 20px; /* Space below visual */
+}
+
+.shizen-detail-page .app-visual-container {
+    margin-bottom: 0; /* Remove extra margin */
+}
+
+.app-detail-page main.container {
+    margin: 0 auto; /* Center container */
+    max-width: var(--container-width);
+}
+
+.app-detail-page h2 {
+    text-align: left;
+    margin-bottom: 5px;
+    /* font-family: var(--monospace-font); */
+    font-size: 2.5rem;
+}
+
+.app-detail-page .platform,
+.app-detail-page .status-badge {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.app-tagline {
+    font-size: 1.2rem;
+    color: var(--subtle-color);
+    margin-bottom: 40px;
+}
+
+/* Apply special tagline font if class is added */
+.app-tagline.tagline-special {
+    font-family: var(--tagline-font);
+    font-size: 1.8rem; /* Larger size for detail page tagline */
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-color);
+    text-align: left;
+    margin-bottom: 30px; /* Adjust spacing */
+}
+
+[data-theme="dark"] .app-tagline.tagline-special {
+    color: var(--text-color);
+}
+
+.app-content {
+    margin-bottom: 40px;
+}
+
+.app-content ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-top: 20px;
+    color: var(--subtle-color);
+}
+
+.app-content li {
+    margin-bottom: 10px;
+}
+
+.app-store-link {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.app-store-link img {
+    height: 45px; /* Adjust badge size */
+    width: auto;
+}
+
+.app-store-link.disabled {
+    background-color: var(--subtle-color);
+    color: var(--bg-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+    border-color: var(--subtle-color);
+}
+
+/* --- Header Link --- */
+.header-link {
+    text-decoration: none;
+    color: inherit; /* Inherit color from header */
+}
+
+/* --- Privacy/Legal Page Styles --- */
+.legal-page {
+    padding-top: 0; /* Remove conflicting padding */
+    margin-top: 0; /* Remove conflicting margin */
+    padding-bottom: 60px;
+}
+
+.legal-page main.container {
+    max-width: 800px; /* Narrower content for readability */
+    margin: 0 auto; /* Center container */
+}
+
+.legal-page h2 {
+    font-size: 2rem;
+    /* font-family: var(--monospace-font); */
+    margin-bottom: 15px; /* Increased from 10px */
+    text-align: center; /* Center the title */
+}
+
+.legal-page h3 {
+    font-size: 1.4rem;
+    font-family: var(--sans-font);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.legal-page h4 {
+    font-size: 1.1rem;
+    font-family: var(--sans-font);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: var(--subtle-color);
+}
+
+.legal-page p,
+.legal-page ul {
+    margin-bottom: 15px;
+    color: var(--subtle-color);
+}
+
+.legal-page ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.legal-page li {
+    margin-bottom: 8px;
+}
+
+.last-updated {
+    font-size: 0.9rem;
+    color: var(--subtle-color);
+    margin-bottom: 30px;
+}
+
+.privacy-link {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    text-align: center; /* Center link below badge/button */
+}
+
+/* --- Animated Eyes --- */
+.animated-eyes-placeholder {
+    width: 120px; /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+    background-color: var(--subtle-color); /* Placeholder background */
+    border-radius: 30px; /* Rounded rectangle */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    margin: 20px auto 30px; /* Center horizontally, add margins */
+    border: 2px solid var(--text-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Keep irises contained */
+}
+
+.eye {
+    width: 40px; /* Eye size */
+    height: 40px; /* Eye size */
+    background-color: #fff; /* White sclera */
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.iris {
+    width: 20px; /* Iris size */
+    height: 20px; /* Iris size */
+    background-color: var(--text-color); /* Black pupil/iris */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s linear; /* Smooth movement */
+}
+
+.eyelid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Start closed */
+    background-color: var(--subtle-color); /* Match placeholder color */
+    border-bottom: 2px solid var(--text-color); /* Eyelid edge */
+    z-index: 1; /* Above iris */
+    transition: height 0.15s ease-in-out; /* Smooth blink open/close */
+}
+
+/* Define blink animation */
+@keyframes blink {
+    0%, 90%, 100% { height: 0; } /* Mostly open */
+    93%, 97% { height: 100%; } /* Briefly closed */
+}
+
+/* Apply animation - initially paused */
+.eye.blinking .eyelid {
+    /* animation: blink 4s infinite ease-in-out; */ /* Control via JS */
+}
+
+/* Adjustments for Dark/GB themes */
+[data-theme="dark"] .animated-eyes-placeholder {
+    background-color: #3a3a3c;
+    border-color: #f2f2f7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+[data-theme="dark"] .eye {
+    background-color: #e0e0e0;
+    border-color: #f2f2f7;
+}
+[data-theme="dark"] .iris {
+    background-color: #1c1c1e; /* Dark iris */
+}
+[data-theme="dark"] .eyelid {
+    background-color: #3a3a3c;
+    border-bottom-color: #f2f2f7;
+}
+
+[data-theme="gameboy"] .animated-eyes-placeholder {
+    background-color: var(--gb-mid-light);
+    border-color: var(--gb-dark);
+    border-width: 4px;
+    box-shadow: none;
+    border-radius: 10px; /* Less round */
+}
+[data-theme="gameboy"] .eye {
+    background-color: var(--gb-bg);
+    border-color: var(--gb-dark);
+    border-width: 2px;
+}
+[data-theme="gameboy"] .iris {
+    background-color: var(--gb-dark);
+    border-radius: 0; /* Square pupil? */
+}
+[data-theme="gameboy"] .eyelid {
+    background-color: var(--gb-mid-light);
+    border-bottom: 2px solid var(--gb-dark);
+} 
