@@ -41,7 +41,7 @@ function setupScreenshotGalleries() {
             if (indicatorsExist) {
                 indicatorsContainer.style.display = 'none';
             }
-            return; // No setup needed for single image galleries
+             return; // No setup needed for single image galleries
         }
 
         // Create indicators only if the container exists
@@ -145,7 +145,7 @@ function setupEyeTracking() {
     console.log("Attempting to set up eye tracking...");
     const eyesPlaceholder = document.querySelector('.animated-eyes-placeholder');
     // Important: Query *within* the placeholder to get the correct irises
-    const irises = eyesPlaceholder?.querySelectorAll('.iris'); 
+    const irises = eyesPlaceholder?.querySelectorAll('.iris');
 
     if (!eyesPlaceholder || !irises || irises.length === 0) {
         console.error("Eye tracking setup failed: Could not find placeholder or iris elements.");
@@ -176,7 +176,7 @@ function setupEyeTracking() {
     });
 
     // Optional: Reset eyes when mouse leaves the window
-    document.addEventListener('mouseleave', () => {
+     document.addEventListener('mouseleave', () => {
          irises.forEach(iris => {
              requestAnimationFrame(() => {
                  iris.style.transform = `translate(-50%, -50%)`; // Center the iris
