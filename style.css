@@ -1507,4 +1507,18 @@ a:hover {
 [data-theme="gameboy"] .eyelid {
     background-color: var(--gb-mid-light);
     border-bottom: 2px solid var(--gb-dark);
+}
+
+/* Utility for inline app icons next to titles */
+.app-icon-inline {
+    display: inline-block; /* Allows margin and vertical alignment */
+    height: 2.5em;         /* INCREASED size again relative to title font size */
+    vertical-align: middle; /* Align nicely with the text */
+    margin-left: 0.5em;    /* Space between title and icon */
+    border-radius: 10px;    /* Adjusted again for larger size */
+}
+
+/* Dark mode adjustments if needed */
+.dark-mode .app-icon-inline {
+    /* Add specific dark mode styles if the icon needs adjusting */
 } 

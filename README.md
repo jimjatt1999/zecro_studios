@@ -69,3 +69,22 @@ To run the Neura app yourself from this source code:
     *   The app will likely need to download the AI models on first launch or prompt you to do so. Follow any in-app instructions.
 
 *(Note: This assumes standard Xcode project setup. Dependencies should be handled automatically by Swift Package Manager if configured in the project.)* 
+
+## Website Features
+
+*   Responsive Design
+*   **Lien:** Nurture meaningful connections (iOS). Tracks interactions, remembers details, suggests outreach.
+*   **Neura:** On-device AI assistant (iOS, Coming Soon). Chat, content generation, notes, reminders, digest - 100% private.
+*   **Halfway:** Find halfway meeting points (iOS). Fair travel for everyone.
+*   **Shizen:** Japanese immersion learning (macOS, Coming Soon). Turns audio/video into SRS sessions.
+*   **Word Hacker:** Cyberpunk word puzzle game (iOS, Coming Soon). Find words using rotating dials, earn points, unlock levels.
+
+## Development Log
+
+See `LOG.txt` for a detailed development log.
+
+## Planned Releases
+
+*   **Neura:** Planned for Q3/Q4 2024.
+*   **Shizen:** Planned for Q4 2024 / Q1 2025.
+*   **Word Hacker:** Planned for Q1 2025.

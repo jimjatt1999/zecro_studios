@@ -1,0 +1,98 @@
+Development Log - Zecro Studios Website
+=========================================
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Add new 'Word Hacker' app section and pages to the website.
+
+Changes:
+- Created a new app section in `index.html` for 'Word Hacker'.
+  - Includes app name, tagline, description, iOS platform badge, 'Coming Soon' status, and placeholder links/visuals.
+  - Used `css-iphone` structure for visual consistency.
+  - Added gallery controls and indicators (`gallery-wordhacker`).
+- Created `wordhacker.html` detail page.
+  - Mirrored structure of existing detail pages (e.g., `lien.html`).
+  - Populated with core features and planned features based on provided description.
+  - Added placeholder visual section and link to privacy policy.
+- Created `wordhacker_privacy.html` placeholder privacy policy page.
+  - Included standard sections, emphasizing local data storage for the initial version.
+  - Added contact info and link back to detail page.
+- Updated `README.md`.
+  - Added 'Word Hacker' to the list of apps.
+  - Added 'Word Hacker' to the planned release timeline section.
+
+Issues Encountered: None.
+
+Resolution: N/A.
+
+----------------------------------------
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Integrate Word Hacker assets (icon and screenshots) into the website.
+
+Changes:
+- Created directories `assets/wordhacker/` and `assets/wordhacker/images/`.
+- Copied `word_hackericon.png` to `assets/wordhacker/`.
+- Copied screenshot files (`IMG_*.PNG`) to `assets/wordhacker/images/`.
+- Updated `index.html`:
+  - Added `word_hackericon.png` next to the H2 title using `app-icon-inline` class.
+  - Replaced placeholder image in the gallery with `IMG_3470.PNG`.
+- Updated `wordhacker.html`:
+  - Added `word_hackericon.png` next to the H2 title using `app-icon-inline` class.
+  - Replaced placeholder gallery content with actual screenshots (`IMG_3470.PNG` - `IMG_3480.PNG`).
+  - Enabled gallery controls and indicators for `gallery-wordhacker`.
+- Updated `style.css`:
+  - Added CSS rules for `.app-icon-inline` to style the icon display.
+
+Issues Encountered: 
+- Initial file copy failed because target directories didn't exist.
+
+Resolution:
+- Created directories using `mkdir -p` before copying files.
+
+----------------------------------------
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Reorder app sections and increase icon size.
+
+Changes:
+- Updated `index.html`:
+  - Moved the `Word Hacker` section (`<section id="wordhacker">`) to be the first child within the `<main class="container app-showcase">` element.
+- Updated `style.css`:
+  - Modified the `.app-icon-inline` class.
+  - Changed `height` from `1.5em` to `2em`.
+  - Changed `border-radius` from `6px` to `8px`.
+
+Issues Encountered: 
+- The first attempt to edit `style.css` incorrectly removed large portions of the file.
+
+Resolution:
+- Used the `reapply` tool to apply the CSS change correctly.
+
+----------------------------------------
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Increase icon size further and make Word Hacker descriptions concise.
+
+Changes:
+- Updated `index.html`:
+  - Shortened the description paragraph within the `Word Hacker` section.
+- Updated `wordhacker.html`:
+  - Shortened the main description paragraph within the `.app-content` div.
+- Updated `style.css`:
+  - Modified the `.app-icon-inline` class.
+  - Changed `height` from `2em` to `2.5em`.
+  - Changed `border-radius` from `8px` to `10px`.
+
+Issues Encountered:
+- Edits to `index.html` initially failed to apply (including reapply).
+- Edits to `style.css` again incorrectly removed large portions of the file.
+
+Resolution:
+- Re-read `index.html` section before editing again, which was successful.
+- Used the `reapply` tool to apply the `style.css` change correctly.
+
+----------------------------------------
