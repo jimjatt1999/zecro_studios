@@ -92,7 +92,7 @@ Issues Encountered:
 - Edits to `style.css` again incorrectly removed large portions of the file.
 
 Resolution:
-- Re-read `index.html` section before editing again, which was successful.
+- Re-read the relevant section of `index.html` before editing again, which was successful.
 - Used the `reapply` tool to apply the `style.css` change correctly.
 
 ----------------------------------------
@@ -112,5 +112,39 @@ Issues Encountered:
 Resolution:
 - Proceeded assuming icon existed at the standard path.
 - Re-read the relevant section of `index.html` before the third edit attempt, which was successful.
+
+----------------------------------------
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Update Word Hacker status to 'Available' and add App Store link.
+
+Changes:
+- Updated `index.html`:
+  - Removed the `span` with classes `status-badge coming-soon` from the Word Hacker section.
+  - Added an `<a>` tag linking to the Word Hacker App Store page (`https://apps.apple.com/gb/app/word-hacker/id6745370857`).
+- Updated `wordhacker.html`:
+  - Removed the `span` with classes `status-badge coming-soon`.
+  - Uncommented and updated the `<a>` tag with class `app-store-link` to point to the Word Hacker App Store page.
+
+Issues Encountered: None.
+
+Resolution: N/A.
+
+----------------------------------------
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Add Word Hacker demo video link.
+
+Changes:
+- Updated `index.html`:
+  - Changed the `href` attribute of the `Watch Demo` link in the Word Hacker section to `assets/wordhacker/videos/wordhacker.mov`.
+- Updated `wordhacker.html`:
+  - Added a new `Watch Demo` link (`<a>` tag) pointing to `assets/wordhacker/videos/wordhacker.mov` after the App Store link.
+
+Issues Encountered: None.
+
+Resolution: N/A.
 
 ----------------------------------------
