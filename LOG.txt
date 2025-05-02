@@ -96,3 +96,21 @@ Resolution:
 - Used the `reapply` tool to apply the `style.css` change correctly.
 
 ----------------------------------------
+
+Date: [Current Date - Please Replace]
+----------------------------------------
+Goal: Add Lien icon to index page.
+
+Changes:
+- Updated `index.html`:
+  - Added an `<img>` tag for `assets/lien/lienicon.png` next to the `<h2>Lien</h2>` title within the `id="lien"` section, using the `app-icon-inline` class.
+
+Issues Encountered:
+- Listing `assets/lien/` directory timed out.
+- Initial attempts to edit `index.html` failed to apply (including reapply).
+
+Resolution:
+- Proceeded assuming icon existed at the standard path.
+- Re-read the relevant section of `index.html` before the third edit attempt, which was successful.
+
+----------------------------------------
