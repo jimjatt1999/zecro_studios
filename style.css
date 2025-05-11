@@ -282,23 +282,20 @@ a:hover {
 /* Make header container flexible */
 .header-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    position: relative; /* Keep for absolute positioning of title block if needed */
-    /* min-height: 60px; REMOVED - Let height be natural */
+    position: relative; /* Keep for positioning */
 }
 
 /* Center the title block */
 .header-title-block {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute; /* Position absolutely for centering */
-    left: 50%;
-    top: 50%; /* Align vertical center */
-    transform: translate(-50%, -50%); /* Center perfectly */
-    /* Allow title block to shrink if needed, but prioritize centered position */
-    max-width: calc(100% - 100px); /* Prevent overlap with button/padding */
+    position: relative;
+    transform: none;
+    left: auto;
+    top: auto;
 }
 
 .header-title-block h1 {
@@ -310,6 +307,7 @@ a:hover {
 }
 
 .theme-toggle-btn {
+    margin-left: 10px;
     background: none;
     border: 1px solid var(--border-color);
     border-radius: 6px; /* Slightly rounded corners */
@@ -317,7 +315,6 @@ a:hover {
     height: auto; /* Adjust height to content */
     padding: 6px 12px; /* Add padding for text */
     cursor: pointer;
-    margin-left: auto;
     transition: background-color var(--transition), border-color var(--transition), color var(--transition);
     font-size: 0.8rem; /* Set font size */
     font-weight: 500;
@@ -1255,408 +1252,6 @@ a:hover {
     /* Add specific dark mode styles if the icon needs adjusting */
 }
 
-/* Site Navigation */
-.site-nav {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
-
-.nav-link {
-    color: var(--text-color);
-    text-decoration: none;
-    margin-left: 15px;
-    padding: 5px 8px;
-    border-radius: 4px;
-    transition: var(--transition);
-}
-
-.nav-link:hover, .nav-link.active {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: var(--accent-color);
-}
-
-[data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* About Page Styles */
-.about-header {
-    margin-bottom: 2rem;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
-}
-
-.about-header h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-
-.developer-name {
-    font-size: 1.8rem;
-    color: var(--accent-color);
-    font-weight: 600;
-    margin: 0;
-}
-
-.about-section {
-    margin-bottom: 2.5rem;
-}
-
-.about-section h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-}
-
-.experience-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.experience-item h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.experience-item p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.education-detail {
-    margin-top: -0.5rem;
-    margin-bottom: 1rem;
-    font-style: italic;
-    color: var(--subtle-color);
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.skill-category h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.skill-category p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-@media (max-width: 768px) {
-    .experience-grid, .skills-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .about-header h2 {
-        font-size: 2rem;
-    }
-    
-    .developer-name {
-        font-size: 1.5rem;
-    }
-}
-
-/* --- THE END --- */
-
-/* Specific overrides for Shizen detail page layout */
-.shizen-detail-page .detail-layout-container {
-    flex-direction: column; /* Stack vertically */
-    align-items: center; /* Center items */
-    gap: 30px; /* Adjust vertical gap */
-}
-
-.shizen-detail-page .detail-text-column {
-    order: 1; /* Text first */
-    flex-basis: auto; /* Reset basis */
-    width: 100%; /* Full width */
-    max-width: 800px; /* Limit text width for readability */
-    text-align: center; /* Center text */
-}
-
-.shizen-detail-page .detail-visual-column {
-    order: 2; /* Visual second */
-    flex-basis: auto; /* Reset basis */
-    width: 100%; /* Full width */
-    padding-top: 20px; /* Adjust top padding */
-    margin-bottom: 20px; /* Space below visual */
-}
-
-.shizen-detail-page .app-visual-container {
-    margin-bottom: 0; /* Remove extra margin */
-}
-
-.app-detail-page main.container {
-    margin: 0 auto; /* Center container */
-    max-width: var(--container-width);
-}
-
-.app-detail-page h2 {
-    text-align: left;
-    margin-bottom: 5px;
-    /* font-family: var(--monospace-font); */
-    font-size: 2.5rem;
-}
-
-.app-detail-page .platform,
-.app-detail-page .status-badge {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-}
-
-.app-tagline {
-    font-size: 1.2rem;
-    color: var(--subtle-color);
-    margin-bottom: 40px;
-}
-
-/* Apply special tagline font if class is added */
-.app-tagline.tagline-special {
-    font-family: var(--tagline-font);
-    font-size: 1.8rem; /* Larger size for detail page tagline */
-    font-weight: 600;
-    font-style: italic;
-    color: var(--text-color);
-    text-align: left;
-    margin-bottom: 30px; /* Adjust spacing */
-}
-
-[data-theme="dark"] .app-tagline.tagline-special {
-    color: var(--text-color);
-}
-
-.app-content {
-    margin-bottom: 40px;
-}
-
-.app-content ul {
-    list-style: disc;
-    margin-left: 20px;
-    margin-top: 20px;
-    color: var(--subtle-color);
-}
-
-.app-content li {
-    margin-bottom: 10px;
-}
-
-.app-store-link {
-    display: inline-block;
-    margin-top: 20px;
-}
-
-.app-store-link img {
-    height: 45px; /* Adjust badge size */
-    width: auto;
-}
-
-.app-store-link.disabled {
-    background-color: var(--subtle-color);
-    color: var(--bg-color);
-    cursor: not-allowed;
-    opacity: 0.6;
-    border-color: var(--subtle-color);
-}
-
-/* --- Header Link --- */
-.header-link {
-    text-decoration: none;
-    color: inherit; /* Inherit color from header */
-}
-
-/* --- Privacy/Legal Page Styles --- */
-.legal-page {
-    padding-top: 0; /* Remove conflicting padding */
-    margin-top: 0; /* Remove conflicting margin */
-    padding-bottom: 60px;
-}
-
-.legal-page main.container {
-    max-width: 800px; /* Narrower content for readability */
-    margin: 0 auto; /* Center container */
-}
-
-.legal-page h2 {
-    font-size: 2rem;
-    /* font-family: var(--monospace-font); */
-    margin-bottom: 15px; /* Increased from 10px */
-    text-align: center; /* Center the title */
-}
-
-.legal-page h3 {
-    font-size: 1.4rem;
-    font-family: var(--sans-font);
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-
-.legal-page h4 {
-    font-size: 1.1rem;
-    font-family: var(--sans-font);
-    margin-top: 15px;
-    margin-bottom: 5px;
-    color: var(--subtle-color);
-}
-
-.legal-page p,
-.legal-page ul {
-    margin-bottom: 15px;
-    color: var(--subtle-color);
-}
-
-.legal-page ul {
-    list-style: disc;
-    margin-left: 20px;
-}
-
-.legal-page li {
-    margin-bottom: 8px;
-}
-
-.last-updated {
-    font-size: 0.9rem;
-    color: var(--subtle-color);
-    margin-bottom: 30px;
-}
-
-.privacy-link {
-    margin-top: 30px;
-    font-size: 0.9rem;
-    text-align: center; /* Center link below badge/button */
-}
-
-/* --- Animated Eyes --- */
-.animated-eyes-placeholder {
-    width: 120px; /* Adjust size as needed */
-    height: 60px; /* Adjust size as needed */
-    background-color: var(--subtle-color); /* Placeholder background */
-    border-radius: 30px; /* Rounded rectangle */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 5px;
-    margin: 20px auto 30px; /* Center horizontally, add margins */
-    border: 2px solid var(--text-color);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Keep irises contained */
-}
-
-.eye {
-    width: 40px; /* Eye size */
-    height: 40px; /* Eye size */
-    background-color: #fff; /* White sclera */
-    border-radius: 50%;
-    border: 2px solid var(--text-color);
-    position: relative;
-    overflow: hidden;
-}
-
-.iris {
-    width: 20px; /* Iris size */
-    height: 20px; /* Iris size */
-    background-color: var(--text-color); /* Black pupil/iris */
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s linear; /* Smooth movement */
-}
-
-.eyelid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0; /* Start closed */
-    background-color: var(--subtle-color); /* Match placeholder color */
-    border-bottom: 2px solid var(--text-color); /* Eyelid edge */
-    z-index: 1; /* Above iris */
-    transition: height 0.15s ease-in-out; /* Smooth blink open/close */
-}
-
-/* Define blink animation */
-@keyframes blink {
-    0%, 90%, 100% { height: 0; } /* Mostly open */
-    93%, 97% { height: 100%; } /* Briefly closed */
-}
-
-/* Apply animation - initially paused */
-.eye.blinking .eyelid {
-    /* animation: blink 4s infinite ease-in-out; */ /* Control via JS */
-}
-
-/* Adjustments for Dark/GB themes */
-[data-theme="dark"] .animated-eyes-placeholder {
-    background-color: #3a3a3c;
-    border-color: #f2f2f7;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-[data-theme="dark"] .eye {
-    background-color: #e0e0e0;
-    border-color: #f2f2f7;
-}
-[data-theme="dark"] .iris {
-    background-color: #1c1c1e; /* Dark iris */
-}
-[data-theme="dark"] .eyelid {
-    background-color: #3a3a3c;
-    border-bottom-color: #f2f2f7;
-}
-
-[data-theme="gameboy"] .animated-eyes-placeholder {
-    background-color: var(--gb-mid-light);
-    border-color: var(--gb-dark);
-    border-width: 4px;
-    box-shadow: none;
-    border-radius: 10px; /* Less round */
-}
-[data-theme="gameboy"] .eye {
-    background-color: var(--gb-bg);
-    border-color: var(--gb-dark);
-    border-width: 2px;
-}
-[data-theme="gameboy"] .iris {
-    background-color: var(--gb-dark);
-    border-radius: 0; /* Square pupil? */
-}
-[data-theme="gameboy"] .eyelid {
-    background-color: var(--gb-mid-light);
-    border-bottom: 2px solid var(--gb-dark);
-}
-
-/* Utility for inline app icons next to titles */
-.app-icon-inline {
-    display: inline-block; /* Allows margin and vertical alignment */
-    height: 2.5em;         /* INCREASED size again relative to title font size */
-    vertical-align: middle; /* Align nicely with the text */
-    margin-left: 0.5em;    /* Space between title and icon */
-    border-radius: 10px;    /* Adjusted again for larger size */
-}
-
-/* Dark mode adjustments if needed */
-.dark-mode .app-icon-inline {
-    /* Add specific dark mode styles if the icon needs adjusting */
-}
-
 .developer-profile {
     display: flex;
     align-items: center;
@@ -1707,4 +1302,28 @@ img.profile-image {
     max-height: 100px;
     width: 100px;
     height: 100px;
+}
+
+/* --- Header Override to Prevent Overlap --- */
+.header-container {
+    justify-content: flex-start !important;
+}
+
+.header-title-block {
+    flex: 1 1 auto !important;
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 auto !important;
+}
+
+.site-nav {
+    position: relative !important;
+    margin-left: auto !important;
+}
+
+.theme-toggle-btn {
+    position: relative !important;
+    margin-left: 10px !important;
 } 
