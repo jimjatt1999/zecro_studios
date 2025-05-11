@@ -1241,7 +1241,141 @@ a:hover {
     border-bottom: 2px solid var(--gb-dark);
 }
 
-/* --- THE END --- */ 
+/* Utility for inline app icons next to titles */
+.app-icon-inline {
+    display: inline-block; /* Allows margin and vertical alignment */
+    height: 2.5em;         /* INCREASED size again relative to title font size */
+    vertical-align: middle; /* Align nicely with the text */
+    margin-left: 0.5em;    /* Space between title and icon */
+    border-radius: 10px;    /* Adjusted again for larger size */
+}
+
+/* Dark mode adjustments if needed */
+.dark-mode .app-icon-inline {
+    /* Add specific dark mode styles if the icon needs adjusting */
+}
+
+/* Site Navigation */
+.site-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 15px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--accent-color);
+}
+
+[data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* About Page Styles */
+.about-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.about-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.developer-name {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin: 0;
+}
+
+.about-section {
+    margin-bottom: 2.5rem;
+}
+
+.about-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.experience-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.experience-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.education-detail {
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: var(--subtle-color);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.skill-category h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.skill-category p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .experience-grid, .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-header h2 {
+        font-size: 2rem;
+    }
+    
+    .developer-name {
+        font-size: 1.5rem;
+    }
+}
+
+/* --- THE END --- */
 
 /* Specific overrides for Shizen detail page layout */
 .shizen-detail-page .detail-layout-container {
@@ -1521,4 +1655,56 @@ a:hover {
 /* Dark mode adjustments if needed */
 .dark-mode .app-icon-inline {
     /* Add specific dark mode styles if the icon needs adjusting */
+}
+
+.developer-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-color);
+}
+
+/* About page profile - larger image */
+.about-header .developer-profile {
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.about-header .profile-image {
+    width: 100px;
+    height: 100px;
+}
+
+/* Footer specific styles to ensure images remain small */
+.site-footer .profile-image {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.site-footer .developer-profile {
+    justify-content: center;
+    margin: 5px 0;
+}
+
+/* Ensure profile image sizes are enforced */
+img.profile-image {
+    max-width: 24px;
+    max-height: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.about-header img.profile-image {
+    max-width: 100px;
+    max-height: 100px;
+    width: 100px;
+    height: 100px;
 } 
