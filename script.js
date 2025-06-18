@@ -220,48 +220,27 @@ function setupThemeToggle() {
     const applyTheme = (theme) => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        // Update button text based on the NEXT theme it will switch to
-        let nextThemeText = '';
-        if (theme === 'light') nextThemeText = 'Dark';
-        else if (theme === 'dark') nextThemeText = 'GB';
-        else if (theme === 'gameboy') nextThemeText = 'Matrix';
-        else if (theme === 'matrix') nextThemeText = 'DOS';
-        else nextThemeText = 'Light'; // After DOS comes Light
-        toggleButton.textContent = nextThemeText;
-        console.log(`Theme set to ${theme}, button shows ${nextThemeText}`);
+        // Update button text to show current theme
+        toggleButton.textContent = theme === 'light' ? 'Dark' : 'Light';
     };
 
-    // Check initial theme
+    // Check initial theme - respect system preference if no saved theme
     const savedTheme = localStorage.getItem('theme');
-    // No longer rely solely on prefers-color-scheme for initial, prioritize saved
-    const initialTheme = savedTheme || 'light'; // Default to light if nothing saved
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const initialTheme = savedTheme || systemTheme;
     applyTheme(initialTheme);
 
-    // Add click listener to cycle themes
+    // Add click listener to toggle between light/dark
     toggleButton.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        let newTheme;
-        if (currentTheme === 'light') {
-            newTheme = 'dark';
-        } else if (currentTheme === 'dark') {
-            newTheme = 'gameboy';
-        } else if (currentTheme === 'gameboy') {
-            newTheme = 'matrix';
-        } else if (currentTheme === 'matrix') {
-            newTheme = 'dos';
-        } else { // If current is dos (or anything else), go to light
-            newTheme = 'light';
-        }
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         applyTheme(newTheme);
     });
 
-    // Remove the OS theme change listener for simplicity with three themes
-    /* 
+    // Listen for system theme changes if user hasn't manually set a theme
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        // Only change if no theme is explicitly saved by the user
         if (!localStorage.getItem('theme')) {
             applyTheme(e.matches ? 'dark' : 'light');
         }
     });
-    */
 } 
