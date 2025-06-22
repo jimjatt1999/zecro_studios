@@ -20,7 +20,6 @@
                         <h1>Zecro Studios</h1>
                     </div>
                 </a>
-                <p class="subtitle">Cool, useful apps built with care.</p>
             </div>
             <nav class="site-nav">
                 <a href="about.html" class="nav-link">About Developer</a>
@@ -31,9 +30,10 @@
         </div>
     </header>
 
-    <main class="container">
-        <div class="detail-layout-container">
-            <div class="detail-text-column">
+    <main class="container app-showcase">
+        <!-- Main App Card -->
+        <section class="app-section" id="neura-main" data-app="neura">
+            <div class="app-info">
                 <!-- Animated Eyes Placeholder -->
                 <div class="animated-eyes-placeholder">
                     <div class="eye">
@@ -45,59 +45,79 @@
                         <div class="iris"></div>
                     </div>
                 </div>
-        <h2>Neura</h2>
-        <div class="app-badges">
-            <span class="platform">iOS</span> <span class="platform">iPadOS</span> <span class="platform">macOS</span> <span class="status-badge coming-soon">Coming Soon</span>
-        </div>
-                <p class="app-tagline tagline-special">Local Intelligence with a face.</p>
-        <div class="app-content">
-                    <p>Neura is your private, on-device AI assistant for Apple Silicon. Integrate powerful AI chat, note processing, smart reminders, and content generation into your workflow, all offline.</p>
-                    
-                    <h3>Highlights:</h3>
-                    <ul>
-                        <li><strong>Truly Private & Offline:</strong> 100% on-device processing. No data leaves your device.</li>
-                        <li><strong>Integrated AI Chat:</strong> Discuss notes, reminders, or general topics contextually.</li>
-                        <li><strong>Smart Reminders & Notes:</strong> Use natural language for reminders; process text & audio notes with AI.</li>
-                        <li><strong>Daily Digest & Discover:</strong> Personalized summaries of your day plus optional new facts & insights.</li>
-                        <li><strong>Customizable:</strong> Optional animated companion, gamification, and unique UI themes (Terminal, Game Boy).</li>
-                        <li><strong>Voice Input:</strong> Dictate chats, notes, and reminders easily.</li>
-                        <li><strong>Optimized:</strong> Built with SwiftUI and MLX for efficient Apple Silicon performance.</li>
-            </ul>
-        </div>
-        <!-- Add download link when available -->
-         <a href="#" class="app-store-link disabled">Coming Soon to the App Store</a>
-         <p class="privacy-link"><a href="privacy-neura.html">Privacy Policy</a></p>
+                <h2>Neura</h2>
+                <h3 class="tagline-special">Your private AI companion that never leaves your device.</h3>
+                <div class="app-badges">
+                    <span class="platform">iOS</span>
+                    <span class="platform">iPadOS</span>
+                    <span class="platform">macOS</span>
+                    <span class="status-badge coming-soon">Coming Soon</span>
+                </div>
+                <p>Experience the future of personal AI with <strong>100% on-device processing</strong>. Chat, create, organize, and discover - all completely private. Built for Apple Silicon with MLX optimization, featuring unique themes like Terminal and Game Boy modes.</p>
+                <a href="#" class="app-link disabled">Coming Soon to App Store</a>
+                <a href="assets/neura/videos/video.mov" class="app-link video-link">Watch Demo &rarr;</a>
+                <a href="privacy-neura.html" class="app-link">Privacy Policy &rarr;</a>
             </div>
-            <div class="detail-visual-column">
-                 <!-- App Visual Section -->
-                <div class="app-visual-container detail-page-visual">
-                    <div class="app-visual">
-                        <div class="css-iphone">
-                            <div class="css-iphone-screen">
-                                <div class="screenshot-gallery" id="gallery-neura">
-                                    <img src="assets/neura/images/IMG_2909.PNG" alt="Neura Screenshot 1" class="gallery-image active">
-                                    <img src="assets/neura/images/IMG_2910.PNG" alt="Neura Screenshot 2" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2911.PNG" alt="Neura Screenshot 3" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2912.PNG" alt="Neura Screenshot 4" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2913.PNG" alt="Neura Screenshot 5" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2914.PNG" alt="Neura Screenshot 6" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2917.PNG" alt="Neura Screenshot 7" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2918.PNG" alt="Neura Screenshot 8" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2919.PNG" alt="Neura Screenshot 9" class="gallery-image">
-                                    <img src="assets/neura/images/IMG_2920.PNG" alt="Neura Screenshot 10" class="gallery-image">
-                                </div>
+            <div class="app-visual-container">
+                <div class="app-visual">
+                    <div class="css-iphone">
+                        <div class="css-iphone-screen">
+                            <div class="screenshot-gallery" id="gallery-neura">
+                                <img src="assets/neura/images/IMG_2909.PNG" alt="Neura Screenshot 1" class="gallery-image active">
+                                <img src="assets/neura/images/IMG_2910.PNG" alt="Neura Screenshot 2" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2911.PNG" alt="Neura Screenshot 3" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2912.PNG" alt="Neura Screenshot 4" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2913.PNG" alt="Neura Screenshot 5" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2914.PNG" alt="Neura Screenshot 6" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2917.PNG" alt="Neura Screenshot 7" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2918.PNG" alt="Neura Screenshot 8" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2919.PNG" alt="Neura Screenshot 9" class="gallery-image">
+                                <img src="assets/neura/images/IMG_2920.PNG" alt="Neura Screenshot 10" class="gallery-image">
                             </div>
                         </div>
-                        <div class="gallery-controls">
-                            <button class="gallery-btn prev" data-gallery="gallery-neura">&lt;</button>
-                            <button class="gallery-btn next" data-gallery="gallery-neura">&gt;</button>
-                        </div>
                     </div>
-                    <div class="gallery-indicators" data-gallery="gallery-neura"></div>
+                    <div class="gallery-controls">
+                        <button class="gallery-btn prev" data-gallery="gallery-neura">&lt;</button>
+                        <button class="gallery-btn next" data-gallery="gallery-neura">&gt;</button>
+                    </div>
                 </div>
-                <!-- End App Visual Section -->
+                <div class="gallery-indicators" data-gallery="gallery-neura"></div>
             </div>
-        </div>
+        </section>
+
+        <!-- Features Card -->
+        <section class="app-section achievement-card" data-app="neura">
+            <div class="app-info">
+                <h2>The Most Private AI Assistant</h2>
+                <h3 class="tagline-special">Local intelligence with personality</h3>
+                <p><strong>"Finally, an AI that respects your privacy."</strong> Neura represents the cutting edge of on-device AI technology. No cloud processing, no data collection, no compromises. Your conversations, notes, and ideas stay exactly where they belong - with you.</p>
+                <a href="#" class="app-link disabled">Join Waitlist &rarr;</a>
+            </div>
+            <div class="app-visual-container">
+                <div class="feature-highlights">
+                    <div class="feature-highlight">
+                        <div class="feature-icon">PRIVATE</div>
+                        <h4>100% Private & Offline</h4>
+                        <p>All processing happens on your device. Zero data collection.</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">CHAT</div>
+                        <h4>Contextual AI Chat</h4>
+                        <p>Discuss notes, reminders, and ideas naturally</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">THEMES</div>
+                        <h4>Unique Themes</h4>
+                        <p>Terminal mode, Game Boy styling, and more</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">SPEED</div>
+                        <h4>Apple Silicon Optimized</h4>
+                        <p>Built with MLX for lightning-fast performance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">

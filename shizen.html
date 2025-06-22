@@ -20,7 +20,6 @@
                         <h1>Zecro Studios</h1>
                     </div>
                 </a>
-                <p class="subtitle">Cool, useful apps built with care.</p>
             </div>
             <nav class="site-nav">
                 <a href="about.html" class="nav-link">About Developer</a>
@@ -31,57 +30,78 @@
         </div>
     </header>
 
-    <main class="container">
-        <div class="detail-layout-container">
-            <div class="detail-text-column">
-        <h2>Shizen</h2>
-        <div class="app-badges">
-            <span class="platform">macOS</span> <span class="status-badge coming-soon">Coming Soon</span>
-        </div>
-        <p class="app-tagline">Learn Japanese through immersion. Turn authentic audio/video content into personalized SRS learning sessions.</p>
-        <div class="app-content">
-            <p>Shizen helps you learn Japanese naturally by immersing you in real-world content. Import your favorite anime, dramas, YouTube videos, or podcasts. Shizen automatically segments the audio, provides subtitles and translations, and lets you create flashcards for focused study.</p>
-             <ul>
-                <li>Use Your Own Content (Audio/Video)</li>
-                <li>AI-Powered Audio Segmentation</li>
-                <li>Adaptive Spaced Repetition System (SRS)</li>
-                <li>Natural Context Learning</li>
-                <li>Interactive Exercises</li>
-            </ul>
-            <!-- Maybe add gallery or video specific to this app -->
+    <main class="container app-showcase">
+        <!-- Main App Card -->
+        <section class="app-section" id="shizen-main" data-app="shizen">
+            <div class="app-info">
+                <h2>Shizen</h2>
+                <h3 class="tagline-special">Revolutionary Japanese learning through immersion.</h3>
+                <div class="app-badges">
+                    <span class="platform">macOS</span>
+                    <span class="status-badge coming-soon">Coming Soon</span>
                 </div>
-            <!-- Placeholder for App Store link/download -->
-            <a href="#" class="app-store-link disabled">Coming Soon to Mac App Store</a>
-            <p class="privacy-link"><a href="privacy-shizen.html">Privacy Policy</a></p>
+                <p>Transform your favorite anime, dramas, and podcasts into powerful learning tools. Using cutting-edge AI, Shizen segments audio, provides contextual translations, and creates personalized flashcards. Experience <strong>natural language acquisition</strong> like never before.</p>
+                <a href="#" class="app-link disabled">Coming Soon to Mac App Store</a>
+                <a href="assets/shizen/videos/SRSreviewsession.mp4" class="app-link video-link">Watch SRS Demo &rarr;</a>
+                <a href="privacy-shizen.html" class="app-link">Privacy Policy &rarr;</a>
             </div>
-            <div class="detail-visual-column">
-                 <!-- App Visual Section -->
-                <div class="app-visual-container detail-page-visual">
-                    <div class="app-visual">
-                        <div class="css-macbook">
-                            <div class="css-macbook-screen">
-                                <div class="screenshot-gallery" id="gallery-shizen">
-                                    <img src="assets/shizen/images/1.home.png" alt="Shizen Home Screen" class="gallery-image active">
-                                    <img src="assets/shizen/images/2.png" alt="Shizen Review Screen" class="gallery-image">
-                                    <img src="assets/shizen/images/3.png" alt="Shizen Learning Screen" class="gallery-image">
-                                    <img src="assets/shizen/images/4.stats.png" alt="Shizen Stats Screen" class="gallery-image">
-                                    <img src="assets/shizen/images/5.manage.png" alt="Shizen Manage Screen" class="gallery-image">
-                                    <img src="assets/shizen/images/4.5.addcontent.png" alt="Shizen Add Content" class="gallery-image">
-                                    <img src="assets/shizen/images/4.7.processingview.png" alt="Shizen Processing View" class="gallery-image">
-                                    <!-- Add more images as needed -->
-                                </div>
+            <div class="app-visual-container">
+                <div class="app-visual">
+                    <div class="css-macbook">
+                        <div class="css-macbook-screen">
+                            <div class="screenshot-gallery" id="gallery-shizen">
+                                <img src="assets/shizen/images/1.home.png" alt="Shizen Home Screen" class="gallery-image active">
+                                <img src="assets/shizen/images/2.png" alt="Shizen Review Screen" class="gallery-image">
+                                <img src="assets/shizen/images/3.png" alt="Shizen Learning Screen" class="gallery-image">
+                                <img src="assets/shizen/images/4.stats.png" alt="Shizen Stats Screen" class="gallery-image">
+                                <img src="assets/shizen/images/5.manage.png" alt="Shizen Manage Screen" class="gallery-image">
+                                <img src="assets/shizen/images/4.5.addcontent.png" alt="Shizen Add Content" class="gallery-image">
+                                <img src="assets/shizen/images/4.7.processingview.png" alt="Shizen Processing View" class="gallery-image">
                             </div>
                         </div>
-                        <div class="gallery-controls">
-                            <button class="gallery-btn prev" data-gallery="gallery-shizen">&lt;</button>
-                            <button class="gallery-btn next" data-gallery="gallery-shizen">&gt;</button>
-                        </div>
                     </div>
-                    <div class="gallery-indicators" data-gallery="gallery-shizen"></div>
+                    <div class="gallery-controls">
+                        <button class="gallery-btn prev" data-gallery="gallery-shizen">&lt;</button>
+                        <button class="gallery-btn next" data-gallery="gallery-shizen">&gt;</button>
+                    </div>
                 </div>
-                <!-- End App Visual Section -->
+                <div class="gallery-indicators" data-gallery="gallery-shizen"></div>
             </div>
-        </div>
+        </section>
+
+        <!-- Features Card -->
+        <section class="app-section achievement-card" data-app="shizen">
+            <div class="app-info">
+                <h2>Next-Generation Language Learning</h2>
+                <h3 class="tagline-special">AI-powered immersion meets spaced repetition</h3>
+                <p><strong>"The most natural way to learn Japanese."</strong> Shizen represents years of research into effective language acquisition, combining modern AI with proven learning methodologies. Turn any Japanese content into your personal tutor.</p>
+                <a href="#" class="app-link disabled">Notify Me When Available &rarr;</a>
+            </div>
+            <div class="app-visual-container">
+                <div class="feature-highlights">
+                    <div class="feature-highlight">
+                        <div class="feature-icon">MEDIA</div>
+                        <h4>Your Content, Your Learning</h4>
+                        <p>Import anime, dramas, podcasts - learn from what you love</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">AI</div>
+                        <h4>AI Audio Segmentation</h4>
+                        <p>Smart sentence detection and contextual translations</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">SRS</div>
+                        <h4>Adaptive SRS System</h4>
+                        <p>Personalized review schedules based on your progress</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">STATS</div>
+                        <h4>Progress Analytics</h4>
+                        <p>Track your vocabulary growth and retention rates</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">

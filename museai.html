@@ -20,7 +20,6 @@
                         <h1>Zecro Studios</h1>
                     </div>
                 </a>
-                <p class="subtitle">Cool, useful apps built with care.</p>
             </div>
             <nav class="site-nav">
                 <a href="about.html" class="nav-link">About Developer</a>
@@ -31,9 +30,10 @@
         </div>
     </header>
 
-    <main class="container">
-        <div class="detail-layout-container">
-            <div class="detail-text-column">
+    <main class="container app-showcase">
+        <!-- Main App Card -->
+        <section class="app-section" id="museai-main" data-app="museai">
+            <div class="app-info">
                 <!-- Animated Eyes Placeholder -->
                 <div class="animated-eyes-placeholder">
                     <div class="eye">
@@ -46,58 +46,77 @@
                     </div>
                 </div>
                 <h2>Muse AI</h2>
+                <h3 class="tagline-special">Transform your voice into organized thoughts.</h3>
                 <div class="app-badges">
-                    <span class="platform">iOS</span> <span class="platform">iPadOS</span> <span class="platform">macOS</span>
+                    <span class="platform">iOS</span>
+                    <span class="platform">iPadOS</span>
+                    <span class="platform">macOS</span>
                 </div>
-                <p class="app-tagline tagline-special">An AI app to organize your thoughts.</p>
-                <div class="app-content">
-                    <p>Muse transforms your spoken thoughts into beautifully organized notes using cutting-edge on-device AI. Record your voice and watch as Muse transcribes, enhances, and organizes your thoughts - all while maintaining complete privacy with no internet connection required.</p>
-                    
-                    <h3>Key Features:</h3>
-                    <ul>
-                        <li><strong>On-Device AI Transcription:</strong> Accurate voice-to-text using OpenAI's Whisper tiny model with complete privacy.</li>
-                        <li><strong>AI-Enhanced Notes:</strong> Automatic organization, grammar improvements, and smart title suggestions.</li>
-                        <li><strong>Multiple Note Types:</strong> Normal Notes, Journal Entries, and Meeting Notes with intelligent categorization.</li>
-                        <li><strong>Intuitive UX:</strong> Clean interface with animated eye indicators showing processing status.</li>
-                        <li><strong>Personalization:</strong> Custom profile, theme colors, and appearance settings.</li>
-                        <li><strong>Privacy-First:</strong> All processing happens on your device with no data sent to external servers.</li>
-                        <li><strong>Smart Organization:</strong> Date-based grouping, full-text search, and filtering by note type.</li>
-                    </ul>
-                </div>
-                <a href="https://apps.apple.com/gb/app/muse-ai/id6745744042" target="_blank" rel="noopener noreferrer" class="app-store-link">View on App Store &rarr;</a>
-                <p class="privacy-link"><a href="privacy-museai.html">Privacy Policy</a></p>
+                <p>Revolutionary voice-to-note app using <strong>OpenAI's Whisper</strong> for perfect transcription. Speak naturally and watch your thoughts transform into beautifully organized notes. Features <strong>100% on-device processing</strong> for ultimate privacy.</p>
+                <a href="https://apps.apple.com/gb/app/muse-ai/id6745744042" target="_blank" rel="noopener noreferrer" class="app-link">View on App Store &rarr;</a>
+                <a href="privacy-museai.html" class="app-link">Privacy Policy &rarr;</a>
             </div>
-            <div class="detail-visual-column">
-                <!-- App Visual Section -->
-                <div class="app-visual-container detail-page-visual">
-                    <div class="app-visual">
-                        <div class="css-iphone">
-                            <div class="css-iphone-screen">
-                                <div class="screenshot-gallery" id="gallery-museai">
-                                    <img src="assets/museai/1.PNG" alt="Muse AI Screenshot 1" class="gallery-image active">
-                                    <img src="assets/museai/2.PNG" alt="Muse AI Screenshot 2" class="gallery-image">
-                                    <img src="assets/museai/3.PNG" alt="Muse AI Screenshot 3" class="gallery-image">
-                                    <img src="assets/museai/4.PNG" alt="Muse AI Screenshot 4" class="gallery-image">
-                                    <img src="assets/museai/5.PNG" alt="Muse AI Screenshot 5" class="gallery-image">
-                                    <img src="assets/museai/5_1.PNG" alt="Muse AI Screenshot 6" class="gallery-image">
-                                    <img src="assets/museai/6.PNG" alt="Muse AI Screenshot 7" class="gallery-image">
-                                    <img src="assets/museai/7.PNG" alt="Muse AI Screenshot 8" class="gallery-image">
-                                    <img src="assets/museai/8.PNG" alt="Muse AI Screenshot 9" class="gallery-image">
-                                    <img src="assets/museai/9.PNG" alt="Muse AI Screenshot 10" class="gallery-image">
-                                    <img src="assets/museai/10.PNG" alt="Muse AI Screenshot 11" class="gallery-image">
-                                </div>
+            <div class="app-visual-container">
+                <div class="app-visual">
+                    <div class="css-iphone">
+                        <div class="css-iphone-screen">
+                            <div class="screenshot-gallery" id="gallery-museai">
+                                <img src="assets/museai/1.PNG" alt="Muse AI Screenshot 1" class="gallery-image active">
+                                <img src="assets/museai/2.PNG" alt="Muse AI Screenshot 2" class="gallery-image">
+                                <img src="assets/museai/3.PNG" alt="Muse AI Screenshot 3" class="gallery-image">
+                                <img src="assets/museai/4.PNG" alt="Muse AI Screenshot 4" class="gallery-image">
+                                <img src="assets/museai/5.PNG" alt="Muse AI Screenshot 5" class="gallery-image">
+                                <img src="assets/museai/5_1.PNG" alt="Muse AI Screenshot 6" class="gallery-image">
+                                <img src="assets/museai/6.PNG" alt="Muse AI Screenshot 7" class="gallery-image">
+                                <img src="assets/museai/7.PNG" alt="Muse AI Screenshot 8" class="gallery-image">
+                                <img src="assets/museai/8.PNG" alt="Muse AI Screenshot 9" class="gallery-image">
+                                <img src="assets/museai/9.PNG" alt="Muse AI Screenshot 10" class="gallery-image">
+                                <img src="assets/museai/10.PNG" alt="Muse AI Screenshot 11" class="gallery-image">
                             </div>
                         </div>
-                        <div class="gallery-controls">
-                            <button class="gallery-btn prev" data-gallery="gallery-museai">&lt;</button>
-                            <button class="gallery-btn next" data-gallery="gallery-museai">&gt;</button>
-                        </div>
                     </div>
-                    <div class="gallery-indicators" data-gallery="gallery-museai"></div>
+                    <div class="gallery-controls">
+                        <button class="gallery-btn prev" data-gallery="gallery-museai">&lt;</button>
+                        <button class="gallery-btn next" data-gallery="gallery-museai">&gt;</button>
+                    </div>
                 </div>
-                <!-- End App Visual Section -->
+                <div class="gallery-indicators" data-gallery="gallery-museai"></div>
             </div>
-        </div>
+        </section>
+
+        <!-- Features Card -->
+        <section class="app-section achievement-card" data-app="museai">
+            <div class="app-info">
+                <h2>The Smartest Voice Notes App</h2>
+                <h3 class="tagline-special">Powered by OpenAI Whisper technology</h3>
+                <p><strong>"Finally, note-taking that keeps up with my thoughts."</strong> Muse AI represents the next generation of productivity apps. With industry-leading transcription accuracy and intelligent organization, your scattered thoughts become crystal-clear insights.</p>
+                <a href="https://apps.apple.com/gb/app/muse-ai/id6745744042" target="_blank" rel="noopener noreferrer" class="app-link">Download Now &rarr;</a>
+            </div>
+            <div class="app-visual-container">
+                <div class="feature-highlights">
+                    <div class="feature-highlight">
+                        <div class="feature-icon">MIC</div>
+                        <h4>Whisper AI Transcription</h4>
+                        <p>Industry-leading accuracy with OpenAI technology</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">SECURE</div>
+                        <h4>100% Private</h4>
+                        <p>All processing happens on your device, never uploaded</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">AI</div>
+                        <h4>Smart Organization</h4>
+                        <p>AI-enhanced notes with intelligent categorization</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">EYES</div>
+                        <h4>Animated Interface</h4>
+                        <p>Unique eye animations show processing status</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">

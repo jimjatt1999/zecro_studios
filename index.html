@@ -7,7 +7,7 @@
     <meta name="description" content="Portfolio of apps developed by Zecro Studios, including Neura, Halfway, and Shizen.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,7 +20,6 @@
                         <h1>Zecro Studios</h1>
                     </div>
                 </a>
-                <p class="subtitle">Cool, useful projects built with care.</p>
             </div>
             <nav class="site-nav">
                 <a href="about.html" class="nav-link">About Developer</a>
@@ -31,9 +30,16 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h2 class="hero-slogan">Cool, useful projects built with care.</h2>
+        </div>
+    </section>
+
     <main class="container app-showcase">
 
-        <section class="app-section" id="histories">
+        <section class="app-section" id="histories" data-app="histories">
             <div class="app-info">
                 <h2>Daily History</h2> <img src="assets/histories/historyicon.png" alt="Daily History Icon" class="app-icon-inline">
                 <h3 class="tagline-special">Discover history that connects to today.</h3>
@@ -75,7 +81,7 @@
             </div>
         </section>
 
-        <section class="app-section" id="museai">
+        <section class="app-section" id="museai" data-app="museai">
             <div class="app-info">
                 <h2>Muse AI</h2>
                 <h3 class="tagline-special">Your private voice-to-notes assistant.</h3>
@@ -114,7 +120,7 @@
             </div>
         </section>
 
-        <section class="app-section" id="wordhacker">
+        <section class="app-section" id="wordhacker" data-app="wordhacker">
             <div class="app-info">
                 <h2>Word Hacker</h2> <img src="assets/wordhacker/word_hackericon.png" alt="Word Hacker Icon" class="app-icon-inline">
                 <h3 class="tagline-special">Level up your mind in a neon world.</h3>
@@ -153,7 +159,7 @@
              </div>
         </section>
 
-        <section class="app-section" id="lien">
+        <section class="app-section" id="lien" data-app="lien">
             <div class="app-info">
                 <h2>Lien</h2> <img src="assets/lien/lienicon.png" alt="Lien Icon" class="app-icon-inline">
                 <h3 class="tagline-special">Never lose touch with the people who matter.</h3>
@@ -190,7 +196,7 @@
              </div>
         </section>
 
-        <section class="app-section" id="Neura AI">
+        <section class="app-section" id="Neura AI" data-app="neura">
             <div class="app-info">
                 <h2>Neura</h2>
                 <h3 class="tagline-special">Local Intelligence with a face.</h3>
@@ -228,7 +234,7 @@
              </div>
         </section>
 
-        <section class="app-section" id="halfway">
+        <section class="app-section" id="halfway" data-app="halfway">
             <div class="app-info">
                 <h2>Halfway</h2>
                 <h3 class="tagline-special">Location-based meetup planner.</h3>
@@ -263,7 +269,7 @@
              </div>
         </section>
 
-        <section class="app-section" id="shizen-section">
+        <section class="app-section" id="shizen-section" data-app="shizen">
              <div class="app-info">
                 <h2>Shizen</h2>
                 <h3 class="tagline-special">Real Japanese, Real Learning.</h3>

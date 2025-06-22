@@ -10,7 +10,6 @@ function createHeader() {
                             <h1>Zecro Studios</h1>
                         </div>
                     </a>
-                    <p class="subtitle">Cool, useful projects built with care.</p>
                 </div>
                 <nav class="header-nav">
                     <a href="index.html" class="nav-link ${window.location.pathname.includes('index.html') || window.location.pathname === '/' ? 'active' : ''}">Home</a>

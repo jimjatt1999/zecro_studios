@@ -7,12 +7,11 @@ const headerTemplate = `
         <div class="container header-container">
             <div class="header-title-block">
                 <a href="index.html" class="header-link">
-                    <div class="logo-title-container">
-                        <img src="assets/zecrostudioslogo.jpeg" alt="Zecro Studios Logo" class="site-logo">
-                        <h1>Zecro Studios</h1>
-                    </div>
-                </a>
-                <p class="subtitle">Cool, useful projects built with care.</p>
+                                            <div class="logo-title-container">
+                            <img src="assets/zecrostudioslogo.jpeg" alt="Zecro Studios Logo" class="site-logo">
+                            <h1>Zecro Studios</h1>
+                        </div>
+                    </a>
             </div>
             <nav class="header-nav">
                 <a href="index.html" class="nav-link">Home</a>

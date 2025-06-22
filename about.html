@@ -20,7 +20,6 @@
                         <h1>Zecro Studios</h1>
                     </div>
                 </a>
-                <p class="subtitle">Cool, useful projects built with care.</p>
             </div>
             <nav class="site-nav">
                 <a href="about.html" class="nav-link active">About Developer</a>
@@ -31,57 +30,122 @@
         </div>
     </header>
 
-    <main class="container">
-        <div class="detail-layout-container">
-            <div class="detail-text-column">
-                <h2>Meet the Developer</h2>
-                <h3 class="app-tagline tagline-special">Jimi Olaoya</h3>
-                
-                <div class="app-content">
-                    <p>Hey! I'm Jimi, a tinkerer curious about accelerating rapid prototyping with AI. I build privacy-first apps, experiment with autonomous systems, and turn ideas into working code faster than traditional methods allow.</p>
-                    
-                    <p>I focus on on-device AI, privacy-focused technology, and making complex systems accessible. My work spans iOS apps, robotics, and AI experiments that explore what's possible when you combine human creativity with machine capability.</p>
-
-                    <h3>Notable Projects</h3>
-                    <ul>
-                        <li><strong><a href="https://github.com/jimjatt1999/Local-AutoGPT-LLM" target="_blank" rel="noopener noreferrer">Local-AutoGPT-LLM</a> (14 stars):</strong> AutoGPT implementation running locally with quantized Llama models. Complete privacy, no cloud dependencies.</li>
-                        <li><strong><a href="https://github.com/jimjatt1999/Anki-Story-Generator" target="_blank" rel="noopener noreferrer">Anki Story Generator</a>:</strong> Transforms flashcard reviews into engaging Japanese stories using GPT-3. Makes language learning less tedious.</li>
-                        <li><strong><a href="https://github.com/jimjatt1999/Auread" target="_blank" rel="noopener noreferrer">Auread</a>:</strong> Clean EPUB reader for iOS built with SwiftUI and Readium toolkit. Focused on the reading experience.</li>
-                        <li><strong><a href="https://github.com/jimjatt1999/OptoCheck" target="_blank" rel="noopener noreferrer">OptoCheck</a>:</strong> AI-powered optometry pre-screening with conversational interface. Accessible healthcare technology.</li>
-                        <li><strong><a href="https://github.com/jimjatt1999/Shizen-Audio" target="_blank" rel="noopener noreferrer">Shizen Audio</a>:</strong> SRS language learning system using authentic audio content for personalized study sessions.</li>
-                    </ul>
-
-                    <h3>Current Stack</h3>
-                    <p><strong>Languages:</strong> Swift, Python, JavaScript</p>
-                    <p><strong>AI & ML:</strong> GPT-4, Claude, Local models (MLX, Qwen), RAG systems</p>
-                    <p><strong>Mobile:</strong> SwiftUI, UIKit</p>
-                    <p><strong>Other:</strong> ROS for robotics, Cursor AI for development acceleration</p>
-
-                    <h3>Background</h3>
-                    <p>Aerospace Engineering degree, multilingual (English, Japanese, Yoruba), experience in broadcast technology across three continents. Previously worked at <a href="https://futu-re.co.jp/ja/our-work/" target="_blank" rel="noopener noreferrer">FUTU-RE</a> developing 4-wheel mecanum robots using ROS with 2D/3D LiDAR for autonomous vehicle research and ADAS testing projects.</p>
-                    
-                    <p>Currently focused on privacy-first AI applications and rapid prototyping methodologies.</p>
+    <main class="container app-showcase">
+        <!-- Main Developer Card -->
+        <section class="app-section" id="developer-main" data-app="developer">
+            <div class="app-info">
+                <h2>Jimi Olaoya</h2>
+                <h3 class="tagline-special">Tinkerer curious about accelerating rapid prototyping with AI</h3>
+                <div class="app-badges">
+                    <span class="platform">iOS Developer</span>
+                    <span class="platform">AI Engineer</span>
+                    <span class="platform">Robotics</span>
                 </div>
+                <p>Privacy-first developer building apps that combine human creativity with machine capability. Focus on <strong>on-device AI</strong>, <strong>autonomous systems</strong>, and making complex technology accessible. Experience spans iOS apps, robotics research, and AI experiments.</p>
+                <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener noreferrer" class="app-link">View GitHub Profile &rarr;</a>
+                <a href="https://www.linkedin.com/in/jimiolaoya/" target="_blank" rel="noopener noreferrer" class="app-link">LinkedIn Profile &rarr;</a>
+                <a href="mailto:jimjatt1999@gmail.com" class="app-link">Contact Me &rarr;</a>
             </div>
-            <div class="detail-visual-column">
-                <!-- Developer info visual placeholder -->
-                <div class="app-visual-container detail-page-visual">
-                    <div class="developer-visual">
-                        <div class="developer-card">
-                            <h4>GitHub Projects</h4>
-                            <div class="github-stats">
-                                <p>18+ repositories</p>
-                                <p>Featured projects with 14+ stars</p>
-                                <p>Focus: AI, Robotics, Mobile</p>
-                            </div>
-                            <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener noreferrer" class="github-link">
-                                View GitHub Profile &rarr;
-                            </a>
-                        </div>
+            <div class="app-visual-container">
+                <div class="developer-stats-card">
+                    <div class="stat-highlight">
+                        <span class="stat-number">18+</span>
+                        <span class="stat-label">GitHub Repos</span>
+                    </div>
+                    <div class="stat-highlight">
+                        <span class="stat-number">14+</span>
+                        <span class="stat-label">GitHub Stars</span>
+                    </div>
+                    <div class="stat-highlight">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Languages</span>
+                    </div>
+                    <div class="stat-highlight">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Apps Built</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Projects Card -->
+        <section class="app-section achievement-card" data-app="projects">
+            <div class="app-info">
+                <h2>Notable Projects</h2>
+                <h3 class="tagline-special">Open source contributions and experimental work</h3>
+                <div class="project-list">
+                    <div class="project-item">
+                        <h4><a href="https://github.com/jimjatt1999/Local-AutoGPT-LLM" target="_blank" rel="noopener noreferrer">Local-AutoGPT-LLM</a> <span class="stars">★ 14</span></h4>
+                        <p>AutoGPT implementation running locally with quantized Llama models. Complete privacy, no cloud dependencies.</p>
+                    </div>
+                    <div class="project-item">
+                        <h4><a href="https://github.com/jimjatt1999/Anki-Story-Generator" target="_blank" rel="noopener noreferrer">Anki Story Generator</a></h4>
+                        <p>Transforms flashcard reviews into engaging Japanese stories using GPT-3. Makes language learning less tedious.</p>
+                    </div>
+                    <div class="project-item">
+                        <h4><a href="https://github.com/jimjatt1999/OptoCheck" target="_blank" rel="noopener noreferrer">OptoCheck</a></h4>
+                        <p>AI-powered optometry pre-screening with conversational interface. Accessible healthcare technology.</p>
+                    </div>
+                </div>
+                <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener noreferrer" class="app-link">View All Projects &rarr;</a>
+            </div>
+            <div class="app-visual-container">
+                <div class="feature-highlights">
+                    <div class="feature-highlight">
+                        <div class="feature-icon">AI</div>
+                        <h4>Local AI Systems</h4>
+                        <p>Privacy-first implementations using on-device models</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">MOBILE</div>
+                        <h4>iOS Development</h4>
+                        <p>SwiftUI apps with modern design patterns</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">ROBOT</div>
+                        <h4>Robotics Research</h4>
+                        <p>ROS-based autonomous systems and ADAS testing</p>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">LEARN</div>
+                        <h4>EdTech Innovation</h4>
+                        <p>Language learning tools with AI enhancement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background & Skills Card -->
+        <section class="app-section" data-app="background">
+            <div class="app-info">
+                <h2>Background & Skills</h2>
+                <h3 class="tagline-special">Aerospace Engineering meets Modern AI</h3>
+                <p><strong>Education:</strong> Aerospace Engineering degree with focus on systems design and autonomous navigation.</p>
+                <p><strong>Experience:</strong> Previously worked at <a href="https://futu-re.co.jp/ja/our-work/" target="_blank" rel="noopener noreferrer">FUTU-RE</a> developing 4-wheel mecanum robots using ROS with 2D/3D LiDAR for autonomous vehicle research and ADAS testing projects.</p>
+                <p><strong>Languages:</strong> Multilingual speaker - English, Japanese, Yoruba. Broadcast technology experience across three continents.</p>
+                <p><strong>Current Focus:</strong> Privacy-first AI applications, rapid prototyping methodologies, and making complex systems accessible to everyone.</p>
+            </div>
+            <div class="app-visual-container">
+                <div class="tech-stack-grid">
+                    <div class="tech-category">
+                        <h4>Languages</h4>
+                        <p>Swift, Python, JavaScript</p>
+                    </div>
+                    <div class="tech-category">
+                        <h4>AI & ML</h4>
+                        <p>GPT-4, Claude, Local models (MLX, Qwen), RAG systems</p>
+                    </div>
+                    <div class="tech-category">
+                        <h4>Mobile</h4>
+                        <p>SwiftUI, UIKit, iOS Development</p>
+                    </div>
+                    <div class="tech-category">
+                        <h4>Other Tools</h4>
+                        <p>ROS for robotics, Cursor AI for development acceleration</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">
