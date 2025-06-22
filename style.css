@@ -629,8 +629,8 @@ body {
 }
 
 .css-macbook {
-    width: 280px;
-    height: 175px;
+    width: 350px;
+    height: 220px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     padding: 6px;
@@ -1420,8 +1420,8 @@ body {
     }
     
     .css-macbook {
-        width: 200px;
-        height: 125px;
+        width: 250px;
+        height: 155px;
         margin: 0 auto;
         border-radius: 6px;
     }
@@ -1523,8 +1523,8 @@ body {
     }
     
     .css-macbook {
-        width: 280px;
-        height: 175px;
+        width: 320px;
+        height: 200px;
     }
 }
 
