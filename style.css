@@ -535,6 +535,51 @@ body {
     color: #fbbf24;
 }
 
+.latest {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+[data-theme="dark"] .latest {
+    background: #14532d;
+    color: #4ade80;
+}
+
+.most-popular {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+[data-theme="dark"] .most-popular {
+    background: #7f1d1d;
+    color: #f87171;
+}
+
+/* Section Headers */
+.section-header {
+    margin: var(--space-16) 0 var(--space-8) 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.02em;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin: var(--space-4) auto 0;
+    border-radius: 2px;
+}
+
 .app-info p {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.85);
