@@ -506,6 +506,33 @@ body {
     margin-bottom: var(--space-4);
 }
 
+.app-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stars {
+    color: #ffd700;
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+.rating-text {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 .platform,
 .status-badge {
     padding: var(--space-2) var(--space-3);
