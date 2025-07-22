@@ -582,6 +582,16 @@ body {
     color: #f87171;
 }
 
+.acquisition {
+    background: #e0f2fe;
+    color: #0277bd;
+}
+
+[data-theme="dark"] .acquisition {
+    background: #0d47a1;
+    color: #81d4fa;
+}
+
 /* Section Headers */
 .section-header {
     margin: var(--space-16) 0 var(--space-8) 0;
