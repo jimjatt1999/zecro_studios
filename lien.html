@@ -12,22 +12,13 @@
 </head>
 <body class="app-detail-page">
     <header class="site-header">
-        <div class="container header-container">
-            <div class="header-title-block">
-                <a href="index.html" class="header-link">
-                    <div class="logo-title-container">
-                        <img src="assets/zecrostudioslogo.jpeg" alt="Zecro Studios Logo" class="site-logo">
-                        <h1>Zecro Studios</h1>
-                    </div>
+        <div class="container header-container header-minimal">
+            <div class="header-minimal-group">
+                <a href="index.html" class="home-btn" aria-label="Home" title="Home">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v8h-5v-5H11v5H6v-8H3l9-8z"/></svg>
                 </a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" aria-pressed="false"></button>
             </div>
-            <nav class="site-nav">
-                <a href="blog.html" class="nav-link">Blog</a>
-                <a href="about.html" class="nav-link">About Developer</a>
-            </nav>
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
-                <!-- Updated by JS -->
-            </button>
         </div>
     </header>
 
@@ -35,8 +26,13 @@
         <div class="container">
             <h1 class="page-title">Lien</h1>
             <p class="page-sub">Never lose touch with people who matter.</p>
-            <a class="btn btn-primary" href="https://apps.apple.com/gb/app/lien/id6745091538" target="_blank" rel="noopener">App Store</a>
-            <a class="btn btn-ghost" href="privacy-lien.html">Privacy</a>
+            <div class="hero-mini-nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#projects">Explore apps</a>
+                <a href="blog.html">Blog</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+            </div>
         </div>
         <div class="page-watermark" aria-hidden="true">LIEN</div>
     </section>
@@ -69,7 +65,7 @@
                         </div>
                     </div>
                     
-                    <div class="gallery-indicators" data-gallery="gallery-lien"></div>
+                <div class="gallery-indicators" data-gallery="gallery-lien"></div>
                 </div>
             </div>
         </section>

@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupThemeToggle();
     setupReveals();
     decorateDetailHeadings();
+    initStackCarousel();
+    markActiveHeroLink();
 
     // Run eye tracking only if the placeholder exists
     if (document.querySelector('.animated-eyes-placeholder')) {
@@ -134,6 +136,84 @@ function setupScreenshotGalleries() {
     });
 }
 
+function initStackCarousel() {
+    const scroller = document.getElementById('stack-carousel');
+    if (!scroller) return;
+    const cards = Array.from(scroller.querySelectorAll('.stack-card'));
+    const prevBtn = document.querySelector('.stack-explore .stack-nav.prev');
+    const nextBtn = document.querySelector('.stack-explore .stack-nav.next');
+    const setActive = () => {
+        const mid = scroller.scrollLeft + scroller.clientWidth / 2;
+        let best = null, bestDist = Infinity;
+        cards.forEach((card) => {
+            const rect = card.getBoundingClientRect();
+            const center = rect.left + rect.width / 2;
+            const dist = Math.abs(center - (window.innerWidth / 2));
+            if (dist < bestDist) { bestDist = dist; best = card; }
+        });
+        cards.forEach((c) => c.classList.remove('active'));
+        if (best) best.classList.add('active');
+    };
+    setActive();
+    scroller.addEventListener('scroll', () => { window.requestAnimationFrame(setActive); }, { passive: true });
+
+    const scrollByCard = (dir) => {
+        const first = cards[0];
+        if (!first) return;
+        const cardRect = first.getBoundingClientRect();
+        const gap = parseFloat(getComputedStyle(scroller).columnGap || getComputedStyle(scroller).gap || 16);
+        scroller.scrollBy({ left: dir * (cardRect.width + gap), behavior: 'smooth' });
+    };
+    prevBtn && prevBtn.addEventListener('click', () => scrollByCard(-1));
+    nextBtn && nextBtn.addEventListener('click', () => scrollByCard(1));
+
+    // Drag to scroll behavior with click passthrough
+    let isDown = false; let startX = 0; let startLeft = 0; let downTarget = null;
+    scroller.addEventListener('pointerdown', (e) => {
+        isDown = true;
+        startX = e.clientX;
+        startLeft = scroller.scrollLeft;
+        downTarget = e.target;
+        scroller.setPointerCapture(e.pointerId);
+    });
+    scroller.addEventListener('pointermove', (e) => {
+        if (!isDown) return;
+        scroller.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    scroller.addEventListener('pointerup', (e) => {
+        if (!isDown) return;
+        const delta = Math.abs(e.clientX - startX);
+        isDown = false;
+        try { scroller.releasePointerCapture(e.pointerId); } catch (_) {}
+        if (delta < 6) {
+            const anchor = (downTarget && downTarget.closest) ? downTarget.closest('a.stack-card') : null;
+            if (anchor) anchor.click();
+        }
+        downTarget = null;
+    });
+    scroller.addEventListener('pointercancel', () => { isDown = false; downTarget = null; });
+}
+
+function markActiveHeroLink() {
+    const links = document.querySelectorAll('.hero-mini-nav a');
+    if (!links || links.length === 0) return;
+    const pathname = location.pathname.split('/').pop() || 'index.html';
+    links.forEach((a) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        const hrefPath = href.split('#')[0];
+        if (hrefPath === pathname || (pathname === '' && hrefPath === 'index.html')) {
+            a.classList.add('active');
+        }
+        if (href.includes('#') && pathname === 'index.html' && href.startsWith('index.html#')) {
+            // On homepage, mark Explore apps as active when requested
+            const id = href.split('#')[1];
+            if (document.getElementById(id)) {
+                a.classList.add('active');
+            }
+        }
+    });
+}
 function setupVideoLightbox() {
     const videoLinks = document.querySelectorAll('.video-link');
     if (videoLinks.length === 0) return;
@@ -364,8 +444,9 @@ function setupThemeToggle() {
     const applyTheme = (theme) => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        // Update button text to show current theme
-        toggleButton.textContent = theme === 'light' ? 'Dark' : 'Light';
+        // Accessible label and pressed state; visual anim handled via CSS
+        toggleButton.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        toggleButton.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     };
 
     // Check initial theme - respect system preference if no saved theme
@@ -379,6 +460,11 @@ function setupThemeToggle() {
         const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         applyTheme(newTheme);
+        // Small haptic-like feedback via class (for CSS micro-anim, optional)
+        toggleButton.classList.remove('tapped');
+        // force reflow
+        void toggleButton.offsetWidth;
+        toggleButton.classList.add('tapped');
     });
 
     // Listen for system theme changes if user hasn't manually set a theme

@@ -12,34 +12,28 @@
 </head>
 <body>
     <header class="site-header">
-        <div class="container header-container">
-            <div class="header-title-block">
-                <a href="index.html" class="header-link">
-                    <div class="logo-title-container">
-                        <img src="assets/zecrostudioslogo.jpeg" alt="Zecro Studios Logo" class="site-logo">
-                        <h1>Zecro Studios</h1>
-                    </div>
+        <div class="container header-container header-minimal">
+            <div class="header-minimal-group">
+                <a href="index.html" class="home-btn" aria-label="Home" title="Home">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v8h-5v-5H11v5H6v-8H3l9-8z"/></svg>
                 </a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" aria-pressed="false"></button>
             </div>
-            <nav class="site-nav">
-                <a href="blog.html" class="nav-link">Blog</a>
-                <a href="about.html" class="nav-link">About Developer</a>
-            </nav>
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
-                <!-- Icon will be set by JS/CSS -->
-            </button>
         </div>
     </header>
 
     <!-- New Landing Hero -->
     <section class="landing-hero">
         <div class="container hero-inner">
+            <img src="assets/zecrostudioslogo.jpeg" alt="Zecro Studios Logo" class="hero-logo" />
             <div class="hero-kicker">Zecro Studios</div>
             <h1 class="hero-headline">Cool apps. Functional design.</h1>
             <p class="hero-sub">Minimal. Fast. Privacy‑first.</p>
             <div class="hero-ctas">
                 <a class="btn btn-primary" href="#projects">Explore apps</a>
                 <a class="btn btn-ghost" href="about.html">About developer</a>
+                <a class="btn btn-ghost" href="blog.html">Blog</a>
+                <a class="btn btn-ghost" href="services.html">Services</a>
             </div>
         </div>
         <div class="hero-watermark" aria-hidden="true">ZECRO • STUDIOS</div>
@@ -52,103 +46,46 @@
             <p class="intro-copy">Simple, useful apps built with care.</p>
         </section>
 
-        <section class="projects-grid">
-            <div class="project-card reveal" data-app="halfway" style="position:relative;">
-                <a href="halfway.html" class="stretched" aria-label="Open Halfway details"></a>
-                <div class="project-thumb">
-                    <img src="assets/halfway/images/halfway_home.PNG" alt="Halfway app screenshot">
-                </div>
-                <div class="project-meta">
-                    <h3><a href="halfway.html" class="card-title-link">Halfway</a></h3>
-                    <p>Meet friends in the fair middle.</p>
-                    <div class="project-badges">
-                        <span class="badge">iOS</span>
-                        <span class="badge">5.0★</span>
-                        <span class="badge">Most Popular</span>
-                    </div>
-                </div>
-                 <div class="project-footer">
-                    <span class="rating-tiny">5.0 • App Store</span>
-                    <span class="project-links"><a href="https://apps.apple.com/gb/app/halfway-app/id6744035312" target="_blank" rel="noopener">App Store</a><a href="halfway.html">Details</a></span>
-                </div>
-            </div>
-
-            <div class="project-card reveal" data-app="histories" style="position:relative;">
-                <a href="histories.html" class="stretched" aria-label="Open Daily History details"></a>
-                <div class="project-thumb">
-                    <img src="assets/histories/1.PNG" alt="Daily History screenshot">
-                            </div>
-                <div class="project-meta">
-                    <h3><a href="histories.html" class="card-title-link">Daily History</a></h3>
+        <section class="stack-explore" aria-label="Explore apps">
+            <button class="stack-nav prev" type="button" aria-label="Previous"></button>
+            <div class="stack-carousel" id="stack-carousel">
+                <a class="stack-card" data-app="halfway" href="halfway.html">
+                    <div class="stack-thumb"><img src="assets/halfway/images/halfway_home.PNG" alt="Halfway"/></div>
+                    <h3>Halfway</h3>
+                    <p>Meet in the fair middle.</p>
+                    <div class="chips"><span class="chip">iOS</span><span class="chip">5★</span></div>
+                </a>
+                <a class="stack-card" data-app="histories" href="histories.html">
+                    <div class="stack-thumb"><img src="assets/histories/1.PNG" alt="Daily History"/></div>
+                    <h3>Daily History</h3>
                     <p>Relevant moments, every morning.</p>
-                    <div class="project-badges">
-                        <span class="badge">iOS</span>
-                        <span class="badge">iPadOS</span>
-                        <span class="badge">macOS</span>
-                    </div>
-                </div>
-                <div class="project-footer">
-                    <span></span>
-                    <span class="project-links"><a href="https://apps.apple.com/gb/app/hi-stories/id6747240245" target="_blank" rel="noopener">App Store</a><a href="histories.html">Details</a></span>
-                </div>
-            </div>
-
-            <div class="project-card reveal" data-app="museai" style="position:relative;">
-                <a href="museai.html" class="stretched" aria-label="Open Muse AI details"></a>
-                <div class="project-thumb">
-                    <img src="assets/museai/1.PNG" alt="Muse AI screenshot">
-                            </div>
-                <div class="project-meta">
-                    <h3><a href="museai.html" class="card-title-link">Muse AI</a></h3>
-                    <p>Private voice‑to‑notes.</p>
-                    <div class="project-badges">
-                        <span class="badge">iOS</span>
-                        <span class="badge">iPadOS</span>
-                        <span class="badge">macOS</span>
-                    </div>
-                </div>
-                <div class="project-footer">
-                    <span></span>
-                    <span class="project-links"><a href="https://apps.apple.com/gb/app/muse-ai/id6745744042" target="_blank" rel="noopener">App Store</a><a href="museai.html">Details</a></span>
-                </div>
-            </div>
-
-            <div class="project-card reveal" data-app="wordhacker" style="position:relative;">
-                <a href="wordhacker.html" class="stretched" aria-label="Open Word Hacker details"></a>
-                <div class="project-thumb">
-                    <img src="assets/wordhacker/images/IMG_3471.PNG" alt="Word Hacker screenshot">
-                            </div>
-                <div class="project-meta">
-                    <h3><a href="wordhacker.html" class="card-title-link">Word Hacker</a></h3>
+                    <div class="chips"><span class="chip">iOS</span><span class="chip">macOS</span></div>
+                </a>
+                <a class="stack-card" data-app="museai" href="museai.html">
+                    <div class="stack-thumb"><img src="assets/museai/1.PNG" alt="Muse AI"/></div>
+                    <h3>Muse AI</h3>
+                    <p>Private voice-to-notes.</p>
+                    <div class="chips"><span class="chip">iOS</span><span class="chip">macOS</span></div>
+                </a>
+                <a class="stack-card" data-app="wordhacker" href="wordhacker.html">
+                    <div class="stack-thumb"><img src="assets/wordhacker/images/IMG_3471.PNG" alt="Word Hacker"/></div>
+                    <h3>Word Hacker</h3>
                     <p>Neon word puzzles.</p>
-                    <div class="project-badges">
-                        <span class="badge">iOS</span>
-                    </div>
-                </div>
-                <div class="project-footer">
-                    <span></span>
-                    <span class="project-links"><a href="https://apps.apple.com/gb/app/word-hacker/id6745370857" target="_blank" rel="noopener">App Store</a><a href="wordhacker.html">Details</a></span>
-                </div>
+                    <div class="chips"><span class="chip">iOS</span></div>
+                </a>
+                <a class="stack-card" data-app="lien" href="lien.html">
+                    <div class="stack-thumb"><img src="assets/lien/1.PNG" alt="Lien"/></div>
+                    <h3>Lien</h3>
+                    <p>Keep relationships warm.</p>
+                    <div class="chips"><span class="chip">iOS</span></div>
+                </a>
             </div>
-
-            <div class="project-card reveal" data-app="lien" style="position:relative;">
-                <a href="lien.html" class="stretched" aria-label="Open Lien details"></a>
-                <div class="project-thumb">
-                    <img src="assets/lien/1.PNG" alt="Lien screenshot">
-                            </div>
-                <div class="project-meta">
-                    <h3><a href="lien.html" class="card-title-link">Lien</a></h3>
-                    <p>Gentle relationship reminders.</p>
-                    <div class="project-badges">
-                        <span class="badge">iOS</span>
-                    </div>
-                </div>
-                <div class="project-footer">
-                    <span></span>
-                    <span class="project-links"><a href="https://apps.apple.com/gb/app/lien/id6745091538" target="_blank" rel="noopener">App Store</a><a href="lien.html">Details</a></span>
-                </div>
-             </div>
+            <button class="stack-nav next" type="button" aria-label="Next"></button>
         </section>
+
+        
+
+        
 
         <!-- More Apps -->
         

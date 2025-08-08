@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - Zecro Studios</title>
+  <meta name="description" content="Rapid prototype services for iOS in days, with clean UX and minimal design systems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Pastel card treatment specific to services page */
+    .pastel-hero { position: relative; border-bottom: 1px solid var(--border); }
+    .pastel-hero::before { content: ""; position: absolute; inset: 0; background:
+      radial-gradient(60% 60% at 20% 30%, rgba(253, 230, 138, .35), transparent 60%),
+      radial-gradient(50% 50% at 80% 20%, rgba(216, 180, 254, .35), transparent 60%),
+      radial-gradient(40% 40% at 70% 80%, rgba(191, 219, 254, .35), transparent 60%);
+      filter: blur(40px) saturate(1.1); pointer-events: none; }
+    .services-wrap { max-width: 900px; margin: 0 auto; padding: clamp(2rem, 6vw, 4rem) var(--space-6); }
+    .svc-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    .svc-card h2 { margin: 0 0 .5rem; letter-spacing: -.02em; }
+    .svc-lead { color: var(--text-secondary); margin-bottom: 1rem; }
+    .svc-list { margin: 0; padding-left: 1.1rem; color: var(--text-secondary); line-height: 1.7; }
+    .svc-list li { margin-bottom: .35rem; }
+    .svc-actions { display: flex; gap: .5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .svc-badges { display: inline-flex; gap: .375rem; margin-top: .75rem; }
+    .svc-badge { font-size: .7rem; padding: .25rem .5rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font-weight: 700; }
+  </style>
+</head>
+<body class="app-detail-page">
+  <header class="site-header">
+    <div class="container header-container header-minimal">
+      <div class="header-minimal-group">
+        <a href="index.html" class="home-btn" aria-label="Home" title="Home">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v8h-5v-5H11v5H6v-8H3l9-8z"/></svg>
+        </a>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" aria-pressed="false"></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero pastel-hero">
+    <div class="container">
+      <h1 class="page-title">Services</h1>
+      <p class="page-sub">Rapid prototype ideas with polish.</p>
+    </div>
+    <div class="page-watermark" aria-hidden="true">SERVICES</div>
+  </section>
+
+  <main class="container app-showcase">
+    <div class="services-wrap">
+      <div class="svc-card">
+        <h2>Rapid prototypes</h2>
+        <p class="svc-lead">Swift/iOS builds in days with a minimal, fast UX. Small, focused engagements that move ideas forward.</p>
+        <ul class="svc-list">
+          <li>Swift/iOS prototypes in days, not weeks</li>
+          <li>Design systems and minimal UX that feel fast</li>
+        </ul>
+        <div class="svc-badges">
+          <span class="svc-badge">Swift</span>
+          <span class="svc-badge">UIKit/SwiftUI</span>
+          <span class="svc-badge">Design System</span>
+        </div>
+        <div class="svc-actions">
+          <a href="mailto:jimjatt1999@gmail.com?subject=Zecro%20Studios%20—%20Rapid%20Prototype" class="btn btn-primary">Request consult</a>
+          <a href="about.html" class="btn btn-ghost">See background</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2024 Zecro Studios</p>
+      <p class="built-by">Built by Jimi Olaoya</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
