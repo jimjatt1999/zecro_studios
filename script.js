@@ -136,13 +136,21 @@ function setupScreenshotGalleries() {
 
 function setupVideoLightbox() {
     const videoLinks = document.querySelectorAll('.video-link');
-    const lightbox = document.getElementById('video-lightbox');
+    if (videoLinks.length === 0) return;
+    let lightbox = document.getElementById('video-lightbox');
 
-    // Check if the lightbox element itself exists first!
+    // Lazily create a video lightbox if missing (for detail pages)
     if (!lightbox) {
-        // If no lightbox on this page, maybe hide video links or just exit
-        // console.log("No video lightbox found on this page.");
-        return; 
+        lightbox = document.createElement('div');
+        lightbox.id = 'video-lightbox';
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <button class="lightbox-close" aria-label="Close">&times;</button>
+                <video controls preload="metadata"></video>
+            </div>
+        `;
+        document.body.appendChild(lightbox);
     }
 
     // Now that we know lightbox exists, query inside it
@@ -150,10 +158,7 @@ function setupVideoLightbox() {
     const closeBtn = lightbox.querySelector('.lightbox-close');
 
     // Check if the inner elements exist
-    if (!lightboxVideo || !closeBtn) {
-        console.error("Lightbox structure incomplete. Video or close button missing.");
-        return;
-    }
+    if (!lightboxVideo || !closeBtn) return;
 
     videoLinks.forEach(link => {
         link.addEventListener('click', (e) => {
