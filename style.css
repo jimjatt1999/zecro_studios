@@ -1456,6 +1456,33 @@ html:not([data-theme="dark"]) .page-watermark { -webkit-text-stroke: 1.25px rgba
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.95);
+    color: #0f172a;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+.lightbox-nav.prev { left: -58px; }
+.lightbox-nav.next { right: -58px; }
+
+@media (max-width: 640px) {
+    .lightbox-nav { width: 38px; height: 38px; font-size: 18px; }
+    .lightbox-nav.prev { left: -46px; }
+    .lightbox-nav.next { right: -46px; }
+}
+
 .lightbox-close {
     position: absolute;
     top: -40px;

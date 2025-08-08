@@ -192,6 +192,8 @@ function setupVideoLightbox() {
 let imageLightboxEl = null;
 let imageLightboxImg = null;
 let imageLightboxClose = null;
+let imageLightboxPrev = null;
+let imageLightboxNext = null;
 let imageItems = [];
 let imageIndex = 0;
 
@@ -205,13 +207,17 @@ function setupImageLightbox() {
         imageLightboxEl.innerHTML = `
             <div class="lightbox-content">
                 <button class="lightbox-close" aria-label="Close">&times;</button>
+                <button class="lightbox-nav prev" aria-label="Previous">‹</button>
                 <img alt="Screenshot" />
+                <button class="lightbox-nav next" aria-label="Next">›</button>
             </div>
         `;
         document.body.appendChild(imageLightboxEl);
     }
     imageLightboxImg = imageLightboxEl.querySelector('img');
     imageLightboxClose = imageLightboxEl.querySelector('.lightbox-close');
+    imageLightboxPrev = imageLightboxEl.querySelector('.lightbox-nav.prev');
+    imageLightboxNext = imageLightboxEl.querySelector('.lightbox-nav.next');
 
     // Close handlers
     const close = () => {
@@ -228,11 +234,14 @@ function setupImageLightbox() {
         }
     });
 
-    // Navigate with left/right click areas on image
+    // Button navigation
+    imageLightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showImageInLightbox(imageIndex - 1); });
+    imageLightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showImageInLightbox(imageIndex + 1); });
+
+    // Also allow image-half click to navigate
     imageLightboxImg.addEventListener('click', (e) => {
         const rect = imageLightboxImg.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const goNext = clickX > rect.width / 2;
+        const goNext = (e.clientX - rect.left) > rect.width / 2;
         showImageInLightbox(goNext ? imageIndex + 1 : imageIndex - 1);
     });
 
