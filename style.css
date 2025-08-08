@@ -730,6 +730,31 @@ html:not([data-theme="dark"]) .app-link:hover { color: var(--accent-hover); bord
 .stack-nav::before { content: '‹'; font-weight: 800; font-size: 18px; }
 .stack-nav.next::before { content: '›'; }
 
+/* Minimal mobile list (flat, clean) */
+.mobile-app-list { display: none; }
+.mobile-app-list a { text-decoration: none; }
+.mobile-app-list .row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: .75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    transition: background .2s ease, transform .2s ease;
+}
+.mobile-app-list .row:hover { background: var(--bg-secondary); transform: translateY(-1px); }
+.mobile-app-list img.icon { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; display: block; }
+.mobile-app-list .meta { display: flex; flex-direction: column; }
+.mobile-app-list .meta .title { font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+.mobile-app-list .meta .sub { color: var(--text-secondary); font-size: .9rem; }
+
+@media (max-width: 640px) {
+    .stack-explore { display: none; }
+    .stack-nav { display: none; }
+    .mobile-app-list { display: grid; gap: .75rem; margin: var(--space-6) 0 var(--space-12); }
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
