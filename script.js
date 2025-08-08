@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupScreenshotGalleries();
     setupVideoLightbox();
+    setupImageLightbox();
     setupThemeToggle();
     setupReveals();
     decorateDetailHeadings();
@@ -87,6 +88,15 @@ function setupScreenshotGalleries() {
         if (nextBtn) {
             nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
         }
+
+        // Open modal when clicking any screenshot
+        gallery.addEventListener('click', (e) => {
+            const clickedImage = e.target.closest('.gallery-image');
+            if (!clickedImage) return;
+            const items = Array.from(images).map(img => ({ src: img.currentSrc || img.src, alt: img.alt }));
+            const startIndex = Math.max(0, Array.from(images).indexOf(clickedImage));
+            openImageLightbox(items, startIndex);
+        });
 
         // Swipe support (mobile)
         let touchStartX = 0;
@@ -176,6 +186,88 @@ function setupVideoLightbox() {
             closeLightbox();
         }
     });
+}
+
+// Shared image lightbox (created once, used by all galleries)
+let imageLightboxEl = null;
+let imageLightboxImg = null;
+let imageLightboxClose = null;
+let imageItems = [];
+let imageIndex = 0;
+
+function setupImageLightbox() {
+    // Build lightbox lazily if missing
+    imageLightboxEl = document.getElementById('image-lightbox');
+    if (!imageLightboxEl) {
+        imageLightboxEl = document.createElement('div');
+        imageLightboxEl.id = 'image-lightbox';
+        imageLightboxEl.className = 'lightbox';
+        imageLightboxEl.innerHTML = `
+            <div class="lightbox-content">
+                <button class="lightbox-close" aria-label="Close">&times;</button>
+                <img alt="Screenshot" />
+            </div>
+        `;
+        document.body.appendChild(imageLightboxEl);
+    }
+    imageLightboxImg = imageLightboxEl.querySelector('img');
+    imageLightboxClose = imageLightboxEl.querySelector('.lightbox-close');
+
+    // Close handlers
+    const close = () => {
+        imageLightboxEl.classList.remove('active');
+        imageLightboxImg.src = '';
+    };
+    imageLightboxClose.addEventListener('click', close);
+    imageLightboxEl.addEventListener('click', (e) => {
+        // Clicking backdrop closes; click on image handled in img listener
+        const content = imageLightboxEl.querySelector('.lightbox-content');
+        if (!content.contains(e.target)) return; // safety
+        if (!imageLightboxImg.contains(e.target)) {
+            close();
+        }
+    });
+
+    // Navigate with left/right click areas on image
+    imageLightboxImg.addEventListener('click', (e) => {
+        const rect = imageLightboxImg.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const goNext = clickX > rect.width / 2;
+        showImageInLightbox(goNext ? imageIndex + 1 : imageIndex - 1);
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+        if (!imageLightboxEl.classList.contains('active')) return;
+        if (e.key === 'Escape') return imageLightboxEl.classList.remove('active');
+        if (e.key === 'ArrowRight') showImageInLightbox(imageIndex + 1);
+        if (e.key === 'ArrowLeft') showImageInLightbox(imageIndex - 1);
+    });
+
+    // Swipe on mobile
+    let touchStartX = 0;
+    imageLightboxEl.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    imageLightboxEl.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 30) showImageInLightbox(dx < 0 ? imageIndex + 1 : imageIndex - 1);
+    }, { passive: true });
+}
+
+function openImageLightbox(items, startIndex) {
+    imageItems = items || [];
+    imageIndex = startIndex || 0;
+    if (!imageLightboxEl) setupImageLightbox();
+    showImageInLightbox(imageIndex, true);
+}
+
+function showImageInLightbox(nextIndex, firstOpen = false) {
+    if (!imageItems.length) return;
+    imageIndex = (nextIndex + imageItems.length) % imageItems.length;
+    const item = imageItems[imageIndex];
+    if (!item) return;
+    imageLightboxImg.src = item.src;
+    imageLightboxImg.alt = item.alt || 'Screenshot';
+    if (firstOpen) imageLightboxEl.classList.add('active');
 }
 
 // New function for eye tracking animation
