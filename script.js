@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScreenshotGalleries();
     setupVideoLightbox();
     setupThemeToggle();
+    setupReveals();
+    decorateDetailHeadings();
 
     // Run eye tracking only if the placeholder exists
     if (document.querySelector('.animated-eyes-placeholder')) {
@@ -27,6 +29,8 @@ function setupScreenshotGalleries() {
         const indicatorsContainer = document.querySelector(`.gallery-indicators[data-gallery="${galleryId}"]`);
         let currentIndex = 0;
         let indicators = null; // Initialize indicators as null
+        let autoplayTimer = null;
+        let isPaused = false;
 
         // Check if controls/indicators even exist before proceeding
         const controlsExist = prevBtn && nextBtn;
@@ -83,6 +87,40 @@ function setupScreenshotGalleries() {
         if (nextBtn) {
             nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
         }
+
+        // Swipe support (mobile)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        gallery.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        gallery.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            const delta = touchEndX - touchStartX;
+            if (Math.abs(delta) > 30) {
+                if (delta > 0) showImage(currentIndex - 1);
+                else showImage(currentIndex + 1);
+            }
+        }, { passive: true });
+
+        // Autoplay with pause on hover/touch
+        const startAutoplay = () => {
+            if (autoplayTimer) clearInterval(autoplayTimer);
+            autoplayTimer = setInterval(() => {
+                if (!isPaused) showImage(currentIndex + 1);
+            }, 4500);
+        };
+        gallery.addEventListener('mouseenter', () => { isPaused = true; });
+        gallery.addEventListener('mouseleave', () => { isPaused = false; });
+        gallery.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+        gallery.addEventListener('touchend', () => { isPaused = false; }, { passive: true });
+        startAutoplay();
+
+        // Lazy loading
+        images.forEach(img => {
+            if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+            img.setAttribute('decoding', 'async');
+        });
     });
 }
 
@@ -244,3 +282,26 @@ function setupThemeToggle() {
         }
     });
 } 
+
+// IntersectionObserver-based reveal
+function setupReveals() {
+    const targets = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || targets.length === 0) return;
+    targets.forEach((el)=> el.classList.add('wait'));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    targets.forEach((el) => observer.observe(el));
+}
+
+// Add reveal to h2 on detail pages for polish
+function decorateDetailHeadings() {
+    document.querySelectorAll('.app-detail-page h2').forEach((h) => {
+        h.classList.add('reveal', 'wait');
+    });
+}
