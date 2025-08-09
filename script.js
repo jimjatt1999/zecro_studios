@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScreenshotGalleries();
     setupVideoLightbox();
     setupImageLightbox();
+    ensureMinimalHeader();
     setupThemeToggle();
     setupReveals();
     decorateDetailHeadings();
@@ -20,6 +21,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Future JS code here
 });
+
+// Ensure minimal header consistency across pages (Home button + theme toggle)
+function ensureMinimalHeader() {
+    const header = document.querySelector('.site-header .header-container.header-minimal');
+    if (!header) return;
+
+    // If a group already exists, ensure it contains a Home button before the theme toggle
+    let group = header.querySelector('.header-minimal-group');
+    const themeToggle = header.querySelector('#theme-toggle');
+
+    // Build the home button element
+    const homeBtn = document.createElement('a');
+    homeBtn.href = 'index.html';
+    homeBtn.className = 'home-btn';
+    homeBtn.setAttribute('aria-label', 'Home');
+    homeBtn.title = 'Home';
+    homeBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v8h-5v-5H11v5H6v-8H3l9-8z"/></svg>';
+
+    // Create group if missing
+    if (!group) {
+        group = document.createElement('div');
+        group.className = 'header-minimal-group';
+        header.appendChild(group);
+    }
+
+    const existingHome = group.querySelector('.home-btn');
+    if (!existingHome) {
+        // Insert Home button before theme toggle if toggle exists, else just append
+        if (themeToggle && themeToggle.parentElement === header) {
+            // Move toggle into the group to unify structure
+            group.appendChild(homeBtn);
+            group.appendChild(themeToggle);
+        } else if (themeToggle && themeToggle.parentElement === group) {
+            group.insertBefore(homeBtn, themeToggle);
+        } else {
+            group.insertBefore(homeBtn, group.firstChild);
+        }
+    } else if (themeToggle && themeToggle.parentElement !== group) {
+        // Ensure toggle sits inside the same group for consistent layout
+        group.appendChild(themeToggle);
+    }
+}
 
 function setupScreenshotGalleries() {
     const galleries = document.querySelectorAll('.screenshot-gallery');

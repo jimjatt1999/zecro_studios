@@ -2138,6 +2138,45 @@ html:not([data-theme="dark"]) .page-watermark { -webkit-text-stroke: 1.25px rgba
     transform: scale(1);
 }
 
+/* ============================================
+   RESPONSIVE TWEAKS – CAROUSELS & INDICATORS
+   ============================================ */
+
+/* Tablet range: improve home stack carousel card width */
+@media (min-width: 641px) and (max-width: 900px) {
+  .stack-carousel { grid-auto-columns: clamp(280px, 60vw, 340px); }
+}
+
+/* Ensure simple, centered dots appear on more mobile/tablet sizes */
+@media (max-width: 900px) {
+  .gallery-wrap { padding-bottom: 90px; }
+  .gallery-indicators {
+    display: flex !important;
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    gap: 8px;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  [data-theme="dark"] .gallery-indicators {
+    background: rgba(15, 23, 42, 0.3);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .indicator-dot { width: 8px; height: 8px; background: var(--text-muted); opacity: 0.9; }
+  .indicator-dot.active { background: var(--accent); opacity: 1; transform: scale(1.15); }
+}
+
+/* Mid tablets: scale up device preview slightly */
+@media (min-width: 769px) and (max-width: 900px) {
+  .css-iphone { width: 240px; height: 480px; }
+}
+
 /* ========================================
    ABOUT PAGE
    ======================================== */
