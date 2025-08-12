@@ -495,17 +495,6 @@ html:not([data-theme="dark"]) .app-link:hover { color: var(--accent-hover); bord
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.app-section[data-app="museai"] {
-    background: var(--bg-secondary);
-    color: var(--text);
-}
-
-.app-section[data-app="museai"] .css-iphone {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
 .app-section[data-app="wordhacker"] {
     background: var(--bg-secondary);
     color: var(--text);
@@ -697,7 +686,6 @@ html:not([data-theme="dark"]) .app-link:hover { color: var(--accent-hover); bord
 
 .stack-card[data-app="halfway"] { --accent: #0ea5a6; --accent-light: #dcfdfa; }
 .stack-card[data-app="histories"] { --accent: #ef4444; --accent-light: #fee2e2; }
-.stack-card[data-app="museai"] { --accent: #6366f1; --accent-light: #e0e7ff; }
 .stack-card[data-app="wordhacker"] { --accent: #111827; --accent-light: #e5e7eb; }
 .stack-card[data-app="lien"] { --accent: #16a34a; --accent-light: #dcfce7; }
 
@@ -833,7 +821,6 @@ html:not([data-theme="dark"]) .page-watermark { -webkit-text-stroke: 1.25px rgba
 /* Material color swatches per app */
 .project-card[data-app="halfway"] { --card-bg: #fde68a; --card-text: #1f2937; }
 .project-card[data-app="histories"] { --card-bg: #fee2e2; --card-text: #111827; }
-.project-card[data-app="museai"] { --card-bg: #e0e7ff; --card-text: #0f172a; }
 .project-card[data-app="wordhacker"] { --card-bg: #e5e7eb; --card-text: #0f172a; }
 .project-card[data-app="lien"] { --card-bg: #dcfce7; --card-text: #064e3b; }
 
