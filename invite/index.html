@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open in Halfway</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            text-align: center; 
+            padding: 40px 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container { 
+            max-width: 400px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .app-icon { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 16px; 
+            margin: 20px auto; 
+            background: white;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #667eea; 
+            font-size: 32px; 
+            font-weight: bold;
+        }
+        h1 { color: white; margin-bottom: 10px; }
+        p { color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .button { 
+            display: inline-block; 
+            background: #007AFF; 
+            color: white; 
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .button:hover { 
+            background: #0056CC; 
+            transform: translateY(-2px);
+        }
+        .install-btn {
+            background: #34C759;
+        }
+        .install-btn:hover {
+            background: #28A745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-icon">H</div>
+        <h1>Opening Halfway...</h1>
+        <p>If the app doesn't open automatically, tap the button below:</p>
+        <a href="#" id="openApp" class="button">Open in Halfway</a>
+        <br>
+        <a href="https://apps.apple.com/app/id6744035312" class="button install-btn">Install Halfway</a>
+    </div>
+
+    <script>
+        const code = window.location.pathname.split('/').pop();
+        const appUrl = `halfway://invite/${code}`;
+        const appStoreUrl = 'https://apps.apple.com/app/id6744035312';
+        
+        navigator.clipboard.writeText(`halfway-invite:${code}`).catch(() => {});
+        
+        const startTime = Date.now();
+        window.location.href = appUrl;
+        
+        document.getElementById('openApp').href = appUrl;
+        
+        setTimeout(() => {
+            if (Date.now() - startTime < 2000) {
+                window.location.href = appStoreUrl;
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
