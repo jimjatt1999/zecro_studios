@@ -1,133 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zecro Studios - Cool, useful apps built with care</title>
-    <meta name="description" content="Portfolio of apps developed by Zecro Studios, including Neura, Halfway, and Shizen.">
+    <title>ZECRO [Creative Space by Jimi Olaoya]</title>
+    <meta name="description" content="Jimi Olaoya. Builder. Writing, Music, and Code.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header class="site-header">
-        <div class="container header-container header-minimal">
-            <div class="header-minimal-group">
-                <a href="index.html" class="home-btn" aria-label="Home" title="Home">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v8h-5v-5H11v5H6v-8H3l9-8z"/></svg>
-                </a>
-                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" aria-pressed="false"></button>
+
+    <div class="layout-grid">
+
+        <!-- Header / Identity -->
+        <header class="module header-module">
+            <div class="brand">
+                <h1>ZECRO STUDIOS</h1>
+                <div class="subtitle">[creative space by jimi olaoya]</div>
+                <div class="header-nav">
+                    <a href="essays.html">ESSAYS</a>
+                    <a href="music.html">MUSIC</a>
+                    <a href="books.html">BOOKS</a>
+                    <a href="#apps">APPS</a>
+                </div>
             </div>
-        </div>
-    </header>
-
-    <!-- New Landing Hero -->
-    <section class="landing-hero">
-        <div class="container hero-inner">
-            <img src="assets/zecrostudioslogo.jpeg" alt="Zecro Studios Logo" class="hero-logo" />
-            <div class="hero-kicker">Zecro Studios</div>
-            <h1 class="hero-headline">Cool apps. Functional design.</h1>
-            <p class="hero-sub">Minimal. Fast. Privacy‑first.</p>
-            <div class="hero-ctas">
-                <a class="btn btn-primary" href="#projects">Explore apps</a>
-                <a class="btn btn-ghost" href="about.html">About developer</a>
-                <a class="btn btn-ghost" href="blog.html">Blog</a>
-                <a class="btn btn-ghost" href="services.html">Services</a>
+            <div class="meta">
+                <span>TOKYO, JP</span>
+                <span id="time">--:--</span>
             </div>
-        </div>
-        <div class="hero-watermark" aria-hidden="true">ZECRO • STUDIOS</div>
-    </section>
+        </header>
 
-    <main class="container app-showcase">
-
-        <section id="projects" class="projects-intro">
-            <h2 class="section-title">Projects</h2>
-            <p class="intro-copy">Simple, useful apps built with care.</p>
+        <!-- Hero Statement -->
+        <section class="module hero-module">
+            <h2 class="statement">ENGINEER.<br>PRODUCT BUILDER.<br>MUSICIAN.</h2>
         </section>
 
-        <section class="stack-explore" aria-label="Explore apps">
-            <button class="stack-nav prev" type="button" aria-label="Previous"></button>
-            <div class="stack-carousel" id="stack-carousel">
-                <a class="stack-card" data-app="halfway" href="halfway.html">
-                    <div class="stack-thumb"><img src="assets/halfway/images/halfway_home.PNG" alt="Halfway"/></div>
-                    <h3>Halfway</h3>
-                    <p>Meet in the fair middle.</p>
-                    <div class="chips"><span class="chip">iOS</span><span class="chip">5★</span></div>
+        <!-- Current Focus (Halfway) -->
+        <section class="module focus-module">
+            <div class="module-label">01 // CURRENT FOCUS</div>
+            <div class="focus-content">
+                <div class="focus-header">
+                    <img src="assets/halfway/images/120.png" class="focus-icon" alt="Halfway Icon">
+                    <h3 class="focus-title">HALFWAY</h3>
+                </div>
+                <p class="focus-desc">Meet in the fair middle.</p>
+                <a href="https://halfway.one/" target="_blank" class="action-link">VISIT SITE &nearr;</a>
+            </div>
+        </section>
+
+        <!-- Essays / Writing -->
+        <section class="module essays-module">
+            <div class="module-label">02 // ESSAYS</div>
+            <div class="link-content">
+                <p class="module-desc">Thoughts on design, technology, and building.</p>
+                <a href="essays.html" class="action-link-large">VIEW ESSAYS &rarr;</a>
+            </div>
+        </section>
+
+        <!-- Music -->
+        <section class="module music-module" style="padding: 0;">
+            <div class="tech-player">
+                <div class="tech-header">
+                    <div class="tech-label">03 // MUSIC</div>
+                    <div class="tech-status">
+                        <div class="status-dot"></div>
+                        <span>JACK STEREO</span>
+                    </div>
+                </div>
+                <div class="tech-main">
+                    <div>
+                        <div class="tech-time-labels">
+                            <span>Hh</span><span>Mm</span><span>Ss</span>
+                        </div>
+                        <div class="tech-time-display">00:32:00</div>
+                        <div class="tech-visualizer">
+                            <div class="tech-bar" style="animation-duration: 0.5s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.7s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.4s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.6s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.8s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.5s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.3s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.6s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.9s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.4s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.7s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.5s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.6s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.8s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.4s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.7s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.5s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.3s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.6s"></div>
+                            <div class="tech-bar" style="animation-duration: 0.9s"></div>
+                        </div>
+                        <div class="tech-description"
+                            style="margin-bottom: 1rem; font-size: 0.8rem; opacity: 0.7; font-family: var(--font-mono);">
+                            > I make music too.
+                        </div>
+                    </div>
+
+                    <div class="tech-actions">
+                        <a href="music.html" class="tech-action-btn">
+                            <span>&#9654;</span> MUSIC
+                        </a>
+                        <a href="https://open.spotify.com/artist/1gCDyDd7GGfl42aq4qp6hP" target="_blank"
+                            class="tech-action-btn">
+                            <span>&#8599;</span> SPOTIFY
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Books Module -->
+        <section class="module books-module" style="grid-column: 9 / 13; padding: 0;">
+            <div class="tech-player">
+                <div class="tech-header">
+                    <div class="tech-label">04 // BOOKS</div>
+                    <div class="tech-status">
+                        <div class="status-dot"></div>
+                        <span>ACTIVE</span>
+                    </div>
+                </div>
+                <div class="tech-main">
+                    <div>
+                        <div class="tech-time-labels">
+                            <span>COUNT</span>
+                        </div>
+                        <div class="tech-time-display">43</div>
+                        <div class="tech-description"
+                            style="margin-bottom: 1rem; font-size: 0.8rem; opacity: 0.7; font-family: var(--font-mono);">
+                            > Reading list 2024.
+                        </div>
+
+                        <div class="book-grid"
+                            style="grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1rem; opacity: 0.8;">
+                            <!-- Book 1 -->
+                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
+                                <div class="book-cover has-image">
+                                    <img src="https://covers.openlibrary.org/b/isbn/9780743264747-L.jpg" alt="Einstein">
+                                    <div class="book-spine"></div>
+                                </div>
+                            </a>
+                            <!-- Book 2 -->
+                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
+                                <div class="book-cover has-image">
+                                    <img src="https://covers.openlibrary.org/b/isbn/9780812975215-L.jpg"
+                                        alt="Fooled by Randomness">
+                                    <div class="book-spine"></div>
+                                </div>
+                            </a>
+                            <!-- Book 3 -->
+                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
+                                <div class="book-cover has-image">
+                                    <img src="https://covers.openlibrary.org/b/isbn/9780684807614-L.jpg"
+                                        alt="Benjamin Franklin">
+                                    <div class="book-spine"></div>
+                                </div>
+                            </a>
+                            <!-- Book 4 -->
+                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
+                                <div class="book-cover has-image">
+                                    <img src="https://covers.openlibrary.org/b/isbn/9780618057078-L.jpg"
+                                        alt="The Origin of Consciousness">
+                                    <div class="book-spine"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tech-actions">
+                        <a href="books.html" class="tech-action-btn">
+                            <span>&#9638;</span> BOOKS
+                        </a>
+                        <a href="https://www.goodreads.com/user/show/33858704?ref=nav_profile_l" target="_blank"
+                            class="tech-action-btn">
+                            <span>&#8599;</span> GOODREADS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Works (Archive) -->
+        <section class="module works-module" id="apps">
+            <div class="module-label">05 // APPS</div>
+            <div class="apps-grid">
+                <a href="histories.html" class="app-card">
+                    <div class="app-card-header">
+                        <span class="app-card-title">Daily History</span>
+                        <span class="app-card-tag">APP</span>
+                    </div>
+                    <p class="app-card-desc">Historical events on this day.</p>
                 </a>
-                <a class="stack-card" data-app="histories" href="histories.html">
-                    <div class="stack-thumb"><img src="assets/histories/1.PNG" alt="Daily History"/></div>
-                    <h3>Daily History</h3>
-                    <p>Relevant moments, every morning.</p>
-                    <div class="chips"><span class="chip">iOS</span><span class="chip">macOS</span></div>
+                <a href="wordhacker.html" class="app-card">
+                    <div class="app-card-header">
+                        <span class="app-card-title">Word Hacker</span>
+                        <span class="app-card-tag">GAME</span>
+                    </div>
+                    <p class="app-card-desc">Guess the word in 6 tries.</p>
                 </a>
-                <a class="stack-card" data-app="wordhacker" href="wordhacker.html">
-                    <div class="stack-thumb"><img src="assets/wordhacker/images/IMG_3471.PNG" alt="Word Hacker"/></div>
-                    <h3>Word Hacker</h3>
-                    <p>Neon word puzzles.</p>
-                    <div class="chips"><span class="chip">iOS</span></div>
-                </a>
-                <a class="stack-card" data-app="lien" href="lien.html">
-                    <div class="stack-thumb"><img src="assets/lien/1.PNG" alt="Lien"/></div>
-                    <h3>Lien</h3>
-                    <p>Keep relationships warm.</p>
-                    <div class="chips"><span class="chip">iOS</span></div>
+                <a href="lien.html" class="app-card">
+                    <div class="app-card-header">
+                        <span class="app-card-title">Lien</span>
+                        <span class="app-card-tag">SOCIAL</span>
+                    </div>
+                    <p class="app-card-desc">Universal social networking.</p>
                 </a>
             </div>
-            <button class="stack-nav next" type="button" aria-label="Next"></button>
         </section>
 
-        <!-- Simple mobile list (visible only on small screens) -->
-        <section class="mobile-app-list" aria-label="Explore apps (mobile)">
-            <a href="halfway.html" class="row">
-                <img class="icon" src="assets/halfway/images/120.png" alt="Halfway icon">
-                <div class="meta"><span class="title">Halfway</span><span class="sub">Meet in the fair middle</span></div>
-            </a>
-            <a href="histories.html" class="row">
-                <img class="icon" src="assets/histories/historyicon.png" alt="Daily History icon">
-                <div class="meta"><span class="title">Daily History</span><span class="sub">Relevant moments, daily</span></div>
-            </a>
-            <a href="wordhacker.html" class="row">
-                <img class="icon" src="assets/wordhacker/word_hackericon.png" alt="Word Hacker icon">
-                <div class="meta"><span class="title">Word Hacker</span><span class="sub">Neon word puzzles</span></div>
-            </a>
-            <a href="lien.html" class="row">
-                <img class="icon" src="assets/lien/lienicon.png" alt="Lien icon">
-                <div class="meta"><span class="title">Lien</span><span class="sub">Keep relationships warm</span></div>
-            </a>
-        </section>
+        <!-- Links / Footer -->
+        <footer class="module footer-module">
+            <div class="module-label">06 // CONNECT</div>
+            <div class="connect-links">
+                <a href="mailto:jimi@zecro.studios">EMAIL</a>
+                <a href="https://github.com/jimjatt1999" target="_blank">GITHUB</a>
+                <a href="https://www.linkedin.com/in/jimi-olaoya/" target="_blank">LINKEDIN</a>
+                <a href="https://adejimiseun.substack.com/" target="_blank">SUBSTACK</a>
+            </div>
+            <div class="copyright">
+                &copy; 2024 ZECRO STUDIOS
+            </div>
+        </footer>
 
-        
-
-        
-
-        <!-- More Apps -->
-        
-
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 Zecro Studios</p>
-            <p class="built-by">Built by Jimi Olaoya</p>
-            <p class="contact-info">
-                Contact: <a href="mailto:jimjatt1999@gmail.com">jimjatt1999@gmail.com</a> | 
-                GitHub: <a href="https://github.com/jimjatt1999" target="_blank" rel="noopener noreferrer">@jimjatt1999</a>
-            </p>
-        </div>
-    </footer>
-
-    <!-- Video Lightbox Modal -->
-    <div id="video-lightbox" class="lightbox">
-        <div class="lightbox-content">
-            <button class="lightbox-close">&times;</button>
-            <video controls preload="metadata">
-                <!-- Video source will be set by JS -->
-                <p>Your browser doesn't support HTML video.</p>
-            </video>
-        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
-</html> 
+
+</html>
