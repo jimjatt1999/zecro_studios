@@ -2,16 +2,110 @@
    RESET & VARIABLES
    ======================================== */
 :root {
-    --color-bg: #F8F8F8;
-    --color-text: #111111;
-    --color-line: #DDDDDD;
-    --color-accent: #000000;
+    --color-bg: #000000;
+    --color-text: #FFFFFF;
+    --color-line: #333333;
+    --color-accent: #FFFFFF;
 
     --font-main: 'Inter', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
 
     --spacing-unit: 1.5rem;
     --border-width: 1px;
+}
+
+/* Light mode for users with light system preference */
+@media (prefers-color-scheme: light) {
+    :root {
+        --color-bg: #F8F8F8;
+        --color-text: #111111;
+        --color-line: #DDDDDD;
+        --color-accent: #000000;
+    }
+
+    .focus-module {
+        background-color: #F2F2F2 !important;
+    }
+
+    .gallery-module {
+        background-color: #EAEAEA !important;
+    }
+
+    .tech-player {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border-color: #000000 !important;
+    }
+
+    .tech-header {
+        border-bottom-color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+
+    .tech-control-panel {
+        border-right-color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+
+    .tech-controls-row {
+        border-top-color: #000000 !important;
+    }
+
+    .tech-knob {
+        border-color: #000000 !important;
+    }
+
+    .tech-knob::after {
+        background-color: #000000 !important;
+    }
+
+    .tech-knob-arc {
+        border-left-color: #000000 !important;
+        border-top-color: #000000 !important;
+    }
+
+    .tech-switch {
+        border-color: #000000 !important;
+    }
+
+    .tech-switch:hover .tech-switch-indicator {
+        background-color: #ffffff !important;
+    }
+
+    .tech-bar {
+        background-color: #000000 !important;
+    }
+
+    .essay-item {
+        border-bottom-color: #CCC !important;
+    }
+
+    .list-item {
+        border-bottom-color: #CCC !important;
+    }
+
+    .list-item:hover {
+        color: #555 !important;
+    }
+
+    .action-link-large:hover {
+        color: #555 !important;
+    }
+
+    .music-module .action-link-large:hover {
+        color: #555 !important;
+        border-color: #555 !important;
+    }
+
+    .full-width-module {
+        background-color: #f2efe9 !important;
+    }
+
+    @media (max-width: 768px) {
+        .tech-control-panel {
+            border-bottom-color: #000000 !important;
+        }
+    }
 }
 
 * {
@@ -162,7 +256,7 @@ ul {
 }
 
 .action-link-large:hover {
-    color: #555;
+    color: #AAA;
 }
 
 /* ========================================
@@ -179,7 +273,7 @@ ul {
 .essay-item {
     display: block;
     padding-bottom: 2rem;
-    border-bottom: 1px dashed #CCC;
+    border-bottom: 1px dashed #444;
     transition: opacity 0.2s ease;
 }
 
@@ -328,7 +422,7 @@ ul {
 .focus-module {
     grid-column: 7 / -1;
     border-bottom: var(--border-width) solid var(--color-text);
-    background-color: #F2F2F2;
+    background-color: #111111;
     padding: 1.5rem;
 }
 
@@ -401,12 +495,12 @@ ul {
     justify-content: space-between;
     align-items: baseline;
     padding-bottom: 0.5rem;
-    border-bottom: 1px dashed #CCC;
+    border-bottom: 1px dashed #444;
 }
 
 .list-item:hover {
     opacity: 1;
-    color: #555;
+    color: #AAA;
 }
 
 .item-title {
@@ -485,8 +579,8 @@ ul {
 }
 
 .music-module .action-link-large:hover {
-    color: #555;
-    border-color: #555;
+    color: #AAA;
+    border-color: #AAA;
 }
 
 .music-header-row {
@@ -736,7 +830,7 @@ ul {
     border-bottom: var(--border-width) solid var(--color-text);
     padding: 0;
     overflow: hidden;
-    background-color: #EAEAEA;
+    background-color: #111111;
 }
 
 .gallery-module .module-label {
@@ -3240,10 +3334,10 @@ iframe:hover {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: #ffffff;
-    /* White background for black and white theme */
-    color: #000000;
-    border: 1px solid #000000;
+    background-color: #000000;
+    /* Black background for dark mode */
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
     font-family: var(--font-mono);
     position: relative;
     overflow: hidden;
@@ -3254,8 +3348,8 @@ iframe:hover {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #000000;
-    background-color: #ffffff;
+    border-bottom: 1px solid #FFFFFF;
+    background-color: #000000;
 }
 
 .tech-label {
@@ -3331,7 +3425,7 @@ iframe:hover {
 
 .tech-bar {
     flex: 1;
-    background-color: #000000;
+    background-color: #FFFFFF;
     animation: visualize 1s ease-in-out infinite alternate;
     min-width: 2px;
 }
@@ -3349,7 +3443,7 @@ iframe:hover {
 .tech-controls-row {
     display: flex;
     gap: 2rem;
-    border-top: 1px solid #000000;
+    border-top: 1px solid #FFFFFF;
 }
 
 .tech-control-panel {
@@ -3358,8 +3452,8 @@ iframe:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-right: 1px solid #000000;
-    background-color: #ffffff;
+    border-right: 1px solid #FFFFFF;
+    background-color: #000000;
 }
 
 .tech-control-panel:last-child {
@@ -3379,7 +3473,7 @@ iframe:hover {
 .tech-knob {
     width: 100%;
     height: 100%;
-    border: 2px solid #000000;
+    border: 2px solid #FFFFFF;
     border-radius: 50%;
     position: relative;
     transform: rotate(45deg);
@@ -3393,7 +3487,7 @@ iframe:hover {
     left: 50%;
     width: 8px;
     height: 8px;
-    background-color: #000000;
+    background-color: #FFFFFF;
     border-radius: 50%;
     transform: translateX(-50%);
 }
@@ -3405,8 +3499,8 @@ iframe:hover {
     right: -10px;
     bottom: -10px;
     border: 1px solid transparent;
-    border-left-color: #000000;
-    border-top-color: #000000;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
     border-radius: 50%;
     transform: rotate(-45deg);
     opacity: 0.3;
@@ -3422,7 +3516,7 @@ iframe:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid #000000;
+    border: 1px solid #FFFFFF;
     border-radius: 20px;
     padding: 0.5rem 1rem;
     cursor: pointer;
@@ -3448,7 +3542,7 @@ iframe:hover {
 }
 
 .tech-switch:hover .tech-switch-indicator {
-    background-color: #ffffff;
+    background-color: #000000;
 }
 
 .tech-track-info {
@@ -3509,7 +3603,7 @@ iframe:hover {
 
     .tech-control-panel {
         border-right: none;
-        border-bottom: 1px solid #000000;
+        border-bottom: 1px solid #FFFFFF;
     }
 
     .tech-control-panel:last-child {
