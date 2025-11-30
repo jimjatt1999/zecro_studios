@@ -17,15 +17,13 @@
 /* Light mode for users with light system preference */
 @media (prefers-color-scheme: light) {
     :root {
-        --color-bg: #F8F8F8;
+        --color-bg: #FFFFFF;
         --color-text: #111111;
         --color-line: #DDDDDD;
         --color-accent: #000000;
     }
 
-    .focus-module {
-        background-color: #F2F2F2 !important;
-    }
+
 
     .gallery-module {
         background-color: #EAEAEA !important;
@@ -98,7 +96,7 @@
     }
 
     .full-width-module {
-        background-color: #f2efe9 !important;
+        background-color: #FFFFFF !important;
     }
 
     @media (max-width: 768px) {
@@ -335,33 +333,33 @@ ul {
 
 /* Header Module */
 .header-module {
-    grid-column: 1 / -1;
+    grid-column: 1 / 4;
+    grid-row: 1;
     border-bottom: var(--border-width) solid var(--color-text);
     margin-bottom: 0;
-    padding-bottom: 1.5rem;
+    padding-bottom: 0;
+    min-height: auto;
+    /* Override global module min-height */
 }
 
 .brand h1 {
-    font-size: 6rem;
-    /* Even bigger poster style */
+    font-size: 3.5rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    margin-bottom: 0.2rem;
-    line-height: 0.9;
+    margin-bottom: 0;
+    line-height: 0.75;
     text-transform: uppercase;
 }
 
 .subtitle {
     font-family: var(--font-mono);
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: var(--color-text);
     opacity: 0.6;
     margin-bottom: 0.5rem;
     letter-spacing: 0.05em;
     display: inline-block;
-    /* For cursor positioning */
     border-right: 2px solid var(--color-text);
-    /* The Cursor */
     animation: blink-caret 0.75s step-end infinite;
     padding-right: 5px;
 }
@@ -383,21 +381,101 @@ ul {
 
 .header-nav {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    margin-top: 0;
 }
 
 .header-nav a {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
     text-decoration: none;
     color: var(--color-text);
     opacity: 0.6;
-    font-weight: 500;
+    transition: opacity 0.2s ease;
 }
 
 .header-nav a:hover {
     opacity: 1;
-    text-decoration: underline;
+}
+
+/* Tech Player Header (for modules) */
+.tech-player {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tech-header {
+    border-bottom: var(--border-width) solid var(--color-text);
+    padding: 0.5rem 1rem;
+    background: transparent;
+}
+
+.tech-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    font-weight: 500;
+}
+
+
+/* Clock Module - Ultra Minimal */
+.clock-module {
+    grid-column: 4 / 8;
+    grid-row: 1;
+    border-bottom: var(--border-width) solid var(--color-text);
+    padding: 0;
+    min-height: auto;
+    /* Override global module min-height */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    /* Ensure negative margin doesn't bleed */
+}
+
+.time-display {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    margin-top: -0.7rem;
+    /* Force higher */
+}
+
+.time-display span {
+    display: inline-block;
+}
+
+/* Location Module - Ultra Minimal */
+.location-module {
+    grid-column: 8 / -1;
+    grid-row: 1;
+    border-bottom: var(--border-width) solid var(--color-text);
+    padding: 0;
+    min-height: auto;
+    /* Override global module min-height */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.location-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    line-height: 1;
+    margin: 0;
+    margin-top: -0.5rem;
+    /* Force higher */
 }
 
 .meta {
@@ -422,7 +500,7 @@ ul {
 .focus-module {
     grid-column: 7 / -1;
     border-bottom: var(--border-width) solid var(--color-text);
-    background-color: #111111;
+    background-color: transparent;
     padding: 1.5rem;
 }
 
@@ -565,6 +643,31 @@ ul {
     .header-module {
         flex-direction: column;
         gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .brand h1 {
+        font-size: 2.5rem;
+    }
+
+    .meta-location {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0.8rem;
+    }
+
+    .location-info {
+        align-items: flex-start;
+    }
+
+    .digital-clock {
+        font-size: 1.4rem;
+    }
+
+    .journey-map {
+        width: 140px;
+        height: 45px;
     }
 }
 
@@ -1850,12 +1953,15 @@ iframe:hover {
     object-fit: cover;
     opacity: 0.8;
     /* Slight dim for digital feel */
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, filter 0.3s ease;
     z-index: 0;
+    /* High-res black and white effect */
+    filter: grayscale(100%) contrast(1.2) brightness(1.1) !important;
 }
 
 .book-item:hover .book-cover img {
     opacity: 1;
+    filter: grayscale(100%) contrast(1.3) brightness(1.15) !important;
 }
 
 /* Ensure text is visible over image if needed, or hide text if image exists */
