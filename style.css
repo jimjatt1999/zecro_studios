@@ -122,8 +122,8 @@ body {
     -webkit-font-smoothing: antialiased;
     position: relative;
     /* For grain overlay */
-    padding-top: calc(constant(safe-area-inset-top) + 12px);
-    padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+    padding-top: 32px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 32px);
 }
 
 /* Grain Animation */
@@ -427,7 +427,7 @@ ul {
     grid-column: 4 / 8;
     grid-row: 1;
     border-bottom: var(--border-width) solid var(--color-text);
-    padding: 0;
+    padding: 1rem 0 1rem;
     min-height: auto;
     /* Override global module min-height */
     display: flex;
@@ -446,8 +446,6 @@ ul {
     line-height: 1;
     margin: 0;
     padding: 0;
-    margin-top: -0.7rem;
-    /* Force higher */
 }
 
 .time-display span {
@@ -459,7 +457,7 @@ ul {
     grid-column: 8 / -1;
     grid-row: 1;
     border-bottom: var(--border-width) solid var(--color-text);
-    padding: 0;
+    padding: 1rem 0 1rem;
     min-height: auto;
     /* Override global module min-height */
     display: flex;
@@ -476,8 +474,6 @@ ul {
     opacity: 0.6;
     line-height: 1;
     margin: 0;
-    margin-top: -0.5rem;
-    /* Force higher */
 }
 
 .meta {
