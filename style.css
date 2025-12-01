@@ -122,6 +122,7 @@ body {
     -webkit-font-smoothing: antialiased;
     position: relative;
     /* For grain overlay */
+    padding-top: max(env(safe-area-inset-top), 0px);
 }
 
 /* Grain Animation */
