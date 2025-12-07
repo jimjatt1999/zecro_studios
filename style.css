@@ -339,7 +339,7 @@ ul {
     border-bottom: var(--border-width) solid var(--color-text);
     margin-bottom: 0;
     padding-bottom: 0;
-    padding-top: calc(1rem + env(safe-area-inset-top));
+    padding-top: calc(1.25rem + env(safe-area-inset-top));
     min-height: auto;
     /* Override global module min-height */
     gap: 0.5rem;
@@ -361,7 +361,10 @@ ul {
     opacity: 0.6;
     margin-bottom: 0.5rem;
     letter-spacing: 0.05em;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    min-height: 1.2em;
     border-right: 2px solid var(--color-text);
     animation: blink-caret 0.75s step-end infinite;
     padding-right: 5px;
@@ -393,6 +396,8 @@ ul {
     .subtitle {
         font-size: 0.75rem;
         letter-spacing: 0.04em;
+        white-space: normal;
+        min-height: 0;
     }
     .clock-module {
         display: none;
@@ -449,11 +454,11 @@ ul {
     grid-column: 4 / 8;
     grid-row: 1;
     border-bottom: var(--border-width) solid var(--color-text);
-    padding: 0;
+    padding: 0 1rem 0 0;
     min-height: auto;
     /* Override global module min-height */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-start;
     overflow: hidden;
     /* Ensure negative margin doesn't bleed */
@@ -468,8 +473,6 @@ ul {
     line-height: 1;
     margin: 0;
     padding: 0;
-    margin-top: -0.7rem;
-    /* Force higher */
 }
 
 .time-display span {
