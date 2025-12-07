@@ -408,6 +408,23 @@ ul {
     }
 }
 
+@media (max-width: 1100px) {
+    .clock-module,
+    .location-module {
+        display: none;
+    }
+    .header-module {
+        grid-column: 1 / -1;
+        padding-top: calc(1.5rem + env(safe-area-inset-top));
+    }
+}
+
+@media (max-width: 1300px) {
+    .clock-module {
+        display: none;
+    }
+}
+
 .header-nav {
     display: flex;
     gap: 1rem;
