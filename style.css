@@ -339,8 +339,10 @@ ul {
     border-bottom: var(--border-width) solid var(--color-text);
     margin-bottom: 0;
     padding-bottom: 0;
+    padding-top: calc(1rem + env(safe-area-inset-top));
     min-height: auto;
     /* Override global module min-height */
+    gap: 0.5rem;
 }
 
 .brand h1 {
@@ -377,6 +379,27 @@ ul {
 
     50% {
         border-color: var(--color-text)
+    }
+}
+
+@media (max-width: 768px) {
+    .header-module {
+        padding-top: calc(1.5rem + env(safe-area-inset-top));
+    }
+    .brand h1 {
+        font-size: 2.6rem;
+        line-height: 0.95;
+    }
+    .subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+    }
+    .clock-module {
+        display: none;
+    }
+    .header-module .brand,
+    .header-module .meta {
+        width: 100%;
     }
 }
 
