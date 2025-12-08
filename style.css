@@ -752,6 +752,49 @@ ul {
     }
 }
 
+@media (max-width: 720px) {
+    .header-module {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: var(--color-bg);
+        border-bottom: var(--border-width) solid var(--color-text);
+        padding: calc(1rem + env(safe-area-inset-top)) 1rem 1rem;
+    }
+
+    .header-module .brand h1 {
+        font-size: 2rem;
+        line-height: 1;
+    }
+
+    .header-module .subtitle {
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        white-space: normal;
+        border: none;
+        padding-right: 0;
+        animation: none;
+    }
+
+    .header-module .meta {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .header-nav {
+        width: 100%;
+        gap: 0.65rem;
+        row-gap: 0.35rem;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.9rem;
+    }
+}
+
 .music-module .module-desc {
     opacity: 0.8;
     color: var(--color-text);
@@ -1061,6 +1104,39 @@ ul {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 900px) {
+    .app-hero-module {
+        grid-column: 1 / -1;
+        border-right: none;
+        min-height: auto;
+        padding: 1.75rem 1.5rem;
+    }
+
+    .gallery-module {
+        grid-column: 1 / -1;
+        border-top: var(--border-width) solid var(--color-text);
+        padding: 1rem 0 1.5rem;
+    }
+
+    .gallery-module .module-label {
+        padding: 0 1.5rem 0.5rem;
+    }
+
+    .gallery-scroll {
+        gap: 1rem;
+        padding: 0 1.25rem 0.5rem;
+        scroll-snap-type: x mandatory;
+    }
+
+    .gallery-scroll img {
+        width: min(82vw, 420px);
+        height: auto;
+        max-height: 70vh;
+        object-fit: contain;
+        scroll-snap-align: start;
+    }
 }
 
 /* Typography Overrides */
