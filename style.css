@@ -443,7 +443,7 @@ ul {
     .header-nav a {
         padding: 0.35rem 0.75rem;
         border: var(--border-width) solid var(--color-text);
-        border-radius: 999px;
+        border-radius: 0;
     }
 }
 
