@@ -332,6 +332,95 @@ ul {
     min-height: 300px;
 }
 
+/* ========================================
+   GLOBAL SITE HEADER (reusable component)
+   ======================================== */
+.site-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background: var(--color-bg);
+    border-bottom: var(--border-width) solid var(--color-line);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+}
+
+.header-title-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.header-link {
+    color: inherit;
+}
+
+.logo-title-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.site-logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid var(--color-line);
+}
+
+.header-title-block h1 {
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+.nav-link,
+.theme-toggle {
+    padding: 0.45rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    border: var(--border-width) solid var(--color-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-text);
+    transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+
+.nav-link:hover,
+.theme-toggle:hover {
+    transform: translateY(-1px);
+    opacity: 0.85;
+}
+
+.nav-link.active {
+    border-color: var(--color-text);
+    opacity: 1;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    background: var(--color-text);
+    color: var(--color-bg);
+}
+
 /* Header Module */
 .header-module {
     grid-column: 1 / 4;
@@ -444,6 +533,44 @@ ul {
         padding: 0.35rem 0.75rem;
         border: var(--border-width) solid var(--color-text);
         border-radius: 0;
+    }
+}
+
+/* Stack magazine grid on small screens */
+@media (max-width: 900px) {
+    .layout-grid {
+        display: flex;
+        flex-direction: column;
+        border-width: var(--border-width);
+    }
+
+    .module {
+        min-height: auto;
+        padding: 1.5rem;
+        border-bottom: var(--border-width) solid var(--color-line);
+    }
+
+    .module:last-child {
+        border-bottom: none;
+    }
+
+    .header-module {
+        grid-column: 1 / -1;
+        padding-top: calc(1.5rem + env(safe-area-inset-top));
+        gap: 0.65rem;
+    }
+
+    .header-module .brand,
+    .header-module .meta {
+        width: 100%;
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
     }
 }
 
@@ -2527,7 +2654,7 @@ iframe:hover {
 /* ENHANCED MOBILE EXPERIENCE FOR SMALLEST SCREENS */
 @media (max-width: 480px) {
     .site-header {
-        padding: 0.5rem 0;
+        padding: 0.75rem 0;
         backdrop-filter: blur(25px);
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     }
@@ -2535,11 +2662,13 @@ iframe:hover {
     .header-container {
         padding: 0 1rem;
         gap: 0.75rem;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .header-container.header-minimal {
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
     }
 
@@ -2563,15 +2692,19 @@ iframe:hover {
         gap: 0.5rem;
         margin-top: 0;
         margin-left: 0 !important;
+        width: 100%;
+        justify-content: flex-start;
     }
 
-    .nav-link {
+    .nav-link,
+    .theme-toggle,
+    .theme-toggle-btn {
         padding: 0.5rem 0.75rem;
         font-size: 0.875rem;
         border-radius: 8px;
-        background: var(--bg-secondary);
-        border: 1px solid var(--border);
-        color: var(--text) !important;
+        background: var(--color-bg);
+        border: 1px solid var(--color-line);
+        color: var(--color-text) !important;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -2580,7 +2713,7 @@ iframe:hover {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 120px;
+        max-width: 140px;
     }
 
     /* Remove the problematic ::after content */
@@ -2588,26 +2721,23 @@ iframe:hover {
         display: none;
     }
 
-    .nav-link:hover {
-        background: var(--accent) !important;
-        color: white !important;
-        border-color: var(--accent) !important;
+    .nav-link:hover,
+    .theme-toggle:hover,
+    .theme-toggle-btn:hover {
+        background: var(--color-text) !important;
+        color: var(--color-bg) !important;
+        border-color: var(--color-text) !important;
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
+    .theme-toggle,
     .theme-toggle-btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
         min-width: 60px;
         margin-top: 0;
         border-radius: 8px;
-        margin-left: 0.5rem !important;
+        margin-left: 0 !important;
         order: 1;
-        background: var(--bg-secondary) !important;
-        color: var(--text) !important;
-        border: 2px solid var(--border) !important;
-        font-weight: 600;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
@@ -3239,6 +3369,7 @@ iframe:hover {
     border-color: var(--border) !important;
 }
 
+[data-theme="dark"] .theme-toggle,
 [data-theme="dark"] .theme-toggle-btn {
     background: var(--bg-secondary) !important;
     color: var(--text) !important;
