@@ -139,46 +139,14 @@
                         <div class="tech-time-labels">
                             <span>COUNT</span>
                         </div>
-                        <div class="tech-time-display">43</div>
-                        <div class="tech-description"
+                        <div class="tech-time-display" id="books-preview-count">7</div>
+                        <div class="tech-description" id="books-preview-label"
                             style="margin-bottom: 1rem; font-size: 0.8rem; opacity: 0.7; font-family: var(--font-mono);">
-                            > Reading list 2024.
+                            > Reading list 2026.
                         </div>
 
-                        <div class="book-grid"
-                            style="grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1rem; opacity: 0.8;">
-                            <!-- Book 1 -->
-                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
-                                <div class="book-cover has-image">
-                                    <img src="https://covers.openlibrary.org/b/isbn/9780743264747-L.jpg" alt="Einstein">
-                                    <div class="book-spine"></div>
-                                </div>
-                            </a>
-                            <!-- Book 2 -->
-                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
-                                <div class="book-cover has-image">
-                                    <img src="https://covers.openlibrary.org/b/isbn/9780812975215-L.jpg"
-                                        alt="Fooled by Randomness">
-                                    <div class="book-spine"></div>
-                                </div>
-                            </a>
-                            <!-- Book 3 -->
-                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
-                                <div class="book-cover has-image">
-                                    <img src="https://covers.openlibrary.org/b/isbn/9780684807614-L.jpg"
-                                        alt="Benjamin Franklin">
-                                    <div class="book-spine"></div>
-                                </div>
-                            </a>
-                            <!-- Book 4 -->
-                            <a href="books.html" class="book-item" style="aspect-ratio: 2/3;">
-                                <div class="book-cover has-image">
-                                    <img src="https://covers.openlibrary.org/b/isbn/9780618057078-L.jpg"
-                                        alt="The Origin of Consciousness">
-                                    <div class="book-spine"></div>
-                                </div>
-                            </a>
-                        </div>
+                        <div class="book-grid books-preview-grid" id="books-preview-grid"
+                            style="grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1rem; opacity: 0.8;"></div>
                     </div>
 
                     <div class="tech-actions">
@@ -210,6 +178,7 @@
 
     </div>
 
+    <script src="books-data.js"></script>
     <script src="main.js"></script>
 </body>
 

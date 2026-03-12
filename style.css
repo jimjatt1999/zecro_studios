@@ -2347,6 +2347,139 @@ iframe:hover {
     text-shadow: 1px 0 0 red, -1px 0 0 blue;
 }
 
+.books-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-text);
+    padding-bottom: 0.75rem;
+}
+
+.books-year-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.books-year-link {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.65;
+    transition: opacity 0.2s ease;
+}
+
+.books-year-link:hover {
+    opacity: 1;
+}
+
+.books-archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.books-year-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.books-year-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-text);
+    padding-bottom: 0.75rem;
+}
+
+.books-year-title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+.books-year-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+.book-item-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.book-cover-placeholder {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 32%),
+        linear-gradient(160deg, #121212 0%, #222 100%);
+}
+
+.book-cover-placeholder .book-info {
+    height: 100%;
+    justify-content: space-between;
+}
+
+.book-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    opacity: 0.55;
+    text-transform: uppercase;
+}
+
+.book-item:nth-child(2n) .book-cover-placeholder {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 32%),
+        linear-gradient(160deg, #151515 0%, #2a2a2a 100%);
+}
+
+.book-item:nth-child(3n) .book-cover-placeholder {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 32%),
+        linear-gradient(160deg, #0f0f0f 0%, #1d1d1d 100%);
+}
+
+.books-preview-grid .book-cover {
+    padding: 0.6rem;
+}
+
+.books-preview-grid .book-kicker {
+    font-size: 0.55rem;
+}
+
+.books-preview-grid .b-title {
+    font-size: 0.65rem;
+}
+
+.books-preview-grid .b-author {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .books-topbar,
+    .books-year-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .books-year-nav {
+        gap: 0.75rem;
+    }
+}
+
 /* ========================================
    UTILITIES
    ======================================== */
