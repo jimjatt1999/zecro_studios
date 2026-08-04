@@ -1273,6 +1273,98 @@ ul {
     opacity: 0.6;
 }
 
+.koe-title-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.koe-title-row .app-title {
+    margin-bottom: 0;
+}
+
+.koe-product-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
+    border: var(--border-width) solid var(--color-text);
+}
+
+.koe-details-module {
+    grid-column: 6 / -1;
+    border-bottom: var(--border-width) solid var(--color-text);
+    min-height: clamp(420px, 62vh, 680px);
+}
+
+.koe-feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: var(--border-width) solid var(--color-text);
+    border-left: var(--border-width) solid var(--color-text);
+    margin-top: 2rem;
+}
+
+.koe-feature-list article {
+    padding: 1.5rem;
+    border-right: var(--border-width) solid var(--color-text);
+    border-bottom: var(--border-width) solid var(--color-text);
+}
+
+.koe-feature-list span {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+}
+
+.koe-feature-list h2 {
+    font-family: var(--font-main);
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+}
+
+.koe-feature-list p,
+.koe-support-copy,
+.legal-copy {
+    font-family: var(--font-main);
+    line-height: 1.65;
+}
+
+.koe-feature-list p {
+    font-size: 0.9rem;
+    opacity: 0.72;
+}
+
+.koe-support {
+    min-height: auto;
+}
+
+.koe-support-copy,
+.legal-copy {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.legal-copy h3 {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    margin: 2rem 0 0.65rem;
+    text-transform: uppercase;
+}
+
+.legal-copy p,
+.koe-support-copy p {
+    margin-bottom: 1rem;
+}
+
+.legal-copy a,
+.koe-support-copy a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 /* Gallery Module */
 .gallery-module {
     grid-column: 6 / -1;
@@ -1318,6 +1410,12 @@ ul {
         padding: 1rem 0 1.5rem;
     }
 
+    .koe-details-module {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 1.75rem 1.5rem;
+    }
+
     .gallery-module .module-label {
         padding: 0 1.5rem 0.5rem;
     }
@@ -1347,6 +1445,18 @@ ul {
     .location-text {
         margin-left: 0;
         text-align: left;
+    }
+}
+
+@media (max-width: 640px) {
+    .koe-feature-list {
+        grid-template-columns: 1fr;
+    }
+
+    .koe-product-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
     }
 }
 

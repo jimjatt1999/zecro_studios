@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Koe</title>
+  <rect width="128" height="128" rx="28" fill="#111"/>
+  <path d="M30 34c13-5 24-3 34 5v57c-10-8-21-10-34-5V34Zm68 0c-13-5-24-3-34 5v57c10-8 21-10 34-5V34Z" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M64 48v34M52 58v15M76 54v23M42 62v7M86 60v11" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+</svg>
