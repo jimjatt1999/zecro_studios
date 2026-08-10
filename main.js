@@ -1,4 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
+    function unifyLegacyHeader() {
+        const header = document.querySelector('.header-module:not(.koe-header):not(.archive-header)');
+        const clockModule = document.querySelector('.clock-module');
+        const locationModule = document.querySelector('.location-module');
+
+        if (!header || !clockModule || !locationModule) {
+            return;
+        }
+
+        const brand = header.querySelector(':scope > .brand');
+        const meta = header.querySelector(':scope > .meta');
+        const timeDisplay = clockModule.querySelector('.time-display');
+        const locationText = locationModule.querySelector('.location-text');
+
+        if (!brand || !meta || !timeDisplay || !locationText) {
+            return;
+        }
+
+        const brandBlock = document.createElement('div');
+        brandBlock.className = 'studio-brand-block';
+        brandBlock.append(brand, meta);
+
+        const utilities = document.createElement('div');
+        utilities.className = 'studio-header-utilities';
+        utilities.setAttribute('aria-label', 'Tokyo time and location');
+
+        const divider = document.createElement('span');
+        divider.className = 'studio-utility-divider';
+        divider.setAttribute('aria-hidden', 'true');
+        divider.textContent = '/';
+
+        utilities.append(timeDisplay, divider, locationText);
+        header.replaceChildren(brandBlock, utilities);
+        header.classList.add('studio-header');
+        clockModule.remove();
+        locationModule.remove();
+    }
+
+    unifyLegacyHeader();
+
     // 1. Tokyo Digital Clock
     function updateTokyoClock() {
         const hoursEl = document.getElementById('hours');
@@ -33,6 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const subtitleElement = document.querySelector('.subtitle');
     if (subtitleElement) {
         const textToType = "[creative space by jimi olaoya]";
+        const useStaticSubtitle = window.matchMedia('(max-width: 720px), (prefers-reduced-motion: reduce)').matches;
+
+        if (useStaticSubtitle) {
+            subtitleElement.textContent = textToType;
+            return;
+        }
+
         let charIndex = 0;
         let isDeleting = false;
 

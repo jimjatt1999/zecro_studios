@@ -2,9 +2,59 @@
     const bookSections = [
         {
             year: 2026,
-            count: 7,
-            previewLabel: '> Reading list 2026.',
+            count: 17,
+            previewLabel: '> 17 books read in 2026.',
             books: [
+                {
+                    title: 'Intuition: Knowing Beyond Logic',
+                    author: 'Osho',
+                    cover: 'https://covers.openlibrary.org/b/id/177936-L.jpg'
+                },
+                {
+                    title: 'Americana: A 400-Year History of American Capitalism',
+                    author: 'Bhu Srinivasan',
+                    cover: 'https://books.google.com/books/content?vid=ISBN9780399563799&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+                },
+                {
+                    title: 'Drive My Car',
+                    author: 'Haruki Murakami',
+                    cover: 'https://books.google.com/books/content?id=xStfEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+                },
+                {
+                    title: 'Synchronicity: An Acausal Connecting Principle',
+                    author: 'C.G. Jung',
+                    cover: 'https://books.google.com/books/content?id=ZBD3TwL7sAUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+                },
+                {
+                    title: 'Gödel, Escher, Bach: an Eternal Golden Braid',
+                    author: 'Douglas R. Hofstadter',
+                    cover: 'https://books.google.com/books/content?vid=ISBN9780465026562&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+                },
+                {
+                    title: 'Gurēpufurūtsu Jūsu',
+                    author: 'Yoko Ono',
+                    cover: 'https://covers.openlibrary.org/b/id/471152-L.jpg'
+                },
+                {
+                    title: 'The Metamorphosis of Prime Intellect',
+                    author: 'Roger Williams',
+                    cover: 'https://covers.openlibrary.org/b/id/10201476-L.jpg'
+                },
+                {
+                    title: 'The Pleasure of Finding Things Out: The Best Short Works of Richard P. Feynman',
+                    author: 'Richard P. Feynman',
+                    cover: 'https://covers.openlibrary.org/b/id/463308-L.jpg'
+                },
+                {
+                    title: 'Tao Te Ching: The Essential Translation of the Ancient Chinese Book of the Tao',
+                    author: 'Lao Tzu',
+                    cover: 'https://covers.openlibrary.org/b/id/662232-L.jpg'
+                },
+                {
+                    title: 'Influence: The Psychology of Persuasion',
+                    author: 'Robert B. Cialdini',
+                    cover: 'https://covers.openlibrary.org/b/id/431011-L.jpg'
+                },
                 {
                     title: 'The Idea Factory: Bell Labs and the Great Age of American Innovation',
                     author: 'Jon Gertner',
@@ -26,7 +76,7 @@
                     cover: 'https://covers.openlibrary.org/b/id/1000639-L.jpg'
                 },
                 {
-                    title: 'Orality and Literacy: The Technologizing of the Word',
+                    title: 'Orality and Literacy: 30th Anniversary Edition',
                     author: 'Walter J. Ong',
                     cover: 'https://covers.openlibrary.org/b/id/262067-L.jpg'
                 },

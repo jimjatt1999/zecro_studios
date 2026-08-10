@@ -765,6 +765,227 @@ ul {
     margin-left: auto;
 }
 
+/* Koe keeps its metadata inside the header so the mobile layout remains one unit. */
+.koe-header {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    min-height: 0;
+    padding: 0;
+}
+
+.koe-brand-block {
+    grid-column: 1 / 5;
+    padding: calc(1.5rem + env(safe-area-inset-top)) 2rem 1.25rem;
+}
+
+.koe-brand-block .back-link {
+    display: inline-flex;
+    margin-top: 2.5rem;
+    padding-top: 0.75rem;
+    border-top: var(--border-width) solid var(--color-text);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+}
+
+.koe-header-utilities {
+    grid-column: 10 / -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.85rem;
+    padding: calc(1.5rem + env(safe-area-inset-top)) 2rem 1rem 1rem;
+    font-family: var(--font-mono);
+    color: var(--color-text);
+}
+
+.koe-header-utilities .time-display,
+.koe-header-utilities .location-text {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.koe-utility-divider {
+    opacity: 0.45;
+}
+
+@media (max-width: 900px) {
+    .koe-header {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: calc(1.25rem + env(safe-area-inset-top)) 1.5rem 1rem;
+    }
+
+    .koe-brand-block,
+    .koe-header-utilities {
+        width: 100%;
+        padding: 0;
+    }
+
+    .koe-brand-block .back-link {
+        margin-top: 1.25rem;
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .koe-header-utilities {
+        justify-content: flex-start;
+        padding-top: 0.85rem;
+        border-top: var(--border-width) solid var(--color-text);
+    }
+}
+
+@media (max-width: 480px) {
+    .koe-header {
+        padding-inline: 1rem;
+    }
+
+    .koe-header-utilities {
+        gap: 0.55rem;
+    }
+
+    .koe-header-utilities .time-display,
+    .koe-header-utilities .location-text {
+        font-size: 0.78rem;
+    }
+}
+
+/* Archive pages use one uninterrupted header instead of separate grid modules. */
+.archive-header,
+.studio-header {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    min-height: 0;
+    padding: 0;
+}
+
+.archive-brand-block,
+.studio-brand-block {
+    grid-column: 1 / 7;
+    padding: calc(1.5rem + env(safe-area-inset-top)) 2rem 1.25rem;
+}
+
+.archive-brand-meta,
+.studio-brand-meta,
+.archive-header-utilities,
+.studio-header-utilities {
+    display: flex;
+    align-items: center;
+}
+
+.archive-brand-meta,
+.studio-brand-meta {
+    gap: 0.8rem;
+}
+
+.archive-brand-meta .subtitle,
+.studio-brand-meta .subtitle {
+    margin: 0;
+}
+
+.archive-badge {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+}
+
+.archive-brand-block .back-link,
+.studio-brand-block .back-link {
+    display: inline-flex;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+}
+
+.studio-brand-block .meta {
+    align-items: flex-start;
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.archive-header-utilities,
+.studio-header-utilities {
+    grid-column: 9 / -1;
+    justify-content: flex-end;
+    gap: 0.85rem;
+    padding: calc(1.5rem + env(safe-area-inset-top)) 2rem 1rem 1rem;
+    font-family: var(--font-mono);
+}
+
+.archive-header-utilities .time-display,
+.archive-header-utilities .location-text,
+.studio-header-utilities .time-display,
+.studio-header-utilities .location-text {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.archive-utility-divider,
+.studio-utility-divider {
+    opacity: 0.45;
+}
+
+@media (max-width: 900px) {
+    .archive-header,
+    .studio-header {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: calc(1.25rem + env(safe-area-inset-top)) 1.5rem 1rem;
+    }
+
+    .archive-brand-block,
+    .archive-header-utilities,
+    .studio-brand-block,
+    .studio-header-utilities {
+        width: 100%;
+        padding: 0;
+    }
+
+    .archive-brand-block .back-link,
+    .studio-brand-block .back-link {
+        margin-top: 1.25rem;
+    }
+
+    .archive-header-utilities,
+    .studio-header-utilities {
+        justify-content: flex-start;
+        padding-top: 0.85rem;
+        border-top: var(--border-width) solid var(--color-text);
+    }
+}
+
+@media (max-width: 480px) {
+    .archive-header,
+    .studio-header {
+        padding-inline: 1rem;
+    }
+
+    .archive-brand-meta,
+    .studio-brand-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .archive-header-utilities,
+    .studio-header-utilities {
+        gap: 0.55rem;
+    }
+
+    .archive-header-utilities .time-display,
+    .archive-header-utilities .location-text,
+    .studio-header-utilities .time-display,
+    .studio-header-utilities .location-text {
+        font-size: 0.78rem;
+    }
+}
+
 /* Hero Module */
 .hero-module {
     grid-column: 1 / 7;
