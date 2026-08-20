@@ -508,6 +508,11 @@ ul {
         grid-column: 1 / -1;
         padding-top: calc(1.5rem + env(safe-area-inset-top));
     }
+
+    .clock-module,
+    .location-module {
+        grid-row: auto;
+    }
 }
 
 .header-module .meta {
@@ -1593,10 +1598,6 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #111111;
-}
-
-.koe-gallery {
-    grid-column: 1 / -1;
 }
 
 .gallery-module .module-label {
