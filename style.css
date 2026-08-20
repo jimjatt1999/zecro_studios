@@ -1595,6 +1595,10 @@ ul {
     background-color: #111111;
 }
 
+.koe-gallery {
+    grid-column: 1 / -1;
+}
+
 .gallery-module .module-label {
     padding: 2rem 2rem 0 2rem;
 }
