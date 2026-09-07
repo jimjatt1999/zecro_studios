@@ -54,4 +54,7 @@
   });
   document.querySelector('#close-panel').onclick=()=>panel.close();
   panel.addEventListener('close',()=>{controller?.abort();body.querySelectorAll('video,audio').forEach(n=>n.pause());});
+  const enter=document.querySelector('.mobile-enter'),profile=document.querySelector('#profile');
+  enter?.addEventListener('click',()=>{document.body.classList.add('entered');profile?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});
+  addEventListener('scroll',()=>{document.body.classList.toggle('entered',scrollY>innerHeight*.2);},{passive:true});
 })();
