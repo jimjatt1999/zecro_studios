@@ -28,6 +28,7 @@ body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001
 #panel-body .download-btn{padding:8px 0;border:0;border-bottom:1px solid #ffffff66;border-radius:0}
 #panel-body .book-card{padding:16px 0;border:0;border-top:1px solid #ffffff20;border-radius:0}
 #panel-body .book-grid{column-gap:24px;row-gap:8px}
+#panel-body .books-intro{max-width:34rem;margin:8px 0 24px;color:#cfdee1;font-size:14px}
 .load-more-books{padding:0;border:0;border-radius:0;border-bottom:1px solid #ffffff55}
 #notice:not(:empty),#diagnostics,#diagnostics[open]{border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 .mobile-enter,.mobile-welcome{display:none}

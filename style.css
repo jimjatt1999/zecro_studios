@@ -2629,6 +2629,12 @@ iframe:hover {
     gap: 2rem;
 }
 
+.books-intro {
+    max-width: 34rem;
+    margin: 0.75rem 0 1.5rem;
+    opacity: 0.72;
+}
+
 .books-header-row {
     display: flex;
     justify-content: space-between;
