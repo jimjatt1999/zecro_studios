@@ -552,7 +552,7 @@
         });
     }
 
-    function createYearSection(entry) {
+    function createYearSection(entry, initialLimit = 8) {
         const section = createElement('section', 'books-year-section');
         section.id = `books-${entry.year}`;
 
@@ -563,27 +563,62 @@
 
         header.append(title, meta);
 
-        entry.books.forEach((book) => {
+        entry.books.slice(0, initialLimit).forEach((book) => {
             grid.appendChild(createBookCard(book, entry.year));
         });
 
         section.append(header, grid);
+        if (entry.books.length > initialLimit) {
+            const more = createElement('button', 'load-more-books', `Show more (${entry.books.length - initialLimit})`);
+            more.type = 'button';
+            more.addEventListener('click', () => {
+                const start = grid.children.length;
+                entry.books.slice(start, start + 8).forEach((book) => grid.appendChild(createBookCard(book, entry.year)));
+                const remaining = entry.books.length - grid.children.length;
+                if (remaining > 0) more.textContent = `Show more (${remaining})`;
+                else more.remove();
+            });
+            section.appendChild(more);
+        }
         return section;
     }
 
-    function renderBooksPage() {
+    let activeYear = bookSections[0].year;
+    function renderBooksPage(year = activeYear) {
         const archive = document.getElementById('books-archive');
         if (!archive) {
             return;
         }
 
+        const entry = bookSections.find((section) => section.year === Number(year)) || bookSections[0];
+        activeYear = entry.year;
         archive.innerHTML = '';
-        bookSections.forEach((entry) => {
-            archive.appendChild(createYearSection(entry));
+        archive.appendChild(createYearSection(entry));
+        const content = archive.closest('.books-content');
+        const nav = content?.querySelector('.books-year-nav');
+        nav?.querySelectorAll('.books-year-link').forEach((link) => {
+            const selected = link.hash === `#books-${entry.year}`;
+            link.classList.toggle('active', selected);
+            link.setAttribute('aria-current', selected ? 'true' : 'false');
         });
+        if (nav && !nav.dataset.segmented) {
+            nav.dataset.segmented = 'true';
+            nav.addEventListener('click', (event) => {
+                const link = event.target.closest('.books-year-link');
+                if (!link) return;
+                event.preventDefault();
+                event.stopPropagation();
+                renderBooksPage(Number(link.hash.replace('#books-', '')));
+            });
+        }
     }
 
+    document.addEventListener('studio:books-open', renderBooksPage);
     document.addEventListener('DOMContentLoaded', () => {
+        const shelf = document.getElementById('water-books');
+        if (shelf) bookSections[0].books.slice(0, 6).forEach(book => {
+            shelf.appendChild(createBookCard(book, bookSections[0].year, 'books.html'));
+        });
         renderHomepagePreview();
         renderBooksPage();
     });

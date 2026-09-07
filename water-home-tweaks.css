@@ -1,0 +1,45 @@
+/* Homepage-only refinements. */
+header>a{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-weight:400}
+main#profile h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:400;letter-spacing:-.035em}
+.time-control>summary{border-radius:0}
+.time-control>summary:hover{background:transparent}
+.time-chevron{display:inline-block;width:7px;height:7px;margin-left:3px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.time-control[open] .time-chevron{transform:translateY(2px) rotate(225deg)}
+.time-actions{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.time-actions button{font-size:12px}
+.time-actions #close-time{padding:0;border:0;border-bottom:1px solid #ffffff55;border-radius:0}
+#panel-body .books-year-link.active,#panel-body .books-year-link.active:hover{background:transparent;color:#f0fafb!important;border-radius:0;border-bottom:1px solid currentColor;text-decoration:none}
+body>footer{left:4vw;right:4vw;bottom:18px;width:auto;padding:0;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;align-items:flex-end;justify-content:space-between;font-size:12px}
+body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001820}
+.sound-dock{display:flex;align-items:flex-end;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;text-shadow:0 1px 12px #001820}
+.sound-dock .time-control>summary{min-height:40px;padding:0 13px;gap:7px}
+.sound-dock .time-control,.sound-dock .controls{background:transparent;border:0;box-shadow:none;border-radius:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.sound-dock .controls{min-height:40px;padding:0 0 0 18px;gap:14px;border-left:0!important}
+.sound-dock button{min-height:38px}
+.sound-dock #time-mode{font-size:10px}
+.sound-dock #music{max-width:150px;line-height:1.2}
+.scene-switcher{padding:0;background:transparent;border:0;border-radius:0;backdrop-filter:none;-webkit-backdrop-filter:none;gap:15px;text-shadow:0 1px 10px #001820}
+.scene-switcher button{padding:0;min-height:30px;border-radius:0;background:transparent;color:#d7e2e4}
+.scene-switcher button.active{background:transparent;color:#fff;box-shadow:none;border-bottom:1px solid currentColor}
+#content-panel{background:#0b222b;border:1px solid #ffffff24;border-radius:0;box-shadow:none}
+#content-panel::backdrop{background:#03121a70;backdrop-filter:none;-webkit-backdrop-filter:none}
+#close-panel{padding:0;border-radius:0;border-bottom:1px solid transparent}
+#close-panel:hover{background:transparent;border-bottom-color:currentColor}
+#panel-body .download-btn{padding:8px 0;border:0;border-bottom:1px solid #ffffff66;border-radius:0}
+#panel-body .book-card{padding:16px 0;border:0;border-top:1px solid #ffffff20;border-radius:0}
+#panel-body .book-grid{column-gap:24px;row-gap:8px}
+.load-more-books{padding:0;border:0;border-radius:0;border-bottom:1px solid #ffffff55}
+#notice:not(:empty),#diagnostics,#diagnostics[open]{border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#water-books .book-info{display:none}
+#water-books .book-item{padding-bottom:4px}
+@media(min-width:900px){
+  #water-books{gap:10px}
+  #water-books .book-item{flex-basis:56px}
+  #water-books .book-cover{width:56px;min-height:84px}
+  #water-books img{width:56px;height:84px}
+}
+@media(max-width:700px){
+  body>footer{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));flex-direction:column;align-items:stretch;gap:7px}
+  body>footer .connect{justify-content:center;gap:18px;padding:0;font-size:11px}
+  .sound-dock{align-self:center;max-width:100%}
+}

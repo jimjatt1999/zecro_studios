@@ -1,0 +1,11 @@
+.header-right { display:flex; align-items:center; gap:22px; }
+.scene-switcher { display:flex; padding:3px; background:#0b283159; border:1px solid #ffffff2b; border-radius:18px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.scene-switcher button { min-height:28px; padding:2px 10px; border-radius:14px; color:#d0e0e2; font-size:11px; }
+.scene-switcher button.active { background:#eef5f1; color:#17333a; box-shadow:0 1px 5px #001a1c35; }
+.controls #music { max-width:175px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+@media (max-width:700px) {
+  .header-right { gap:10px; }
+  header nav { display:none; }
+  .scene-switcher button { padding:2px 8px; font-size:10px; }
+  .controls #music { max-width:135px; }
+}
