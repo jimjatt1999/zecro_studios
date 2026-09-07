@@ -42,8 +42,8 @@ body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001
 @media(max-width:700px){
   main#profile{margin-top:calc(100svh - 80px);margin-bottom:44px}
   .mobile-welcome{position:absolute;z-index:3;display:block;left:50%;top:42svh;width:min(82vw,330px);transform:translate(-50%,-50%);color:#fff;text-align:center;text-shadow:0 1px 16px #001820;pointer-events:none;opacity:0;animation:mobile-welcome 7s ease forwards}
-  .mobile-welcome p{margin:0;font-size:16px;line-height:1.6}
-  .mobile-welcome p+p{margin-top:4px;font-size:12px;color:#d3e0e2}
+  .mobile-welcome p{margin:0;color:#eef5f5;font-size:13px;line-height:1.6}
+  .mobile-welcome p+p{margin-top:4px}
   .mobile-enter{position:absolute;z-index:3;display:flex;align-items:center;gap:9px;left:50%;top:calc(100svh - 78px);min-height:44px;padding:0 2px;border-bottom:1px solid #ffffff80;transform:translateX(-50%);color:#fff;font-size:12px;letter-spacing:.04em;text-shadow:0 1px 12px #001820;transition:opacity .25s}
   body.entered .mobile-enter,body.entered .mobile-welcome{opacity:0;pointer-events:none;animation:none}
   body>footer{position:relative;left:auto;right:auto;bottom:auto;width:auto;margin:0 24px max(22px,env(safe-area-inset-bottom));flex-direction:column;align-items:stretch;gap:14px}
