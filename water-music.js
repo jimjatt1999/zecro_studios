@@ -9,9 +9,15 @@
     {title:'Gymnopédie No. 1',src:'assets/gymnopedie-no-1.mp3'},
     {title:'Study and Relax',src:'assets/study-and-relax.ogg'},
     {title:'Gnossienne No. 1',src:'assets/gnossienne-no-1.ogg'},
-    {title:'Moonlight Sonata',src:'assets/moonlight-sonata.ogg'}
+    {title:'Moonlight Sonata',src:'assets/moonlight-sonata.ogg'},
+    {title:'3 am West End',src:'assets/3-am-west-end.ogg'},
+    {title:'Backed Vibes',src:'assets/backed-vibes-clean.ogg'},
+    {title:'Long Trail',src:'assets/long-trail.mp3'}
   ];
+  for(let i=tracks.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[tracks[i],tracks[j]]=[tracks[j],tracks[i]];}
+  try{const last=localStorage.getItem('lake:last-track');if(tracks.length>1&&tracks[0].src===last)[tracks[0],tracks[1]]=[tracks[1],tracks[0]];localStorage.setItem('lake:last-track',tracks[0].src);}catch{}
   let index=0,musicWanted=true,natureWanted=true,raining=document.body.classList.contains('raining'),unlocked=false,cueDuckTimer=0;
+  music.src=tracks[index].src;
   music.volume=.14;lake.volume=.075;rain.volume=.09;
   function render(){label.textContent=music.paused?'Play music':tracks[index].title;icon.textContent=music.paused?'▷':'Ⅱ';musicButton.setAttribute('aria-pressed',String(!music.paused));}
   async function safePlay(audio){try{await audio.play();return true}catch{return false}}
