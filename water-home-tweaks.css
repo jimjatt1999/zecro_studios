@@ -39,7 +39,8 @@ body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001
   #water-books img{width:56px;height:84px}
 }
 @media(max-width:700px){
-  body>footer{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));flex-direction:column;align-items:stretch;gap:7px}
+  main#profile{margin-top:calc(100svh - 130px);margin-bottom:44px}
+  body>footer{position:relative;left:auto;right:auto;bottom:auto;width:auto;margin:0 24px max(22px,env(safe-area-inset-bottom));flex-direction:column;align-items:stretch;gap:14px}
   body>footer .connect{justify-content:center;gap:18px;padding:0;font-size:11px}
   .sound-dock{align-self:center;max-width:100%}
 }
