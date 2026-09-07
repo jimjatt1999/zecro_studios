@@ -18,7 +18,7 @@
   try{const last=localStorage.getItem('lake:last-track');if(tracks.length>1&&tracks[0].src===last)[tracks[0],tracks[1]]=[tracks[1],tracks[0]];localStorage.setItem('lake:last-track',tracks[0].src);}catch{}
   let index=0,musicWanted=true,natureWanted=true,raining=document.body.classList.contains('raining'),unlocked=false,cueDuckTimer=0;
   music.src=tracks[index].src;
-  music.volume=.14;lake.volume=.075;rain.volume=.09;
+  music.volume=.14;lake.volume=.056;rain.volume=.072;
   function render(){label.textContent=music.paused?'Play music':tracks[index].title;icon.textContent=music.paused?'▷':'Ⅱ';musicButton.setAttribute('aria-pressed',String(!music.paused));}
   async function safePlay(audio){try{await audio.play();return true}catch{return false}}
   async function startSound(){const results=await Promise.all([musicWanted?safePlay(music):true,natureWanted?safePlay(lake):true,natureWanted&&raining?safePlay(rain):true]);unlocked=results.every(Boolean);render();return unlocked;}
@@ -44,7 +44,7 @@
   }
   addEventListener('water:splash',event=>{
     if(!natureWanted||performance.now()-lastCue<75)return;lastCue=performance.now();
-    lake.volume=.035;clearTimeout(cueDuckTimer);cueDuckTimer=setTimeout(()=>{lake.volume=.075;},320);
+    lake.volume=.026;clearTimeout(cueDuckTimer);cueDuckTimer=setTimeout(()=>{lake.volume=.056;},320);
     prepareWaterSynth();cueContext.resume();
     const strength=Math.min(1,event.detail.strength),depth=event.detail.depth||.7,at=cueContext.currentTime;
     const output=cueContext.createGain(),pan=cueContext.createStereoPanner();pan.pan.value=(event.detail.x-.5)*1.35;output.connect(pan);pan.connect(cueContext.destination);
