@@ -1,6 +1,6 @@
 (() => {
   const panel=document.querySelector('#content-panel'),body=document.querySelector('#panel-body'),title=document.querySelector('#panel-title');
-  const titles={'books.html':'Books','essays.html':'Writing','koe.html':'Koe','rinova.html':'Rinova','histories.html':'Daily History','wordhacker.html':'Word Hacker'};
+  const titles={'books.html':'Books I’ve read','essays.html':'Writing','koe.html':'Koe','rinova.html':'Rinova','histories.html':'Daily History','wordhacker.html':'Word Hacker'};
   const icons={'koe.html':'assets/koe/koe-icon.png','rinova.html':'assets/rinova/rinova icon.png','histories.html':'assets/histories/historyicon.png','wordhacker.html':'assets/wordhacker/word_hackericon.png'};
   let controller;
   async function openPage(url){

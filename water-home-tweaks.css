@@ -18,7 +18,7 @@ main#profile h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-ser
 .time-actions{display:flex;align-items:center;justify-content:space-between;gap:18px}
 .time-actions button{font-size:12px}
 .time-actions #close-time{padding:0;border:0;border-bottom:1px solid #ffffff55;border-radius:0}
-#panel-body .books-year-link.active,#panel-body .books-year-link.active:hover{background:transparent;color:#f0fafb!important;border-radius:0;border-bottom:1px solid currentColor;text-decoration:none}
+#panel-body .books-year-link.active,#panel-body .books-year-link.active:hover{background:transparent;color:#f0fafb!important;border-radius:0;border-bottom:0;text-decoration:none}
 body>footer{left:4vw;right:4vw;bottom:18px;width:auto;padding:0;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;align-items:flex-end;justify-content:space-between;font-size:12px}
 body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001820}
 .sound-dock{display:flex;align-items:flex-end;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;text-shadow:0 1px 12px #001820}

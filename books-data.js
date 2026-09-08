@@ -2,9 +2,14 @@
     const bookSections = [
         {
             year: 2026,
-            count: 17,
-            previewLabel: '> 17 books read in 2026.',
+            count: 18,
+            previewLabel: '> 18 books read in 2026.',
             books: [
+                {
+                    title: 'Debt: The First 5,000 Years',
+                    author: 'David Graeber',
+                    cover: 'assets/books/debt-the-first-5000-years.jpg'
+                },
                 {
                     title: 'Intuition: Knowing Beyond Logic',
                     author: 'Osho',

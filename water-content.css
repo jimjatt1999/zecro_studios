@@ -116,7 +116,7 @@ summary, summary:focus, summary:focus-visible,
 
 #content-panel.is-books-panel .panel-toolbar {
   padding: 16px 36px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 0;
   background: transparent;
 }
 
@@ -137,8 +137,12 @@ summary, summary:focus, summary:focus-visible,
 }
 
 #content-panel.is-books-panel #panel-body {
-  padding: 24px 36px 40px;
+  padding: 8px 36px 40px;
   max-height: calc(88dvh - 70px);
+}
+
+#content-panel.is-books-panel #panel-body section {
+  margin: 0;
 }
 
 /* Hide all extraneous UI in books panel */
@@ -153,9 +157,9 @@ summary, summary:focus, summary:focus-visible,
 }
 
 #content-panel.is-books-panel .books-topbar {
-  margin-bottom: 22px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+  padding-bottom: 0;
+  border-bottom: 0;
   display: flex;
 }
 
@@ -166,7 +170,7 @@ summary, summary:focus, summary:focus-visible,
 }
 
 #content-panel.is-books-panel .books-year-link {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
@@ -187,7 +191,7 @@ summary, summary:focus, summary:focus-visible,
 #content-panel.is-books-panel .books-year-link.active::after {
   content: '';
   position: absolute;
-  bottom: -13px;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 2px;
@@ -303,7 +307,7 @@ summary, summary:focus, summary:focus-visible,
     padding: 14px 18px;
   }
   #content-panel.is-books-panel #panel-body {
-    padding: 16px 14px 30px;
+    padding: 8px 18px 30px;
   }
   #panel-body .book-grid {
     --book-w: 62px;
