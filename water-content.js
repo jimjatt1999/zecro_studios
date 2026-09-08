@@ -59,4 +59,37 @@
   const enter=document.querySelector('.mobile-enter'),profile=document.querySelector('#profile');
   enter?.addEventListener('click',()=>{document.body.classList.add('entered');profile?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});
   addEventListener('scroll',()=>{document.body.classList.toggle('entered',scrollY>innerHeight*.2);},{passive:true});
+
+  const quietToggle=document.querySelector('.quiet-toggle');
+  const reflections=[
+    'Make room for what you do not yet know.',
+    'A quiet hour asks nothing of you.',
+    'Water carries every shore and does not need to hurry.',
+    'Let attention rest on one small, living thing.'
+  ];
+  const reflection=document.createElement('aside');
+  reflection.className='quiet-reflection';reflection.setAttribute('aria-live','polite');
+  document.body.append(reflection);
+  let reflectionIndex=0,reflectionTimer=0;
+  function showReflection(){
+    reflection.classList.remove('visible');
+    setTimeout(()=>{if(!document.body.classList.contains('quiet-mode'))return;reflection.textContent=reflections[reflectionIndex++%reflections.length];reflection.classList.add('visible');},300);
+  }
+  function setQuietMode(isQuiet){
+    document.body.classList.toggle('quiet-mode',isQuiet);
+    quietToggle?.setAttribute('aria-pressed',String(isQuiet));
+    quietToggle?.setAttribute('aria-label',isQuiet?'Leave quiet mode':'Enter quiet mode');
+    const label=quietToggle?.querySelector('span');if(label)label.textContent=isQuiet?'Return':'Quiet';
+    if(isQuiet){
+      panel?.close();
+      document.querySelector('.atmosphere-picker')?.removeAttribute('open');
+      document.querySelector('.time-control')?.removeAttribute('open');
+      reflectionIndex=Math.floor(Math.random()*reflections.length);showReflection();
+      clearInterval(reflectionTimer);reflectionTimer=setInterval(showReflection,10000);
+    }else{
+      clearInterval(reflectionTimer);reflection.classList.remove('visible');
+    }
+  }
+  quietToggle?.addEventListener('click',()=>setQuietMode(!document.body.classList.contains('quiet-mode')));
+  addEventListener('keydown',event=>{if(event.key==='Escape'&&document.body.classList.contains('quiet-mode'))setQuietMode(false);});
 })();

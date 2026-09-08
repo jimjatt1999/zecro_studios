@@ -4698,3 +4698,407 @@ iframe:hover {
         font-size: 2.5rem;
     }
 }
+
+/* ========================================
+   CALM STUDIO LANGUAGE
+   The home lake remains its own immersive scene. These rules bring every
+   direct project, archive, and legal page into the same quiet world.
+   ======================================== */
+:root {
+    --color-bg: #edf2ef;
+    --color-text: #17312e;
+    --color-line: rgba(23, 49, 46, 0.16);
+    --color-accent: #315f58;
+    --calm-paper: rgba(248, 251, 248, 0.82);
+    --calm-paper-strong: rgba(250, 252, 249, 0.94);
+    --calm-shadow: 0 24px 70px rgba(15, 43, 42, 0.11);
+    --font-main: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    min-height: 100vh;
+    padding: max(18px, env(safe-area-inset-top)) 18px 18px;
+    background:
+        linear-gradient(180deg, rgba(229, 238, 235, 0.86), rgba(241, 244, 239, 0.96)),
+        url("assets/fuji-lake-desktop.jpg") center / cover fixed;
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 1;
+    animation: none;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.7), transparent 32%),
+        linear-gradient(125deg, rgba(34, 88, 80, .04), transparent 48%);
+}
+
+a { transition: opacity .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
+a:focus-visible, button:focus-visible { outline: 2px solid #2f6860; outline-offset: 4px; }
+
+.layout-grid {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 16px;
+    border: 0;
+    align-items: start;
+}
+
+.module {
+    min-height: 0;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid var(--color-line);
+    border-radius: 22px;
+    background: var(--calm-paper);
+    box-shadow: var(--calm-shadow);
+    backdrop-filter: blur(18px) saturate(115%);
+    -webkit-backdrop-filter: blur(18px) saturate(115%);
+}
+
+.header-module,
+.archive-header,
+.studio-header,
+.koe-header {
+    grid-column: 1 / -1 !important;
+    grid-row: auto;
+    min-height: 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(255,255,255,.42);
+    border-radius: 999px;
+    background: rgba(246, 250, 247, .7);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.studio-brand-block,
+.archive-brand-block,
+.koe-brand-block {
+    width: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand h1,
+.header-title-block h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-transform: none;
+}
+
+.subtitle,
+.archive-brand-meta,
+.studio-brand-meta {
+    display: none;
+}
+
+.header-module .meta,
+.studio-brand-block .meta {
+    width: auto;
+    margin: 0;
+}
+
+.back-link,
+.nav-link,
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: .5rem .8rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    font-family: var(--font-main);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .01em;
+    line-height: 1;
+    opacity: .72;
+}
+
+.back-link:hover,
+.nav-link:hover { opacity: 1; border-color: rgba(23,49,46,.4); transform: translateY(-1px); }
+
+.archive-brand-block .back-link,
+.studio-brand-block .back-link,
+.koe-brand-block .back-link {
+    margin: 0;
+    padding-top: .5rem;
+    border-top: 1px solid var(--color-line);
+}
+
+.archive-header-utilities,
+.studio-header-utilities,
+.koe-header-utilities {
+    width: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .6rem;
+    color: var(--color-text);
+    opacity: .58;
+}
+
+.time-display,
+.location-text,
+.archive-header-utilities .time-display,
+.archive-header-utilities .location-text,
+.studio-header-utilities .time-display,
+.studio-header-utilities .location-text,
+.koe-header-utilities .time-display,
+.koe-header-utilities .location-text {
+    margin: 0;
+    font-family: var(--font-main);
+    font-size: .76rem;
+    font-weight: 500;
+    letter-spacing: .025em;
+}
+
+.clock-module,
+.location-module { display: none; }
+
+.app-hero-module {
+    grid-column: 1 / 6;
+    min-height: clamp(440px, 60vh, 620px);
+    justify-content: center;
+    border: 1px solid var(--color-line);
+}
+
+.app-title,
+.page-title,
+.section-title,
+.essay-title,
+.books-year-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: -.035em;
+    text-transform: none;
+}
+
+.app-title {
+    margin-bottom: 1rem;
+    font-size: clamp(3.2rem, 7vw, 5.8rem);
+    line-height: .92;
+}
+
+.app-tagline {
+    margin-bottom: 1.25rem;
+    color: var(--color-accent);
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+}
+
+.app-desc {
+    max-width: 34rem;
+    margin-bottom: 2rem;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: rgba(23,49,46,.76);
+}
+
+.app-actions {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: .65rem .8rem;
+}
+
+.download-btn {
+    width: fit-content;
+    padding: .8rem 1.05rem;
+    border: 1px solid #254f49;
+    border-radius: 999px;
+    background: #254f49;
+    color: #f7faf7;
+    font-size: .76rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.download-btn:hover { background: transparent; color: #254f49; }
+
+.privacy-link {
+    padding: .55rem .1rem;
+    font-size: .75rem;
+    font-weight: 500;
+    text-decoration: none;
+    opacity: .62;
+}
+
+.koe-title-row { gap: 1rem; }
+.koe-product-icon { width: 66px; height: 66px; border: 0; border-radius: 17px; box-shadow: 0 14px 28px rgba(17,50,45,.13); }
+
+.gallery-module {
+    grid-column: 6 / -1;
+    min-height: clamp(440px, 60vh, 620px);
+    padding: 1.25rem 0 1.5rem;
+    border: 1px solid var(--color-line);
+    background: rgba(34, 70, 65, .72) !important;
+    color: #f3f7f4;
+    overflow: hidden;
+}
+
+.gallery-module .module-label { padding: .15rem 1.5rem 0; }
+.gallery-scroll { gap: 1rem; padding: 1.25rem 1.5rem .5rem; scroll-snap-type: x proximity; }
+.gallery-scroll img { height: min(52vh, 510px); max-height: 510px; border-radius: 14px; scroll-snap-align: start; box-shadow: 0 18px 42px rgba(3,23,20,.28); }
+
+.module-label,
+.essay-meta,
+.books-year-meta,
+.book-kicker {
+    font-family: var(--font-main);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    opacity: .55;
+}
+
+.full-width-module,
+.koe-details-module,
+.footer-module {
+    grid-column: 1 / -1;
+    border: 1px solid var(--color-line);
+}
+
+.full-width-module { min-height: auto; }
+.footer-module { padding: 1rem 1.5rem; border-radius: 999px; }
+.copyright { margin: 0; font-family: var(--font-main); font-size: .72rem; letter-spacing: .04em; }
+
+.koe-details-module { min-height: 0; }
+.koe-feature-list { gap: 12px; margin-top: 1.5rem; border: 0; }
+.koe-feature-list article { padding: 1.4rem; border: 1px solid var(--color-line); border-radius: 16px; background: rgba(255,255,255,.3); }
+.koe-feature-list h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+
+.music-content-full { padding: 1.25rem 0 0; }
+.music-header-row { border-bottom-color: var(--color-line); }
+.section-title { font-size: clamp(2rem, 5vw, 4.25rem); line-height: 1; }
+.spotify-link { border-radius: 999px; border-color: var(--color-line); }
+
+.essay-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+.essay-item {
+    min-height: 220px;
+    padding: 1.5rem;
+    border: 1px solid var(--color-line);
+    border-radius: 17px;
+    background: rgba(255,255,255,.34);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.essay-item:hover { background: rgba(255,255,255,.7); transform: translateY(-2px); }
+.essay-title { font-size: clamp(1.55rem, 3vw, 2.5rem); line-height: 1.05; }
+.essay-excerpt { font-size: .95rem; color: rgba(23,49,46,.7); }
+
+.legal-copy,
+.essay-content[style] {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    padding: 1.5rem 0 !important;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(23,49,46,.82);
+}
+.legal-copy h3,
+.essay-content h3 { margin: 2.2rem 0 .6rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; font-weight: 400; text-transform: none; }
+.legal-copy ul,
+.essay-content ul { margin: .75rem 0 1.25rem 1.2rem; list-style: disc; }
+.legal-copy li,
+.essay-content li { margin-bottom: .35rem; }
+
+.books-topbar { border-bottom-color: var(--color-line); }
+.books-year-link { padding: .45rem .7rem; border: 1px solid var(--color-line); border-radius: 999px; font-family: var(--font-main); font-size: .82rem; }
+.books-year-header { border-bottom-color: var(--color-line); }
+.books-year-title { font-size: clamp(2rem, 4vw, 3.25rem); }
+.archive-book-thumb { border-radius: 12px; box-shadow: 0 16px 34px rgba(17,50,45,.13); }
+.archive-book-card:hover .archive-book-thumb { transform: translateY(-4px); }
+.archive-book-meta .b-title { color: var(--color-text); font-family: var(--font-main); text-transform: none; }
+.archive-book-meta .b-author { color: rgba(23,49,46,.58); }
+
+.site-header {
+    position: sticky;
+    top: 16px;
+    width: min(1180px, 100%);
+    margin: 0 auto 16px;
+    border: 1px solid rgba(255,255,255,.42);
+    border-radius: 999px;
+    background: rgba(246,250,247,.8);
+    box-shadow: var(--calm-shadow);
+    backdrop-filter: blur(18px);
+}
+.page-hero,
+.app-showcase,
+.site-footer { width: min(1180px,100%); margin-inline: auto; }
+.page-hero,
+.app-showcase > section,
+.site-footer {
+    border: 1px solid var(--color-line);
+    border-radius: 22px;
+    background: var(--calm-paper);
+    box-shadow: var(--calm-shadow);
+}
+
+@media (max-width: 900px) {
+    body { padding: max(10px, env(safe-area-inset-top)) 10px 10px; background-attachment: scroll; }
+    .layout-grid { display: flex; flex-direction: column; gap: 10px; }
+    .module { width: 100%; border-bottom: 1px solid var(--color-line); border-radius: 18px; }
+    .header-module,
+    .archive-header,
+    .studio-header,
+    .koe-header { padding: 1rem 1.1rem; border-radius: 18px; align-items: flex-start; }
+    .studio-brand-block,
+    .archive-brand-block,
+    .koe-brand-block { width: 100%; display: flex; justify-content: space-between; gap: .75rem; }
+    .archive-header-utilities,
+    .studio-header-utilities,
+    .koe-header-utilities { width: 100%; padding-top: .7rem; border-top: 1px solid var(--color-line); justify-content: flex-start; }
+    .app-hero-module { min-height: 0; padding: 2.5rem 1.5rem; }
+    .gallery-module { min-height: 0; padding: 1rem 0 1.25rem; }
+    .gallery-scroll img { height: min(66vh, 500px); }
+    .essay-list { grid-template-columns: 1fr; }
+    .essay-item { min-height: 190px; }
+    .koe-feature-list { grid-template-columns: 1fr; }
+    .footer-module { border-radius: 18px; }
+}
+
+@media (max-width: 560px) {
+    .header-module,
+    .archive-header,
+    .studio-header,
+    .koe-header { flex-direction: column; }
+    .brand h1 { font-size: 1.35rem; }
+    .back-link { font-size: .72rem; }
+    .app-title { font-size: clamp(3rem, 17vw, 4.5rem); }
+    .app-actions { align-items: flex-start; }
+    .download-btn { width: 100%; justify-content: center; text-align: center; }
+    .privacy-link { margin-right: .8rem; }
+    .section-title { font-size: 2.45rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

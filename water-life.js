@@ -676,7 +676,7 @@
     updateMenuState();
   }
   resize();addEventListener('resize',resize,{passive:true});addEventListener('pointermove',point,{passive:true});addEventListener('pointerdown',point,{passive:true});
-  addEventListener('lake:scene',event=>{scene=event.detail.key||scene;});addEventListener('weather:change',event=>weatherChanged(event.detail.weather));
+  addEventListener('lake:scene',event=>{scene=event.detail.key||scene;if(scene==='cosmos')['petals','star','bird'].forEach(clearEffect);updateMenuState();});addEventListener('weather:change',event=>weatherChanged(event.detail.weather));
   addEventListener('life:clear',clearLife);addEventListener('life:spawn',event=>{const spawn=spawners[event.detail?.effect];if(spawn){spawn();start();updateMenuState();}});
   addEventListener('birds:ready',()=>{if(bird)dispatchEvent(new CustomEvent('birds:spawn'));});addEventListener('birds:end',()=>{bird=null;updateMenuState();});
   addEventListener('koi:spawn',spawnKoi);addEventListener('koi:clear',()=>{fishSchool=[];updateMenuState();if(!active())stop();});
@@ -685,15 +685,20 @@
   let mode='natural';
   const picker=document.querySelector('.atmosphere-picker');
   const naturalBtn=picker?.querySelector('[data-mode="natural"]');
+  const cosmosEffects=new Set(['koi','mist','fireflies','lanterns']);
   function updateMenuState(){
     if(naturalBtn){
       naturalBtn.setAttribute('aria-pressed',String(mode==='natural'));
       naturalBtn.classList.toggle('active',mode==='natural');
     }
     picker?.querySelectorAll('[data-effect]').forEach(btn=>{
+      const unavailable=scene==='cosmos'&&!cosmosEffects.has(btn.dataset.effect);
+      btn.disabled=unavailable;btn.title=unavailable?'Unavailable in Cosmos':'';
       btn.setAttribute('aria-pressed',String(isEffectActive(btn.dataset.effect)));
     });
     picker?.querySelectorAll('[data-weather]').forEach(btn=>{
+      const unavailable=scene==='cosmos'&&btn.dataset.weather!=='clear';
+      btn.disabled=unavailable;btn.title=unavailable?'Cosmos remains clear':'';
       btn.setAttribute('aria-pressed',String(btn.dataset.weather===weather));
     });
 
@@ -717,6 +722,7 @@
   }
   picker?.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button)return;
+    if(button.disabled)return;
     if(button.dataset.mode==='natural'){
       mode='natural';clearLife();
       dispatchEvent(new CustomEvent('weather:mode',{detail:{mode:'natural'}}));

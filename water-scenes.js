@@ -1,19 +1,27 @@
 (() => {
   const mobile=matchMedia('(max-width: 700px)');
   const scenes={
-    yotei:{desktop:'assets/yotei-lake-desktop.jpg',mobile:'assets/yotei-lake-mobile.jpg',winterDesktop:'assets/yotei-lake-winter-desktop.jpg',winterMobile:'assets/yotei-lake-winter-mobile.jpg',shore:.52},
-    fuji:{desktop:'assets/fuji-lake-desktop.jpg',mobile:'assets/fuji-lake-mobile.jpg',winterDesktop:'assets/fuji-lake-winter-desktop.jpg',winterMobile:'assets/fuji-lake-winter-mobile.jpg',shore:.45},
-    alps:{desktop:'assets/water-preview.jpg',mobile:'assets/water-preview.jpg',winterDesktop:'assets/alps-lake-winter-desktop.jpg',winterMobile:'assets/alps-lake-winter-mobile.jpg',shore:.43}
+    yotei:{desktop:'assets/yotei-lake-desktop.jpg',mobile:'assets/yotei-lake-mobile.jpg',winterDesktop:'assets/yotei-lake-winter-desktop.jpg',winterMobile:'assets/yotei-lake-winter-mobile.jpg',shore:.52,alt:'A calm lake beneath Mount Yotei'},
+    fuji:{desktop:'assets/fuji-lake-desktop.jpg',mobile:'assets/fuji-lake-mobile.jpg',winterDesktop:'assets/fuji-lake-winter-desktop.jpg',winterMobile:'assets/fuji-lake-winter-mobile.jpg',shore:.45,alt:'A calm Japanese lake beneath Mount Fuji'},
+    alps:{desktop:'assets/water-preview.jpg',mobile:'assets/water-preview.jpg',winterDesktop:'assets/alps-lake-winter-desktop.jpg',winterMobile:'assets/alps-lake-winter-mobile.jpg',shore:.43,alt:'A clear alpine lake surrounded by mountains'},
+    cosmos:{desktop:'assets/cosmos-lake-desktop.jpg',mobile:'assets/cosmos-lake-mobile.jpg',winterDesktop:'assets/cosmos-lake-desktop.jpg',winterMobile:'assets/cosmos-lake-mobile.jpg',dayDesktop:'assets/cosmos-lake-day-desktop.jpg',dayMobile:'assets/cosmos-lake-day-mobile.jpg',shore:.52,alt:'A cosmic mountain lake beneath a distant Earth and stars'}
   };
   const baseImage=document.querySelector('#lake-image'),winterImage=document.querySelector('#winter-image');
+  const switcher=document.querySelector('.scene-switcher');
+  if(!switcher.querySelector('[data-scene="cosmos"]')){
+    const button=document.createElement('button');
+    button.type='button';button.dataset.scene='cosmos';button.setAttribute('aria-pressed','false');button.textContent='Cosmos';
+    switcher.append(button);
+  }
   let current='fuji',winter=false,transitionTimer=0;
   function src(scene,isWinter){return mobile.matches?(isWinter?scene.winterMobile:scene.mobile):(isWinter?scene.winterDesktop:scene.desktop);}
-  function announce(scene){dispatchEvent(new CustomEvent('lake:scene',{detail:{key:current,src:src(scene,winter),shore:scene.shore,winter}}));}
+  function daySrc(scene){return scene.dayDesktop?(mobile.matches?scene.dayMobile:scene.dayDesktop):'';}
+  function announce(scene){dispatchEvent(new CustomEvent('lake:scene',{detail:{key:current,src:src(scene,winter),daySrc:daySrc(scene),shore:scene.shore,winter}}));}
   function select(key){
     const scene=scenes[key];if(!scene)return;current=key;
     document.querySelectorAll('.scene-switcher button').forEach(button=>{const active=button.dataset.scene===key;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
     const source=baseImage.closest('picture')?.querySelector('source');if(source)source.srcset=scene.mobile;
-    baseImage.src=scene.desktop;
+    baseImage.src=scene.desktop;baseImage.alt=scene.alt;
     if(winter){winterImage.src=src(scene,true);winterImage.onload=()=>announce(scene);}else announce(scene);
   }
   function season(snowing){
@@ -24,7 +32,7 @@
       winterImage.src=src(scene,true);
     }else transitionTimer=setTimeout(()=>{announce(scene);setTimeout(()=>document.body.classList.remove('season-shift'),900);},1200);
   }
-  document.querySelector('.scene-switcher').onclick=event=>{const button=event.target.closest('button[data-scene]');if(button)select(button.dataset.scene);};
+  switcher.onclick=event=>{const button=event.target.closest('button[data-scene]');if(button)select(button.dataset.scene);};
   mobile.addEventListener('change',()=>select(current));
   addEventListener('weather:change',event=>season(event.detail.weather==='snow'));
   select('fuji');

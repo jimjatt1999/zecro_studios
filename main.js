@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.brand h1').forEach((heading) => {
+        if (heading.textContent.trim() === 'ZECRO STUDIOS') {
+            heading.textContent = 'Jimi Olaoya';
+        }
+    });
+
     function unifyLegacyHeader() {
         const header = document.querySelector('.header-module:not(.koe-header):not(.archive-header)');
         const clockModule = document.querySelector('.clock-module');

@@ -482,3 +482,59 @@ body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001
 }
 @keyframes mobile-welcome{0%,100%{opacity:0;transform:translate(-50%,-46%)}12%,62%{opacity:1;transform:translate(-50%,-50%)}82%{opacity:0;transform:translate(-50%,-54%)}}
 @media(prefers-reduced-motion:reduce){.mobile-enter{transition:none}.mobile-welcome{animation:none;opacity:1}}
+
+/* Quiet mode: the landscape remains alive while the portfolio recedes. */
+.quiet-toggle{
+  appearance:none;
+  border:0;
+  border-bottom:1px solid transparent;
+  border-radius:0;
+  padding:2px 0;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  font-size:10px;
+  letter-spacing:.035em;
+  text-shadow:0 1px 10px rgba(0,18,25,.72);
+  cursor:pointer;
+  transition:opacity .35s ease,border-color .25s ease,transform .35s ease;
+}
+.quiet-toggle:hover,.quiet-toggle:focus-visible{border-bottom-color:currentColor;opacity:1}
+body.quiet-mode{overflow:hidden}
+body.quiet-mode header>a,
+body.quiet-mode .scene-switcher,
+body.quiet-mode .atmosphere-picker,
+body.quiet-mode main#profile,
+body.quiet-mode footer .connect,
+body.quiet-mode footer .time-control,
+body.quiet-mode footer #previous-track,
+body.quiet-mode footer #next-track,
+body.quiet-mode footer #music-label,
+body.quiet-mode .mobile-welcome,
+body.quiet-mode .mobile-enter{
+  opacity:0!important;
+  pointer-events:none!important;
+}
+body.quiet-mode header{pointer-events:none}
+body.quiet-mode .header-right{pointer-events:none}
+body.quiet-mode .quiet-toggle{
+  position:fixed;
+  left:50%;
+  bottom:max(26px,env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  z-index:40;
+  pointer-events:auto!important;
+  opacity:.76!important;
+  min-width:44px;
+  min-height:44px;
+  border:1px solid rgba(255,255,255,.38);
+  border-radius:50%;
+  background:rgba(3,19,25,.2);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+body.quiet-mode .quiet-toggle:hover,body.quiet-mode .quiet-toggle:focus-visible{opacity:1}
+body.quiet-mode footer{pointer-events:none;opacity:0!important}
+.quiet-reflection{position:fixed;z-index:3;left:50%;top:48%;width:min(74vw,480px);transform:translate(-50%,-48%);color:rgba(248,252,251,.94);font:400 clamp(20px,2.4vw,32px)/1.42 Georgia,"Times New Roman",serif;letter-spacing:-.02em;text-align:center;text-shadow:0 1px 18px rgba(0,18,25,.75);opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+body.quiet-mode .quiet-reflection.visible{opacity:1}
+@media(max-width:700px){.quiet-toggle{display:block}.quiet-reflection{top:44%;width:min(78vw,360px);font-size:clamp(20px,6vw,28px)}body.quiet-mode .quiet-toggle{bottom:max(22px,env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){.quiet-toggle,body.quiet-mode *{transition:none!important}}

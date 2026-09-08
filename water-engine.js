@@ -15,7 +15,8 @@
   let paused = reduced.matches, ready = false, handle = 0, time = 0;
   let last = 0, accumulator = 0, frames = 0, steps = 0, measuredAt = 0;
   let fps = 0, quality = 1, slowWindows = 0, activeUntil = 0, drops = [];
-  let day = 12, state = 0, verification = false, liveTime = true, sceneShore = .45;
+  let day = 12, state = 0, verification = false, liveTime = true, sceneShore = .45, sceneType = 1, cosmosDayReady = false;
+  let wind = 0.55, windTarget = 0.55;
   let redrawClock = () => {};
   const tokyoClock = new Intl.DateTimeFormat('en-GB', {timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
   function updateClock(){
@@ -77,18 +78,66 @@
         vec2 base=(floor(grid)+.5)/size;vec2 f=fract(grid);vec2 d=1./size;
         return mix(mix(heightAt(base),heightAt(base+vec2(d.x,0.)),f.x),mix(heightAt(base+vec2(0.,d.y)),heightAt(base+d),f.x),f.y);
       }
-      uniform sampler2D landscape;uniform vec2 resolution;uniform float seconds,hour,cell,shore;
+      uniform sampler2D landscape,dayLandscape;uniform vec2 resolution;uniform float seconds,hour,cell,shore,sceneType,wind,cosmosBlend;
       const float PI=3.14159265;
+      float cloudNoise(vec2 p){
+        vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+        vec3 k=vec3(127.1,311.7,43758.5453);
+        return mix(mix(fract(sin(dot(i,k.xy))*k.z),fract(sin(dot(i+vec2(1,0),k.xy))*k.z),f.x),mix(fract(sin(dot(i+vec2(0,1),k.xy))*k.z),fract(sin(dot(i+vec2(1),k.xy))*k.z),f.x),f.y);
+      }
+      vec3 sceneAt(vec2 st){
+        vec3 c=texture(landscape,st).rgb;
+        if(sceneType>2.5)c=mix(c,texture(dayLandscape,st).rgb,cosmosBlend);
+        // Restrict cloud wisps to the upper sky, clear of mountain silhouettes.
+        if(sceneType<2.5&&st.y<.20&&wind>.001){
+          vec2 p=st*vec2(9.,26.)-vec2(seconds*.026*(.7+wind),0.);
+          float cloud=cloudNoise(p)*.65+cloudNoise(p*2.1+vec2(seconds*.012,0.))*.35;
+          float veil=smoothstep(.43,.78,cloud)*(1.-smoothstep(.11,.20,st.y));
+          c=mix(c,vec3(.79,.85,.89),veil*.26);
+        }
+        return c;
+      }
+      // Bend crowns around fixed roots. Each stand has its own phase, while
+      // a slower traveling gust connects the motion across the forest.
+      float treeSway(vec2 st){
+        if(sceneType>2.5)return 0.;
+        float fromCenter=abs(st.x-.5)*2.;
+        float top=.325;
+        float base=shore-.012;
+        float horizontal=1.;
+        if(sceneType<.5){
+          // Yotei: taller foreground trees wrap around both sides of the lake.
+          top=mix(.405,.275,smoothstep(.52,1.,fromCenter));
+        }else if(sceneType>1.5){
+          // Alps: the visible conifers live on the outer banks, not the valley.
+          top=mix(.385,.225,smoothstep(.42,1.,fromCenter));
+          horizontal=smoothstep(.35,.63,fromCenter);
+        }
+        float crown=smoothstep(top-.025,top+.008,st.y);
+        float grounded=1.-smoothstep(base-.045,base,st.y);
+        float height=1.-smoothstep(top,base,st.y);
+        return crown*grounded*height*horizontal;
+      }
       // Image-space shoreline: preserve the mountain's proportions above the water.
       vec3 landscapeAt(vec2 st){
         st=clamp(st,vec2(.002),vec2(.998,shore-.002));
-        float banks=smoothstep(.23,.43,abs(st.x-.5));
-        float grass=smoothstep(.42,.48,st.y)*(1.-smoothstep(shore-.012,shore,st.y))*banks;
-        float wind=sin(st.x*65.-seconds*1.1)+.35*sin(st.x*131.-seconds*1.8);
-        st.x+=wind*.0015*grass;
-        return texture(landscape,st).rgb;
+        float trees=treeSway(st);
+        if(trees<.001||wind<.001)return sceneAt(st);
+        float gust=.65+.35*sin(st.x*9.-seconds*.7)+.18*sin(seconds*.23+1.7);
+        float stand=st.x*180.;
+        float phase=sin(floor(stand)*12.9898)*4.;
+        float nextPhase=sin((floor(stand)+1.)*12.9898)*4.;
+        phase=mix(phase,nextPhase,smoothstep(0.,1.,fract(stand)));
+        float bend=.55+sin(seconds*1.35+phase)*.48;
+        float flutter=sin(seconds*3.8+st.x*310.+st.y*85.)*.13;
+        // A few pixels of crown travel, not a translation of the whole image.
+        st.x+=(bend*gust+flutter)*.006*trees*wind;
+        st.y+=sin(seconds*2.1+phase)*.00065*trees*wind*gust;
+        return sceneAt(st);
       }
       vec3 lighting(vec3 c){
+        // Cosmos remains a deep-space scene as the shared Tokyo clock changes.
+        if(sceneType>2.5)return c;
         float sun=sin((hour-6.)*PI/12.);
         float daylight=smoothstep(-.15,.3,sun);
         float dusk=exp(-pow(sun/.24,2.));
@@ -97,7 +146,7 @@
       vec3 sky(vec3 r){
         float aspect=resolution.x/resolution.y;
         vec2 st=vec2(.5+r.x/max(r.z,.15)/(1.3*aspect),.43-r.y/max(r.z,.15)/1.35);
-        st.x=(st.x-.5)*min(1.,aspect/1.78)+.5;
+        st.x=(st.x-.5)*min(1.,max(sceneType>2.5?.6:0.,aspect/1.78))+.5;
         st.y*=shore/.431;
         vec3 image=landscapeAt(st);
         vec3 highSky=mix(vec3(.48,.67,.8),vec3(.19,.42,.64),clamp(r.y,0.,1.));
@@ -125,7 +174,7 @@
         vec2 screen=vec2(uv.x,1.-uv.y);float aspect=resolution.x/resolution.y;
         vec3 ray=normalize(vec3((screen.x-.5)*1.3*aspect,(.43-screen.y)*1.35,1.));
         if(screen.y<=.431){
-          vec2 st=vec2((screen.x-.5)*min(1.,aspect/1.78)+.5,screen.y*shore/.431);
+          vec2 st=vec2((screen.x-.5)*min(1.,max(sceneType>2.5?.6:0.,aspect/1.78))+.5,screen.y*shore/.431);
           color=vec4(lighting(landscapeAt(st)),1.);return;
         }
         vec3 eye=vec3(0.,1.6,-3.);
@@ -167,10 +216,11 @@
     };
     const targets = [makeTarget(), makeTarget()];
     gl.disable(gl.DITHER);
-    const photo = gl.createTexture();
+    const photo = gl.createTexture(),dayPhoto=gl.createTexture();
     function bind(texture, unit) { gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, texture); }
+    bind(dayPhoto,2);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));
     const simU = Object.fromEntries(['waves','cell','drop'].map(k => [k,simulation.u(k)]));
-    const drawU = Object.fromEntries(['waves','landscape','cell','seconds','hour','resolution','shore'].map(k => [k,render.u(k)]));
+    const drawU = Object.fromEntries(['waves','landscape','dayLandscape','cell','seconds','hour','resolution','shore','sceneType','wind','cosmosBlend'].map(k => [k,render.u(k)]));
     function simulate(drop = [0,0,.01,0]) {
       const next = 1-state; gl.useProgram(simulation.p); gl.bindFramebuffer(gl.FRAMEBUFFER, targets[next].framebuffer); gl.viewport(0,0,N,N);
       bind(targets[state].texture,0);gl.uniform1i(simU.waves,0);gl.uniform1f(simU.cell,1/N);gl.uniform4fv(simU.drop,drop);
@@ -179,8 +229,9 @@
     function draw() {
       if (!ready) return;
       gl.useProgram(render.p);gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,canvas.width,canvas.height);
-      bind(targets[state].texture,0);bind(photo,1);gl.uniform1i(drawU.waves,0);gl.uniform1i(drawU.landscape,1);
-      gl.uniform1f(drawU.cell,1/N);gl.uniform1f(drawU.seconds,time);gl.uniform1f(drawU.hour,day);gl.uniform1f(drawU.shore,sceneShore);gl.uniform2f(drawU.resolution,canvas.width,canvas.height);
+      bind(targets[state].texture,0);bind(photo,1);bind(dayPhoto,2);gl.uniform1i(drawU.waves,0);gl.uniform1i(drawU.landscape,1);gl.uniform1i(drawU.dayLandscape,2);
+      const sun=Math.max(0,Math.sin((day-6)*Math.PI/12)),fade=Math.min(1,Math.max(0,(sun-.02)/.58)),cosmosBlend=cosmosDayReady?fade*fade*(3-2*fade):0;
+      gl.uniform1f(drawU.cell,1/N);gl.uniform1f(drawU.seconds,time);gl.uniform1f(drawU.hour,day);gl.uniform1f(drawU.shore,sceneShore);gl.uniform1f(drawU.sceneType,sceneType);gl.uniform1f(drawU.wind,reduced.matches?0:wind);gl.uniform1f(drawU.cosmosBlend,cosmosBlend);gl.uniform2f(drawU.resolution,canvas.width,canvas.height);
       gl.drawArrays(gl.TRIANGLES,0,3);
     }
     function resize() {
@@ -196,6 +247,7 @@
     function tick(now){
       handle=requestAnimationFrame(tick);
       const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;time+=dt;accumulator+=dt;
+      wind+=(windTarget-wind)*Math.min(1,dt*.42);
       if(time<activeUntil || drops.length){let count=0;while(accumulator>=1/60&&count++<3){simulate(drops.shift());accumulator-=1/60;}}else accumulator=0;
       draw();frames++;
       if(now-measuredAt>1200){
@@ -244,7 +296,16 @@
         ready=true;resize();if(gl.getError()!==gl.NO_ERROR)throw Error('GPU setup failed');canvas.style.opacity=1;updateMotion();start();
       }catch(e){fail(e.message);}
     };image.onerror=()=>fail('Lake texture could not load.');
-    addEventListener('lake:scene',event=>{sceneShore=event.detail.shore;image.src=event.detail.src;});
+    const dayImage=new Image();dayImage.onload=()=>{bind(dayPhoto,2);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,dayImage);cosmosDayReady=true;draw();};
+    addEventListener('weather:change',event=>{
+      windTarget=({clear:.55,rain:.9,snow:.32,storm:1.55})[event.detail?.weather]??.55;
+    });
+    addEventListener('lake:scene',event=>{
+      sceneShore=event.detail.shore;
+      sceneType=({yotei:0,fuji:1,alps:2,cosmos:3})[event.detail.key]??1;
+      cosmosDayReady=false;if(event.detail.daySrc)dayImage.src=event.detail.daySrc;
+      image.src=event.detail.src;
+    });
     image.src=matchMedia('(max-width: 700px)').matches?'assets/fuji-lake-mobile.jpg':'assets/fuji-lake-desktop.jpg';
     updateMotion();
   } catch(error) { console.error(error);fail(error.message); }

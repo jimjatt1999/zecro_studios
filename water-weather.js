@@ -10,6 +10,7 @@
   function flash(){if(weather!=='storm')return;document.body.classList.remove('lightning');requestAnimationFrame(()=>document.body.classList.add('lightning'));setTimeout(()=>document.body.classList.remove('lightning'),720);flashTimer=setTimeout(flash,3500+Math.random()*9000);}
   function setWeather(next){weather=next;document.body.classList.toggle('raining',next==='rain'||next==='storm');document.body.classList.toggle('snowing',next==='snow');dispatchEvent(new CustomEvent('weather:rain',{detail:{raining:next==='rain'||next==='storm'}}));dispatchEvent(new CustomEvent('weather:change',{detail:{weather:next}}));clearTimeout(flashTimer);document.body.classList.remove('lightning');if(next==='storm')flashTimer=setTimeout(flash,900+Math.random()*2400);stop();if(next!=='clear'&&!reduced.matches&&!saveData){last=0;frame=requestAnimationFrame(draw);}}
   function chooseWeather(){
+    if(scene==='cosmos')return 'clear';
     const hour=Number(document.querySelector('#daytime')?.value||12),night=hour<6||hour>20;
     const snowChance=scene==='yotei'?.045:scene==='alps'?.025:.01;
     const roll=Math.random(),stormChance=night?.045:.025,rainChance=night?.36:.30;
@@ -19,6 +20,6 @@
     return 'clear';
   }
   function schedule(){clearTimeout(timer);const active=weather!=='clear';timer=setTimeout(()=>{setWeather(active?'clear':chooseWeather());schedule();},active?15000+Math.random()*22000:20000+Math.random()*36000);}
-  resize();addEventListener('resize',resize);addEventListener('lake:scene',event=>{scene=event.detail.key||scene;});addEventListener('weather:set',event=>{const next=event.detail?.weather;if(['clear','rain','snow','storm'].includes(next)){clearTimeout(timer);setWeather(next);}});addEventListener('weather:mode',event=>{if(event.detail?.mode==='natural'){setWeather(chooseWeather());schedule();}else{clearTimeout(timer);}});document.addEventListener('visibilitychange',()=>document.hidden?stop():(weather!=='clear'&&(frame=requestAnimationFrame(draw))));
+  resize();addEventListener('resize',resize);addEventListener('lake:scene',event=>{scene=event.detail.key||scene;if(scene==='cosmos'&&weather!=='clear')setWeather('clear');});addEventListener('weather:set',event=>{const next=event.detail?.weather;if(['clear','rain','snow','storm'].includes(next)&&!(scene==='cosmos'&&next!=='clear')){clearTimeout(timer);setWeather(next);}});addEventListener('weather:mode',event=>{if(event.detail?.mode==='natural'){setWeather(chooseWeather());schedule();}else{clearTimeout(timer);}});document.addEventListener('visibilitychange',()=>document.hidden?stop():(weather!=='clear'&&(frame=requestAnimationFrame(draw))));
   if(!reduced.matches&&!saveData){const params=new URLSearchParams(location.search),forced=params.get('weather')||(params.get('rain')==='1'?'rain':'');setWeather(['rain','snow','storm'].includes(forced)?forced:'clear');if(!forced)schedule();}
 })();
