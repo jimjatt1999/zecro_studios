@@ -12,13 +12,13 @@
   <link rel="stylesheet" href="water-refinement.css?v=6">
   <link rel="stylesheet" href="water-polish.css?v=7">
   <link rel="stylesheet" href="water-switcher.css?v=7">
-  <link rel="stylesheet" href="water-atmosphere.css?v=12">
+  <link rel="stylesheet" href="water-atmosphere.css?v=13">
   <link rel="stylesheet" href="water-home-tweaks.css?v=25">
 </head>
 <body>
   <picture><source media="(max-width: 700px)" srcset="assets/fuji-lake-mobile.jpg"><img class="scene" id="lake-image" src="assets/fuji-lake-desktop.jpg" alt="A calm Japanese lake beneath Mount Fuji"></picture>
   <canvas class="scene" id="water" aria-hidden="true"></canvas>
-  <div class="cloud-layer" aria-hidden="true"></div>
+  <canvas class="cloud-layer" id="cloud-layer" aria-hidden="true"></canvas>
   <canvas id="rain-layer" aria-hidden="true"></canvas>
   <div class="shade" aria-hidden="true"></div>
   <header><a href="./">Jimi Olaoya</a><div class="header-right"><div class="scene-switcher" role="group" aria-label="Landscape"><button data-scene="yotei" aria-pressed="false">Yōtei</button><button class="active" data-scene="fuji" aria-pressed="true">Fuji</button><button data-scene="alps" aria-pressed="false">Alps</button></div></div></header>
@@ -53,6 +53,7 @@
   <dialog id="content-panel" aria-labelledby="panel-title"><div class="panel-toolbar"><h2 id="panel-title">Studio</h2><button id="close-panel" aria-label="Close panel">Close ×</button></div><div id="panel-body"></div></dialog>
   <script src="water-engine.js?v=14"></script>
   <script src="water-scenes.js?v=10"></script>
+  <script src="water-clouds.js?v=1"></script>
   <script src="water-weather.js?v=12"></script>
   <script src="water-music.js?v=20"></script>
   <script src="books-data.js?v=13"></script>
