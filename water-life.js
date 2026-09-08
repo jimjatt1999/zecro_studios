@@ -55,11 +55,12 @@
   function stop(){cancelAnimationFrame(frame);frame=0;last=0;}
   function spawnPetals(){
     const event=LakeNature.profile('petals',{mobile:coarse.matches,weather}),birthTime=now();
-    // Petals arrive in little gusts from the same tree, rather than filling the sky at once.
-    const origin=width*(.12+Math.random()*.55);
     petals=Array.from({length:event.count},(_,i)=>{
-      const depth=.3+Math.random()*.7,birth=birthTime+Math.floor(i/3)*event.arrivalGap+Math.random()*450;
-      return {x:origin+(Math.random()-.5)*width*.3,y:-20-Math.random()*35,landing:height*(.54+Math.random()*.18),birth,drift:event.pace,phase:event.phase+Math.random()*2,size:2+depth*6,depth,speed:10+depth*24,vx:0,vy:0,end:birth+35000};
+      const isInitial=i<Math.floor(event.count*0.6);
+      const depth=.3+Math.random()*.7;
+      const birth=isInitial?birthTime:(birthTime+Math.floor(i/3)*event.arrivalGap+Math.random()*450);
+      const y=isInitial?(-20+Math.random()*height*.43):(-20-Math.random()*35);
+      return {x:Math.random()*width,y,landing:height*(.54+Math.random()*.18),birth,drift:event.pace||1,phase:event.phase+Math.random()*2,size:2+depth*6,depth,speed:10+depth*24,vx:0,vy:0,end:birth+35000};
     });start();
   }
   function createMistParticle(x,t,isInitial=false){

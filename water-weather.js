@@ -3,7 +3,7 @@
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),saveData=navigator.connection?.saveData;
   let lastImpact=0,impacts=[];
   let particles=[],frame=0,weather='clear',scene='fuji',last=0,timer=0,flashTimer=0;
-  const lc=document.createElement('canvas');lc.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5';document.body.appendChild(lc);const lx=lc.getContext('2d');let boltSegs=[],boltAlpha=0,boltRaf=0;
+  const lc=document.createElement('canvas');lc.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5';if(document.body?.appendChild)document.body.appendChild(lc);else if(document.body?.append)document.body.append(lc);const lx=lc.getContext('2d');let boltSegs=[],boltAlpha=0,boltRaf=0;
   function resize(){const scale=Math.min(devicePixelRatio,1.25);canvas.width=Math.round(innerWidth*scale);canvas.height=Math.round(innerHeight*scale);canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(scale,0,0,scale,0,0);const count=innerWidth<700?38:78;particles=Array.from({length:count},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,l:8+Math.random()*18,s:8+Math.random()*12,a:.12+Math.random()*.24,r:1+Math.random()*2.2,w:Math.random()*6.28,landing:innerHeight*(.56+Math.random()*.4)}));}
   function stop(){impacts=[];cancelAnimationFrame(frame);frame=0;ctx.clearRect(0,0,innerWidth,innerHeight);}
   function draw(now){if(weather==='clear')return;frame=requestAnimationFrame(draw);if(now-last<32)return;const step=last?Math.min(2,(now-last)/33.333):1;last=now;ctx.clearRect(0,0,innerWidth,innerHeight);
