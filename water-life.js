@@ -146,7 +146,7 @@
   }
   function spawnFireworks(){
     if(reduced.matches||saveData)return;
-    const birth=now(),grand=Math.random()<.22,count=grand?(coarse.matches?5:7):2+Math.floor(Math.random()*3);
+    const birth=now(),grand=Math.random()<.22,count=grand?(coarse.matches?4:5):3+Math.floor(Math.random()*(coarse.matches?2:3));
     const palettes=[['255,204,128','255,238,193'],['242,140,184','189,169,255'],['135,221,242','210,249,238'],['255,172,112','255,220,152']];
     const colors=palettes[Math.floor(Math.random()*palettes.length)];
     const shapes=['peony','ring','willow','double'];

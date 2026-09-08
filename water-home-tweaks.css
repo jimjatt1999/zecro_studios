@@ -9,6 +9,11 @@ summary:focus-visible {
   box-shadow: none !important;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 header>a{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-weight:400}
 main#profile h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:400;letter-spacing:-.035em}
 .time-control>summary{border-radius:0}
@@ -493,8 +498,28 @@ body>footer .connect{margin:0;padding:8px 0;gap:22px;text-shadow:0 1px 12px #001
   #water-books{gap:12px}
   #water-books .book-item{flex-basis:56px}
 }
+@media(max-width:899px){
+  .reading{min-width:0;max-width:100%}
+  #water-books{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+    padding:12px 4px 22px;
+    max-width:100%;
+    scrollbar-width:none;
+  }
+  #water-books::-webkit-scrollbar{display:none}
+  #water-books .book-item{
+    flex:0 0 auto;
+    scroll-snap-align:start;
+  }
+}
 @media(max-width:700px){
-  main#profile{margin-top:calc(100svh - 80px);margin-bottom:44px}
+  main#profile{margin-top:calc(100svh - 80px);margin-bottom:44px;max-width:calc(100vw - 48px)}
   .mobile-welcome{position:absolute;z-index:3;display:block;left:50%;top:42svh;width:min(82vw,330px);transform:translate(-50%,-50%);color:#fff;text-align:center;text-shadow:0 1px 16px #001820;pointer-events:none;opacity:0;animation:mobile-welcome 7s ease forwards}
   .mobile-welcome p{margin:0;color:#eef5f5;font-size:13px;line-height:1.6}
   .mobile-welcome p+p{margin-top:4px}
