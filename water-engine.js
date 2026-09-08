@@ -94,7 +94,7 @@
         vec2 base=(floor(grid)+.5)/size;vec2 f=fract(grid);vec2 d=1./size;
         return mix(mix(heightAt(base),heightAt(base+vec2(d.x,0.)),f.x),mix(heightAt(base+vec2(0.,d.y)),heightAt(base+d),f.x),f.y);
       }
-      uniform sampler2D landscape,dayLandscape;uniform vec2 resolution;uniform float seconds,cloudSeconds,hour,cell,shore,sceneType,wind,cosmosBlend;
+      uniform sampler2D landscape,dayLandscape;uniform vec2 resolution;uniform float seconds,cloudSeconds,hour,cell,shore,sceneType,wind,cosmosBlend,mountainLife;
       const float PI=3.14159265;
       float cloudNoise(vec2 p){
         vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
@@ -139,23 +139,28 @@
       // Bend crowns around fixed roots. Each stand has its own phase, while
       // a slower traveling gust connects the motion across the forest.
       float treeSway(vec2 st){
-        if(sceneType>2.5)return 0.;
+        // Keep the landscape completely stable behind distant walkers.
+        if(sceneType>2.5||mountainLife>.5)return 0.;
         float fromCenter=abs(st.x-.5)*2.;
-        float top=.325;
+        float top=.365;
         float base=shore-.012;
         float horizontal=1.;
         if(sceneType<.5){
           // Yotei: taller foreground trees wrap around both sides of the lake.
-          top=mix(.405,.275,smoothstep(.52,1.,fromCenter));
+          top=mix(.425,.355,smoothstep(.58,1.,fromCenter));
         }else if(sceneType>1.5){
           // Alps: the visible conifers live on the outer banks, not the valley.
-          top=mix(.385,.225,smoothstep(.42,1.,fromCenter));
-          horizontal=smoothstep(.35,.63,fromCenter);
+          top=mix(.405,.315,smoothstep(.55,1.,fromCenter));
+          horizontal=smoothstep(.48,.70,fromCenter);
         }
         float crown=smoothstep(top-.025,top+.008,st.y);
         float grounded=1.-smoothstep(base-.045,base,st.y);
         float height=1.-smoothstep(top,base,st.y);
-        return crown*grounded*height*horizontal;
+        vec3 source=texture(landscape,clamp(st,vec2(.002),vec2(.998))).rgb;
+        float luminance=dot(source,vec3(.2126,.7152,.0722));
+        float green=source.g-max(source.r,source.b);
+        float vegetation=max(smoothstep(.005,.075,green),(1.-smoothstep(.12,.34,luminance))*.72);
+        return crown*grounded*height*horizontal*vegetation;
       }
       // Image-space shoreline: preserve the mountain's proportions above the water.
       vec3 landscapeAt(vec2 st){
@@ -176,8 +181,8 @@
         float bend=sin(seconds*1.05+phase)*.68+sin(seconds*.43+phase*.7)*.28;
         float flutter=sin(seconds*3.2+st.x*310.+st.y*85.)*.16;
         // A few pixels of crown travel, not a translation of the whole image.
-        st.x+=(bend*gust+flutter)*.010*trees*wind;
-        st.y+=sin(seconds*2.1+phase)*.00065*trees*wind*gust;
+        st.x+=(bend*gust+flutter)*.0045*trees*wind;
+        st.y+=sin(seconds*2.1+phase)*.00028*trees*wind*gust;
         return cloudLayer(sceneAt(st),st);
       }
       vec2 sceneUV(vec2 screen){
@@ -270,7 +275,8 @@
     function bind(texture, unit) { gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, texture); }
     bind(dayPhoto,2);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));
     const simU = Object.fromEntries(['waves','cell','drop'].map(k => [k,simulation.u(k)]));
-    const drawU = Object.fromEntries(['waves','landscape','dayLandscape','cell','seconds','cloudSeconds','hour','resolution','shore','sceneType','wind','cosmosBlend'].map(k => [k,render.u(k)]));
+    const drawU = Object.fromEntries(['waves','landscape','dayLandscape','cell','seconds','cloudSeconds','hour','resolution','shore','sceneType','wind','cosmosBlend','mountainLife'].map(k => [k,render.u(k)]));
+    let mountainLifeActive=false;
     function simulate(drop = [0,0,.01,0]) {
       const next = 1-state; gl.useProgram(simulation.p); gl.bindFramebuffer(gl.FRAMEBUFFER, targets[next].framebuffer); gl.viewport(0,0,N,N);
       bind(targets[state].texture,0);gl.uniform1i(simU.waves,0);gl.uniform1f(simU.cell,1/N);gl.uniform4fv(simU.drop,drop);
@@ -281,7 +287,7 @@
       gl.useProgram(render.p);gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,canvas.width,canvas.height);
       bind(targets[state].texture,0);bind(photo,1);bind(dayPhoto,2);gl.uniform1i(drawU.waves,0);gl.uniform1i(drawU.landscape,1);gl.uniform1i(drawU.dayLandscape,2);
       const sun=Math.max(0,Math.sin((day-6)*Math.PI/12)),fade=Math.min(1,Math.max(0,(sun-.02)/.58)),cosmosBlend=cosmosDayReady?fade*fade*(3-2*fade):0;
-      gl.uniform1f(drawU.cell,1/N);gl.uniform1f(drawU.seconds,time);gl.uniform1f(drawU.cloudSeconds,cloudTime);gl.uniform1f(drawU.hour,day);gl.uniform1f(drawU.shore,sceneShore);gl.uniform1f(drawU.sceneType,sceneType);gl.uniform1f(drawU.wind,reduced.matches?0:wind);gl.uniform1f(drawU.cosmosBlend,cosmosBlend);gl.uniform2f(drawU.resolution,canvas.width,canvas.height);
+      gl.uniform1f(drawU.cell,1/N);gl.uniform1f(drawU.seconds,time);gl.uniform1f(drawU.cloudSeconds,cloudTime);gl.uniform1f(drawU.hour,day);gl.uniform1f(drawU.shore,sceneShore);gl.uniform1f(drawU.sceneType,sceneType);gl.uniform1f(drawU.wind,reduced.matches?0:wind);gl.uniform1f(drawU.cosmosBlend,cosmosBlend);gl.uniform1f(drawU.mountainLife,mountainLifeActive?1:0);gl.uniform2f(drawU.resolution,canvas.width,canvas.height);
       gl.drawArrays(gl.TRIANGLES,0,3);
     }
     function resize() {
@@ -351,6 +357,7 @@
     addEventListener('weather:change',event=>{
       windTarget=({clear:.55,rain:.9,snow:.32,storm:1.55})[event.detail?.weather]??.55;
     });
+    addEventListener('mountain-life:change',event=>{mountainLifeActive=!!event.detail?.active;draw();});
     addEventListener('lake:scene',event=>{
       sceneShore=event.detail.shore;
       sceneType=({yotei:0,fuji:1,alps:2,cosmos:3})[event.detail.key]??1;

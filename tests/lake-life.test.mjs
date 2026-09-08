@@ -100,3 +100,21 @@ function harness(){
  }
  console.log('PASS maximum-size lantern groups stay separate through one minute of drift in six seeded desktop/mobile runs');
 }
+{
+ const h=harness();h.run(nature);h.get('#daytime').value='12';
+ h.run(fs.readFileSync(root+'water-mountain-life.js','utf8').replace(/\}\)\(\);\s*$/,'globalThis.mountainTest={project,pointOn,sync,available,get:()=>({walkers,routes,key})};})();'));
+ const t=h.s.mountainTest;
+ for(const key of ['fuji','yotei','alps']){
+  h.emit('lake:scene',{key,winter:false});const state=t.get();assert(state.walkers.length>=9);assert(state.walkers.some(w=>w.horse));
+  for(const path of [state.routes[key].climb,state.routes[key].lower])for(let i=0;i<=100;i++){
+   const p=t.pointOn(path,i/100),screen=t.project(p.x,p.y);assert(Number.isFinite(screen.x)&&Number.isFinite(screen.y));assert(p.y<state.routes[key].shore);assert(screen.y<h.s.innerHeight*.431);
+  }
+  for(let i=0;i<50;i++)h.frame(45);
+ }
+ h.emit('lake:scene',{key:'cosmos'});assert.equal(h.frames.size,0);assert(!t.available());
+ h.emit('lake:scene',{key:'fuji',winter:true});assert.equal(h.frames.size,0);
+ h.emit('lake:scene',{key:'fuji',winter:false});h.get('#daytime').value='23';t.sync();assert.equal(h.frames.size,0);
+ h.get('#daytime').value='12';t.sync();assert.equal(h.frames.size,1);
+ h.emit('pagehide');h.tick(120000);h.emit('pageshow');assert.equal(h.frames.size,1);
+ console.log('PASS mountain experiment: trail projection, horses, finite silhouettes, daylight/season/scene gating and navigation resume');
+}
