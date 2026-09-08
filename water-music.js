@@ -25,10 +25,10 @@
   const lakeLevel=()=>music.paused?.022:.014;
   function render(){label.textContent=music.paused?'Play music':tracks[index].title;icon.textContent=music.paused?'▷':'Ⅱ';musicButton.setAttribute('aria-pressed',String(!music.paused));if(!splashDucking)lake.volume=lakeLevel();}
   async function safePlay(audio){try{await audio.play();return true}catch{return false}}
-  async function startSound(){const results=await Promise.all([musicWanted?safePlay(music):true,natureWanted?safePlay(lake):true,natureWanted&&raining?safePlay(rain):true]);unlocked=results.every(Boolean);render();return unlocked;}
+  async function startSound(){const results=await Promise.all([musicWanted?safePlay(music):true,natureWanted?safePlay(lake):true,natureWanted&&raining?safePlay(rain):true]);unlocked=results.every(Boolean);document.body.classList.toggle('sound-locked',!unlocked);render();return unlocked;}
   function stopNature(){lake.pause();rain.pause();}
-  async function changeTrack(delta){index=(index+delta+tracks.length)%tracks.length;music.src=tracks[index].src;label.textContent=tracks[index].title;if(musicWanted)await safePlay(music);render();}
-  musicButton.addEventListener('click',async()=>{musicWanted=music.paused;if(musicWanted)await safePlay(music);else music.pause();render();});
+  async function changeTrack(delta){index=(index+delta+tracks.length)%tracks.length;music.src=tracks[index].src;label.textContent=tracks[index].title;if(musicWanted)await startSound();else render();}
+  musicButton.addEventListener('click',async()=>{musicWanted=music.paused;if(musicWanted)await startSound();else{music.pause();if(natureWanted)await safePlay(lake);render();}});
   document.querySelector('#previous-track').addEventListener('click',()=>changeTrack(-1));
   document.querySelector('#next-track').addEventListener('click',()=>changeTrack(1));
   music.addEventListener('ended',()=>changeTrack(1));
