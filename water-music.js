@@ -19,7 +19,7 @@
   const pool = tracks.slice(1);
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
   tracks.splice(0, tracks.length, featured, ...pool);
-  let index=0,playCount=0,musicWanted=true,natureWanted=true,raining=document.body.classList.contains('raining'),unlocked=false,cueDuckTimer=0,splashDucking=false;
+  let index=0,musicWanted=true,natureWanted=true,raining=document.body.classList.contains('raining'),unlocked=false,cueDuckTimer=0,splashDucking=false;
   music.src=tracks[index].src;
   music.volume=.11;lake.volume=.014;rain.volume=.058;
   const lakeLevel=()=>music.paused?.022:.014;
@@ -27,11 +27,11 @@
   async function safePlay(audio){try{await audio.play();return true}catch{return false}}
   async function startSound(){const results=await Promise.all([musicWanted?safePlay(music):true,natureWanted?safePlay(lake):true,natureWanted&&raining?safePlay(rain):true]);unlocked=results.every(Boolean);document.body.classList.toggle('sound-locked',!unlocked);render();return unlocked;}
   function stopNature(){lake.pause();rain.pause();}
-  async function changeTrack(delta){playCount=0;index=(index+delta+tracks.length)%tracks.length;music.src=tracks[index].src;label.textContent=tracks[index].title;if(musicWanted)await startSound();else render();}
+  async function changeTrack(delta){index=(index+delta+tracks.length)%tracks.length;music.src=tracks[index].src;label.textContent=tracks[index].title;if(musicWanted)await startSound();else render();}
   musicButton.addEventListener('click',async()=>{musicWanted=music.paused;if(musicWanted)await startSound();else{music.pause();if(natureWanted)await safePlay(lake);render();}});
   document.querySelector('#previous-track').addEventListener('click',()=>changeTrack(-1));
   document.querySelector('#next-track').addEventListener('click',()=>changeTrack(1));
-  music.addEventListener('ended',()=>{if(index===0&&playCount<1){playCount++;music.src=tracks[0].src;if(musicWanted)startSound();return;}playCount=0;changeTrack(1);});
+  music.addEventListener('ended',()=>changeTrack(1));
   music.addEventListener('play',render);music.addEventListener('pause',render);
   addEventListener('weather:rain',event=>{raining=event.detail.raining;if(!natureWanted)return;if(raining)safePlay(rain);else rain.pause();});
   startSound();
