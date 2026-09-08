@@ -1,3 +1,333 @@
 /* Wider home composition, with full content opening over the same lake. */
-@media(min-width:960px){main#profile{width:min(1100px,86vw);margin:50px auto 125px;display:grid;grid-template-columns:1.08fr 1fr;column-gap:90px;align-items:start}.intro-label,h1,.bio{grid-column:1}main#profile h1{margin-bottom:24px}.bio{grid-row:3 / 6;max-width:480px}#projects{grid-column:2;grid-row:1 / 6;margin:0}#writing{grid-column:1;margin-top:30px}.reading{grid-column:2;margin-top:30px}.connect{grid-column:1}.old-site{grid-column:2;justify-self:end;align-self:end}.shade{background:linear-gradient(90deg,#04171d9e,#04171d75 65%,#04171d3b)}}
-#content-panel{color:#edf5f5;background:rgba(11,34,43,.97);border:1px solid #ffffff30;border-radius:22px;width:min(940px,calc(100vw - 36px));max-height:85dvh;padding:0;box-shadow:0 30px 120px #00101670;overflow:hidden}#content-panel::backdrop{background:#03121a55;backdrop-filter:blur(5px)}.panel-toolbar{display:flex;justify-content:space-between;align-items:center;padding:14px 28px;border-bottom:1px solid #ffffff20}.panel-toolbar h2{font:20px Georgia,serif}.panel-toolbar button{color:inherit;font-size:13px}#panel-body{overflow:auto;max-height:calc(85dvh - 75px);padding:16px 32px 35px;scroll-behavior:smooth}#panel-body section{margin:20px 0 32px}#panel-body h1{font-size:36px;margin:15px 0}#panel-body h2{font-size:20px;margin:16px 0}#panel-body h3{font-size:17px}#panel-body p,#panel-body li{color:#cfdee1;line-height:1.75}#panel-body a{color:#f0fafb;text-underline-offset:4px}#panel-body .module-label{font-size:11px;letter-spacing:.08em;color:#98b3bc}#panel-body .app-actions,#panel-body .books-topbar,#panel-body .books-year-nav{display:flex;flex-wrap:wrap;gap:20px}#panel-body .download-btn{display:inline-block;padding:10px 16px;border:1px solid #ffffff40;border-radius:24px;font-size:13px}#panel-body .gallery-scroll{display:flex;gap:15px;overflow:auto}#panel-body img{max-width:100%;height:auto}#panel-body .gallery-scroll img{max-height:360px;max-width:200px;object-fit:contain;border-radius:16px}#panel-body video{max-width:100%;max-height:420px}#panel-body .koe-product-icon,#panel-body .app-icon{width:60px;border-radius:14px}#panel-body .essay-item{display:block;padding:20px 0;border-bottom:1px solid #ffffff20}#panel-body .essay-meta{display:flex;gap:15px;font-size:11px;color:#a4bfc7}#panel-body .essay-title{margin:8px 0}#panel-body .essay-excerpt{font-size:14px;margin:6px 0}#panel-body .book-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}#panel-body .book-card{display:block;padding:16px;border:1px solid #ffffff20;border-radius:12px}#panel-body .book-card img{max-height:180px;object-fit:contain}#panel-body .b-title,#panel-body .b-author{display:block}#panel-body .b-title{font-size:15px}#panel-body .b-author{font-size:12px;color:#b7cdd3}#panel-body .book-kicker{font-size:11px}#panel-body .books-year-meta{font-size:12px;color:#a9c0c7}#panel-body .books-year-header{display:flex;align-items:center;gap:20px}@media(max-width:600px){#panel-body{padding:10px 20px 28px}#panel-body .book-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-toolbar{padding:10px 20px}}
+*, *::before, *::after {
+  -webkit-focus-ring-color: transparent !important;
+}
+
+:focus, :focus-visible,
+dialog, dialog:focus, dialog:focus-visible,
+#content-panel, #content-panel:focus, #content-panel:focus-visible,
+#book-3d-modal, #book-3d-modal:focus, #book-3d-modal:focus-visible,
+button, button:focus, button:focus-visible,
+a, a:focus, a:focus-visible,
+summary, summary:focus, summary:focus-visible,
+[tabindex], [tabindex]:focus, [tabindex]:focus-visible {
+  outline: none !important;
+  outline-color: transparent !important;
+  box-shadow: none;
+}
+
+@media(min-width:960px){
+  main#profile{
+    width:min(1100px,86vw);
+    margin:50px auto 125px;
+    display:grid;
+    grid-template-columns:1.08fr 1fr;
+    column-gap:90px;
+    align-items:start
+  }
+  .intro-label,h1,.bio{grid-column:1}
+  main#profile h1{margin-bottom:24px}
+  .bio{grid-row:3 / 6;max-width:480px}
+  #projects{grid-column:2;grid-row:1 / 6;margin:0}
+  #writing{grid-column:1;margin-top:30px}
+  .reading{grid-column:2;margin-top:30px}
+  .connect{grid-column:1}
+  .old-site{grid-column:2;justify-self:end;align-self:end}
+  .shade{background:linear-gradient(90deg,#04171d9e,#04171d75 65%,#04171d3b)}
+}
+
+#content-panel{
+  color:#edf5f5;
+  background:rgba(11,34,43,.97);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:18px;
+  width:min(940px,calc(100vw - 36px));
+  max-height:86dvh;
+  padding:0;
+  box-shadow:0 30px 120px rgba(0,16,22,.65);
+  overflow:hidden;
+  outline:none !important;
+}
+#content-panel::backdrop{
+  background:rgba(3,18,26,.65);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.panel-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 28px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.panel-toolbar h2{font:20px Georgia,serif}
+.panel-toolbar button{
+  color:inherit;
+  font-size:13px;
+  background:transparent;
+  border:0;
+  cursor:pointer;
+}
+
+#panel-body{
+  overflow:auto;
+  max-height:calc(86dvh - 75px);
+  padding:16px 32px 35px;
+  scroll-behavior:smooth;
+}
+#panel-body section{margin:20px 0 32px}
+#panel-body h1{font-size:36px;margin:15px 0}
+#panel-body h2{font-size:20px;margin:16px 0}
+#panel-body h3{font-size:17px}
+#panel-body p,#panel-body li{color:#cfdee1;line-height:1.75}
+#panel-body a{color:#f0fafb;text-underline-offset:4px}
+#panel-body .module-label{font-size:11px;letter-spacing:.08em;color:#98b3bc}
+#panel-body .app-actions,#panel-body .books-topbar,#panel-body .books-year-nav{display:flex;flex-wrap:wrap;gap:20px}
+#panel-body .download-btn{display:inline-block;padding:10px 16px;border:1px solid rgba(255,255,255,.25);border-radius:24px;font-size:13px}
+#panel-body .gallery-scroll{display:flex;gap:15px;overflow:auto}
+#panel-body img{max-width:100%;height:auto}
+#panel-body .gallery-scroll img{max-height:360px;max-width:200px;object-fit:contain;border-radius:16px}
+#panel-body video{max-width:100%;max-height:420px}
+#panel-body .koe-product-icon,#panel-body .app-icon{width:60px;border-radius:14px}
+#panel-body .essay-item{display:block;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+#panel-body .essay-meta{display:flex;gap:15px;font-size:11px;color:#a4bfc7}
+#panel-body .essay-title{margin:8px 0}
+#panel-body .essay-excerpt{font-size:14px;margin:6px 0}
+
+/* ========================================
+   BOOKS ARCHIVE (3D BOOKS & GLASSY BLURRED BACKDROP)
+   ======================================== */
+#content-panel.is-books-panel {
+  background: rgba(3, 16, 22, 0.46);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  width: min(1040px, calc(100vw - 36px));
+  max-height: 88dvh;
+  box-shadow: 0 30px 100px rgba(0, 8, 14, 0.55);
+}
+
+#content-panel.is-books-panel::backdrop {
+  background: rgba(2, 10, 15, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#content-panel.is-books-panel .panel-toolbar {
+  padding: 16px 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+}
+
+#content-panel.is-books-panel .panel-toolbar h2 {
+  font: 18px Georgia, serif;
+  color: #f2f7f9;
+  letter-spacing: .02em;
+}
+
+#content-panel.is-books-panel .panel-toolbar button {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color .2s ease;
+}
+
+#content-panel.is-books-panel .panel-toolbar button:hover {
+  color: #ffffff;
+}
+
+#content-panel.is-books-panel #panel-body {
+  padding: 24px 36px 40px;
+  max-height: calc(88dvh - 70px);
+}
+
+/* Hide all extraneous UI in books panel */
+#content-panel.is-books-panel .module-label,
+#content-panel.is-books-panel .books-intro,
+#content-panel.is-books-panel .goodreads-link,
+#content-panel.is-books-panel .books-year-header,
+#content-panel.is-books-panel .books-year-title,
+#content-panel.is-books-panel .books-year-meta,
+#content-panel.is-books-panel .load-more-books {
+  display: none !important;
+}
+
+#content-panel.is-books-panel .books-topbar {
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+}
+
+#content-panel.is-books-panel .books-year-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+#content-panel.is-books-panel .books-year-link {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  padding: 2px 0 8px;
+  position: relative;
+  transition: color .2s ease;
+}
+
+#content-panel.is-books-panel .books-year-link:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+#content-panel.is-books-panel .books-year-link.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+#content-panel.is-books-panel .books-year-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 1px;
+}
+
+/* 3D Book Grid in Archive - perfectly aligned with homepage 3D books */
+#panel-body .book-grid {
+  --book-w: 72px;
+  --book-h: 106px;
+  --book-d: 18px;
+  --book-half-d: 9px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  gap: 36px 16px;
+  justify-items: center;
+  margin: 10px 0 30px;
+  padding: 10px 4px 20px;
+}
+
+#panel-body .book-grid .book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 120px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  perspective: 700px;
+  outline: none !important;
+  text-decoration: none;
+}
+
+#panel-body .book-grid .book-3d-wrap {
+  position: relative;
+  width: var(--book-w);
+  height: var(--book-h);
+  perspective: 700px;
+  transform-style: preserve-3d;
+  margin: 0 auto;
+}
+
+#panel-body .book-grid .book-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: center bottom;
+  transform: rotateY(-16deg) rotateX(4deg);
+  transition: transform .36s cubic-bezier(.2,.8,.25,1);
+  will-change: transform;
+}
+
+@media (hover: hover) and (min-width: 701px) {
+  #panel-body .book-grid .book-item:hover,
+  #panel-body .book-grid .book-item:focus-visible {
+    z-index: 10;
+  }
+  #panel-body .book-grid .book-item:hover .book-3d,
+  #panel-body .book-grid .book-item:focus-visible .book-3d {
+    transform: rotateY(-34deg) rotateX(10deg) translateY(-8px) translateZ(14px);
+  }
+  #panel-body .book-grid .book-item:hover .book-3d-shadow,
+  #panel-body .book-grid .book-item:focus-visible .book-3d-shadow {
+    transform: rotateX(80deg) translateY(6px) scale(1.15, 1.25);
+    opacity: .5;
+  }
+}
+
+#panel-body .book-grid .book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-top: 14px;
+  width: 100%;
+  text-align: center;
+}
+
+#panel-body .book-grid .b-title {
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #f2f7f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+  max-width: 110px;
+}
+
+#panel-body .book-grid .b-author {
+  font-size: 10px;
+  color: #8daab4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  max-width: 110px;
+}
+
+@media (max-width: 600px) {
+  #content-panel.is-books-panel {
+    width: calc(100vw - 20px);
+    border-radius: 16px;
+  }
+  #content-panel.is-books-panel .panel-toolbar {
+    padding: 14px 18px;
+  }
+  #content-panel.is-books-panel #panel-body {
+    padding: 16px 14px 30px;
+  }
+  #panel-body .book-grid {
+    --book-w: 62px;
+    --book-h: 92px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 10px;
+  }
+  #panel-body .book-grid .b-title {
+    font-size: 10px;
+    max-width: 90px;
+  }
+  #panel-body .book-grid .b-author {
+    font-size: 9px;
+    max-width: 90px;
+  }
+}
+
+@media (max-width: 420px) {
+  #panel-body .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 14px;
+  }
+  #panel-body .book-grid .book-3d-wrap {
+    width: 68px;
+    height: 100px;
+  }
+}

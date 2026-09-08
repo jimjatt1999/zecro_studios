@@ -492,19 +492,34 @@
         return element;
     }
 
-    function createBookCard(book, year, href) {
-        const card = document.createElement(href ? 'a' : 'div');
-        card.className = href ? 'book-item book-item-link' : 'book-item';
+    function createShelfBook(book, year, showInfo = false) {
+        const card = document.createElement('div');
+        card.className = 'book-item';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
         card.setAttribute('aria-label', `${book.title} by ${book.author}`);
-        if (href) {
-            card.href = href;
-        }
 
-        const cover = createElement(
-            'div',
-            book.cover ? 'book-cover has-image' : 'book-cover book-cover-placeholder'
-        );
+        card.addEventListener('click', (event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            if (typeof window.openBook3DViewer === 'function') {
+                event.preventDefault();
+                event.stopPropagation();
+                window.openBook3DViewer(book);
+            }
+        });
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                if (typeof window.openBook3DViewer === 'function') {
+                    window.openBook3DViewer(book);
+                }
+            }
+        });
 
+        const wrap3d = createElement('div', 'book-3d-wrap' + (book.cover ? ' has-image' : ' is-placeholder'));
+        const book3d = createElement('div', 'book-3d');
+
+        const frontFace = createElement('div', 'book-face book-face-front');
         if (book.cover) {
             const image = document.createElement('img');
             image.src = book.cover;
@@ -514,23 +529,50 @@
             image.referrerPolicy = 'no-referrer';
             image.addEventListener('error', () => {
                 image.remove();
-                cover.classList.remove('has-image');
-                cover.classList.add('book-cover-placeholder');
+                wrap3d.classList.remove('has-image');
+                wrap3d.classList.add('is-placeholder');
             });
-            cover.appendChild(image);
+            frontFace.appendChild(image);
+        }
+        const sheen = createElement('div', 'book-cover-sheen');
+        const groove = createElement('div', 'book-hinge-groove');
+        frontFace.append(sheen, groove);
+
+        const spineFace = createElement('div', 'book-face book-face-spine');
+        const spineRibTop = createElement('div', 'book-spine-rib book-spine-rib-top');
+        const spineRibBottom = createElement('div', 'book-spine-rib book-spine-rib-bottom');
+        const spineText = createElement('span', 'book-spine-text', book.title);
+        spineFace.append(spineRibTop, spineText, spineRibBottom);
+
+        const pagesRight = createElement('div', 'book-face book-face-pages-right');
+        const pagesTop = createElement('div', 'book-face book-face-pages-top');
+        const pagesBottom = createElement('div', 'book-face book-face-pages-bottom');
+
+        const backFace = createElement('div', 'book-face book-face-back');
+        const backInner = createElement('div', 'book-back-inner');
+        const backMark = createElement('span', 'book-back-mark', 'ZECRO');
+        backInner.appendChild(backMark);
+        backFace.appendChild(backInner);
+
+        book3d.append(frontFace, spineFace, pagesRight, pagesTop, pagesBottom, backFace);
+
+        const shadow = createElement('div', 'book-3d-shadow');
+        wrap3d.append(book3d, shadow);
+        card.appendChild(wrap3d);
+
+        if (showInfo) {
+            const info = createElement('div', 'book-info');
+            const title = createElement('span', 'b-title', book.title);
+            const author = createElement('span', 'b-author', book.author);
+            info.append(title, author);
+            card.appendChild(info);
         }
 
-        const spine = createElement('div', 'book-spine');
-        const info = createElement('div', 'book-info');
-        const kicker = createElement('span', 'book-kicker', String(year));
-        const title = createElement('span', 'b-title', book.title);
-        const author = createElement('span', 'b-author', book.author);
-
-        info.append(kicker, title, author);
-        cover.append(spine, info);
-        card.appendChild(cover);
-
         return card;
+    }
+
+    function createArchiveBookCard(book, year) {
+        return createShelfBook(book, year, true);
     }
 
     function renderHomepagePreview() {
@@ -548,38 +590,21 @@
 
         grid.innerHTML = '';
         currentSection.books.slice(0, 4).forEach((book) => {
-            grid.appendChild(createBookCard(book, currentSection.year, 'books.html'));
+            grid.appendChild(createShelfBook(book, currentSection.year, true));
         });
     }
 
-    function createYearSection(entry, initialLimit = 8) {
+    function createYearSection(entry) {
         const section = createElement('section', 'books-year-section');
         section.id = `books-${entry.year}`;
 
-        const header = createElement('div', 'books-year-header');
-        const title = createElement('h3', 'books-year-title', String(entry.year));
-        const meta = createElement('span', 'books-year-meta', `${entry.count} books`);
         const grid = createElement('div', 'book-grid');
 
-        header.append(title, meta);
-
-        entry.books.slice(0, initialLimit).forEach((book) => {
-            grid.appendChild(createBookCard(book, entry.year));
+        entry.books.forEach((book) => {
+            grid.appendChild(createShelfBook(book, entry.year, true));
         });
 
-        section.append(header, grid);
-        if (entry.books.length > initialLimit) {
-            const more = createElement('button', 'load-more-books', `Show more (${entry.books.length - initialLimit})`);
-            more.type = 'button';
-            more.addEventListener('click', () => {
-                const start = grid.children.length;
-                entry.books.slice(start, start + 8).forEach((book) => grid.appendChild(createBookCard(book, entry.year)));
-                const remaining = entry.books.length - grid.children.length;
-                if (remaining > 0) more.textContent = `Show more (${remaining})`;
-                else more.remove();
-            });
-            section.appendChild(more);
-        }
+        section.appendChild(grid);
         return section;
     }
 
@@ -612,12 +637,14 @@
             });
         }
     }
+    document.addEventListener('studio:books-open', () => {
+        renderBooksPage();
+    });
 
-    document.addEventListener('studio:books-open', renderBooksPage);
     document.addEventListener('DOMContentLoaded', () => {
         const shelf = document.getElementById('water-books');
         if (shelf) bookSections[0].books.slice(0, 6).forEach(book => {
-            shelf.appendChild(createBookCard(book, bookSections[0].year, 'books.html'));
+            shelf.appendChild(createShelfBook(book, bookSections[0].year));
         });
         renderHomepagePreview();
         renderBooksPage();

@@ -217,6 +217,7 @@
     canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;dragging=true;canvas.setPointerCapture(e.pointerId);splash(e.clientX,e.clientY,.42);});
     canvas.addEventListener('pointermove',e=>{if(dragging&&performance.now()-lastTouch>40){splash(e.clientX,e.clientY,.14);lastTouch=performance.now();}});
     for(const name of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(name,()=>dragging=false);
+    addEventListener('lake:ripple',event=>{const {x,y,strength=.12}=event.detail||{};if(Number.isFinite(x)&&Number.isFinite(y))splash(x,y,strength);});
     redrawClock=draw;
     motion.onclick=()=>{paused=!paused;updateMotion();paused?stop():start();};
     reduced.addEventListener('change',()=>{paused=reduced.matches;updateMotion();paused?stop():start();});

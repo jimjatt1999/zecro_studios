@@ -8,7 +8,7 @@
     for(const p of particles){if(weather==='snow'){ctx.fillStyle=`rgba(241,248,249,${Math.min(.72,p.a*1.8)})`;ctx.beginPath();ctx.arc(p.x+Math.sin(p.y*.012+p.w)*9,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=.7+p.s*.08;p.x-=.08;}else{ctx.lineWidth=.65;ctx.strokeStyle=`rgba(210,231,236,${p.a})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-2,p.y+p.l);ctx.stroke();p.y+=p.s;p.x-=.7;}if(p.y>innerHeight+20){p.y=-20;p.x=Math.random()*innerWidth;}}
   }
   function flash(){if(weather!=='storm')return;document.body.classList.remove('lightning');requestAnimationFrame(()=>document.body.classList.add('lightning'));setTimeout(()=>document.body.classList.remove('lightning'),720);flashTimer=setTimeout(flash,3500+Math.random()*9000);}
-  function setWeather(next){weather=next;document.body.classList.toggle('raining',next==='rain'||next==='storm');document.body.classList.toggle('snowing',next==='snow');dispatchEvent(new CustomEvent('weather:rain',{detail:{raining:next==='rain'||next==='storm'}}));clearTimeout(flashTimer);document.body.classList.remove('lightning');if(next==='storm')flashTimer=setTimeout(flash,900+Math.random()*2400);stop();if(next!=='clear'&&!reduced.matches&&!saveData){last=0;frame=requestAnimationFrame(draw);}}
+  function setWeather(next){weather=next;document.body.classList.toggle('raining',next==='rain'||next==='storm');document.body.classList.toggle('snowing',next==='snow');dispatchEvent(new CustomEvent('weather:rain',{detail:{raining:next==='rain'||next==='storm'}}));dispatchEvent(new CustomEvent('weather:change',{detail:{weather:next}}));clearTimeout(flashTimer);document.body.classList.remove('lightning');if(next==='storm')flashTimer=setTimeout(flash,900+Math.random()*2400);stop();if(next!=='clear'&&!reduced.matches&&!saveData){last=0;frame=requestAnimationFrame(draw);}}
   function chooseWeather(){
     const hour=Number(document.querySelector('#daytime')?.value||12),night=hour<6||hour>20;
     const snowChance=scene==='yotei'?.045:scene==='alps'?.025:.01;
@@ -19,6 +19,6 @@
     return 'clear';
   }
   function schedule(){clearTimeout(timer);const active=weather!=='clear';timer=setTimeout(()=>{setWeather(active?'clear':chooseWeather());schedule();},active?15000+Math.random()*22000:20000+Math.random()*36000);}
-  resize();addEventListener('resize',resize);addEventListener('lake:scene',event=>{scene=event.detail.key||scene;});document.addEventListener('visibilitychange',()=>document.hidden?stop():(weather!=='clear'&&(frame=requestAnimationFrame(draw))));
+  resize();addEventListener('resize',resize);addEventListener('lake:scene',event=>{scene=event.detail.key||scene;});addEventListener('weather:set',event=>{const next=event.detail?.weather;if(['clear','rain','snow','storm'].includes(next)){clearTimeout(timer);setWeather(next);}});addEventListener('weather:mode',event=>{if(event.detail?.mode==='natural'){setWeather(chooseWeather());schedule();}else{clearTimeout(timer);}});document.addEventListener('visibilitychange',()=>document.hidden?stop():(weather!=='clear'&&(frame=requestAnimationFrame(draw))));
   if(!reduced.matches&&!saveData){const params=new URLSearchParams(location.search),forced=params.get('weather')||(params.get('rain')==='1'?'rain':'');setWeather(['rain','snow','storm'].includes(forced)?forced:'clear');if(!forced)schedule();}
 })();

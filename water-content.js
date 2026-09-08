@@ -7,6 +7,7 @@
     controller?.abort();controller=new AbortController();
     const signal=controller.signal;
     const file=url.pathname.split('/').pop();
+    panel.classList.toggle('is-books-panel', file==='books.html');
     title.textContent=titles[file]||'Studio';
     body.textContent='Loading…';if(!panel.open)panel.showModal();
     title.tabIndex=-1;title.focus({preventScroll:true});
@@ -53,7 +54,8 @@
     event.preventDefault();openPage(url);
   });
   document.querySelector('#close-panel').onclick=()=>panel.close();
-  panel.addEventListener('close',()=>{controller?.abort();body.querySelectorAll('video,audio').forEach(n=>n.pause());});
+  panel.addEventListener('click', event => { if (event.target === panel) panel.close(); });
+  panel.addEventListener('close',()=>{panel.classList.remove('is-books-panel');controller?.abort();body.querySelectorAll('video,audio').forEach(n=>n.pause());});
   const enter=document.querySelector('.mobile-enter'),profile=document.querySelector('#profile');
   enter?.addEventListener('click',()=>{document.body.classList.add('entered');profile?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});
   addEventListener('scroll',()=>{document.body.classList.toggle('entered',scrollY>innerHeight*.2);},{passive:true});
