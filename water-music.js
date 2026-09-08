@@ -64,6 +64,20 @@
     for(let i=0;i<samples.length;i++){smooth=smooth*.72+(Math.random()*2-1)*.28;samples[i]=smooth;}
     loadSloshBuffer();
   }
+  // A distant impact uses the same opt-in sound state as the lake.
+  function distantBoom(event){
+    if(!natureWanted||document.hidden||document.body.classList.contains('quiet-mode'))return;
+    prepareWaterSynth();if(cueContext.state!=='running')return;
+    const at=cueContext.currentTime,source=cueContext.createBufferSource(),filter=cueContext.createBiquadFilter(),gain=cueContext.createGain();
+    source.buffer=noiseBuffer;source.loop=true;filter.type='lowpass';
+    filter.frequency.setValueAtTime(650,at);filter.frequency.exponentialRampToValueAtTime(65,at+2.4);
+    gain.gain.setValueAtTime(0,at);gain.gain.linearRampToValueAtTime(event.type==='fireworks:burst'?.065:.12,at+.04);gain.gain.exponentialRampToValueAtTime(.0001,at+2.5);
+    const pan=cueContext.createStereoPanner();pan.pan.value=Math.max(-.8,Math.min(.8,event.detail.x*2-1));
+    source.connect(filter);filter.connect(gain);gain.connect(pan);pan.connect(cueContext.destination);source.start(at);source.stop(at+2.6);
+    source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();pan.disconnect();};
+  }
+  addEventListener('cosmos:impact',distantBoom);
+  addEventListener('fireworks:burst',distantBoom);
   addEventListener('water:splash',event=>{
     if(!natureWanted||performance.now()-lastCue<65)return;lastCue=performance.now();
     splashDucking=true;lake.volume=.008;clearTimeout(cueDuckTimer);cueDuckTimer=setTimeout(()=>{splashDucking=false;lake.volume=lakeLevel();},340);

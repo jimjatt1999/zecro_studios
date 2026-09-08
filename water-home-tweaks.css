@@ -538,3 +538,10 @@ body.quiet-mode footer{pointer-events:none;opacity:0!important}
 body.quiet-mode .quiet-reflection.visible{opacity:1}
 @media(max-width:700px){.quiet-toggle{display:block}.quiet-reflection{top:44%;width:min(78vw,360px);font-size:clamp(20px,6vw,28px)}body.quiet-mode .quiet-toggle{bottom:max(22px,env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.quiet-toggle,body.quiet-mode *{transition:none!important}}
+
+/* Quiet readings: no movement, only light arriving and leaving. */
+.quiet-reflection{width:min(80vw,580px);line-height:1.6;letter-spacing:-.015em;transition:opacity 3.2s ease-in-out;text-wrap:balance}
+.quiet-reflection p{margin:0;white-space:pre-line}
+.quiet-reflection cite{display:block;margin-top:24px;font:400 11px/1.6 system-ui,sans-serif;letter-spacing:.12em;color:rgba(239,247,246,.65);font-style:normal}
+.quiet-reflection cite[hidden]{display:none}
+@media(max-width:700px){.quiet-reflection{font-size:clamp(20px,5.5vw,27px);width:82vw}.quiet-reflection cite{font-size:10px;letter-spacing:.08em}}

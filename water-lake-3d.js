@@ -12,6 +12,8 @@ import * as THREE from 'three';
   const coarse = matchMedia('(pointer: coarse)');
   const saveData = navigator.connection?.saveData;
 
+  const lakeClock=LakeNature.clock();
+  if(document.hidden||reduced.matches)lakeClock.pause();
   let renderer = null;
   let scene = null;
   let camera = null;
@@ -24,10 +26,12 @@ import * as THREE from 'three';
   let vertical = 10;
 
   let animFrame = 0;
-  let lastTime = performance.now();
+  let lastTime = lakeClock.now();
   let pointerPos = { x: -9999, y: -9999, worldX: 0, worldY: 0, lastMoved: 0 };
 
   let lanterns = [];
+  let currentScene='fuji';
+  addEventListener('lake:scene',event=>{currentScene=event.detail.key;});
   let lanternsActive = false;
 
   // Soft glow texture for lantern reflection pool
@@ -51,46 +55,40 @@ import * as THREE from 'three';
     return glowTexture;
   }
 
-  // Shimmering vertical reflection column for water ripples
-  let streakTexture = null;
-  function getStreakTexture() {
-    if (streakTexture) return streakTexture;
-    const c = document.createElement('canvas');
-    c.width = 128;
-    c.height = 256;
-    const ctx = c.getContext('2d');
-
-    const grad = ctx.createLinearGradient(0, 0, 0, 256);
-    grad.addColorStop(0, 'rgba(255, 225, 130, 0.88)');
-    grad.addColorStop(0.18, 'rgba(255, 175, 60, 0.58)');
-    grad.addColorStop(0.55, 'rgba(255, 125, 30, 0.22)');
-    grad.addColorStop(0.85, 'rgba(255, 90, 15, 0.06)');
-    grad.addColorStop(1, 'rgba(255, 80, 10, 0)');
-
-    ctx.fillStyle = grad;
-    for (let y = 0; y < 256; y += 2) {
-      const v = y / 256;
-      const taper = Math.pow(1 - v * 0.72, 1.25);
-      const span = (36 * taper) + Math.sin(y * 0.38) * 4.5;
-      ctx.fillRect(64 - span, y, span * 2, 2);
-    }
-
-    streakTexture = new THREE.CanvasTexture(c);
-    streakTexture.colorSpace = THREE.SRGBColorSpace;
-    return streakTexture;
+  // Reflections live in the water plane, independently of the lantern's yaw.
+  function reflectionMaterial(){
+    return new THREE.ShaderMaterial({
+      transparent:true,depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending,
+      uniforms:{time:{value:0},strength:{value:.3},phase:{value:Math.random()*6.28}},
+      vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+      fragmentShader:`varying vec2 vUv;uniform float time,strength,phase;
+      void main(){
+        float d=1.-vUv.y;
+        float shift=sin(d*47.-time*1.4+phase)*.025+sin(d*103.+time*2.)*.012;
+        float width=mix(.21,.32,d);
+        float edge=exp(-pow((vUv.x-.5-shift)/width,2.)*3.);
+        float bands=pow(.5+.5*sin(d*155.+sin(d*38.+time)*2.-time*2.),3.);
+        float fade=pow(1.-d,2.)*smoothstep(0.,.035,d);
+        float alpha=edge*fade*(.12+.88*bands)*strength;
+        gl_FragColor=vec4(mix(vec3(1.,.63,.25),vec3(.95,.36,.09),d),alpha);
+      }`
+    });
   }
 
   // Kanji calligraphy texture for lantern washi paper
-  let washiTexture = null;
-  function getWashiTexture() {
-    if (washiTexture) return washiTexture;
+  const washiTextures=new Map();
+  const lanternCharacters=['和','光','夢','月','風','花','心'];
+  function getWashiTexture(character='') {
+    if(washiTextures.has(character))return washiTextures.get(character);
     const c = document.createElement('canvas');
     c.width = 256;
     c.height = 256;
     const ctx = c.getContext('2d');
 
     // Warm washi paper fibers
-    ctx.fillStyle = '#fffdf7';
+    const paper=ctx.createRadialGradient(128,165,12,128,140,175);
+    paper.addColorStop(0,'#fff0ce');paper.addColorStop(.45,'#dfb57c');paper.addColorStop(1,'#806047');
+    ctx.fillStyle = paper;
     ctx.fillRect(0, 0, 256, 256);
     ctx.fillStyle = 'rgba(230, 215, 190, 0.15)';
     for (let i = 0; i < 400; i++) {
@@ -102,10 +100,11 @@ import * as THREE from 'three';
     ctx.fillStyle = 'rgba(55, 45, 38, 0.72)';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('和', 128, 132);
+    if(character)ctx.fillText(character, 128, 132);
 
-    washiTexture = new THREE.CanvasTexture(c);
+    const washiTexture = new THREE.CanvasTexture(c);
     washiTexture.colorSpace = THREE.SRGBColorSpace;
+    washiTextures.set(character,washiTexture);
     return washiTexture;
   }
 
@@ -196,7 +195,7 @@ import * as THREE from 'three';
   // Cedar float raft, washi paper walls with soft calligraphy, internal
   // flickering candlelight flame, and dual water reflection (ambient pool + shimmer streak).
   // =========================================================================
-  function createLanternModel(scale = 1.0) {
+  function createLanternModel(scale = 1.0,character='和') {
     const group = new THREE.Group();
     const geoms = getSharedGeoms();
 
@@ -232,6 +231,8 @@ import * as THREE from 'three';
     // Washi paper translucent panels with warm inner scattering
     const paperMaterial = new THREE.MeshStandardMaterial({
       color: 0xfffcf5,
+      map:getWashiTexture(),
+      emissiveMap:getWashiTexture(),
       emissive: 0xff8c20,
       emissiveIntensity: 1.18,
       roughness: 0.85,
@@ -241,7 +242,8 @@ import * as THREE from 'three';
     });
 
     const kanjiMaterial = new THREE.MeshStandardMaterial({
-      map: getWashiTexture(),
+      map: getWashiTexture(character),
+      emissiveMap: getWashiTexture(character),
       emissive: 0xff8c20,
       emissiveIntensity: 1.08,
       roughness: 0.85,
@@ -292,24 +294,22 @@ import * as THREE from 'three';
     });
     const poolMesh = new THREE.Mesh(geoms.pool, poolMaterial);
     poolMesh.position.set(0, -0.32, -0.05);
-    group.add(poolMesh);
+    const reflectionGroup=new THREE.Group();
+    reflectionGroup.add(poolMesh);
 
     // Shimmering vertical water reflection column (in camera view plane extending downward into the lake)
-    const streakMaterial = new THREE.MeshBasicMaterial({
-      map: getStreakTexture(),
-      transparent: true,
-      opacity: 0.58,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
+    const streakMaterial = reflectionMaterial();
     const streakMesh = new THREE.Mesh(geoms.streak, streakMaterial);
     streakMesh.position.set(0, -1.22, -0.04);
-    group.add(streakMesh);
+    reflectionGroup.add(streakMesh);
 
     group.scale.set(scale, scale, scale);
+    reflectionGroup.scale.set(scale,scale,scale);
+    poolMesh.scale.set(.62,.16,1);poolMesh.position.y=-.045;
 
     return {
       group,
+      reflectionGroup,
       light,
       flameMesh,
       poolMesh,
@@ -329,32 +329,44 @@ import * as THREE from 'three';
     initThree();
     clearLanterns();
 
-    const count = coarse.matches ? 4 : 6;
-    const startLeft = Math.random() > 0.4;
-    const driftDir = startLeft ? 1 : -1;
+    const event=LakeNature.profile('lanterns',{mobile:coarse.matches,weather:document.body.classList.contains('raining')?'rain':'clear'});
+    const count=event.count,driftDir=event.direction,startLeft=driftDir>0;
+    const arrival=lakeClock.now();
+    const arrivalGap=Math.max(1900,event.arrivalGap);
+    const currentSpeed=driftDir*.17*event.pace;
+    const lanes=[-1.0,-2.1,-3.2];
+    for(let i=lanes.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[lanes[i],lanes[j]]=[lanes[j],lanes[i]];}
+
+    const characters=[...lanternCharacters];
+    for(let i=characters.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[characters[i],characters[j]]=[characters[j],characters[i]];}
+
 
     lanterns = Array.from({ length: count }, (_, i) => {
-      const scale = 0.9 + Math.random() * 0.22;
-      const model = createLanternModel(scale);
+      const scale = 0.65 + Math.random() * 0.48;
+      const model = createLanternModel(scale,characters[i]);
 
-      const spawnX = (startLeft ? -horizontal * 0.45 : horizontal * 0.45) + (Math.random() - 0.5) * 4.0;
-      const spawnY = -0.8 - Math.random() * 2.4; // Situated on the lake surface
+      const spawnX = (startLeft ? -1 : 1)*(horizontal*.5+.4+Math.random()*.25);
+      const spawnY = lanes[i%lanes.length]+(Math.random()-.5)*.12;
 
+      model.group.visible=false;model.reflectionGroup.visible=false;
       model.group.position.set(spawnX, spawnY, 0);
       scene.add(model.group);
+      scene.add(model.reflectionGroup);
 
       return {
         model,
+        birth:arrival+i*arrivalGap,
+        scale,
         baseX: spawnX,
         baseY: spawnY,
-        vx: driftDir * (0.04 + Math.random() * 0.05),
-        vy: (Math.random() - 0.5) * 0.015,
+        vx: currentSpeed*(.96+Math.random()*.08),
+        vy: (Math.random() - 0.5) * 0.006,
         bobPhase: Math.random() * Math.PI * 2,
         rockPhase: Math.random() * Math.PI * 2,
         driftYaw: Math.random() * Math.PI * 2,
         yawSpeed: (Math.random() - 0.5) * 0.04,
-        rippleTimer: performance.now() + 2000 + Math.random() * 5000,
-        endT: performance.now() + 60000 + i * 2000
+        rippleTimer: lakeClock.now() + 2000 + Math.random() * 5000,
+        endT: arrival + 65000 + i*arrivalGap
       };
     });
 
@@ -362,9 +374,29 @@ import * as THREE from 'three';
     startLoop();
   }
 
+  function separateLanterns(now){
+    const floating=lanterns.filter(l=>now>=l.birth&&now<l.endT);
+    // Screen-plane clearance includes the raft's widest yaw and the paper above it.
+    // Resolve tiny contacts each frame, before they can turn into visible overlaps.
+    for(let pass=0;pass<4;pass++)for(let i=0;i<floating.length;i++)for(let j=i+1;j<floating.length;j++){
+      const a=floating[i],b=floating[j];
+      const dx=b.baseX-a.baseX,dy=(b.baseY+b.scale*.25)-(a.baseY+a.scale*.25);
+      const overlapX=(a.scale+b.scale)*.42+.14-Math.abs(dx);
+      const overlapY=(a.scale+b.scale)*.29+.16-Math.abs(dy);
+      if(overlapX<=0||overlapY<=0)continue;
+      if(overlapX<overlapY){
+        const push=(overlapX+.001)*.5*(dx>=0?1:-1);a.baseX-=push;b.baseX+=push;
+      }else{
+        const push=(overlapY+.001)*.5*(dy>=0?1:-1);a.baseY-=push;b.baseY+=push;
+      }
+    }
+  }
+
   function clearLanterns() {
     lanterns.forEach(l => {
       scene.remove(l.model.group);
+      scene.remove(l.model.reflectionGroup);
+      l.model.flameMesh.material.dispose();
       l.model.paperMaterial.dispose();
       l.model.kanjiMaterial.dispose();
       l.model.woodMaterial.dispose();
@@ -374,6 +406,7 @@ import * as THREE from 'three';
     });
     lanterns = [];
     lanternsActive = false;
+    renderer?.clear();
   }
 
   function clearAll() {
@@ -384,8 +417,8 @@ import * as THREE from 'three';
   // MAIN SIMULATION & RENDER LOOP
   // =========================================================================
   function startLoop() {
-    if (!animFrame && !reduced.matches && !saveData && lanternsActive) {
-      lastTime = performance.now();
+    if (!animFrame && !reduced.matches && !saveData && lanternsActive && !document.hidden) {
+      lastTime = lakeClock.now();
       animFrame = requestAnimationFrame(render);
     }
   }
@@ -397,8 +430,9 @@ import * as THREE from 'three';
     }
   }
 
-  function render(now) {
-    if (!lanternsActive) {
+  function render() {
+    const now=lakeClock.now();
+    if (document.hidden||reduced.matches||!lanternsActive) {
       stopLoop();
       return;
     }
@@ -410,7 +444,7 @@ import * as THREE from 'three';
 
     // Adjust lighting according to daytime slider
     const hour = Number(document.querySelector('#daytime')?.value || 12);
-    const isNight = hour < 5.5 || hour > 19;
+    const isNight = currentScene==='cosmos' || hour < 5.5 || hour > 19;
     const isDusk = (hour >= 17 && hour <= 19) || (hour >= 5 && hour <= 6.5);
 
     if (hemiLight && dirLight) {
@@ -436,10 +470,16 @@ import * as THREE from 'three';
     // Update 3D Floating Lanterns
     // -----------------------------------------------------------------------
     if (lanternsActive && lanterns.length) {
+      for(const l of lanterns){if(now>=l.birth&&now<l.endT){l.baseX+=l.vx*dt;l.baseY+=l.vy*dt;}}
+      separateLanterns(now);
       lanterns.forEach(l => {
-        // Drift along the lake
-        l.baseX += l.vx * dt;
-        l.baseY += l.vy * dt;
+        const visible=now>=l.birth&&now<l.endT;
+        l.model.group.visible=visible;l.model.reflectionGroup.visible=visible;
+        if(!visible)return;
+        const fade=Math.min(1,(now-l.birth)/1800,(l.endT-now)/2500);
+        l.model.paperMaterial.opacity=.92*fade;l.model.kanjiMaterial.opacity=.94*fade;
+        l.model.woodMaterial.transparent=true;l.model.woodMaterial.opacity=fade;
+        l.model.flameMesh.material.transparent=true;l.model.flameMesh.material.opacity=fade;
 
         // Hydrodynamic buoyancy (multi-harmonic bobbing and rocking)
         const t = now * 0.001;
@@ -449,7 +489,8 @@ import * as THREE from 'three';
 
         l.driftYaw += l.yawSpeed * dt;
 
-        l.model.group.position.set(l.baseX, l.baseY, bobZ);
+        l.model.group.position.set(l.baseX, l.baseY+bobZ*.3, 0);
+        l.model.reflectionGroup.position.set(l.baseX,l.baseY,-.2);
         l.model.group.rotation.set(rockX, l.driftYaw, rockY);
 
         // Keep reflection streak undulating with the water motion
@@ -460,13 +501,14 @@ import * as THREE from 'three';
         const flicker = 0.88 + 0.12 * Math.sin(t * 11.2) + 0.07 * Math.sin(t * 23.7 + 1.2) + 0.04 * Math.sin(t * 47.1);
         const nightFactor = isNight ? 1.45 : (isDusk ? 1.15 : 0.85);
 
-        l.model.light.intensity = 2.6 * flicker * nightFactor;
-        l.model.paperMaterial.emissiveIntensity = 1.18 * flicker * nightFactor;
-        l.model.kanjiMaterial.emissiveIntensity = 1.08 * flicker * nightFactor;
+        l.model.light.intensity = 2.6 * flicker * nightFactor * fade;
+        l.model.paperMaterial.emissiveIntensity = .48 * flicker * nightFactor;
+        l.model.kanjiMaterial.emissiveIntensity = .44 * flicker * nightFactor;
 
         // Water reflection shimmer
-        l.model.poolMesh.material.opacity = (isNight ? 0.65 : isDusk ? 0.45 : 0.25) * flicker;
-        l.model.streakMesh.material.opacity = (isNight ? 0.68 : isDusk ? 0.48 : 0.28) * flicker;
+        l.model.poolMesh.material.opacity = (isNight ? 0.22 : isDusk ? 0.15 : 0.07) * flicker * fade;
+        l.model.streakMaterial.uniforms.time.value=t;
+        l.model.streakMaterial.uniforms.strength.value=(isNight?.55:isDusk?.35:.16)*flicker*fade;
 
         // Subtle flame micro-jitter
         l.model.flameMesh.position.x = Math.sin(t * 7.5) * 0.008;
@@ -477,7 +519,7 @@ import * as THREE from 'three';
           l.rippleTimer = now + 4000 + Math.random() * 5000;
           const screenPos = worldToScreen(l.baseX, l.baseY);
           dispatchEvent(new CustomEvent('lake:ripple', {
-            detail: { x: screenPos.x, y: screenPos.y, strength: 0.035 }
+            detail: { x: screenPos.x, y: screenPos.y, strength: 0.035, audible:false }
           }));
         }
       });
@@ -502,7 +544,7 @@ import * as THREE from 'three';
     const w = screenToWorld(sx, sy);
     pointerPos.worldX = w.x;
     pointerPos.worldY = w.y;
-    pointerPos.lastMoved = performance.now();
+    pointerPos.lastMoved = lakeClock.now();
   }
 
   window.addEventListener('resize', resize, { passive: true });
@@ -515,16 +557,14 @@ import * as THREE from 'three';
 
   window.addEventListener('life:clear', clearAll);
 
-  // Visibility and reduced motion
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopLoop();
-    else if (lanternsActive) startLoop();
-  });
-
-  reduced.addEventListener('change', () => {
-    if (reduced.matches) stopLoop();
-    else if (lanternsActive) startLoop();
-  });
+  function suspendLanterns(){lakeClock.pause();stopLoop();}
+  function resumeLanterns(){
+    if(document.hidden||reduced.matches||saveData)return;
+    lakeClock.resume();stopLoop();if(lanternsActive)startLoop();
+  }
+  document.addEventListener('visibilitychange',()=>document.hidden?suspendLanterns():resumeLanterns());
+  addEventListener('pagehide',suspendLanterns);addEventListener('pageshow',resumeLanterns);
+  reduced.addEventListener('change',()=>reduced.matches?suspendLanterns():resumeLanterns());
 
   // Ready signal
   dispatchEvent(new CustomEvent('lake3d:ready'));

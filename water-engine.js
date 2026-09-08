@@ -17,6 +17,22 @@
   let fps = 0, quality = 1, slowWindows = 0, activeUntil = 0, drops = [];
   let day = 12, state = 0, verification = false, liveTime = true, sceneShore = .45, sceneType = 1, cosmosDayReady = false;
   let wind = 0.55, windTarget = 0.55;
+  // Cloud travel is continuous, independent of both the clock hour and water physics.
+  let cloudTime=0,cloudSpeed=1,cloudBoost=1,lastCloudInput=-Infinity;
+  function accelerateClouds(previousHour,nextHour,now){
+    if(reduced.matches||paused)return;
+    const distance=Math.abs(nextHour-previousHour);
+    if(distance<.001)return;
+    cloudBoost=Math.min(32,8+distance*12);
+    lastCloudInput=now;
+  }
+  function advanceClouds(dt,now){
+    if(reduced.matches||paused){cloudSpeed=1;cloudBoost=1;return;}
+    const scrubbing=now-lastCloudInput<220;
+    const target=scrubbing?cloudBoost:1;
+    cloudSpeed+=(target-cloudSpeed)*(1-Math.exp(-dt*(scrubbing?9:1.8)));
+    cloudTime+=dt*cloudSpeed*(.7+wind);
+  }
   let redrawClock = () => {};
   const tokyoClock = new Intl.DateTimeFormat('en-GB', {timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
   function updateClock(){
@@ -27,7 +43,7 @@
     document.querySelector('.time-control').classList.toggle('manual',!liveTime);
     redrawClock();
   }
-  slider.addEventListener('input',()=>{liveTime=false;day=Number(slider.value);updateClock();});
+  slider.addEventListener('input',()=>{liveTime=false;const next=Number(slider.value);accelerateClouds(day,next,performance.now());day=next;updateClock();});
   document.querySelector('#live-time').onclick=()=>{liveTime=true;updateClock();};
   document.querySelector('#close-time').onclick=()=>{document.querySelector('.time-control').open=false;};
   updateClock();setInterval(()=>{if(!document.hidden&&liveTime)updateClock();},1000);
@@ -78,7 +94,7 @@
         vec2 base=(floor(grid)+.5)/size;vec2 f=fract(grid);vec2 d=1./size;
         return mix(mix(heightAt(base),heightAt(base+vec2(d.x,0.)),f.x),mix(heightAt(base+vec2(0.,d.y)),heightAt(base+d),f.x),f.y);
       }
-      uniform sampler2D landscape,dayLandscape;uniform vec2 resolution;uniform float seconds,hour,cell,shore,sceneType,wind,cosmosBlend;
+      uniform sampler2D landscape,dayLandscape;uniform vec2 resolution;uniform float seconds,cloudSeconds,hour,cell,shore,sceneType,wind,cosmosBlend;
       const float PI=3.14159265;
       float cloudNoise(vec2 p){
         vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
@@ -88,14 +104,37 @@
       vec3 sceneAt(vec2 st){
         vec3 c=texture(landscape,st).rgb;
         if(sceneType>2.5)c=mix(c,texture(dayLandscape,st).rgb,cosmosBlend);
-        // Restrict cloud wisps to the upper sky, clear of mountain silhouettes.
-        if(sceneType<2.5&&st.y<.20&&wind>.001){
-          vec2 p=st*vec2(9.,26.)-vec2(seconds*.026*(.7+wind),0.);
-          float cloud=cloudNoise(p)*.65+cloudNoise(p*2.1+vec2(seconds*.012,0.))*.35;
-          float veil=smoothstep(.43,.78,cloud)*(1.-smoothstep(.11,.20,st.y));
-          c=mix(c,vec3(.79,.85,.89),veil*.26);
-        }
         return c;
+      }
+      vec3 starLayer(vec3 background,vec2 st){
+        float night=sceneType>2.5?1.-cosmosBlend:1.-smoothstep(-.18,.06,sin((hour-6.)*PI/12.));
+        if(night<.001||st.y>.13)return background;
+        vec2 p=st*vec2(130.,75.),cellId=floor(p);
+        float seed=fract(sin(dot(cellId,vec2(127.1,311.7)))*43758.5453);
+        if(seed<.987)return background;
+        vec2 center=vec2(fract(seed*173.),fract(seed*319.))*.6+.2;
+        float radius=max(.075,fwidth(p.x)*.65);
+        float disc=1.-smoothstep(0.,radius,length(fract(p)-center));
+        float pulse=.3+.7*pow(.5+.5*sin(seconds*(.65+fract(seed*37.)*.65)+seed*83.),3.);
+        float edge=1.-smoothstep(.08,.13,st.y);
+        return background+vec3(.73,.84,1.)*disc*pulse*night*edge*.8;
+      }
+      vec3 cloudLayer(vec3 background,vec2 st){
+        background=starLayer(background,st);
+        // Procedural clouds have no image edges and continue into the fitted mobile sky.
+        // Keep their lower edge above the photographed mountain silhouettes.
+        if(sceneType>2.5||st.y>=.20)return background;
+        vec2 p=st*vec2(4.8,14.)-vec2(cloudSeconds*.024,0.);
+        float broad=cloudNoise(p+vec2(0.,sin(cloudSeconds*.018)*.18));
+        float detail=cloudNoise(p*2.03+vec2(cloudSeconds*.008,-cloudSeconds*.006));
+        float fine=cloudNoise(p*4.07-vec2(cloudSeconds*.012,0.));
+        float density=broad*.58+detail*.29+fine*.13;
+        float weatherCover=clamp((wind-.55)*.07,-.02,.07);
+        float body=smoothstep(.40-weatherCover,.70,density);
+        float skyMask=1.-smoothstep(.12,.20,st.y);
+        float light=smoothstep(.28,.75,broad*.65+detail*.35);
+        vec3 cloudColor=mix(vec3(.53,.63,.73),vec3(.94,.96,.97),light);
+        return mix(background,cloudColor,body*skyMask*.65);
       }
       // Bend crowns around fixed roots. Each stand has its own phase, while
       // a slower traveling gust connects the motion across the forest.
@@ -120,20 +159,31 @@
       }
       // Image-space shoreline: preserve the mountain's proportions above the water.
       vec3 landscapeAt(vec2 st){
+        // Continue the sky softly above the fitted photograph, without stretching stars.
+        if(st.y<.002){
+          vec3 edge=sceneAt(vec2(clamp(st.x,.002,.998),.002));
+          vec3 zenith=sceneAt(vec2(.5,.002));
+          return cloudLayer(mix(edge,zenith,1.-exp(min(0.,st.y)*14.)),st);
+        }
         st=clamp(st,vec2(.002),vec2(.998,shore-.002));
         float trees=treeSway(st);
-        if(trees<.001||wind<.001)return sceneAt(st);
-        float gust=.65+.35*sin(st.x*9.-seconds*.7)+.18*sin(seconds*.23+1.7);
+        if(trees<.001||wind<.001)return cloudLayer(sceneAt(st),st);
+        float gust=.75+.30*sin(st.x*9.-seconds*.7)+.22*sin(seconds*.31+st.x*4.);
         float stand=st.x*180.;
         float phase=sin(floor(stand)*12.9898)*4.;
         float nextPhase=sin((floor(stand)+1.)*12.9898)*4.;
         phase=mix(phase,nextPhase,smoothstep(0.,1.,fract(stand)));
-        float bend=.55+sin(seconds*1.35+phase)*.48;
-        float flutter=sin(seconds*3.8+st.x*310.+st.y*85.)*.13;
+        float bend=sin(seconds*1.05+phase)*.68+sin(seconds*.43+phase*.7)*.28;
+        float flutter=sin(seconds*3.2+st.x*310.+st.y*85.)*.16;
         // A few pixels of crown travel, not a translation of the whole image.
-        st.x+=(bend*gust+flutter)*.006*trees*wind;
+        st.x+=(bend*gust+flutter)*.010*trees*wind;
         st.y+=sin(seconds*2.1+phase)*.00065*trees*wind*gust;
-        return sceneAt(st);
+        return cloudLayer(sceneAt(st),st);
+      }
+      vec2 sceneUV(vec2 screen){
+        float aspect=resolution.x/resolution.y;
+        if(aspect<1.)return vec2(screen.x,shore+(screen.y-.431)*1.78/aspect);
+        return vec2((screen.x-.5)*min(1.,aspect/1.78)+.5,screen.y*shore/.431);
       }
       vec3 lighting(vec3 c){
         // Cosmos remains a deep-space scene as the shared Tokyo clock changes.
@@ -146,9 +196,9 @@
       vec3 sky(vec3 r){
         float aspect=resolution.x/resolution.y;
         vec2 st=vec2(.5+r.x/max(r.z,.15)/(1.3*aspect),.43-r.y/max(r.z,.15)/1.35);
-        st.x=(st.x-.5)*min(1.,max(sceneType>2.5?.6:0.,aspect/1.78))+.5;
-        st.y*=shore/.431;
+        st=sceneUV(st);
         vec3 image=landscapeAt(st);
+        if(sceneType>2.5)return image;
         vec3 highSky=mix(vec3(.48,.67,.8),vec3(.19,.42,.64),clamp(r.y,0.,1.));
         return lighting(mix(image,highSky,smoothstep(.55,1.,r.y)));
       }
@@ -164,7 +214,7 @@
         s+=vec2(-.8,.6)*.016*cos(phase)/(1.+fwidth(phase));
         phase=dot(p,vec2(.9,.2))*33.-seconds*4.;
         s+=vec2(.9,.2)*.009*cos(phase)/(1.+fwidth(phase));
-        vec2 q=(p-vec2(-20.,0.))/40.;
+        vec2 q=(p-vec2(-20.,-4.))/40.;
         if(all(greaterThan(q,vec2(cell)))&&all(lessThan(q,vec2(1.-cell)))){
           s+=vec2(smoothHeight(q+vec2(cell,0.))-smoothHeight(q-vec2(cell,0.)),smoothHeight(q+vec2(0.,cell))-smoothHeight(q-vec2(0.,cell)))/(80.*cell);
         }
@@ -174,7 +224,7 @@
         vec2 screen=vec2(uv.x,1.-uv.y);float aspect=resolution.x/resolution.y;
         vec3 ray=normalize(vec3((screen.x-.5)*1.3*aspect,(.43-screen.y)*1.35,1.));
         if(screen.y<=.431){
-          vec2 st=vec2((screen.x-.5)*min(1.,max(sceneType>2.5?.6:0.,aspect/1.78))+.5,screen.y*shore/.431);
+          vec2 st=sceneUV(screen);
           color=vec4(lighting(landscapeAt(st)),1.);return;
         }
         vec3 eye=vec3(0.,1.6,-3.);
@@ -220,7 +270,7 @@
     function bind(texture, unit) { gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, texture); }
     bind(dayPhoto,2);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));
     const simU = Object.fromEntries(['waves','cell','drop'].map(k => [k,simulation.u(k)]));
-    const drawU = Object.fromEntries(['waves','landscape','dayLandscape','cell','seconds','hour','resolution','shore','sceneType','wind','cosmosBlend'].map(k => [k,render.u(k)]));
+    const drawU = Object.fromEntries(['waves','landscape','dayLandscape','cell','seconds','cloudSeconds','hour','resolution','shore','sceneType','wind','cosmosBlend'].map(k => [k,render.u(k)]));
     function simulate(drop = [0,0,.01,0]) {
       const next = 1-state; gl.useProgram(simulation.p); gl.bindFramebuffer(gl.FRAMEBUFFER, targets[next].framebuffer); gl.viewport(0,0,N,N);
       bind(targets[state].texture,0);gl.uniform1i(simU.waves,0);gl.uniform1f(simU.cell,1/N);gl.uniform4fv(simU.drop,drop);
@@ -231,7 +281,7 @@
       gl.useProgram(render.p);gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,canvas.width,canvas.height);
       bind(targets[state].texture,0);bind(photo,1);bind(dayPhoto,2);gl.uniform1i(drawU.waves,0);gl.uniform1i(drawU.landscape,1);gl.uniform1i(drawU.dayLandscape,2);
       const sun=Math.max(0,Math.sin((day-6)*Math.PI/12)),fade=Math.min(1,Math.max(0,(sun-.02)/.58)),cosmosBlend=cosmosDayReady?fade*fade*(3-2*fade):0;
-      gl.uniform1f(drawU.cell,1/N);gl.uniform1f(drawU.seconds,time);gl.uniform1f(drawU.hour,day);gl.uniform1f(drawU.shore,sceneShore);gl.uniform1f(drawU.sceneType,sceneType);gl.uniform1f(drawU.wind,reduced.matches?0:wind);gl.uniform1f(drawU.cosmosBlend,cosmosBlend);gl.uniform2f(drawU.resolution,canvas.width,canvas.height);
+      gl.uniform1f(drawU.cell,1/N);gl.uniform1f(drawU.seconds,time);gl.uniform1f(drawU.cloudSeconds,cloudTime);gl.uniform1f(drawU.hour,day);gl.uniform1f(drawU.shore,sceneShore);gl.uniform1f(drawU.sceneType,sceneType);gl.uniform1f(drawU.wind,reduced.matches?0:wind);gl.uniform1f(drawU.cosmosBlend,cosmosBlend);gl.uniform2f(drawU.resolution,canvas.width,canvas.height);
       gl.drawArrays(gl.TRIANGLES,0,3);
     }
     function resize() {
@@ -248,6 +298,7 @@
       handle=requestAnimationFrame(tick);
       const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;time+=dt;accumulator+=dt;
       wind+=(windTarget-wind)*Math.min(1,dt*.42);
+      advanceClouds(dt,now);
       if(time<activeUntil || drops.length){let count=0;while(accumulator>=1/60&&count++<3){simulate(drops.shift());accumulator-=1/60;}}else accumulator=0;
       draw();frames++;
       if(now-measuredAt>1200){
@@ -257,19 +308,19 @@
         if(slowWindows>=2&&quality>.6){quality=Math.max(.6,quality-.1);slowWindows=0;resize();}
       }
     }
-    function splash(x,y,strength=.3){
+    function splash(x,y,strength=.3,radius=.013,audible=true){
       if(!ready||paused||y/innerHeight<.455)return;
       const dy=(.43-y/innerHeight)*1.35,travel=-1.6/dy;
       const px=(x/innerWidth-.5)*1.3*(innerWidth/innerHeight)*travel,pz=-3+travel;
-      const u=(px+20)/40,v=pz/40;if(u<.02||u>.98||v<.02||v>.98)return;
-      if(drops.length<8)drops.push([u,v,.013,strength]);activeUntil=time+12;
-      dispatchEvent(new CustomEvent('water:splash',{detail:{strength,x:x/innerWidth,depth:y/innerHeight}}));
+      const u=(px+20)/40,v=(pz+4)/40;if(u<.02||u>.98||v<.02||v>.98)return;
+      if(drops.length<8)drops.push([u,v,Math.max(.003,Math.min(.025,radius)),Math.max(0,Math.min(.6,strength))]);activeUntil=time+12;
+      if(audible)dispatchEvent(new CustomEvent('water:splash',{detail:{strength,x:x/innerWidth,depth:y/innerHeight}}));
     }
     let dragging=false,lastTouch=0;
     canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;dragging=true;canvas.setPointerCapture(e.pointerId);splash(e.clientX,e.clientY,.42);});
     canvas.addEventListener('pointermove',e=>{if(dragging&&performance.now()-lastTouch>40){splash(e.clientX,e.clientY,.14);lastTouch=performance.now();}});
     for(const name of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(name,()=>dragging=false);
-    addEventListener('lake:ripple',event=>{const {x,y,strength=.12}=event.detail||{};if(Number.isFinite(x)&&Number.isFinite(y))splash(x,y,strength);});
+    addEventListener('lake:ripple',event=>{const {x,y,strength=.12,radius=.013,audible=true}=event.detail||{};if([x,y,strength,radius].every(Number.isFinite))splash(x,y,strength,radius,audible);});
     redrawClock=draw;
     motion.onclick=()=>{paused=!paused;updateMotion();paused?stop():start();};
     reduced.addEventListener('change',()=>{paused=reduced.matches;updateMotion();paused?stop():start();});
@@ -281,15 +332,15 @@
     function difference(a,b){let changes=0;for(let i=0;i<a.length;i+=4)if(Math.abs(a[i]-b[i])+Math.abs(a[i+1]-b[i+1])+Math.abs(a[i+2]-b[i+2])>8)changes++;return changes;}
     verify.onclick=()=>{
       if(!ready||verification)return;verification=true;stop();
-      const oldTime=time,oldDay=day;
+      const oldTime=time,oldDay=day,oldCloudTime=cloudTime;
       try{
-        const a=snapshot();time+=1;const moving=difference(a,snapshot());
+        const a=snapshot();time+=1;cloudTime+=1;const moving=difference(a,snapshot());
         simulate([.5,.16,.018,.5]);for(let i=0;i<18;i++)simulate();const before=snapshot();
         for(let i=0;i<18;i++)simulate();const splashPixels=difference(before,snapshot());
         day=0;const night=snapshot();day=12;const dayPixels=difference(night,snapshot());
         const error=gl.getError();
         testResult.textContent=`${moving>0&&splashPixels>0&&dayPixels>0&&error===0?'PASS':'FAIL'}\nBreeze: ${moving} changed pixels\nSplash propagation: ${splashPixels}\nDay/night: ${dayPixels}\nWebGL error: ${error}`;
-      }finally{time=oldTime;day=oldDay;activeUntil=time+12;verification=false;draw();start();}
+      }finally{time=oldTime;cloudTime=oldCloudTime;day=oldDay;activeUntil=time+12;verification=false;draw();start();}
     };
     const image=new Image();image.onload=()=>{
       try{bind(photo,1);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,image);

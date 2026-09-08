@@ -1,6 +1,22 @@
 const canvas = document.querySelector('#bird-layer');
 
 if (canvas) {
+  const reflection=document.createElement('canvas'),reflectionCtx=reflection.getContext('2d');
+  reflection.setAttribute('aria-hidden','true');
+  reflection.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;transition:opacity 1.5s ease';
+  canvas.after(reflection);
+  function reflectFlight(time){
+    if(!reflectionCtx)return;
+    const w=innerWidth,h=innerHeight,d=canvas.width/w,horizon=h*.431;
+    reflectionCtx.clearRect(0,0,w,h);
+    // Reuse the rendered animated silhouettes, broken into moving water bands.
+    for(let sy=0;sy<horizon;sy+=5){
+      const depth=(horizon-sy)/horizon,dy=horizon+(horizon-sy)*.7;
+      reflectionCtx.globalAlpha=.075*(1-depth*.65);
+      reflectionCtx.drawImage(canvas,0,sy*d,canvas.width,5*d,Math.sin(dy*.085-time*.0015)*(1+depth*3),dy,w,3.5);
+    }
+    reflectionCtx.globalAlpha=1;
+  }
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const mobile = matchMedia('(max-width: 700px), (pointer: coarse)');
   const saveData = navigator.connection?.saveData;
@@ -32,7 +48,7 @@ if (canvas) {
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: false,
+        antialias: true,
         powerPreference: 'low-power',
         premultipliedAlpha: true
       });
@@ -86,8 +102,9 @@ if (canvas) {
     camera.top = vertical / 2;
     camera.bottom = -vertical / 2;
     camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile.matches ? 0.65 : 0.85));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile.matches ? 1.25 : 1.75));
     renderer.setSize(width, height, false);
+    reflection.width=Math.round(width);reflection.height=Math.round(height);
   }
 
   let currentFlight = null;
@@ -98,8 +115,8 @@ if (canvas) {
     const dir = Math.random() < 0.5 ? 1 : -1;
 
     // Dynamic altitude and swoop curvature for this flight
-    const startAlt = 2.2 + (Math.random() - 0.5) * 1.5;
-    const endAlt = 2.2 + (Math.random() - 0.5) * 1.5;
+    const startAlt = 3.3 + (Math.random() - 0.5) * .8;
+    const endAlt = 3.3 + (Math.random() - 0.5) * .8;
     const swoopDepth = (Math.random() - 0.35) * 1.4;
     const swoopFreq = 0.85 + Math.random() * 0.8;
     const swoopPhase = Math.random() * Math.PI * 2;
@@ -183,7 +200,7 @@ if (canvas) {
     const activeClip = (index === 0 || Math.random() > 0.35) ? flapClip : glideClip;
     if (activeClip) {
       const action = mixer.clipAction(activeClip);
-      action.timeScale = 0.78 + Math.random() * 0.22;
+      action.timeScale = activeClip===flapClip ? 1.03+Math.random()*.19 : .85+Math.random()*.15;
       action.play();
       action.time = Math.random() * Math.max(activeClip.duration, 0.1);
     }
@@ -215,13 +232,16 @@ if (canvas) {
     cancelAnimationFrame(frame);
     frame = 0;
     canvas.classList.remove('active');
+    reflection.style.opacity='0';
     for (const bird of birds) {
       bird.mixer.stopAllAction();
+      bird.model.traverse(object=>{if(object.isMesh)object.material?.dispose();});
       scene?.remove(bird.holder);
     }
     birds = [];
     currentFlight = null;
     renderer?.clear();
+    reflectionCtx?.clearRect(0,0,innerWidth,innerHeight);
     if (notify) dispatchEvent(new CustomEvent('birds:end'));
   }
 
@@ -234,6 +254,7 @@ if (canvas) {
     }
     // Graceful fade out: canvas opacity smoothly transitions to 0 over 1.5s while animation continues
     canvas.classList.remove('active');
+    reflection.style.opacity='0';
     const currentGen = generation;
     clearTimer = setTimeout(() => {
       if (generation === currentGen) {
@@ -274,7 +295,7 @@ if (canvas) {
       const flutterY = Math.sin(time * bird.flutterSpeed + bird.phase) * bird.flutterAmp;
 
       const targetX = fcX + bird.offset.ox + flutterX;
-      const targetY = fcY + bird.offset.oy + flutterY;
+      const targetY = Math.max(2.8,Math.min(4.5,fcY + bird.offset.oy + flutterY));
       const targetZ = fcZ + bird.offset.oz;
 
       // Smooth flock steering with slight natural follower lag
@@ -308,6 +329,7 @@ if (canvas) {
       bird.mixer.update(dt);
     }
     renderer.render(scene, camera);
+    reflectFlight(time);
   }
 
   async function beginFlight() {
@@ -328,6 +350,7 @@ if (canvas) {
       startedAt = performance.now();
       lastFrame = startedAt;
       canvas.classList.add('active');
+      reflection.style.opacity='1';
       frame = requestAnimationFrame(render);
     } catch {
       loading = false;

@@ -61,21 +61,45 @@
   addEventListener('scroll',()=>{document.body.classList.toggle('entered',scrollY>innerHeight*.2);},{passive:true});
 
   const quietToggle=document.querySelector('.quiet-toggle');
+  // Sources and translation details are recorded in assets/quiet-readings.md.
   const reflections=[
-    'Make room for what you do not yet know.',
-    'A quiet hour asks nothing of you.',
-    'Water carries every shore and does not need to hurry.',
-    'Let attention rest on one small, living thing.'
+    ['The highest excellence is like (that of) water.', 'Laozi · Tao Te Ching, VIII'],
+    ['Water no get enemy.', 'Fela Kuti · Water No Get Enemy'],
+    ['A man can be himself only so long as he is alone.', 'Arthur Schopenhauer · Counsels and Maxims'],
+    ['The lake does not hold the sky.\nIt makes room for it.', ''],
+    ['Let the thought pass.\nKeep the space it leaves behind.', ''],
+    ['Nothing to finish.\nFor this breath, simply be here.', ''],
+    ['What settles slowly\nneed not be forced into clarity.', ''],
+    ['You do not have to follow\nevery ripple to its shore.', '']
   ];
   const reflection=document.createElement('aside');
-  reflection.className='quiet-reflection';reflection.setAttribute('aria-live','polite');
+  reflection.className='quiet-reflection';reflection.setAttribute('aria-live','off');
+  const verse=document.createElement('p'),credit=document.createElement('cite');
+  reflection.append(verse,credit);reflection.hidden=true;
   document.body.append(reflection);
+  const reducedReading=matchMedia('(prefers-reduced-motion: reduce)');
   let reflectionIndex=0,reflectionTimer=0;
+  function stopReading(){clearTimeout(reflectionTimer);reflection.classList.remove('visible');}
   function showReflection(){
-    reflection.classList.remove('visible');
-    setTimeout(()=>{if(!document.body.classList.contains('quiet-mode'))return;reflection.textContent=reflections[reflectionIndex++%reflections.length];reflection.classList.add('visible');},300);
+    stopReading();
+    if(document.hidden||!document.body.classList.contains('quiet-mode'))return;
+    reflectionTimer=setTimeout(()=>{
+      const [text,author]=reflections[reflectionIndex++%reflections.length];
+      verse.textContent=text;credit.textContent=author;credit.hidden=!author;
+      reflection.hidden=false;reflection.classList.add('visible');
+      // A complete fade, a long reading pause, then a little empty space.
+      if(!reducedReading.matches)reflectionTimer=setTimeout(showReflection,19000);
+    },reducedReading.matches?0:3600);
   }
+  document.addEventListener('visibilitychange',()=>document.hidden?stopReading():showReflection());
+  reducedReading.addEventListener('change',showReflection);
+  const quietInert=new Map();
   function setQuietMode(isQuiet){
+    if(isQuiet){
+      document.querySelectorAll('header>a,.scene-switcher,.atmosphere-picker,main#profile,footer,.mobile-welcome,.mobile-enter').forEach(node=>{quietInert.set(node,node.inert);node.inert=true;});
+    }else{
+      quietInert.forEach((value,node)=>{node.inert=value;});quietInert.clear();quietToggle?.focus({preventScroll:true});
+    }
     document.body.classList.toggle('quiet-mode',isQuiet);
     quietToggle?.setAttribute('aria-pressed',String(isQuiet));
     quietToggle?.setAttribute('aria-label',isQuiet?'Leave quiet mode':'Enter quiet mode');
@@ -85,9 +109,9 @@
       document.querySelector('.atmosphere-picker')?.removeAttribute('open');
       document.querySelector('.time-control')?.removeAttribute('open');
       reflectionIndex=Math.floor(Math.random()*reflections.length);showReflection();
-      clearInterval(reflectionTimer);reflectionTimer=setInterval(showReflection,10000);
+
     }else{
-      clearInterval(reflectionTimer);reflection.classList.remove('visible');
+      stopReading();reflection.hidden=true;
     }
   }
   quietToggle?.addEventListener('click',()=>setQuietMode(!document.body.classList.contains('quiet-mode')));
