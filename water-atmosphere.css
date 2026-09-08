@@ -9,8 +9,8 @@ body.season-shift #water{opacity:.16!important;transition:opacity 2.2s ease!impo
 #bird-layer.active{opacity:1}
 body.raining #rain-layer{opacity:.48}
 body.snowing #rain-layer{opacity:.72}
-body.lightning::after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;background:#e8f5ff;animation:lightning-flash .72s ease-out both}
-@keyframes lightning-flash{0%,12%,25%,100%{opacity:0}6%{opacity:.52}18%{opacity:.26}}
+body.lightning::after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse 130% 55% at 52% 18%,#d4edff 0%,#e8f5ff 38%,#f2f9ff 65%,transparent 100%);animation:lightning-flash .68s ease-out both}
+@keyframes lightning-flash{0%,100%{opacity:0}3%{opacity:.82}9%{opacity:.08}13%{opacity:.65}23%{opacity:0}}
 @media(min-width:900px){main#profile{display:block;width:min(440px,40vw);max-width:440px;margin:clamp(54px,8vh,100px) 0 150px max(4vw,32px)}main#profile h1{margin-bottom:24px}.bio{max-width:420px}#projects,#writing,.reading{margin-top:34px}.shade{background:linear-gradient(90deg,#03171fbd 0,#03171f73 32%,transparent 58%)}}
 @media(max-width:700px){.controls{gap:5px}.controls button{padding-left:4px;padding-right:4px}#ambience{font-size:0}#ambience::after{content:"≈";font-size:15px}}
 @media(prefers-reduced-motion:reduce){#rain-layer{display:none}}
