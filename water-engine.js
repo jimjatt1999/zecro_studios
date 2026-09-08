@@ -111,13 +111,18 @@
         if(night<.001||st.y>.13)return background;
         vec2 p=st*vec2(130.,75.),cellId=floor(p);
         float seed=fract(sin(dot(cellId,vec2(127.1,311.7)))*43758.5453);
-        if(seed<.987)return background;
+        if(seed<.973)return background;
         vec2 center=vec2(fract(seed*173.),fract(seed*319.))*.6+.2;
-        float radius=max(.075,fwidth(p.x)*.65);
+        float radius=max(.10+fract(seed*51.)*.045,fwidth(p.x)*.85);
         float disc=1.-smoothstep(0.,radius,length(fract(p)-center));
-        float pulse=.3+.7*pow(.5+.5*sin(seconds*(.65+fract(seed*37.)*.65)+seed*83.),3.);
+        // Independent slow shimmer and a faint faster flutter; stars never blink off.
+        float pulse=.68+.22*sin(seconds*(.4+fract(seed*37.)*.7)+seed*83.)
+          +.10*sin(seconds*(1.7+fract(seed*91.)*1.3)+seed*149.);
         float edge=1.-smoothstep(.08,.13,st.y);
-        return background+vec3(.73,.84,1.)*disc*pulse*night*edge*.8;
+        vec3 tint=mix(vec3(.72,.84,1.),vec3(1.,.91,.75),fract(seed*63.));
+        // Compensate for the landscape's night exposure so stellar light stays visible.
+        vec3 exposure=sceneType>2.5?vec3(1.):mix(vec3(1.),vec3(.22,.32,.48),night);
+        return background+tint/exposure*disc*pulse*night*edge*.95;
       }
       vec3 cloudLayer(vec3 background,vec2 st){
         background=starLayer(background,st);

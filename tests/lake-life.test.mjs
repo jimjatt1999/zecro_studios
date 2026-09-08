@@ -56,7 +56,7 @@ function harness(){
   h.run(fs.readFileSync(root+'water-cosmos.js','utf8').replace(/\}\)\(\);\s*$/,'globalThis.cosmosTest={spawn,get:()=>({meteor,embers,burst})};})();'));
   h.emit('lake:scene',{key:'cosmos'});h.s.cosmosTest.spawn();
   let m=h.s.cosmosTest.get().meteor;assert(m.x<0);assert(m.tx-Math.min(width*.18,170)>width);
-  let crossed=false;for(let i=0;i<100;i++){h.frame();m=h.s.cosmosTest.get().meteor;if(m&&m.x+(m.tx-m.x)*m.t/m.duration>width)crossed=true;}
+  let crossed=false;for(let i=0;i<200;i++){h.frame();const cur=h.s.cosmosTest.get().meteor;if(cur&&cur.x+(cur.tx-cur.x)*cur.t/cur.duration>width)crossed=true;if(crossed&&!cur)break;}
   assert(crossed);assert.equal(h.s.cosmosTest.get().meteor,null);assert(h.s.cosmosTest.get().embers.length>0);
   h.s.cosmosTest.spawn();h.s.innerWidth=320;h.emit('resize');m=h.s.cosmosTest.get().meteor;assert(m.tx-Math.min(320*.18,170)>320);
   h.emit('lake:scene',{key:'fuji'});h.emit('lake:scene',{key:'cosmos'});h.s.cosmosTest.spawn(true);m=h.s.cosmosTest.get().meteor;assert(m.impact);assert(m.tx>0&&m.tx<320);
@@ -65,7 +65,7 @@ function harness(){
 }
 {
  const h=harness();h.run(nature);h.run(fs.readFileSync(root+'water-life.js','utf8').replace(/\}\)\(\);\s*$/,'globalThis.starTest={get:()=>star};})();'));
- h.emit('life:spawn',{effect:'star'});const star=h.s.starTest.get();assert(star.x<0);assert(star.tx-star.length>h.s.innerWidth);for(let i=0;i<100;i++)h.frame();assert.equal(h.s.starTest.get(),null);assert.equal(h.frames.size,0);
+ h.emit('life:spawn',{effect:'star'});const star=h.s.starTest.get();assert(star.x<0);assert(star.tx-star.length>h.s.innerWidth);for(let i=0;i<200;i++)h.frame();assert.equal(h.s.starTest.get(),null);assert.equal(h.frames.size,0);
  console.log('PASS shooting-star travel, trail rendering and cleanup');
 }
 {

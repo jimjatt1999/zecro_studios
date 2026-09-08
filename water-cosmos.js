@@ -38,7 +38,7 @@
     // Continue until the entire tail has crossed the far edge, not an interior waypoint.
     const exitMargin=Math.min(w*.18,170)+24;
     const target=impact?earth():{x:w+exitMargin,y:h*(.18+Math.random()*.08)};
-    meteor={x:impact?w*.12:-Math.max(24,w*.04),y:h*.025,tx:target.x,ty:target.y,t:0,duration:impact?3.2:2.8,impact};
+    meteor={x:impact?w*.12:-Math.max(24,w*.04),y:h*.025,tx:target.x,ty:target.y,t:0,duration:impact?6.2:5.2,impact};
     asteroidButton.disabled=impact;
   }
   function glow(x,y,r,alpha){const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,244,204,${alpha})`);g.addColorStop(.2,`rgba(255,163,57,${alpha*.7})`);g.addColorStop(1,'rgba(255,65,12,0)');ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);}

@@ -351,6 +351,7 @@ if (canvas) {
       lastFrame = startedAt;
       canvas.classList.add('active');
       reflection.style.opacity='1';
+      dispatchEvent(new CustomEvent('birds:flight',{detail:{direction:currentFlight.dir,duration:currentFlight.flightDuration}}));
       frame = requestAnimationFrame(render);
     } catch {
       loading = false;

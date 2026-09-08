@@ -19,13 +19,56 @@
     for(const p of impacts){const age=(now-p.birth)/750;ctx.strokeStyle=`rgba(219,237,242,${(1-age)*(p.snow?.12:.19)})`;ctx.lineWidth=.6;ctx.beginPath();ctx.ellipse(p.x,p.y,1+age*6,.5+age*1.7,0,0,Math.PI*2);ctx.stroke();}
 
   }
-  function buildSegs(x1,y1,x2,y2,depth,spread,out){if(depth===0){out.push([x1,y1,x2,y2]);return;}const mx=(x1+x2)/2+(Math.random()-.5)*spread,my=(y1+y2)/2+(Math.random()-.44)*spread*.22;buildSegs(x1,y1,mx,my,depth-1,spread*.56,out);buildSegs(mx,my,x2,y2,depth-1,spread*.56,out);if(depth>2&&Math.random()<.44){buildSegs(mx,my,mx+(Math.random()-.5)*spread*.85,my+(y2-my)*(.38+Math.random()*.44),depth-2,spread*.36,out);}}
-  function drawBoltLayer(segs,width,style,blur,color){lx.lineWidth=width;lx.strokeStyle=style;lx.shadowBlur=blur;lx.shadowColor=color;for(const[ax,ay,bx,by]of segs){lx.beginPath();lx.moveTo(ax,ay);lx.lineTo(bx,by);lx.stroke();}}
-  function renderBolt(alpha){const sc=Math.min(devicePixelRatio,1.5);lc.width=Math.round(innerWidth*sc);lc.height=Math.round(innerHeight*sc);lx.setTransform(sc,0,0,sc,0,0);lx.clearRect(0,0,innerWidth,innerHeight);lx.globalAlpha=alpha;drawBoltLayer(boltSegs,7,'rgba(140,200,255,.35)',42,'rgba(130,195,255,.9)');drawBoltLayer(boltSegs,3,'rgba(200,235,255,.55)',18,'rgba(180,220,255,.8)');drawBoltLayer(boltSegs,1.2,'rgba(255,255,255,.95)',6,'rgba(245,252,255,1)');lx.globalAlpha=1;}
-  function fadeBolt(){boltAlpha*=.78;if(boltAlpha<.012){lx.clearRect(0,0,lc.width,lc.height);boltRaf=0;return;}renderBolt(boltAlpha);boltRaf=requestAnimationFrame(fadeBolt);}
-  function strikeBolt(){const sx=innerWidth*(.18+Math.random()*.64),ex=sx+(Math.random()-.5)*innerWidth*.3,ey=innerHeight*(.42+Math.random()*.22);boltSegs=[];buildSegs(sx,0,ex,ey,6,innerWidth*.2,boltSegs);cancelAnimationFrame(boltRaf);boltAlpha=1;renderBolt(1);boltRaf=requestAnimationFrame(fadeBolt);}
-  function screenFlash(){document.body.classList.remove('lightning');requestAnimationFrame(()=>document.body.classList.add('lightning'));setTimeout(()=>document.body.classList.remove('lightning'),720);}
-  function flash(){if(weather!=='storm'||document.hidden||reduced.matches)return;const bolt=Math.random()<.68,dbl=Math.random()<.44;screenFlash();if(bolt)strikeBolt();if(dbl)setTimeout(()=>{screenFlash();if(Math.random()<.35)strikeBolt();},90+Math.random()*75);flashTimer=setTimeout(flash,3500+Math.random()*9000);}
+  let strikeStart=0,strikeX=0,restrike=0,cloudOnly=false;
+  function buildSegs(x1,y1,x2,y2,depth,spread,out,weight=1){
+    if(depth===0){out.push([x1,y1,x2,y2,weight]);return;}
+    const mx=(x1+x2)/2+(Math.random()-.5)*spread,my=(y1+y2)/2+(Math.random()-.5)*spread*.15;
+    buildSegs(x1,y1,mx,my,depth-1,spread*.53,out,weight);
+    buildSegs(mx,my,x2,y2,depth-1,spread*.53,out,weight*.97);
+    if(depth>3&&Math.random()<.48){
+      const bx=mx+(Math.random()-.5)*spread*1.4,by=Math.min(innerHeight*.34,my+(y2-my)*(.3+Math.random()*.6));
+      buildSegs(mx,my,bx,by,depth-2,spread*.4,out,weight*.38);
+    }
+  }
+  function drawBoltLayer(segs,width,style,blur,color){lx.strokeStyle=style;lx.shadowBlur=blur;lx.shadowColor=color;for(const[ax,ay,bx,by,weight]of segs){lx.lineWidth=Math.max(.25,width*weight);lx.beginPath();lx.moveTo(ax,ay);lx.lineTo(bx,by);lx.stroke();}}
+  function renderBolt(alpha,progress=1){
+    const sc=Math.min(devicePixelRatio||1,1.5),w=Math.round(innerWidth*sc),h=Math.round(innerHeight*sc);
+    if(lc.width!==w||lc.height!==h){lc.width=w;lc.height=h;}
+    lx.setTransform(sc,0,0,sc,0,0);lx.clearRect(0,0,innerWidth,innerHeight);lx.save();
+    lx.globalAlpha=alpha;lx.globalCompositeOperation='lighter';
+    const glow=lx.createRadialGradient(strikeX,innerHeight*.07,0,strikeX,innerHeight*.07,innerWidth*.35);
+    glow.addColorStop(0,'rgba(184,205,255,.19)');glow.addColorStop(.4,'rgba(135,162,226,.065)');glow.addColorStop(1,'rgba(120,151,215,0)');
+    lx.fillStyle=glow;lx.fillRect(0,0,innerWidth,innerHeight*.4);
+    if(!cloudOnly){
+      // Reveal the faint leader first; return strokes reuse the exact channel.
+      const visible=boltSegs.filter(seg=>seg[1]<innerHeight*.34*progress);
+      lx.lineCap='round';
+      drawBoltLayer(visible,4,'rgba(143,176,255,.18)',16,'rgba(125,163,255,.6)');
+      drawBoltLayer(visible,1.8,'rgba(199,218,255,.6)',5,'rgba(184,208,255,.75)');
+      drawBoltLayer(visible,.75,'rgba(252,251,255,.98)',0,'transparent');
+      lx.shadowBlur=0;
+      const reflection=lx.createRadialGradient(strikeX,innerHeight*.61,0,strikeX,innerHeight*.61,innerHeight*.25);
+      reflection.addColorStop(0,'rgba(174,204,255,.07)');reflection.addColorStop(1,'rgba(174,204,255,0)');
+      lx.fillStyle=reflection;lx.fillRect(0,innerHeight*.431,innerWidth,innerHeight*.569);
+    }
+    lx.restore();
+  }
+  function fadeBolt(time){
+    if(weather!=='storm'||document.hidden||reduced.matches){lx.clearRect(0,0,lc.width,lc.height);boltRaf=0;return;}
+    const age=time-strikeStart;
+    if(age>850){lx.clearRect(0,0,lc.width,lc.height);boltRaf=0;return;}
+    const first=age<65?.12:Math.exp(-(age-65)/65);
+    const second=restrike&&age>restrike?.48*Math.exp(-(age-restrike)/85):0;
+    renderBolt(Math.min(1,first+second),Math.min(1,age/65));
+    boltRaf=requestAnimationFrame(fadeBolt);
+  }
+  function strikeBolt(){
+    strikeX=innerWidth*(.2+Math.random()*.6);cloudOnly=Math.random()<.28;
+    boltSegs=[];buildSegs(strikeX,-10,strikeX+(Math.random()-.5)*innerWidth*.2,innerHeight*(.24+Math.random()*.09),7,innerWidth*.17,boltSegs);
+    cancelAnimationFrame(boltRaf);strikeStart=performance.now();restrike=Math.random()<.45?220+Math.random()*130:0;
+    boltRaf=requestAnimationFrame(fadeBolt);
+  }
+  function flash(){if(weather!=='storm'||document.hidden||reduced.matches)return;strikeBolt();flashTimer=setTimeout(flash,6500+Math.random()*12000);}
   function setWeather(next){weather=next;document.body.classList.toggle('raining',next==='rain'||next==='storm');document.body.classList.toggle('snowing',next==='snow');dispatchEvent(new CustomEvent('weather:rain',{detail:{raining:next==='rain'||next==='storm'}}));dispatchEvent(new CustomEvent('weather:change',{detail:{weather:next}}));clearTimeout(flashTimer);document.body.classList.remove('lightning');if(next==='storm'&&!reduced.matches)flashTimer=setTimeout(flash,900+Math.random()*2400);stop();if(next!=='clear'&&!reduced.matches&&!saveData){last=0;frame=requestAnimationFrame(draw);}}
   function chooseWeather(){
     if(scene==='cosmos')return 'clear';

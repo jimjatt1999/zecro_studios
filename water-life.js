@@ -92,7 +92,7 @@
   }
   function spawnStar(){
     const birth=now()+200;
-    star={start:birth,end:birth+2800,x:-width*.08,y:height*(.06+Math.random()*.05),tx:width*1.22,ty:height*(.20+Math.random()*.07),length:Math.min(170,width*.17)};start();
+    star={start:birth,end:birth+5200,x:-width*.08,y:height*(.06+Math.random()*.05),tx:width*1.22,ty:height*(.20+Math.random()*.07),length:Math.min(170,width*.17)};start();
   }
   function spawnFireflies(){
     const end=now()+24000,count=coarse.matches?6:10;
@@ -146,13 +146,27 @@
   }
   function spawnFireworks(){
     if(reduced.matches||saveData)return;
-    const birth=now(),count=coarse.matches?3:4+Math.floor(Math.random()*2);
-    const colors=['255,204,128','242,170,184','165,209,242','198,221,163'];
-    fireworks=Array.from({length:count},(_,i)=>({
-      start:birth+i*(1600+Math.random()*600),x:.22+Math.random()*.56,y:.09+Math.random()*.12,
-      color:colors[Math.floor(Math.random()*colors.length)],burst:false,
-      sparks:Array.from({length:coarse.matches?32:52},(_,j)=>({angle:j*2.39996+Math.random()*.10,speed:.07+Math.random()*.13,life:2.2+Math.random()*1.3,phase:Math.random()*6.28}))
-    }));
+    const birth=now(),grand=Math.random()<.22,count=grand?(coarse.matches?5:7):2+Math.floor(Math.random()*3);
+    const palettes=[['255,204,128','255,238,193'],['242,140,184','189,169,255'],['135,221,242','210,249,238'],['255,172,112','255,220,152']];
+    const colors=palettes[Math.floor(Math.random()*palettes.length)];
+    const shapes=['peony','ring','willow','double'];
+    let launch=0;
+    fireworks=Array.from({length:count},(_,i)=>{
+      const finale=grand&&i>=count-3,shape=shapes[Math.floor(Math.random()*shapes.length)];
+      const scale=finale?1.18:.72+Math.random()*.32,sparkCount=coarse.matches?(finale?54:36):(finale?90:60);
+      launch+=i?(finale?420:1200+Math.random()*1200):0;
+      const ascent=.95+Math.random()*.5;
+      return {
+        start:birth+launch,x:finale?.3+(i-(count-3))*.2:.22+Math.random()*.56,y:.13+Math.random()*.07,
+        color:colors[0],burst:false,ascent,shape,scale,
+        sparks:Array.from({length:sparkCount},(_,j)=>({
+          angle:j/sparkCount*Math.PI*2+Math.random()*.045,
+          speed:scale*(shape==='ring'?.135:shape==='double'?(j%2?.15:.075):.035+Math.sqrt(Math.random())*.12),
+          life:shape==='willow'?3.7+Math.random()*1.1:2.1+Math.random()*1.4,
+          color:colors[j%colors.length],phase:Math.random()*6.28
+        }))
+      };
+    });
     lastFireworks=birth;start();
   }
   function drawFireworks(t){
@@ -162,32 +176,39 @@
     for(const shell of fireworks){
       const age=(t-shell.start)/1000;if(age<0)continue;
       const x=shell.x*width,y=shell.y*height;
-      if(age<1.25){
-        const p=age/1.25,headY=height*.415+(y-height*.415)*(1-Math.pow(1-p,1.6));
+      if(age<shell.ascent){
+        const p=age/shell.ascent,headY=height*.415+(y-height*.415)*(1-Math.pow(1-p,1.6));
         const trail=ctx.createLinearGradient(x,headY,x,headY+26);trail.addColorStop(0,'rgba(255,216,154,.7)');trail.addColorStop(1,'rgba(255,177,96,0)');
         ctx.strokeStyle=trail;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x,headY);ctx.lineTo(x-2,headY+26);ctx.stroke();continue;
       }
-      if(!shell.burst){shell.burst=true;dispatchEvent(new CustomEvent('fireworks:burst',{detail:{x:shell.x}}));}
-      const elapsed=age-1.25;
+      if(!shell.burst){shell.burst=true;dispatchEvent(new CustomEvent('fireworks:burst',{detail:{x:shell.x,size:shell.scale,shape:shell.shape}}));}
+      const elapsed=age-shell.ascent;
+      if(elapsed<.3){
+        const radius=8+elapsed*65,glow=ctx.createRadialGradient(x,y,0,x,y,radius);
+        glow.addColorStop(0,`rgba(255,246,219,${(1-elapsed/.3)*.6*brightness})`);
+        glow.addColorStop(1,`rgba(${shell.color},0)`);ctx.fillStyle=glow;ctx.fillRect(x-radius,y-radius,radius*2,radius*2);
+      }
       for(const spark of shell.sparks){
         if(elapsed>spark.life)continue;
         const drag=(1-Math.exp(-elapsed*.85))/.85,travel=spark.speed*size*drag;
-        const sx=x+Math.cos(spark.angle)*travel,sy=y+Math.sin(spark.angle)*travel+elapsed*elapsed*size*.018;
+        const gravity=shell.shape==='willow'?.009:.014;
+        const sx=x+Math.cos(spark.angle)*travel,sy=y+Math.sin(spark.angle)*travel+elapsed*elapsed*size*gravity;
         const fade=Math.pow(Math.max(0,1-elapsed/spark.life),1.6)*brightness;
         const shimmer=.78+.22*Math.sin(elapsed*14+spark.phase);
         if(sy<height*.405){
-          ctx.strokeStyle=`rgba(${shell.color},${fade*shimmer})`;ctx.lineWidth=elapsed<.2?1.4:.9;
-          ctx.beginPath();ctx.moveTo(sx-Math.cos(spark.angle)*3,sy-Math.sin(spark.angle)*3-1);ctx.lineTo(sx,sy);ctx.stroke();
+          const past=Math.max(0,elapsed-(shell.shape==='willow'?.22:.09)),pastTravel=spark.speed*size*(1-Math.exp(-past*.85))/.85;
+          ctx.strokeStyle=`rgba(${spark.color},${fade*shimmer})`;ctx.lineWidth=elapsed<.2?1.6:1;
+          ctx.beginPath();ctx.moveTo(x+Math.cos(spark.angle)*pastTravel,y+Math.sin(spark.angle)*pastTravel+past*past*size*gravity);ctx.lineTo(sx,sy);ctx.stroke();
         }
         const ry=height*.431+(height*.431-sy)*.7;
         if(ry>height*.431&&ry<height){
           const shift=Math.sin(ry*.12-t*.0018)*3;
-          ctx.strokeStyle=`rgba(${shell.color},${fade*.105})`;ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(sx+shift-2,ry);ctx.lineTo(sx+shift+2,ry);ctx.stroke();
+          ctx.strokeStyle=`rgba(${spark.color},${fade*.105})`;ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(sx+shift-2,ry);ctx.lineTo(sx+shift+2,ry);ctx.stroke();
         }
       }
     }
     ctx.restore();
-    if(fireworks.every(shell=>t>shell.start+4800)){fireworks=null;updateMenuState();}
+    if(fireworks.every(shell=>t>shell.start+(shell.ascent+Math.max(...shell.sparks.map(spark=>spark.life)))*1000)){fireworks=null;updateMenuState();}
   }
   const spawners={fireworks:spawnFireworks,petals:spawnPetals,mist:spawnMist,star:spawnStar,fireflies:spawnFireflies,bird:spawnBird,koi:spawnKoi,lanterns:spawnLanterns};
   function clearLife(){
@@ -784,7 +805,7 @@
     updateMenuState();
   }
   resize();addEventListener('resize',resize,{passive:true});addEventListener('pointermove',point,{passive:true});addEventListener('pointerdown',point,{passive:true});
-  addEventListener('lake:scene',event=>{scene=event.detail.key||scene;if(scene==='cosmos')['petals','star','bird'].forEach(clearEffect);updateMenuState();});addEventListener('weather:change',event=>weatherChanged(event.detail.weather));
+  addEventListener('lake:scene',event=>{scene=event.detail.key||scene;updateMenuState();});addEventListener('weather:change',event=>weatherChanged(event.detail.weather));
   addEventListener('life:clear',clearLife);addEventListener('life:spawn',event=>{const spawn=spawners[event.detail?.effect];if(spawn){spawn();start();updateMenuState();}});
   addEventListener('birds:ready',()=>{if(bird)dispatchEvent(new CustomEvent('birds:spawn'));});addEventListener('birds:end',()=>{bird=null;updateMenuState();});
   addEventListener('koi:spawn',spawnKoi);addEventListener('koi:clear',()=>{clearEffect('koi');updateMenuState();});
@@ -801,7 +822,7 @@
   let mode='natural';
   const picker=document.querySelector('.atmosphere-picker');
   const naturalBtn=picker?.querySelector('[data-mode="natural"]');
-  const cosmosEffects=new Set(['koi','mist','fireflies','lanterns','fireworks']);
+  const cosmosEffects=new Set(['koi','mist','fireflies','lanterns','fireworks','bird','petals','star']);
   function updateMenuState(){
     if(naturalBtn){
       naturalBtn.setAttribute('aria-pressed',String(mode==='natural'));

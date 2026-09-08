@@ -7,6 +7,7 @@
     let spineText = null;
     let titleEl = null;
     let authorEl = null;
+    let noteEl = null;
     let currentRotY = -34;
     let targetRotY = -34;
     let currentRotX = 8;
@@ -27,6 +28,7 @@
             spineText = modal.querySelector('#book-3d-view-spine');
             titleEl = modal.querySelector('#book-3d-view-title');
             authorEl = modal.querySelector('#book-3d-view-author');
+            noteEl = modal.querySelector('#book-3d-view-note');
             return;
         }
 
@@ -73,6 +75,7 @@
                 <div class="book-3d-info">
                     <h3 id="book-3d-view-title" class="book-3d-title"></h3>
                     <p id="book-3d-view-author" class="book-3d-author"></p>
+                    <blockquote id="book-3d-view-note" class="book-3d-note" hidden></blockquote>
                 </div>
             </div>
         `;
@@ -85,6 +88,7 @@
         spineText = modal.querySelector('#book-3d-view-spine');
         titleEl = modal.querySelector('#book-3d-view-title');
         authorEl = modal.querySelector('#book-3d-view-author');
+        noteEl = modal.querySelector('#book-3d-view-note');
 
         const closeBtn = modal.querySelector('#book-3d-close');
         closeBtn?.addEventListener('click', closeViewer);
@@ -207,6 +211,10 @@
         if (spineText) spineText.textContent = book.title;
         if (titleEl) titleEl.textContent = book.title;
         if (authorEl) authorEl.textContent = book.author || '';
+        if (noteEl) {
+            noteEl.textContent = book.note || '';
+            noteEl.hidden = !book.note;
+        }
 
         currentRotY = -50;
         targetRotY = -34;

@@ -1,0 +1,32 @@
+.paper-boat{position:fixed;left:0;top:0;width:88px;height:68px;padding:0;z-index:1;cursor:pointer;transition:opacity 1s;will-change:transform;transform-origin:50% 72%}
+.paper-boat[hidden]{display:none}
+.paper-boat svg{display:block;width:100%;height:100%;overflow:visible}
+.paper-boat:focus-visible{outline:2px solid #e8dfc3!important;outline-offset:5px}
+.boat-note{--paper-ink:#364f50;--handwriting:"Bradley Hand","Segoe Print","Noteworthy",cursive;width:min(480px,calc(100vw - 36px));max-height:calc(100dvh - 40px);overflow:auto;padding:0;border:0;border-radius:5px 9px 3px 7px;background:#e9e3cd;color:var(--paper-ink);box-shadow:0 28px 90px #00131880,0 3px 5px #00182066,inset 0 0 24px #777f6540;isolation:isolate;transform-origin:50% 50%}
+.boat-note::backdrop{background:#03172088;backdrop-filter:blur(8px)}
+.boat-note[open]{animation:paper-unfold 1.25s cubic-bezier(.2,.7,.2,1) both}
+.paper-writing{position:relative;padding:36px;z-index:1;background:radial-gradient(ellipse at 1% 85%,#627f6e38,transparent 28%),radial-gradient(ellipse at 98% 9%,#607e702b,transparent 24%),radial-gradient(ellipse at 90% 100%,#6b847344,transparent 30%),linear-gradient(90deg,transparent 49.2%,#776e5722 49.8%,#fffcdf99 50.2%,transparent 50.9%),linear-gradient(0deg,transparent 48.9%,#847c6230 49.8%,#fffbeab0 50.2%,transparent 51.1%),linear-gradient(32deg,transparent 47.5%,#8b836918 49.7%,#ffffee55 50.2%,transparent 52%),linear-gradient(145deg,#fff9e080,#eee7cc00 50%,#d7dac650)}
+.paper-writing::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23918c79' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");mix-blend-mode:multiply}
+.boat-note[open] .paper-writing>*{animation:paper-ink-reveal 1.35s both}
+.boat-note h2{font:32px/1.3 var(--handwriting);color:var(--paper-ink);margin:8px 0 12px;transform:rotate(-1deg)}
+.boat-note p{font:19px/1.55 var(--handwriting);margin:0 0 22px}
+.boat-note label{display:block;font-size:12px;margin-bottom:8px}
+.boat-note textarea{width:100%;min-height:150px;resize:vertical;padding:7px 9px;border:1px solid #87958244;border-radius:2px;background:repeating-linear-gradient(transparent 0,transparent 30px,#738f8526 31px,transparent 32px);color:var(--paper-ink);font:19px/32px var(--handwriting);caret-color:#364f50}
+.boat-note textarea:focus-visible{outline:2px solid #657b69;outline-offset:2px}
+.boat-note .boat-note-close{position:absolute;right:14px;top:10px;color:#526354}
+.boat-note .boat-send{display:block;margin-top:18px;padding:8px 16px;background:#3b5547;color:#fff9e9;border-radius:3px}
+.boat-note small{display:block;margin-top:12px;font-size:12px;line-height:1.5;color:#657061}
+.paper-fold{position:absolute;inset:0;z-index:3;pointer-events:none;backface-visibility:hidden;background:linear-gradient(145deg,#f9f0d5,#c0c7b4);filter:drop-shadow(0 5px 5px #555c4744)}
+.paper-fold-left{clip-path:polygon(0 0,51% 50%,0 100%);transform-origin:left center}
+.paper-fold-right{clip-path:polygon(100% 0,49% 50%,100% 100%);transform-origin:right center}
+.paper-fold-top{clip-path:polygon(0 0,100% 0,50% 51%);transform-origin:center top;background:linear-gradient(175deg,#f8efd5,#bfc7b3)}
+.boat-note[open] .paper-fold-left{animation:paper-open-left 1.15s both}
+.boat-note[open] .paper-fold-right{animation:paper-open-right 1.25s both}
+.boat-note[open] .paper-fold-top{animation:paper-open-top 1s both}
+@keyframes paper-unfold{0%{opacity:0;transform:translate(var(--boat-origin-x,0px),var(--boat-origin-y,0px)) perspective(900px) rotateX(48deg) rotateZ(-9deg) scale(.13,.08)}20%{opacity:1}45%{transform:perspective(900px) rotateX(15deg) rotateZ(2deg) scale(.8,.52)}75%{transform:perspective(900px) rotateX(-3deg) rotateZ(-.7deg) scale(1,.96)}100%{transform:none}}
+@keyframes paper-open-left{0%,35%{transform:perspective(800px) rotateY(0);opacity:1}85%{opacity:1}100%{transform:perspective(800px) rotateY(-110deg);opacity:0}}
+@keyframes paper-open-right{0%,42%{transform:perspective(800px) rotateY(0);opacity:1}85%{opacity:1}100%{transform:perspective(800px) rotateY(110deg);opacity:0}}
+@keyframes paper-open-top{0%,22%{transform:perspective(800px) rotateX(0);opacity:1}80%{opacity:1}100%{transform:perspective(800px) rotateX(110deg);opacity:0}}
+@keyframes paper-ink-reveal{0%,55%{opacity:0}100%{opacity:1}}
+@media(max-width:600px){.paper-writing{padding:28px 22px}.boat-note p{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.boat-note[open],.boat-note[open] .paper-writing>*,.boat-note[open] .paper-fold{animation:none}.paper-fold{display:none}.paper-boat{transition:none}}

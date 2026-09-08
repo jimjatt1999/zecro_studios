@@ -8,7 +8,8 @@
                 {
                     title: 'Debt: The First 5,000 Years',
                     author: 'David Graeber',
-                    cover: 'assets/books/debt-the-first-5000-years.jpg'
+                    cover: 'assets/books/debt-the-first-5000-years.jpg',
+                    note: 'A book that changed the way I think about money and the world built around it.'
                 },
                 {
                     title: 'Intuition: Knowing Beyond Logic',
@@ -33,7 +34,8 @@
                 {
                     title: 'Gödel, Escher, Bach: an Eternal Golden Braid',
                     author: 'Douglas R. Hofstadter',
-                    cover: 'https://books.google.com/books/content?vid=ISBN9780465026562&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+                    cover: 'https://books.google.com/books/content?vid=ISBN9780465026562&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+                    note: 'A wild, wide-ranging book that helped me see the world differently. Through mathematics and so much more, it reaches toward something like the fundamental fabric of reality.'
                 },
                 {
                     title: 'Gurēpufurūtsu Jūsu',
@@ -270,17 +272,20 @@
                 {
                     title: 'Einstein: His Life and Universe',
                     author: 'Walter Isaacson',
-                    cover: 'https://covers.openlibrary.org/b/isbn/9780743264747-L.jpg'
+                    cover: 'https://covers.openlibrary.org/b/isbn/9780743264747-L.jpg',
+                    note: 'I enjoyed seeing Einstein brought down to earth—learning about the man, his story and his history, rather than only his achievements. His genius did not arrive all at once; it grew from years of work, ideas and collaboration with other people.'
                 },
                 {
                     title: 'Fooled by Randomness',
                     author: 'Nassim Nicholas Taleb',
-                    cover: 'https://covers.openlibrary.org/b/isbn/9780812975215-L.jpg'
+                    cover: 'https://covers.openlibrary.org/b/isbn/9780812975215-L.jpg',
+                    note: 'This opened my mind to a new way of seeing the world: randomness as a mental model. It was also my introduction to Taleb’s ideas.'
                 },
                 {
                     title: 'The Origin of Consciousness',
                     author: 'Julian Jaynes',
-                    cover: 'https://covers.openlibrary.org/b/isbn/9780618057078-L.jpg'
+                    cover: 'https://covers.openlibrary.org/b/isbn/9780618057078-L.jpg',
+                    note: 'A genuinely mind-bending book. Its ideas are so strange and expansive that they changed how I look at consciousness.'
                 },
                 {
                     title: 'Benjamin Franklin',
@@ -425,12 +430,14 @@
                 {
                     title: 'Animal Farm',
                     author: 'George Orwell',
-                    cover: 'https://covers.openlibrary.org/b/isbn/9780451526342-L.jpg'
+                    cover: 'https://covers.openlibrary.org/b/isbn/9780451526342-L.jpg',
+                    note: 'A classic lesson in human psychology, power and how easily people can be controlled.'
                 },
                 {
                     title: 'The Prince',
                     author: 'Niccolò Machiavelli',
-                    cover: 'https://covers.openlibrary.org/b/isbn/9780140449150-L.jpg'
+                    cover: 'https://covers.openlibrary.org/b/isbn/9780140449150-L.jpg',
+                    note: 'A sharp lesson in paying attention to power dynamics—and in how positioning yourself well can create an advantage.'
                 },
                 {
                     title: 'The Richest Man in Babylon',
