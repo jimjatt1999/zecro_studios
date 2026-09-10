@@ -145,6 +145,73 @@
   }
   addEventListener('cosmos:impact',distantBoom);
   addEventListener('fireworks:burst',distantBoom);
+  function lightningThunder(event){
+    if(!natureWanted||document.hidden||document.body.classList.contains('quiet-mode'))return;
+    prepareWaterSynth();if(!cueContext||cueContext.state!=='running')return;
+    const detail=event.detail||{};
+    const at=cueContext.currentTime+0.18+Math.random()*0.22;
+    const duration=2.8+Math.random()*0.7;
+
+    const source=cueContext.createBufferSource();
+    source.buffer=noiseBuffer;
+    source.loop=true;
+    source.playbackRate.value=0.55+Math.random()*0.25;
+
+    const filter=cueContext.createBiquadFilter();
+    filter.type='lowpass';
+    filter.frequency.setValueAtTime(220+Math.random()*70,at);
+    filter.frequency.exponentialRampToValueAtTime(48,at+duration);
+
+    const gain=cueContext.createGain();
+    const peakGain=0.034+Math.random()*0.012; // gentle, atmospheric distant rumble (not too loud)
+    gain.gain.setValueAtTime(0.0001,at);
+    gain.gain.linearRampToValueAtTime(peakGain,at+0.14);
+    if(detail.restrike){
+      gain.gain.setValueAtTime(peakGain*0.75,at+0.32);
+      gain.gain.linearRampToValueAtTime(peakGain*0.9,at+0.46);
+    }
+    gain.gain.exponentialRampToValueAtTime(0.0001,at+duration);
+
+    const sub=cueContext.createOscillator();
+    const subGain=cueContext.createGain();
+    sub.type='sine';
+    sub.frequency.setValueAtTime(46+Math.random()*12,at);
+    sub.frequency.exponentialRampToValueAtTime(32,at+duration*0.7);
+    subGain.gain.setValueAtTime(0.0001,at);
+    subGain.gain.linearRampToValueAtTime(0.016,at+0.18);
+    subGain.gain.exponentialRampToValueAtTime(0.0001,at+duration*0.8);
+
+    const pan=cueContext.createStereoPanner?cueContext.createStereoPanner():null;
+    const panX=Math.max(-0.75,Math.min(0.75,(detail.x!=null?detail.x:0.5)*2-1));
+    if(pan){
+      pan.pan.value=panX;
+      gain.connect(pan);
+      subGain.connect(pan);
+      pan.connect(cueContext.destination);
+    }else{
+      gain.connect(cueContext.destination);
+      subGain.connect(cueContext.destination);
+    }
+
+    source.connect(filter);
+    filter.connect(gain);
+    sub.connect(subGain);
+
+    source.start(at);
+    source.stop(at+duration+0.05);
+    sub.start(at);
+    sub.stop(at+duration+0.05);
+
+    source.onended=()=>{
+      source.disconnect();
+      filter.disconnect();
+      gain.disconnect();
+      sub.disconnect();
+      subGain.disconnect();
+      if(pan)pan.disconnect();
+    };
+  }
+  addEventListener('lightning:strike',lightningThunder);
   addEventListener('water:splash',event=>{
     if(!natureWanted||performance.now()-lastCue<65)return;lastCue=performance.now();
     splashDucking=true;setLakeLevel(.008,.06);clearTimeout(cueDuckTimer);cueDuckTimer=setTimeout(()=>{splashDucking=false;setLakeLevel(lakeLevel(),.45);},340);

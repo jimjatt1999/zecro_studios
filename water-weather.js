@@ -67,6 +67,7 @@
     boltSegs=[];buildSegs(strikeX,-10,strikeX+(Math.random()-.5)*innerWidth*.2,innerHeight*(.24+Math.random()*.09),7,innerWidth*.17,boltSegs);
     cancelAnimationFrame(boltRaf);strikeStart=performance.now();restrike=Math.random()<.45?220+Math.random()*130:0;
     boltRaf=requestAnimationFrame(fadeBolt);
+    dispatchEvent(new CustomEvent('lightning:strike',{detail:{x:strikeX/innerWidth,cloudOnly,restrike:!!restrike}}));
   }
   function flash(){if(weather!=='storm'||document.hidden||reduced.matches)return;strikeBolt();flashTimer=setTimeout(flash,6500+Math.random()*12000);}
   function setWeather(next){weather=next;document.body.classList.toggle('raining',next==='rain'||next==='storm');document.body.classList.toggle('snowing',next==='snow');dispatchEvent(new CustomEvent('weather:rain',{detail:{raining:next==='rain'||next==='storm'}}));dispatchEvent(new CustomEvent('weather:change',{detail:{weather:next}}));clearTimeout(flashTimer);document.body.classList.remove('lightning');if(next==='storm'&&!reduced.matches)flashTimer=setTimeout(flash,900+Math.random()*2400);stop();if(next!=='clear'&&!reduced.matches&&!saveData){last=0;frame=requestAnimationFrame(draw);}}
