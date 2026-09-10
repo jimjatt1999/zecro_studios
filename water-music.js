@@ -116,7 +116,7 @@
     if(!natureWanted||document.hidden||document.body.classList.contains('quiet-mode')||!cueContext||cueContext.state!=='running')return;
     const at=cueContext.currentTime+delay,pan=cueContext.createStereoPanner?cueContext.createStereoPanner():null,filter=cueContext.createBiquadFilter(),gain=cueContext.createGain();
     filter.type='bandpass';filter.frequency.value=1450;filter.Q.value=.8;
-    gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(.006,at+.08);gain.gain.exponentialRampToValueAtTime(.0001,at+.72);
+    gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(.0072,at+.08);gain.gain.exponentialRampToValueAtTime(.0001,at+.72);
     if(pan){pan.pan.setValueAtTime(direction>0?-.6:.6,at);pan.pan.linearRampToValueAtTime(direction>0?-.25:.25,at+.72);gain.connect(pan);pan.connect(cueContext.destination);}else gain.connect(cueContext.destination);
     for(let i=0;i<2;i++){
       const tone=cueContext.createOscillator();tone.type=i?'sine':'triangle';tone.frequency.setValueAtTime((i?720:940)*(1+Math.random()*.05),at);tone.frequency.exponentialRampToValueAtTime(i?590:760,at+.26);tone.frequency.exponentialRampToValueAtTime(i?680:880,at+.62);tone.detune.value=i?7:-5;tone.connect(filter);tone.start(at);tone.stop(at+.75);

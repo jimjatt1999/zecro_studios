@@ -259,16 +259,37 @@
     if(clear&&(h>21||h<4.5))list.push('star','star');
     if(clear&&h>20&&h<24)list.push('fireflies','fireflies');
     if(clear&&h>6&&h<19)list.push('bird');
-    if(h>6&&h<20&&weather!=='storm')list.push('koi','koi');
+    if(weather!=='storm')list.push('koi','koi');
     if((clear||weather==='rain')&&(h>18||h<5.5))list.push('lanterns','lanterns');
     if(clear&&(h>20||h<5)&&now()-lastFireworks>180000&&!document.body.classList.contains('quiet-mode'))list.push('fireworks');
     return list;
   }
-  function schedule(){
+  function skyLoad(){
+    let load=fireworks?2:0;
+    if(lanternsActive)load+=1.2;
+    if(bird)load+=1.0;
+    if(mist)load+=0.8;
+    if(petals.length)load+=0.7;
+    if(fireflies.length)load+=0.6;
+    if(star)load+=0.5;
+    return load;
+  }
+  function schedule(immediate=false){
     clearTimeout(scheduleTimer);scheduleTimer=setTimeout(()=>{
       if(mode!=='natural'||document.hidden||reduced.matches||saveData)return;
-      const choices=eligible();if(!active()&&choices.length&&Math.random()<.38)spawners[choices[Math.floor(Math.random()*choices.length)]]();schedule();
-    },22000+Math.random()*24000);
+      // 1. Koi swim underwater independently of surface/sky events (e.g. concurrent with lanterns, birds, petals)
+      if(!isEffectActive('koi')&&weather!=='storm'&&Math.random()<0.65){
+        spawnKoi();
+      }
+      // 2. Sky & surface events occur concurrently if sky is not overloaded
+      if(skyLoad()<=1.2){
+        const skyChoices=eligible().filter(name=>name!=='koi'&&!isEffectActive(name));
+        if(skyChoices.length&&Math.random()<0.45){
+          spawners[skyChoices[Math.floor(Math.random()*skyChoices.length)]]();
+        }
+      }
+      schedule();
+    },immediate?3500:(14000+Math.random()*14000));
   }
   function petalShape(p,t){
     ctx.save();
@@ -863,7 +884,7 @@
     if(button.dataset.mode==='natural'){
       mode='natural';clearLife();
       dispatchEvent(new CustomEvent('weather:mode',{detail:{mode:'natural'}}));
-      schedule();updateMenuState();return;
+      schedule(true);updateMenuState();return;
     }
     if(button.dataset.weather){
       mode='custom';clearTimeout(scheduleTimer);
@@ -880,6 +901,6 @@
   if(!reduced.matches&&!saveData){
     if(forced==='all')Object.values(spawners).forEach((spawn,index)=>setTimeout(spawn,index*650));
     else if(spawners[forced])spawners[forced]();
-    schedule();
+    else schedule(true);
   }
 })();
